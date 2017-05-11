@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -30,7 +33,7 @@ public class StockServiceImpl implements StockService {
     public Stock getOneStock(String code, String date) {
         StockKey stockKey = new StockKey();
         stockKey.setStockCode(code);
-        stockKey.setStockDate(date);
+        stockKey.setStockDate(strToDate(date));
         return stockMapper.getOneStock(stockKey);
     }
 
@@ -96,5 +99,13 @@ public class StockServiceImpl implements StockService {
 
     public ArrayList<String> getBlockByStock(String code) {
         return null;
+    }
+
+
+    public static Date strToDate(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
     }
 }

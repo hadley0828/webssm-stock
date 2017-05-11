@@ -1,9 +1,11 @@
 package com.quantour.ssm.model;
 
+import java.util.Date;
+
 public class StockKey {
     private String stockCode;
 
-    private String stockDate;
+    private Date stockDate;
 
     public String getStockCode() {
         return stockCode;
@@ -13,11 +15,11 @@ public class StockKey {
         this.stockCode = stockCode == null ? null : stockCode.trim();
     }
 
-    public String getStockDate() {
+    public Date getStockDate() {
         return stockDate;
     }
 
-    public void setStockDate(String stockDate) {
-        this.stockDate = stockDate == null ? null : stockDate.trim();
+    public void setStockDate(Date stockDate) {
+        this.stockDate = stockDate ;
     }
 }

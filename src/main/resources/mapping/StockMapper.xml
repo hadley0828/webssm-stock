@@ -3,7 +3,7 @@
 <mapper namespace="com.quantour.ssm.dao.StockMapper">
   <resultMap id="BaseResultMap" type="com.quantour.ssm.model.Stock">
     <id column="stock_code" jdbcType="VARCHAR" property="stockCode" />
-    <id column="stock_date" jdbcType="VARCHAR" property="stockDate" />
+    <id column="stock_date" jdbcType="DATE" property="stockDate" />
     <result column="stock_serial" jdbcType="VARCHAR" property="stockSerial" />
     <result column="open_price" jdbcType="DOUBLE" property="openPrice" />
     <result column="high_price" jdbcType="DOUBLE" property="highPrice" />
@@ -30,10 +30,10 @@
     <include refid="Base_Column_List" />
     from stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and stock_date = #{stockDate,jdbcType=VARCHAR}
+      and stock_date = #{stockDate,jdbcType=DATE}
   </select>
 
-  <select id="getTimesStocks" resultType=""></select>
+  <!--<select id="getTimesStocks" resultType=""></select>-->
 
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
@@ -41,19 +41,19 @@
     <include refid="Base_Column_List" />
     from stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
-    and stock_date = #{stockDate,jdbcType=VARCHAR}
+    and stock_date = #{stockDate,jdbcType=DATE}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey">
     delete from stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and stock_date = #{stockDate,jdbcType=VARCHAR}
+      and stock_date = #{stockDate,jdbcType=DATE}
   </delete>
   <insert id="insert" parameterType="com.quantour.ssm.model.Stock">
     insert into stock (stock_code, stock_date, stock_serial, 
       open_price, high_price, low_price, 
       close_price, volume, adj_close, 
       stock_name, market)
-    values (#{stockCode,jdbcType=VARCHAR}, #{stockDate,jdbcType=VARCHAR}, #{stockSerial,jdbcType=VARCHAR}, 
+    values (#{stockCode,jdbcType=VARCHAR}, #{stockDate,jdbcType=DATE}, #{stockSerial,jdbcType=VARCHAR},
       #{openPrice,jdbcType=DOUBLE}, #{highPrice,jdbcType=DOUBLE}, #{lowPrice,jdbcType=DOUBLE}, 
       #{closePrice,jdbcType=DOUBLE}, #{volume,jdbcType=VARCHAR}, #{adjClose,jdbcType=DOUBLE}, 
       #{stockName,jdbcType=VARCHAR}, #{market,jdbcType=VARCHAR})
@@ -100,7 +100,7 @@
         #{stockCode,jdbcType=VARCHAR},
       </if>
       <if test="stockDate != null">
-        #{stockDate,jdbcType=VARCHAR},
+        #{stockDate,jdbcType=DATE},
       </if>
       <if test="stockSerial != null">
         #{stockSerial,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
       </if>
     </set>
     where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and stock_date = #{stockDate,jdbcType=VARCHAR}
+      and stock_date = #{stockDate,jdbcType=DATE}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.quantour.ssm.model.Stock">
     update stock
@@ -177,6 +177,6 @@
       stock_name = #{stockName,jdbcType=VARCHAR},
       market = #{market,jdbcType=VARCHAR}
     where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and stock_date = #{stockDate,jdbcType=VARCHAR}
+      and stock_date = #{stockDate,jdbcType=DATE}
   </update>
 </mapper>
