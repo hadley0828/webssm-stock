@@ -24,4 +24,5 @@ public interface StockMapper {
 
     Stock getOneStock(StockKey stockKey);
 
+    List<Stock> getTimesStocks(String code, String startDate, String endDate);
 }

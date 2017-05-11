@@ -35,7 +35,7 @@ public class StockServiceImpl implements StockService {
     }
 
     public ArrayList<Stock> getTimesStocks(String code, String startDate, String endDate) {
-        return null;
+        return (ArrayList<Stock>) stockMapper.getTimesStocks(code,startDate,endDate);
     }
 
     public ArrayList<Stock> getOneDayStocks(String date) {

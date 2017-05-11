@@ -33,6 +33,8 @@
       and stock_date = #{stockDate,jdbcType=VARCHAR}
   </select>
 
+  <select id="getTimesStocks" resultType=""></select>
+
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
     select
