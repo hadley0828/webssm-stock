@@ -4,6 +4,8 @@ import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.model.StockKey;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StockMapper {
     int deleteByPrimaryKey(StockKey key);
@@ -17,4 +19,9 @@ public interface StockMapper {
     int updateByPrimaryKeySelective(Stock record);
 
     int updateByPrimaryKey(Stock record);
+
+    List<String> getAllDateByCode(String code);
+
+    Stock getOneStock(StockKey stockKey);
+
 }

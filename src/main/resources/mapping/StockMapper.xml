@@ -18,12 +18,28 @@
     stock_code, stock_date, stock_serial, open_price, high_price, low_price, close_price, 
     volume, adj_close, stock_name, market
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
-    select 
+
+  <select id="getAllDateByCode" parameterType="java.lang.String" resultType="String">
+    select stock_date
+    from stock
+    where stock_code = #{code,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getOneStock" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
       and stock_date = #{stockDate,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stock
+    where stock_code = #{stockCode,jdbcType=VARCHAR}
+    and stock_date = #{stockDate,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey">
     delete from stock
