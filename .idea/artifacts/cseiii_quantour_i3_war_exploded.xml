@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" build-on-make="true" name="cseiii_quantour_i3:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/cseiii_quantour_i3_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/target/web-ssm</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -8,6 +8,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.5.RELEASE" />
@@ -42,6 +43,9 @@
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
         </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/web-ssm/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="cseiii_quantour_i3/web/Web" />
     </root>

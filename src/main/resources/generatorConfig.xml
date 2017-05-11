@@ -54,5 +54,11 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" />
 
+        <table schema="db_ssm" tableName="stock"
+                domainObjectName="Stock" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"
+        />
+
     </context>
 </generatorConfiguration>
