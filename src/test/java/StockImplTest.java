@@ -1,27 +1,23 @@
-package java;
+import com.quantour.ssm.model.Stock;
+import com.quantour.ssm.util.FKSqlSessionFactory;
+import org.apache.ibatis.session.SqlSession;
 
-import com.quantour.ssm.service.StockService;
-import org.junit.Test;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by loohaze on 2017/5/11.
  */
 public class StockImplTest {
 
-    @Resource
-    private StockService stockService;
+    public static void main(String[] args) {
+        SqlSession session = FKSqlSessionFactory.getSqlSession();
 
+        List<Stock> stockList = session.selectList("com.quantour.ssm.dao.StockMapper.getTimesStocks");
 
-    @Test
-    public void testGetAllDateByCode(){
-        String code = "1";
-        ArrayList<String> datelist = stockService.getAllDateByCode(code);
-        System.out.println(datelist.size());
-        for(String s : datelist){
-            System.out.println(s);
+        for(Stock stock: stockList){
+            System.out.println(stock);
         }
+        session.commit();
+        session.close();
     }
 }

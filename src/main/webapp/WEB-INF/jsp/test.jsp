@@ -13,6 +13,12 @@
     <title>Title</title>
 </head>
 <body>
+
+<%--<c:if test="${!empty data}">--%>
+    <%--<c:forEach var="date" items="${data}">--%>
+            <%--date: ${date};--%>
+        <%--</c:forEach>--%>
+<%--</c:if>--%>
     <c:if test="${stock!=null}">
         serial：${stock.stockSerial} &nbsp;&nbsp;
         date: ${stock.stockDate} &nbsp;&nbsp;

@@ -27,13 +27,18 @@
 
   <select id="getOneStock" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    *
     from stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
       and stock_date = #{stockDate,jdbcType=DATE}
   </select>
 
-  <!--<select id="getTimesStocks" resultType=""></select>-->
+  <select id="getTimesStocks" resultMap="BaseResultMap">
+    select *
+    from stock
+    where stock_code = #{code} and
+          stock_date between #{start} and #{end}
+  </select>
 
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">

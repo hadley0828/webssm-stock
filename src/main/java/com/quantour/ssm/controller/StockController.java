@@ -25,6 +25,7 @@ public class StockController {
 
     @RequestMapping("")
     public String showDateByCode(HttpServletRequest request, Model model){
+//        List<String> data = stockService.getAllDateByCode("000001");
         Stock stock = stockService.getOneStock("000001","2007-01-01");
         model.addAttribute("stock",stock);
         return "test";

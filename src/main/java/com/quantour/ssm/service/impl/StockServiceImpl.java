@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -33,12 +31,16 @@ public class StockServiceImpl implements StockService {
     public Stock getOneStock(String code, String date) {
         StockKey stockKey = new StockKey();
         stockKey.setStockCode(code);
-        stockKey.setStockDate(strToDate(date));
+        stockKey.setStockDate(Date.valueOf(date));
         return stockMapper.getOneStock(stockKey);
     }
 
     public ArrayList<Stock> getTimesStocks(String code, String startDate, String endDate) {
-        return (ArrayList<Stock>) stockMapper.getTimesStocks(code,startDate,endDate);
+        HashMap<Object,Object> map = new HashMap<Object, Object>();
+        map.put("code",code);
+        map.put("start",startDate);
+        map.put("end",endDate);
+        return (ArrayList<Stock>) stockMapper.getTimesStocks(map);
     }
 
     public ArrayList<Stock> getOneDayStocks(String date) {
@@ -102,10 +104,4 @@ public class StockServiceImpl implements StockService {
     }
 
 
-    public static Date strToDate(String strDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        ParsePosition pos = new ParsePosition(0);
-        Date strtodate = formatter.parse(strDate, pos);
-        return strtodate;
-    }
 }

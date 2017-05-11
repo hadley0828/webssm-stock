@@ -1,6 +1,6 @@
 package com.quantour.ssm.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class StockKey {
     private String stockCode;

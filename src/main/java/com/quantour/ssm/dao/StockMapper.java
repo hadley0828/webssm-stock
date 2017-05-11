@@ -4,6 +4,7 @@ import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.model.StockKey;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -24,5 +25,10 @@ public interface StockMapper {
 
     Stock getOneStock(StockKey stockKey);
 
-    List<Stock> getTimesStocks(String code, String startDate, String endDate);
+    /**
+     * 用hashmap封装参数 key值分别为 String code, String startDate, String endDate
+     * @param map
+     * @return
+     */
+    List<Stock> getTimesStocks(HashMap map);
 }
