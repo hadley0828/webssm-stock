@@ -40,6 +40,18 @@
           stock_date between #{start} and #{end}
   </select>
 
+  <select id="getOneDayStocks" parameterType="java.sql.Date" resultMap="BaseResultMap">
+    select *
+    from stock
+    where stock_date = #{date,jdbcType=DATE}
+  </select>
+
+  <select id="getYesterdayStock" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
+    select *
+    from stock
+    where stock_date = (select date_sub(#{stockDate,jdbcType=DATE},interval 1 day))
+      and stock_code = #{stockCode,jdbcType=VARCHAR}
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
     select

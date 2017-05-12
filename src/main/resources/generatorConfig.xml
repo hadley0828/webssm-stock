@@ -49,16 +49,21 @@
         <!-- 配置表信息 -->
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
-        <table schema="db_ssm" tableName="t_user"
-               domainObjectName="User" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" />
+        <!--<table schema="db_ssm" tableName="t_user"-->
+               <!--domainObjectName="User" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" />-->
 
-        <table schema="db_ssm" tableName="stock"
-                domainObjectName="Stock" enableCountByExample="false"
+        <!--<table schema="db_ssm" tableName="stock"-->
+                <!--domainObjectName="Stock" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+        <!--/>-->
+
+        <table schema="db_ssm" tableName="day_stock"
+               domainObjectName="DayKLine" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"
         />
-
     </context>
 </generatorConfiguration>
