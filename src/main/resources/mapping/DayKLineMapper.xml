@@ -114,17 +114,17 @@
   </select>
 
   <select id="getAllConceptBlock" resultType="java.lang.String">
-    select distinct concept_block
+    select distinct concept
     from concept_block
   </select>
 
   <select id="getAllIndustryBlock" resultType="java.lang.String">
-    select distinct industry_block
+    select distinct industry
     from industry_block
   </select>
 
   <select id="getAllAreaBlock" resultType="java.lang.String">
-    select distinct area_block
+    select distinct area
     from area_block
   </select>
 

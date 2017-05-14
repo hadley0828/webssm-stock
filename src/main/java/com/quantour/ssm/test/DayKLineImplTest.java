@@ -24,26 +24,25 @@ public class DayKLineImplTest {
 
 
         DayKLineImplTest test = new DayKLineImplTest();
-//        test.testGetAllDateByCode();
-//        test.testGetOneDayKLine();
-//        test.testGetTimesDayKLines();
-//        test.testGetOneDayDayKLines();
-//        test.testGetYesterdayDayKLine();
-//        test.testGetYesterdayDayKLines();
-//        test.testGetAllDayKLinesByCode();
-//        test.testGetAllStockInfos();
-//        test.testGetOneBlockInfo();
-//        test.testGetTimesBlockInfo();
-//        test.testGetAllConceptBlock();
-//        test.testGetAllAreaBlock();
-//        test.testGetAllIndustryBlock();
-//        test.testGetMarketDates();
-//        test.testGetBlockAllDate();
-//        test.testGetConceptBlockStockCodes();
-//        test.testGetIndustryBlockStockCodes();
-//        test.testGetAreaBlockStockCodes();
-//        test.testGetAllCodeByBlock();
-//        test.testGetBlockByStock();
+        test.testGetAllDateByCode();
+        test.testGetOneDayKLine();
+        test.testGetTimesDayKLines();
+        test.testGetOneDayDayKLines();
+        test.testGetYesterdayDayKLines();
+        test.testGetAllDayKLinesByCode();
+        test.testGetAllStockInfos();
+        test.testGetOneBlockInfo();
+        test.testGetTimesBlockInfo();
+        test.testGetAllConceptBlock();
+        test.testGetAllAreaBlock();
+        test.testGetAllIndustryBlock();
+        test.testGetMarketDates();
+        test.testGetBlockAllDate();
+        test.testGetConceptBlockStockCodes();
+        test.testGetIndustryBlockStockCodes();
+        test.testGetAreaBlockStockCodes();
+        test.testGetAllCodeByBlock();
+        test.testGetBlockByStock();
         test.testGetOneStockInfo();
 
     }
