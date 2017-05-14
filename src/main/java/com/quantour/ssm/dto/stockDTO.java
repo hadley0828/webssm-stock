@@ -1,0 +1,141 @@
+package com.quantour.ssm.dto;
+
+/**
+ * Created by zhangzy on 2017/5/14.
+ */
+public class stockDTO {
+    String id;
+    String name;
+    String market;
+    double openPrice;
+    double closePrice;
+    double highPrice;
+    double lowPrice;
+    double uplift;		//涨跌幅;
+    double adjClose;	//复权股价;
+
+    long Volume;		//成交量;
+    double logYield;	//对数收益率;
+    double logVariance;	//对数收益方差;
+
+    public stockDTO(){
+
+    }
+
+    @Override
+    public String toString() {
+        return "stockDTO{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", market='" + market + '\'' +
+                ", openPrice=" + openPrice +
+                ", closePrice=" + closePrice +
+                ", highPrice=" + highPrice +
+                ", lowPrice=" + lowPrice +
+                ", uplift=" + uplift +
+                ", adjClose=" + adjClose +
+                ", Volume=" + Volume +
+                ", logYield=" + logYield +
+                ", logVariance=" + logVariance +
+                '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
+    }
+
+    public double getOpenPrice() {
+        return openPrice;
+    }
+
+    public void setOpenPrice(double openPrice) {
+        this.openPrice = openPrice;
+    }
+
+    public double getClosePrice() {
+        return closePrice;
+    }
+
+    public void setClosePrice(double closePrice) {
+        this.closePrice = closePrice;
+    }
+
+    public double getHighPrice() {
+        return highPrice;
+    }
+
+    public void setHighPrice(double highPrice) {
+        this.highPrice = highPrice;
+    }
+
+    public double getLowPrice() {
+        return lowPrice;
+    }
+
+    public void setLowPrice(double lowPrice) {
+        this.lowPrice = lowPrice;
+    }
+
+    public double getUplift() {
+        return uplift;
+    }
+
+    public void setUplift(double uplift) {
+        this.uplift = uplift;
+    }
+
+    public double getAdjClose() {
+        return adjClose;
+    }
+
+    public void setAdjClose(double adjClose) {
+        this.adjClose = adjClose;
+    }
+
+    public long getVolume() {
+        return Volume;
+    }
+
+    public void setVolume(long volume) {
+        Volume = volume;
+    }
+
+    public double getLogYield() {
+        return logYield;
+    }
+
+    public void setLogYield(double logYield) {
+        this.logYield = logYield;
+    }
+
+    public double getLogVariance() {
+        return logVariance;
+    }
+
+    public void setLogVariance(double logVariance) {
+        this.logVariance = logVariance;
+    }
+
+
+
+}

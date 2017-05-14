@@ -1,6 +1,8 @@
 package com.quantour.ssm.service.impl;
 
+import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dao.StockMapper;
+import com.quantour.ssm.dto.*;
 import com.quantour.ssm.model.Block;
 import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.model.StockKey;
@@ -21,87 +23,106 @@ import java.util.HashMap;
 public class StockServiceImpl implements StockService {
 
     @Resource
-    private StockMapper stockMapper;
+    private DayKLineMapper dayklinemapper;
 
 
-    public ArrayList<String> getAllDateByCode(String code) {
-        return (ArrayList<String>) stockMapper.getAllDateByCode(code);
-    }
-
-    public Stock getOneStock(String code, String date) {
-        StockKey stockKey = new StockKey();
-        stockKey.setStockCode(code);
-        stockKey.setStockDate(Date.valueOf(date));
-        return stockMapper.getOneStock(stockKey);
-    }
-
-    public ArrayList<Stock> getTimesStocks(String code, String startDate, String endDate) {
-        HashMap<Object,Object> map = new HashMap<Object, Object>();
-        map.put("code",code);
-        map.put("start",startDate);
-        map.put("end",endDate);
-        return (ArrayList<Stock>) stockMapper.getTimesStocks(map);
-    }
-
-    public ArrayList<Stock> getOneDayStocks(String date) {
+    @Override
+    public stockDTO getStockInfo(String code, String date) {
         return null;
     }
 
-    public Stock getYesterdayStock(String code, String date) {
+    @Override
+    public ArrayList<klineDTO> getKline(String code, String sDate, String lDate) {
         return null;
     }
 
-    public ArrayList<Stock> getYesterdayStocks(String date) {
+    @Override
+    public marketDTO getMarketInfo(String date) {
         return null;
     }
 
-    public ArrayList<Stock> getAllStocksByCode(String code) {
+    @Override
+    public ArrayList<averageDTO> getAverageLine(String code, String sDate, String lDate, int days) {
         return null;
     }
 
-    public ArrayList<String> getAllStockNames() {
+    @Override
+    public ArrayList<compareDTO> getCompareInfo(String firstCode, String secondCode, String sDate, String lDate) {
         return null;
     }
 
-    public Stock getLastDaysStockInfo(String code, String date, int days) {
+    @Override
+    public boolean isStockValid(String input) {
+        return false;
+    }
+
+    @Override
+    public boolean isDateValid(String input, String date) {
+        return false;
+    }
+
+    @Override
+    public boolean isDateValid(String date) {
+        return false;
+    }
+
+    @Override
+    public ArrayList<String> getAllCodeAndName() {
         return null;
     }
 
-    public ArrayList<String> getMarketDates() {
+    @Override
+    public ArrayList<String> getAllPlateName() {
         return null;
     }
 
-    public HashMap<String, ArrayList<Stock>> getStockMap(String sdate, String ldate) {
+    @Override
+    public ArrayList<String> getPlateAllStockCode(String plateName) {
         return null;
     }
 
-    public ArrayList<String> getAllCodeByPlate(String plate) {
+    @Override
+    public ArrayList<String> getOneStockAllPlate(String stockCode) {
         return null;
     }
 
-    public Block getOneBlockInfo(String block, String date) {
+    @Override
+    public ArrayList<waveDTO> getTopNCodesByDays(int n, String date, int changeDays) {
         return null;
     }
 
-    public ArrayList<Block> getTimesBlockInfo(String block, String sDate, String lDate) {
+    @Override
+    public ArrayList<limitUpAndDownNumsDTO> getLimitUpAndDownNumber(String date) {
         return null;
     }
 
-    public ArrayList<String> getOnePlateStockcodes(String plateName) {
+    @Override
+    public boolean isMarketDateValid(String date) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockDateValid(String date, String blockCode) {
+        return false;
+    }
+
+    @Override
+    public strategyResultDTO getStraOneResult(int formDays, int holdDays, String sDate, String lDate, int type, ArrayList<String> codeList, String blockCode) {
         return null;
     }
 
-    public ArrayList<String> getAllPlatesNames() {
+    @Override
+    public ArrayList<oneExtraProfitDTO> getOneExtraProfit(int daysType, int days, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
         return null;
     }
 
-    public ArrayList<String> getBlockAllDate(String blockCode) {
+    @Override
+    public strategyResultDTO getStraTwoResult(int averageDays, int holdDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
         return null;
     }
 
-    public ArrayList<String> getBlockByStock(String code) {
+    @Override
+    public ArrayList<oneExtraProfitDTO> getTwoExtraProfit(int averageDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
         return null;
     }
-
-
 }

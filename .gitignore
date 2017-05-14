@@ -84,3 +84,4 @@ $RECYCLE.BIN/
 *.lnk
 
 /src/main/resources/jdbc.properties
+/.idea/
