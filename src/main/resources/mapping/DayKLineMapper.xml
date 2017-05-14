@@ -82,6 +82,12 @@
       and stock_date = #{stockDate}
   </select>
 
+  <select id="getOneStockInfo" parameterType="java.lang.String" resultMap="StockBasicInfoMap">
+    select *
+    from code_basic_info
+    where stock_code = #{code}
+  </select>
+
   <select id="getTimesBlockInfo" resultMap="BaseResultMap">
     select *
     from day_block

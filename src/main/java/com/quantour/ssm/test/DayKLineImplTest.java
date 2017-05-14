@@ -42,8 +42,9 @@ public class DayKLineImplTest {
 //        test.testGetConceptBlockStockCodes();
 //        test.testGetIndustryBlockStockCodes();
 //        test.testGetAreaBlockStockCodes();
-        test.testGetAllCodeByBlock();
+//        test.testGetAllCodeByBlock();
 //        test.testGetBlockByStock();
+        test.testGetOneStockInfo();
 
     }
 
@@ -122,6 +123,14 @@ public class DayKLineImplTest {
         }
     }
 
+    public void testGetOneStockInfo(){
+        String code = "000001";
+        StockBasicInfo stockBasicInfo = dayKLineMapper.getOneStockInfo(code);
+        System.out.print(stockBasicInfo.getCode() + " ");
+        System.out.print(stockBasicInfo.getName() + " ");
+        System.out.print(stockBasicInfo.getIndustry()+ " ");
+        System.out.println(stockBasicInfo.getArea());
+    }
     /**
      * pass
      */
