@@ -10,18 +10,139 @@
     <result column="high_price" jdbcType="DOUBLE" property="highPrice" />
     <result column="low_price" jdbcType="DOUBLE" property="lowPrice" />
   </resultMap>
+
+  <resultMap id="StockBasicInfoMap" type="com.quantour.ssm.model.StockBasicInfo">
+    <id column="stock_code" jdbcType="VARCHAR" property="code"/>
+    <result column="stock_name" jdbcType="VARCHAR" property="name"/>
+    <result column="stock_industry" jdbcType="VARCHAR" property="industry"/>
+    <result column="stock_area" jdbcType="VARCHAR" property="area"/>
+  </resultMap>
+
   <sql id="Base_Column_List">
     stock_code, stock_date, volume, open_price, close_price, high_price, low_price
   </sql>
 
+  <select id="getAllDateByCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select stock_date
+    from day_stock
+    where stock_code = #{code,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getOneDayKLine" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_code = #{stockCode,jdbcType=VARCHAR}
+     and  stock_date = #{stockDate,jdbcType=DATE}
+  </select>
+
+  <select id="getTimesDayKLines" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_code = #{code} and
+          stock_date between #{start} and #{end}
+  </select>
+
+  <select id="getOneDayDayKLines" parameterType="java.sql.Date" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_date = #{date,jdbcType=DATE}
+  </select>
+
+  <select id="getYesterdayDayKLine" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">
+    select *
+    from day_stock as T1
+    where T1.stock_code = #{stockCode,jdbcType=VARCHAR}
+      and T1.stock_date = (select max(stock_date) from day_stock as T2
+                                              where T2.stock_date &lt; #{stockDate,jdbcType=DATE})
+  </select>
+
+  <select id="getYesterdayDayKLines" parameterType="java.sql.Date" resultMap="BaseResultMap">
+    select *
+    from day_stock as T1
+    where T1.stock_date = (select max(stock_date) from day_stock as T2
+                                               where T2.stock_date &lt; #{date,jdbcType=DATE})
+  </select>
+
+  <select id="getAllDayKLinesByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_code = #{code}
+  </select>
+
+  <select id="getAllStockInfos" resultMap="StockBasicInfoMap">
+    select *
+    from code_basic_info
+  </select>
+
+  <select id="getOneBlockInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_code = #{stock_code}
+      and stock_date = #{stock_date}
+  </select>
+
+  <select id="getTimesBlockInfo" resultMap="BaseResultMap">
+    select *
+    from day_stock
+    where stock_code = #{block} and
+          stock_date between #{start} and #{end}
+  </select>
+
+  <select id="getConceptBlockStockCodes" parameterType="java.lang.String" resultType="java.lang.String">
+    select stock_code
+    from concept_block
+    where concept = #{blockName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getIndustryBlockStockCodes" parameterType="java.lang.String" resultType="java.lang.String">
+    select stock_code
+    from industry_block
+    where industry = #{blockName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAreaBlockStockCodes" parameterType="java.lang.String" resultType="java.lang.String">
+    select stock_code
+    from area_block
+    where area = #{blockName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAllConceptBlock" resultType="java.lang.String">
+    select distinct concept_block
+    from concept_block
+  </select>
+
+  <select id="getAllIndustryBlock" resultType="java.lang.String">
+    select distinct industry_block
+    from industry_block
+  </select>
+
+  <select id="getAllAreaBlock" resultType="java.lang.String">
+    select distinct area_block
+    from area_block
+  </select>
+
+  <select id="getMarketDates" resultType="java.sql.Date">
+    select distinct stock_date
+    from day_stock
+    order by stock_date asc
+  </select>
+
+  <select id="getBlockAllDate" parameterType="java.lang.String" resultType="java.sql.Date">
+    select distinct stock_date
+    from day_stock
+    where stock_code = #{block}
+    order by stock_date asc
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from day_stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}
       and stock_date = #{stockDate,jdbcType=DATE}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey">
     delete from day_stock
     where stock_code = #{stockCode,jdbcType=VARCHAR}

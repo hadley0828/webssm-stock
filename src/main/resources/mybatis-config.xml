@@ -3,13 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <!-- 对事务的管理和连接池的配置 -->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://localhost:3306/db_ssm" />
+                <property name="url" value="jdbc:mysql://localhost:3306/db_ssm?characterEncoding=utf-8" />
                 <property name="username" value="root" />
                 <property name="password" value="huangyan529" />
             </dataSource>
@@ -18,6 +19,6 @@
 
     <!-- mapping 文件路径配置 -->
     <mappers>
-        <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/StockMapper.xml" />
+        <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/DayKLineMapper.xml" />
     </mappers>
 </configuration>

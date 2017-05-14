@@ -1,9 +1,10 @@
 package com.quantour.ssm.dao;
 
-import com.quantour.ssm.model.*;
+import com.quantour.ssm.model.DayKLine;
+import com.quantour.ssm.model.DayKLineKey;
+import com.quantour.ssm.model.StockBasicInfo;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public interface DayKLineMapper {
 
     /**
      * 获得一段时间内的股票信息
-     * 用hashmap封装参数 key值分别为 String code, String startDate, String endDate
+     * 用hashmap封装参数 key值分别为 String code, String start, String end
      * @param map
      * @return
      */
@@ -50,23 +51,15 @@ public interface DayKLineMapper {
      * @param date
      * @return
      */
-    public List<DayKLine> getOneDayDayKLine(Date date);
+    public List<DayKLine> getOneDayDayKLines(Date date);
 
-
-    /**
-     * 根据股票编码和日期获得该股票前一天信息
-     * 用Stockkey封装参数(复合主键)
-     * @param dayKLineKey
-     * @return
-     */
-    public DayKLine getYesterdayDayKLine(DayKLineKey dayKLineKey);
 
     /**
      * 根据日期获得该日期前一个交易日的所有股票信息
      * @param date
      * @return
      */
-    public List<DayKLine> getYesterdayDayKLine(Date date);
+    public List<DayKLine> getYesterdayDayKLines(Date date);
 
     /**
      * 根据股票代码获得该股票所有交易日的信息
@@ -76,36 +69,25 @@ public interface DayKLineMapper {
     public List<DayKLine> getAllDayKLinesByCode(String code);
 
     /**
-     * 获取所有股票名称和编号
+     * 获取所有股票基本信息
      * @return
      */
-    public List<String> getAllStockNames();
+    public List<StockBasicInfo> getAllStockInfos();
+
 
     /**
-     * 获得一个股票向前n个交易日的信息
-     * @param dayKLineKey
-     * @param days
-     * @return
-     */
-    public DayKLine getLastDaysDayKLineInfo(DayKLineKey dayKLineKey, int days);
-
-    /**
+     *
      * 获得数据区中从开始日期到结束日期的所有交易日
      * @return
      */
-    public List<String> getMarketDates();
+    public List<Date> getMarketDates();
 
-    /**
-     * 获得开始和结束日期之间的一个哈希表
-     * @param sdate
-     * @param ldate
-     * @return
-     */
-    public HashMap<String,ArrayList<DayKLine>> getDayKLineMap(Date sdate, Date ldate);
+
 
 
     //下面来自于StaticDataService
     /**
+     * 未完成
      * 获得某基准板块所有股票编号
      * @param block
      * @return
@@ -120,35 +102,68 @@ public interface DayKLineMapper {
     public DayKLine getOneBlockInfo(DayKLineKey dayKLineKey);
 
     /**
+     * 用hashmap封装参数 key值分别为 String block, String startDate, String endDate
      * 获得一段时间内的某板块信息
-     * @param block
-     * @param sDate
-     * @param lDate
+     * @param map
      * @return
      */
-    public List<DayKLine> getTimesBlockInfo(String block, Date sDate, Date lDate);
+    public List<DayKLine> getTimesBlockInfo(HashMap map);
 
     /**
-     * 获得自选板块所有股票编号
-     * @param plateName
+     * new interface
+     * 获得一个概念板块所有股票编号
+     * @param blockName
      * @return
      */
-    public List<String> getOnePlateStockcodes(String plateName);
+    public List<String> getConceptBlockStockCodes(String blockName);
 
     /**
-     * 获得所有自选板块的名称
+     * new interface
+     * 获得一个行业板块所有股票编号
+     * @param blockName
      * @return
      */
-    public List<String> getAllPlatesNames();
+    public List<String> getIndustryBlockStockCodes(String blockName);
+
+    /**
+     * new interface
+     * 获得一个地域板块所有股票编号
+     * @param blockName
+     * @return
+     */
+    public List<String> getAreaBlockStockCodes(String blockName);
+
+    /**
+     * new interface
+     * 获得所有概念板块
+     * @return
+     */
+    public List<String> getAllConceptBlock();
+
+    /**
+     * new interface
+     * 获得所有行业板块
+     * @return
+     */
+    public List<String> getAllIndustryBlock();
+
+    /**
+     * new interface
+     * 获得所有地域板块
+     * @return
+     */
+    public List<String> getAllAreaBlock();
+
 
     /**
      * 获得一个基准板块的所有交易日
      * @param block
      * @return
      */
-    public List<String> getBlockAllDate(String block);
+    public List<Date> getBlockAllDate(String block);
 
     /**
+     * 未完成
      * 获得一个股票的所属板块
      * @param code
      * @return
