@@ -3,11 +3,13 @@ package com.quantour.ssm.dao;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
+@Repository
 public interface DayKLineMapper {
     int deleteByPrimaryKey(DayKLineKey key);
 
