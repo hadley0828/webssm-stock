@@ -42,8 +42,8 @@ public class DayKLineImplTest {
 //        test.testGetConceptBlockStockCodes();
 //        test.testGetIndustryBlockStockCodes();
 //        test.testGetAreaBlockStockCodes();
-//        test.testGetAllCodeByBlock();
-        test.testGetBlockByStock();
+        test.testGetAllCodeByBlock();
+//        test.testGetBlockByStock();
 
     }
 
@@ -256,21 +256,38 @@ public class DayKLineImplTest {
         }
     }
 
+    /**
+     * pass
+     */
     public void testGetAllCodeByBlock(){
-        String block = "hs300";
-        List<String> list = dayKLineMapper.getAllCodeByBlock(block);
+        List<String> gemlist = dayKLineMapper.getAllCodeByGemBlock();
+        List<String> smelist = dayKLineMapper.getAllCodeBySmeBlock();
+        List<String> hs300list= dayKLineMapper.getAllCodeByHs300Block();
+        List<String> sz50list = dayKLineMapper.getAllCodeBySz50Block();
+        List<String> zz500list = dayKLineMapper.getAllCodeByZz500Block();
 
-        for(String s : list){
+        for(String s : zz500list){
             System.out.println(s);
         }
     }
 
+    /**
+     * pass
+     */
     public void testGetBlockByStock(){
         String code = "000001";
 
-        List<String> list = dayKLineMapper.getBlockByStock(code);
+        List<String> list1 = dayKLineMapper.getIndustryByStock(code);
+        List<String> list2 = dayKLineMapper.getAreaByStock(code);
+        List<String> list3 = dayKLineMapper.getConceptByStock(code);
 
-        for(String s : list){
+        for(String s : list1){
+            System.out.println(s);
+        }
+        for(String s : list2){
+            System.out.println(s);
+        }
+        for(String s : list3){
             System.out.println(s);
         }
     }

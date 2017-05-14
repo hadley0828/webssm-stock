@@ -1,6 +1,5 @@
 package com.quantour.ssm.controller;
 
-import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,8 @@ public class StockController {
     @RequestMapping("")
     public String showDateByCode(HttpServletRequest request, Model model){
 //        List<String> data = stockService.getAllDateByCode("000001");
-        Stock stock = stockService.getOneStock("000001","2007-01-01");
-        model.addAttribute("stock",stock);
+//        Stock stock = stockService.getOneStock("000001","2007-01-01");
+//        model.addAttribute("stock",stock);
         return "test";
     }
 

@@ -94,13 +94,40 @@ public interface DayKLineMapper {
 
     //下面来自于StaticDataService
     /**
-     * 未完成
-     * 获得某基准板块所有股票编号
-     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
-     * @param block
+     * 获得sme(中小板)板块所有股票编号
      * @return
      */
-    public List<String> getAllCodeByBlock(String block);
+    public List<String> getAllCodeBySmeBlock();
+
+    /**
+     * 获得gem(创业板)板块所有股票编号
+     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
+     * @return
+     */
+    public List<String> getAllCodeByGemBlock();
+
+    /**
+     * 获得hs300(沪深300)板块所有股票编号
+     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
+     * @return
+     */
+    public List<String> getAllCodeByHs300Block();
+
+    /**
+     * 获得sz50(上证50)板块所有股票编号
+     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
+     * @return
+     */
+    public List<String> getAllCodeBySz50Block();
+
+
+    /**
+     * 获得zz500(中证500)板块所有股票编号
+     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
+     * @return
+     */
+    public List<String> getAllCodeByZz500Block();
+
 
     /**
      * 获得某一天的某板块信息
@@ -172,12 +199,25 @@ public interface DayKLineMapper {
     public List<Date> getBlockAllDate(String block);
 
     /**
-     * 未完成
-     * 获得一个股票的所属板块
+     * 获得一个股票的所属行业板块
      * @param code
      * @return
      */
-    public List<String> getBlockByStock(String code);
+    public List<String> getIndustryByStock(String code);
+
+    /**
+     * 获得一个股票的所属地域板块
+     * @param code
+     * @return
+     */
+    public List<String> getAreaByStock(String code);
+
+    /**
+     * 获得一个股票的所属概念板块
+     * @param code
+     * @return
+     */
+    public List<String> getConceptByStock(String code);
 
 
 

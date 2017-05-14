@@ -18,6 +18,7 @@
     <result column="stock_area" jdbcType="VARCHAR" property="area"/>
   </resultMap>
 
+
   <sql id="Base_Column_List">
     stock_code, stock_date, volume, open_price, close_price, high_price, low_price
   </sql>
@@ -134,14 +135,47 @@
     order by stock_date asc
   </select>
 
-  <select id="getAllCodeByBlock" parameterType="java.lang.String" resultType="java.lang.String">
-
+  <select id="getAllCodeBySmeBlock" resultType="java.lang.String">
+    select stock_code
+    from sme_block
   </select>
 
-  <select id="getBlockByStock" parameterType="java.lang.String" resultType="java.lang.String">
-    select IB.industry, AB.area, CB.concept
-    from industry_block as IB, area_block as AB, concept_block as CB
-    where IB.stock_code = #{code} and IB.stock_code = AB.stock_code
+  <select id="getAllCodeByGemBlock" resultType="java.lang.String">
+    select stock_code
+    from gem_block
+  </select>
+
+  <select id="getAllCodeByHs300Block" resultType="java.lang.String">
+    select stock_code
+    from hs300_block
+  </select>
+
+  <select id="getAllCodeBySz50Block" resultType="java.lang.String">
+    select stock_code
+    from sz50_block
+  </select>
+
+  <select id="getAllCodeByZz500Block" resultType="java.lang.String">
+    select stock_code
+    from zz500_block
+  </select>
+
+  <select id="getIndustryByStock" parameterType="java.lang.String" resultType="java.lang.String">
+    select industry
+    from industry_block
+    where stock_code = #{code}
+  </select>
+
+  <select id="getAreaByStock" parameterType="java.lang.String" resultType="java.lang.String">
+    select area
+    from area_block
+    where stock_code = #{code}
+  </select>
+
+  <select id="getConceptByStock" parameterType="java.lang.String" resultType="java.lang.String">
+    select concept
+    from concept_block
+    where stock_code = #{code}
   </select>
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">
