@@ -26,13 +26,14 @@ public class DayKLineImplTest {
         DayKLineImplTest test = new DayKLineImplTest();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
-        test.testGetTimesDayKLines();
+//        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLine();
 //        test.testGetYesterdayDayKLines();
 //        test.testGetAllDayKLinesByCode();
 //        test.testGetAllStockInfos();
 //        test.testGetOneBlockInfo();
+//        test.testGetTimesBlockInfo();
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
@@ -41,6 +42,8 @@ public class DayKLineImplTest {
 //        test.testGetConceptBlockStockCodes();
 //        test.testGetIndustryBlockStockCodes();
 //        test.testGetAreaBlockStockCodes();
+//        test.testGetAllCodeByBlock();
+        test.testGetBlockByStock();
 
     }
 
@@ -147,7 +150,7 @@ public class DayKLineImplTest {
      * pass
      */
     public void testGetBlockAllDate(){
-        String block = "hs300";
+        String block = "sh000300";
         List<Date> list = dayKLineMapper.getBlockAllDate(block);
         for(Date date : list){
             System.out.println(date);
@@ -163,11 +166,28 @@ public class DayKLineImplTest {
      */
     public void testGetOneBlockInfo(){
         DayKLineKey dayKLineKey = new DayKLineKey();
-        dayKLineKey.setStockCode("hs300");
+        dayKLineKey.setStockCode("sh000300");
         dayKLineKey.setStockDate(Date.valueOf("2017-03-21"));
-        DayKLine dayKLine = dayKLineMapper.getOneDayKLine(dayKLineKey);
+        DayKLine dayKLine = dayKLineMapper.getOneBlockInfo(dayKLineKey);
         printDayKLine(dayKLine);
 
+    }
+
+    /**
+     * pass
+     */
+    public void testGetTimesBlockInfo(){
+        HashMap<String,Object> map = new HashMap<String, Object>();
+
+        map.put("block", "sh000300");
+        map.put("start",Date.valueOf("2017-01-01"));
+        map.put("end",Date.valueOf("2017-01-31"));
+
+        List<DayKLine> list = dayKLineMapper.getTimesBlockInfo(map);
+
+        for(DayKLine dayKLine : list){
+            printDayKLine(dayKLine);
+        }
     }
 
     /**
@@ -236,6 +256,24 @@ public class DayKLineImplTest {
         }
     }
 
+    public void testGetAllCodeByBlock(){
+        String block = "hs300";
+        List<String> list = dayKLineMapper.getAllCodeByBlock(block);
+
+        for(String s : list){
+            System.out.println(s);
+        }
+    }
+
+    public void testGetBlockByStock(){
+        String code = "000001";
+
+        List<String> list = dayKLineMapper.getBlockByStock(code);
+
+        for(String s : list){
+            System.out.println(s);
+        }
+    }
 
     public static void printDayKLine(DayKLine dayKLine){
         System.out.print(dayKLine.getStockCode()+ " ");

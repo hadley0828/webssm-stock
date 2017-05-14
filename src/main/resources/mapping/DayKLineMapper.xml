@@ -74,16 +74,16 @@
     from code_basic_info
   </select>
 
-  <select id="getOneBlockInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="getOneBlockInfo" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">
     select *
-    from day_stock
-    where stock_code = #{stock_code}
-      and stock_date = #{stock_date}
+    from day_block
+    where stock_code = #{stockCode}
+      and stock_date = #{stockDate}
   </select>
 
   <select id="getTimesBlockInfo" resultMap="BaseResultMap">
     select *
-    from day_stock
+    from day_block
     where stock_code = #{block} and
           stock_date between #{start} and #{end}
   </select>
@@ -129,9 +129,19 @@
 
   <select id="getBlockAllDate" parameterType="java.lang.String" resultType="java.sql.Date">
     select distinct stock_date
-    from day_stock
+    from day_block
     where stock_code = #{block}
     order by stock_date asc
+  </select>
+
+  <select id="getAllCodeByBlock" parameterType="java.lang.String" resultType="java.lang.String">
+
+  </select>
+
+  <select id="getBlockByStock" parameterType="java.lang.String" resultType="java.lang.String">
+    select IB.industry, AB.area, CB.concept
+    from industry_block as IB, area_block as AB, concept_block as CB
+    where IB.stock_code = #{code} and IB.stock_code = AB.stock_code
   </select>
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">

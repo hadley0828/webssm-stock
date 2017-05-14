@@ -76,7 +76,12 @@ public interface DayKLineMapper {
      */
     public List<StockBasicInfo> getAllStockInfos();
 
-
+    /**
+     * 获得单个股票基本信息
+     * @param code
+     * @return
+     */
+    public StockBasicInfo getOneStockInfo(String code);
     /**
      *
      * 获得数据区中从开始日期到结束日期的所有交易日
@@ -91,6 +96,7 @@ public interface DayKLineMapper {
     /**
      * 未完成
      * 获得某基准板块所有股票编号
+     * sme(中小板) gem(创业板) hs300(沪深300) sz50(上证50) zz500(中证500)
      * @param block
      * @return
      */
@@ -98,13 +104,14 @@ public interface DayKLineMapper {
 
     /**
      * 获得某一天的某板块信息
+     * stock_code: 板块号 { sh000016:上证50  sh000300:沪深300 sh000905:中证500 sz399005:中小板 sz399006:创业板}
      * @param dayKLineKey
      * @return
      */
     public DayKLine getOneBlockInfo(DayKLineKey dayKLineKey);
 
     /**
-     * 用hashmap封装参数 key值分别为 String block, String startDate, String endDate
+     * 用hashmap封装参数 key值分别为 String block, String start, String end
      * 获得一段时间内的某板块信息
      * @param map
      * @return
