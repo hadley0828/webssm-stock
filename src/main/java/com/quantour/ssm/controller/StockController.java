@@ -1,5 +1,9 @@
 package com.quantour.ssm.controller;
 
+import com.quantour.ssm.dto.klineDTO;
+import com.quantour.ssm.dto.stockDTO;
+import com.quantour.ssm.model.DayKLine;
+import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 
 /**
@@ -22,12 +27,19 @@ public class StockController {
     @Resource
     private StockService stockService;
 
-    @RequestMapping("")
+    @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
 //        List<String> data = stockService.getAllDateByCode("000001");
-//        Stock stock = stockService.getOneStock("000001","2007-01-01");
-//        model.addAttribute("stock",stock);
+        stockDTO stockdto = stockService.getStockInfo("000001","2007-01-04");
+        model.addAttribute("stockdto",stockdto);
         return "test";
+    }
+
+    @RequestMapping("/stockkline")
+    public String showKline(HttpServletRequest request,Model model){
+        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000001","2008-11-22","2008-12-20");
+        model.addAttribute("klineDTOArrayList",klineDTOArrayList);
+        return "stockkline";
     }
 
 }

@@ -19,18 +19,17 @@
             <%--date: ${date};--%>
         <%--</c:forEach>--%>
 <%--</c:if>--%>
-    <c:if test="${stock!=null}">
-        serial：${stock.stockSerial} &nbsp;&nbsp;
-        date: ${stock.stockDate} &nbsp;&nbsp;
-        open: ${stock.openPrice} &nbsp;&nbsp;
-        high: ${stock.highPrice} &nbsp;&nbsp;
-        low: ${stock.lowPrice} &nbsp;&nbsp;
-        close: ${stock.closePrice} &nbsp;&nbsp;
-        volume: ${stock.volume} &nbsp;&nbsp;
-        adjclose: ${stock.adjClose} &nbsp;&nbsp;
-        code: ${stock.stockCode} &nbsp;&nbsp;
-        name: ${stock.stockName} &nbsp;&nbsp;
-        market: ${stock.market} &nbsp;&nbsp;
+    <c:if test="${stockdto!=null}">
+        name：${stockdto.name} &nbsp;&nbsp;
+        id: ${stockdto.id} &nbsp;&nbsp;
+        market: ${stockdto.market} &nbsp;&nbsp;
+        开盘价: ${stockdto.openPrice} &nbsp;&nbsp;
+        收盘价: ${stockdto.closePrice} &nbsp;&nbsp;
+        最高价: ${stockdto.highPrice} &nbsp;&nbsp;
+        最低价: ${stockdto.lowPrice} &nbsp;&nbsp;
+        涨跌幅: ${stockdto.uplift} &nbsp;&nbsp;
+        成交量: ${stockdto.volume} &nbsp;&nbsp;
+
         <br>
 </c:if>
 </body>
