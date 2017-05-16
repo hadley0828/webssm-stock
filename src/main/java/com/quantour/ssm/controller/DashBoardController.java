@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dashboarc")
+@RequestMapping("/dashboard")
 public class DashBoardController {
 
     private Logger log = Logger.getLogger(StockController.class);
@@ -30,4 +30,8 @@ public class DashBoardController {
         return "dashboard";
     }
 
+    @RequestMapping("/temple")
+    public String showBoardtemple(HttpServletRequest request, Model model){
+        return "temple";
+    }
 }
