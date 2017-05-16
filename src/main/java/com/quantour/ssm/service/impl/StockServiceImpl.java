@@ -1,14 +1,14 @@
 package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
-import com.quantour.ssm.dao.StockMapper;
 import com.quantour.ssm.dto.*;
-import com.quantour.ssm.model.*;
+import com.quantour.ssm.model.DayKLine;
+import com.quantour.ssm.model.DayKLineKey;
+import com.quantour.ssm.model.StockBasicInfo;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +38,8 @@ public class StockServiceImpl implements StockService {
         DayKLineKey dayKLineKey=new DayKLineKey();
         dayKLineKey.setStockCode(code);
         dayKLineKey.setStockDate(Date.valueOf(date));
+
+
         DayKLine dayKLine=dayklinemapper.getOneDayKLine(dayKLineKey);
 
         ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();

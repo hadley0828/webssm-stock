@@ -130,7 +130,8 @@
 
   <select id="getMarketDates" resultType="java.sql.Date">
     select distinct stock_date
-    from day_stock
+    from day_block
+    where stock_code = 'sh000001'
     order by stock_date asc
   </select>
 

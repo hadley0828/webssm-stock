@@ -1,9 +1,12 @@
 package com.quantour.ssm.test;
 
 import com.quantour.ssm.dao.DayKLineMapper;
+import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
+import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.impl.StockServiceImpl;
 import com.quantour.ssm.util.FKSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -24,27 +27,35 @@ public class DayKLineImplTest {
 
 
         DayKLineImplTest test = new DayKLineImplTest();
-        test.testGetAllDateByCode();
-        test.testGetOneDayKLine();
-        test.testGetTimesDayKLines();
-        test.testGetOneDayDayKLines();
-        test.testGetYesterdayDayKLines();
-        test.testGetAllDayKLinesByCode();
-        test.testGetAllStockInfos();
-        test.testGetOneBlockInfo();
-        test.testGetTimesBlockInfo();
-        test.testGetAllConceptBlock();
-        test.testGetAllAreaBlock();
-        test.testGetAllIndustryBlock();
-        test.testGetMarketDates();
-        test.testGetBlockAllDate();
-        test.testGetConceptBlockStockCodes();
-        test.testGetIndustryBlockStockCodes();
-        test.testGetAreaBlockStockCodes();
-        test.testGetAllCodeByBlock();
-        test.testGetBlockByStock();
-        test.testGetOneStockInfo();
+//        test.testGetAllDateByCode();
+//        test.testGetOneDayKLine();
+//        test.testGetTimesDayKLines();
+//        test.testGetOneDayDayKLines();
+//        test.testGetYesterdayDayKLines();
+//        test.testGetAllDayKLinesByCode();
+//        test.testGetAllStockInfos();
+//        test.testGetOneBlockInfo();
+//        test.testGetTimesBlockInfo();
+//        test.testGetAllConceptBlock();
+//        test.testGetAllAreaBlock();
+//        test.testGetAllIndustryBlock();
+        try {
+            long startTime = System.currentTimeMillis();
+            test.testGetMarketDates();
+            long endTime = System.currentTimeMillis();
+            System.out.println((endTime - startTime) + "ms");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+//        test.testGetBlockAllDate();
+//        test.testGetConceptBlockStockCodes();
+//        test.testGetIndustryBlockStockCodes();
+//        test.testGetAreaBlockStockCodes();
+//        test.testGetAllCodeByBlock();
+//        test.testGetBlockByStock();
+//        test.testGetOneStockInfo();
+        test.test();
     }
 
     /**
@@ -298,6 +309,13 @@ public class DayKLineImplTest {
         for(String s : list3){
             System.out.println(s);
         }
+    }
+
+    public void test(){
+        StockService stockService = new StockServiceImpl();
+        stockDTO stockDTO = stockService.getStockInfo("000001","2017-03-17");
+        System.out.println(stockDTO.getId());
+        System.out.println(stockDTO.getAdjClose());
     }
 
     public static void printDayKLine(DayKLine dayKLine){
