@@ -1,6 +1,7 @@
 package com.quantour.ssm.controller;
 
 import com.quantour.ssm.dto.klineDTO;
+import com.quantour.ssm.dto.marketDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.Stock;
@@ -41,5 +42,13 @@ public class StockController {
         model.addAttribute("klineDTOArrayList",klineDTOArrayList);
         return "stockkline";
     }
+
+    @RequestMapping("/market")
+    public String showMarket(HttpServletRequest request,Model model){
+        marketDTO marketdto=stockService.getMarketInfo("2008-11-28");
+        model.addAttribute("marketdto",marketdto);
+        return "market";
+    }
+
 
 }

@@ -40,16 +40,6 @@ public interface StockService {
     public marketDTO getMarketInfo(String date);
 
     /**
-     * 根据股票编号 开始日期 结束日期和均线日数来获得均线信息
-     * @param code
-     * @param sDate
-     * @param lDate
-     * @param days
-     * @return
-     */
-    public ArrayList<averageDTO> getAverageLine(String code,String sDate,String lDate,int days);
-
-    /**
      * 根据两个股票编号和开始日期结束日期来获得这两个股票的比较信息 保存在list的0和1中
      * @param firstCode
      * @param secondCode
