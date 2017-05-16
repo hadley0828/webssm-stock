@@ -1,9 +1,8 @@
 package com.quantour.ssm.controller;
 
 import com.quantour.ssm.dto.klineDTO;
+import com.quantour.ssm.dto.marketDTO;
 import com.quantour.ssm.dto.stockDTO;
-import com.quantour.ssm.model.DayKLine;
-import com.quantour.ssm.model.Stock;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ public class StockController {
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
 //        List<String> data = stockService.getAllDateByCode("000001");
-        stockDTO stockdto = stockService.getStockInfo("000001","2007-01-04");
+        stockDTO stockdto = stockService.getStockInfo("000001","2017-03-17");
         model.addAttribute("stockdto",stockdto);
         return "test";
     }
@@ -41,5 +40,13 @@ public class StockController {
         model.addAttribute("klineDTOArrayList",klineDTOArrayList);
         return "stockkline";
     }
+
+    @RequestMapping("/market")
+    public String showMarket(HttpServletRequest request,Model model){
+        marketDTO marketdto=stockService.getMarketInfo("2008-11-28");
+        model.addAttribute("marketdto",marketdto);
+        return "market";
+    }
+
 
 }
