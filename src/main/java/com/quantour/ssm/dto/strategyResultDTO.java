@@ -18,6 +18,27 @@ public class strategyResultDTO {
     double turnoverRate;   //换手率
     double currentStandardProfit;
     double currentStraProfit;
+
+    @Override
+    public String toString() {
+        return "strategyResultDTO{" +
+                "straId='" + straId + '\'' +
+                ", yearProfit=" + yearProfit +
+                ", standardProfit=" + standardProfit +
+                ", alpha=" + alpha +
+                ", beta=" + beta +
+                ", sharpRate=" + sharpRate +
+                ", profitWaveRate=" + profitWaveRate +
+                ", infoPercent=" + infoPercent +
+                ", maxBack=" + maxBack +
+                ", turnoverRate=" + turnoverRate +
+                ", currentStandardProfit=" + currentStandardProfit +
+                ", currentStraProfit=" + currentStraProfit +
+                ", daysProfitList=" + daysProfitList +
+                ", indexprofitvo=" + indexprofitvo +
+                '}';
+    }
+
     ArrayList<oneDayProfitDTO> daysProfitList;  //画a图的列表
     indexProfitDTO indexprofitvo;  //画c图的vo
 
