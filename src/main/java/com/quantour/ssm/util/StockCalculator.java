@@ -94,4 +94,46 @@ public class StockCalculator {
         return result;
     }
 
+    public static double getAverage(ArrayList<Double> doubleList){
+        double result=0.0;
+        double total=0.0;
+        for(int count=0;count<doubleList.size();count++){
+            total=total+doubleList.get(count);
+        }
+        result=total/doubleList.size();
+        return result;
+    }
+
+    //方差 使用应用样本统计量
+    public static double getVariance(ArrayList<Double> doubleList){
+        double result=0.0;
+        double average=getAverage(doubleList);
+        double total=0.0;
+        for(int count=0;count<doubleList.size();count++){
+            total=total+Math.pow(doubleList.get(count)-average,2.0);
+        }
+        result=total/(doubleList.size()-1);
+        return result;
+    }
+
+
+    //协方差
+    public static double getCovariance(ArrayList<Double> firstList,ArrayList<Double> secondList){
+        double result=0.0;
+        double firstAverage=getAverage(firstList);
+        double secondAverage=getAverage(secondList);
+        ArrayList<Double> numberList=new ArrayList<Double>();
+        for(int count=0;count<firstList.size();count++){
+            numberList.add((firstList.get(count)-firstAverage)*(secondList.get(count)-secondAverage));
+        }
+        result=getAverage(numberList);
+
+        return result;
+    }
+
+    public static double getOneYearRate(){
+        double result=0.0175;
+        return result;
+    }
+
 }
