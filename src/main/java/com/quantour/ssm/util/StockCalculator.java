@@ -79,4 +79,19 @@ public class StockCalculator {
 		a.add(2.34);
 		System.out.println(sc.getLogVariance(a)); */
     }
+
+
+    public static double getIncrease(double beforePrice,double nowPrice){
+        double result=0.0;
+//        double changePrice=nowPrice-beforePrice;
+//        BigDecimal b1 = new BigDecimal(Double.toString(changePrice));
+//        BigDecimal b2 = new BigDecimal(Double.toString(beforePrice));
+//
+//        result=b1.divide(b2).doubleValue();
+
+        result=(nowPrice-beforePrice)/beforePrice;
+
+        return result;
+    }
+
 }

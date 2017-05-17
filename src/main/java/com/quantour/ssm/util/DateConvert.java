@@ -11,17 +11,32 @@ import java.util.GregorianCalendar;
  */
 public class DateConvert {
 
-    //STRING到日期
+
+    /**
+     * STRING到日期
+     * @param dateStr
+     * @return
+     */
     public static java.sql.Date stringToDate(String dateStr) {
         return java.sql.Date.valueOf(dateStr);
     }
 
-    //日期到STRING
+    /**
+     * 日期到STRING
+     * @param datee
+     * @return
+     */
     public static String dateToString(java.sql.Date datee) {
         return datee.toString();
     }
 
-    //获得全部日期列表中前n个日期
+    /**
+     * 获得全部日期列表中前n个日期
+     * @param allDateList
+     * @param date
+     * @param n
+     * @return
+     */
     public static String getLastNDate(ArrayList<String> allDateList, String date, int n) {
         String result = "NotExist";
 
@@ -36,7 +51,7 @@ public class DateConvert {
         return result;
     }
 
-    /*
+    /**
     获得sql的date类向前向后的String 日期
      */
     public static String getPreDoneScore(String holdDateStr,int n) {
@@ -53,6 +68,12 @@ public class DateConvert {
         return DateConvert.dateToString(newDate);
     }
 
+    /**
+     * 根据开始日期和全部日期获得真正有意义的开始日期 排除非交易日
+     * @param sDate
+     * @param allDateList
+     * @return
+     */
     public static String getRealStartDate(String sDate,ArrayList<String> allDateList){
         String result=sDate;
         if(allDateList.contains(sDate)){
@@ -69,6 +90,12 @@ public class DateConvert {
         return result;
     }
 
+    /**
+     * 根据结束日期和全部日期获得真正有意义的结束日期 排除非交易日
+     * @param lDate
+     * @param allDateList
+     * @return
+     */
     public static String getRealEndDate(String lDate,ArrayList<String> allDateList){
         String result=lDate;
 
