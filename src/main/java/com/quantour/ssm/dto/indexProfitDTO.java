@@ -9,6 +9,17 @@ public class indexProfitDTO {
     int plusCycles;         //正收益周期数;
     int minusCycles;        //负收益周期数;
     double winRate;         //赢率;
+    HashMap<Double,Integer> cycleChangeMap;   //double是靠近的那个变化率  integer是数量
+
+    @Override
+    public String toString() {
+        return "indexProfitDTO{" +
+                "plusCycles=" + plusCycles +
+                ", minusCycles=" + minusCycles +
+                ", winRate=" + winRate +
+                ", cycleChangeMap=" + cycleChangeMap +
+                '}';
+    }
 
     public int getPlusCycles() {
         return plusCycles;
@@ -42,7 +53,7 @@ public class indexProfitDTO {
         this.cycleChangeMap = cycleChangeMap;
     }
 
-    HashMap<Double,Integer> cycleChangeMap;   //double是靠近的那个变化率  integer是数量
+
 
     public indexProfitDTO(){
         super();

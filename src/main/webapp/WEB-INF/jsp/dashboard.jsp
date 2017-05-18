@@ -104,11 +104,16 @@
                     </a>
                 </li>
                 <li class="active-pro">
-                    <a href="upgrade.html">
+                    <a href="dashboard/temple">
                         <i class="ti-export"></i>
-                        <p>Upgrade to PRO</p>
+                        <p>temple</p>
                     </a>
                 </li>
+                <%--<li>--%>
+                   <%--<form method="post" action="/dashboard/temple.form" >--%>
+                       <%--<input type="text" name="name">--%>
+                    <%--</form>--%>
+                <%--</li>--%>
             </ul>
         </div>
     </div>

@@ -4,9 +4,9 @@ package com.quantour.ssm.dto;
  * Created by zhangzy on 2017/5/14.
  */
 public class limitUpAndDownNumsDTO {
-    int upNumber;
-    int downNumber;
-    String date;
+    int upNumber;  //上涨的支数
+    int downNumber; //下跌的支数
+    String date;    //当前日期
 
     @Override
     public String toString() {

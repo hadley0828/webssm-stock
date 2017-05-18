@@ -2,6 +2,7 @@ package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dto.*;
+import com.quantour.ssm.model.Block;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
@@ -9,14 +10,13 @@ import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Created by loohaze on 2017/5/11.
@@ -136,6 +136,13 @@ public class StockServiceImpl implements StockService {
         int upnum=0;		//开盘-收盘小于-5%*上一个交易日收盘价的股票个数;
         int downnum=0;	//开盘-收盘大于5%*上一个交易日收盘价的股票个数;
 
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String lastDate=DateConvert.getLastNDate(allDateList,date,1);
+
 
 
         ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(date));
@@ -143,7 +150,8 @@ public class StockServiceImpl implements StockService {
         for(int count=0;count<dayKLineArrayList.size();count++){
             nowStockMap.put(dayKLineArrayList.get(count).getStockCode(),dayKLineArrayList.get(count));
         }
-        ArrayList<DayKLine> lastDayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getYesterdayDayKLines(DateConvert.stringToDate(date));
+
+        ArrayList<DayKLine> lastDayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(lastDate));
         HashMap<String,DayKLine> yesterdayStockMap=new HashMap<String, DayKLine>();
         for(int count=0;count<lastDayKLineArrayList.size();count++){
             yesterdayStockMap.put(lastDayKLineArrayList.get(count).getStockCode(),lastDayKLineArrayList.get(count));
@@ -206,8 +214,13 @@ public class StockServiceImpl implements StockService {
         map.put("code",firstCode);
         map.put("start",Date.valueOf(realSDate));
         map.put("end",Date.valueOf(realLDate));
+
+        System.out.println(firstCode+" "+realSDate+" "+realLDate);
+
         ArrayList<DayKLine> firstDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getTimesDayKLines(map);
 
+        System.out.println(firstDayKLineList.get(0).getLowPrice());
+        System.out.println(firstDayKLineList.get(0).getStockCode());
 
         ArrayList<String> dateList=new ArrayList<String>();
         double lowestPrice=firstDayKLineList.get(0).getLowPrice();
@@ -335,7 +348,18 @@ public class StockServiceImpl implements StockService {
         String code=nameToCode(input);
         ArrayList<String> allStockDateList= (ArrayList<String>) dayklinemapper.getAllDateByCode(code);
 
-        return false;
+        HashSet<String> stockAllDateMap=new HashSet<String>();
+        for(int count=0;count<allStockDateList.size();count++){
+            stockAllDateMap.add(allStockDateList.get(count));
+        }
+
+        if(stockAllDateMap.contains(date)){
+            return true;
+        }else{
+            return false;
+        }
+
+
     }
 
     @Override
@@ -371,64 +395,266 @@ public class StockServiceImpl implements StockService {
         }
     }
 
-
+    //String=code+"\t"+name;
     @Override
     public ArrayList<String> getAllCodeAndName() {
-        return null;
+        ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
+        ArrayList<String> allCodeAndNameList=new ArrayList<String>();
+        for(int count=0;count<stockBasicInfoArrayList.size();count++){
+            String str=stockBasicInfoArrayList.get(count).getCode()+"\t"+stockBasicInfoArrayList.get(count).getName();
+            allCodeAndNameList.add(str);
+        }
+
+        return allCodeAndNameList;
     }
 
     @Override
     public ArrayList<String> getAllPlateName() {
-        return null;
+        ArrayList<String> allPlateNameList=new ArrayList<String>();
+        ArrayList<String> conceptList= (ArrayList<String>) dayklinemapper.getAllConceptBlock();
+        for(int count=0;count<conceptList.size();count++){
+            allPlateNameList.add(conceptList.get(count));
+        }
+        ArrayList<String> areaList= (ArrayList<String>) dayklinemapper.getAllAreaBlock();
+        for(int count=0;count<areaList.size();count++){
+            allPlateNameList.add(areaList.get(count));
+        }
+        ArrayList<String> industryList= (ArrayList<String>) dayklinemapper.getAllIndustryBlock();
+        for(int count=0;count<industryList.size();count++){
+            allPlateNameList.add(industryList.get(count));
+        }
+        return allPlateNameList;
     }
 
     @Override
     public ArrayList<String> getPlateAllStockCode(String plateName) {
+
+        ArrayList<String> allConceptList= (ArrayList<String>) dayklinemapper.getAllConceptBlock();
+        HashSet<String> allConceptSet=new HashSet<String>();
+        for(int count=0;count<allConceptList.size();count++){
+            allConceptSet.add(allConceptList.get(count));
+        }
+
+        if(allConceptSet.contains(plateName)){
+            return (ArrayList<String>) dayklinemapper.getConceptBlockStockCodes(plateName);
+        }
+
+        ArrayList<String> allAreaList= (ArrayList<String>) dayklinemapper.getAllAreaBlock();
+        HashSet<String> allAreaSet=new HashSet<String>();
+        for(int count=0;count<allAreaList.size();count++){
+            allAreaSet.add(allAreaList.get(count));
+        }
+
+        if(allAreaSet.contains(plateName)){
+            return (ArrayList<String>) dayklinemapper.getAreaBlockStockCodes(plateName);
+        }
+
+        ArrayList<String> allIndustryList= (ArrayList<String>) dayklinemapper.getAllIndustryBlock();
+        HashSet<String> allIndustrySet=new HashSet<String>();
+        for(int count=0;count<allIndustryList.size();count++){
+            allIndustrySet.add(allIndustryList.get(count));
+        }
+
+        if(allIndustrySet.contains(plateName)){
+            return (ArrayList<String>) dayklinemapper.getIndustryBlockStockCodes(plateName);
+        }
+
+
         return null;
     }
 
     @Override
     public ArrayList<String> getOneStockAllPlate(String stockCode) {
-        return null;
+        ArrayList<String> allPlateList=new ArrayList<String>();
+
+        ArrayList<String> conceptsList= (ArrayList<String>) dayklinemapper.getConceptByStock(stockCode);
+        for(int count=0;count<conceptsList.size();count++){
+            allPlateList.add(conceptsList.get(count));
+        }
+
+        ArrayList<String> areasList= (ArrayList<String>) dayklinemapper.getAreaByStock(stockCode);
+        for(int count=0;count<areasList.size();count++){
+            allPlateList.add(areasList.get(count));
+        }
+
+        ArrayList<String> industrysList= (ArrayList<String>) dayklinemapper.getIndustryByStock(stockCode);
+        for(int count=0;count<industrysList.size();count++){
+            allPlateList.add(industrysList.get(count));
+        }
+
+        return allPlateList;
     }
 
+    /**
+     * 需要保证当前的日期有效
+     * 该方法用来获得某一天全部股票中涨幅前n名的股票的List
+     * 用于生成排行榜
+     * @param n 获得前n名
+     * @param date 当天日期
+     * @param changeDays 涨跌幅的天数
+     * @return
+     */
     @Override
     public ArrayList<waveDTO> getTopNCodesByDays(int n, String date, int changeDays) {
-        return null;
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String lastDate=DateConvert.getLastNDate(allDateList,date,changeDays);
+        //date是当前日期 lastDate是上一个作比较的日期
+
+        ArrayList<waveDTO> waveDTOArrayList=new ArrayList<waveDTO>();
+        ArrayList<waveDTO> resultList=new ArrayList<waveDTO>();
+
+
+        ArrayList<DayKLine> nowDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(date));
+        HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
+        for(int count=0;count<nowDayKLineList.size();count++){
+            nowStockMap.put(nowDayKLineList.get(count).getStockCode(),nowDayKLineList.get(count));
+        }
+
+        ArrayList<DayKLine> lastDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(lastDate));
+        HashMap<String,DayKLine> lastStockMap=new HashMap<String, DayKLine>();
+        for(int count=0;count<lastDayKLineList.size();count++){
+            lastStockMap.put(lastDayKLineList.get(count).getStockCode(),lastDayKLineList.get(count));
+        }
+
+        for(int count=0;count<nowDayKLineList.size();count++){
+            String currentCode=nowDayKLineList.get(count).getStockCode();
+
+            if(nowStockMap.containsKey(currentCode)&&lastStockMap.containsKey(currentCode)){
+                DayKLine nowDayKline=nowStockMap.get(currentCode);
+                DayKLine lastDayKline=lastStockMap.get(currentCode);
+
+                waveDTO wavedto=new waveDTO();
+                wavedto.setStockCode(currentCode);
+                wavedto.setChangePercent(StockCalculator.getIncrease(lastDayKline.getClosePrice(),nowDayKline.getClosePrice()));
+
+                waveDTOArrayList.add(wavedto);
+            }
+        }
+
+        Collections.sort(waveDTOArrayList,COMPARATOR);
+
+        if(n>waveDTOArrayList.size()){
+            resultList=waveDTOArrayList;
+        }else{
+            for(int count=0;count<n;count++){
+                resultList.add(waveDTOArrayList.get(count));
+            }
+        }
+        return resultList;
     }
 
+    //编写Comparator,根据WaveVO的changePercent对waveDTO进行排序
+    private static final Comparator<waveDTO> COMPARATOR = new Comparator<waveDTO>() {
+        public int compare(waveDTO o1, waveDTO o2) {
+            return o1.compareTo(o2);//运用User类的compareTo方法比较两个对象
+        }
+    };
+
+    /**
+     * 当前的日期必须有效
+     * 该方法用来获得某一个日期从前30个交易日为止的每天的涨停数和跌停数
+     * @param date
+     * @return
+     */
     @Override
     public ArrayList<limitUpAndDownNumsDTO> getLimitUpAndDownNumber(String date) {
-        return null;
+        ArrayList<limitUpAndDownNumsDTO> resultList=new ArrayList<limitUpAndDownNumsDTO>();
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        for(int count=30;count>=1;count--){
+            String lastDate=DateConvert.getLastNDate(allDateList,date,count+1);
+            String currentDate=DateConvert.getLastNDate(allDateList,date,count);
+
+            int limitUpNumber=0;
+            int limitDownNumber=0;
+
+            ArrayList<DayKLine> currentDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(currentDate));
+            HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
+            for(int index=0;index<currentDayKLineList.size();index++){
+                nowStockMap.put(currentDayKLineList.get(index).getStockCode(),currentDayKLineList.get(index));
+            }
+
+
+            ArrayList<DayKLine> lastDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(lastDate));
+            HashMap<String,DayKLine> lastStockMap=new HashMap<String, DayKLine>();
+            for(int index=0;index<lastDayKLineList.size();index++){
+                lastStockMap.put(lastDayKLineList.get(index).getStockCode(),lastDayKLineList.get(index));
+            }
+
+            for(int index=0;index<currentDayKLineList.size();index++){
+                String currentCode=currentDayKLineList.get(index).getStockCode();
+                if(nowStockMap.containsKey(currentCode)&&lastStockMap.containsKey(currentCode)){
+                    double lastPrice=lastStockMap.get(currentCode).getClosePrice();
+                    double nowPrice=nowStockMap.get(currentCode).getClosePrice();
+
+                    if(StockChangeHelper.isLimitUp(lastPrice,nowPrice)){
+                        limitUpNumber++;
+                    }
+
+                    if(StockChangeHelper.isLimitDown(lastPrice,nowPrice)){
+                        limitDownNumber++;
+                    }
+                }
+            }
+
+            limitUpAndDownNumsDTO limitUpAndDownNumsdto=new limitUpAndDownNumsDTO();
+            limitUpAndDownNumsdto.setDate(currentDate);
+            limitUpAndDownNumsdto.setUpNumber(limitUpNumber);
+            limitUpAndDownNumsdto.setDownNumber(limitDownNumber);
+
+            resultList.add(limitUpAndDownNumsdto);
+
+        }
+        return resultList;
     }
 
+    /**
+     * 传入的日期格式为2007-01-02
+     * @param date
+     * @return
+     */
     @Override
     public boolean isMarketDateValid(String date) {
-        return false;
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        HashSet<String> allDateSet=new HashSet<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateSet.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        if(allDateSet.contains(date)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
+    /**
+     *
+     * @param date
+     * @param blockCode 格式为"sh000300"
+     * @return
+     */
     @Override
     public boolean isBlockDateValid(String date, String blockCode) {
-        return false;
-    }
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getBlockAllDate(blockCode);
+        HashSet<String> allDateSet=new HashSet<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateSet.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
 
-    @Override
-    public strategyResultDTO getStraOneResult(int formDays, int holdDays, String sDate, String lDate, int type, ArrayList<String> codeList, String blockCode) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<oneExtraProfitDTO> getOneExtraProfit(int daysType, int days, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
-        return null;
-    }
-
-    @Override
-    public strategyResultDTO getStraTwoResult(int averageDays, int holdDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<oneExtraProfitDTO> getTwoExtraProfit(int averageDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
-        return null;
+        if(allDateSet.contains(date)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

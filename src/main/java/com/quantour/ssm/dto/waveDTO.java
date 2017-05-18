@@ -7,6 +7,14 @@ public class waveDTO implements Comparable<Object>{
     String stockCode;   //股票编号
     double changePercent;  //股票的涨跌幅
 
+    @Override
+    public String toString() {
+        return "waveDTO{" +
+                "stockCode='" + stockCode + '\'' +
+                ", changePercent=" + changePercent +
+                '}';
+    }
+
     public waveDTO(){
         super();
     }
