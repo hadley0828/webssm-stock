@@ -34,4 +34,11 @@ public class DashBoardController {
     public String showBoardtemple(HttpServletRequest request, Model model){
         return "temple";
     }
+
+    @RequestMapping("/temple.form")
+    public String testPrint(HttpServletRequest request,Model model){
+        String name = request.getParameter("name");
+        model.addAttribute("name",name);
+        return "temple";
+    }
 }
