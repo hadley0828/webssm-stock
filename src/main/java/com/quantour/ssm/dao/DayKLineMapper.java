@@ -47,6 +47,17 @@ public interface DayKLineMapper {
      */
     public List<DayKLine> getTimesDayKLines(HashMap map);
 
+
+
+    /**
+     *
+     * 获得一段时间内的所有股票信息
+     * 用hashmap封装参数 key值分别为 String start, String end
+     * @param map
+     * @return
+     */
+    public List<DayKLine> getStocksByTimes(HashMap map);
+
     /**
      * 根据日期获得该日期所有股票信息
      * 注意日期的数据类型是 Java.sql.Date

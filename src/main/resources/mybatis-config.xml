@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+
     <!-- 对事务的管理和连接池的配置 -->
     <environments default="development">
         <environment id="development">
@@ -16,6 +17,8 @@
             </dataSource>
         </environment>
     </environments>
+
+
 
     <!-- mapping 文件路径配置 -->
     <mappers>

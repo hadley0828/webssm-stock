@@ -1,8 +1,6 @@
 package com.quantour.ssm.dao;
 
-import com.quantour.ssm.model.Block;
-import com.quantour.ssm.model.Stock;
-import com.quantour.ssm.model.StockKey;
+import com.quantour.ssm.model.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -46,6 +44,8 @@ public interface StockMapper {
      * @return
      */
     public List<Stock> getTimesStocks(HashMap map);
+
+
 
     /**
      * 根据日期获得该日期所有股票信息

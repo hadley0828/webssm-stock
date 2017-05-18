@@ -1,12 +1,9 @@
 package com.quantour.ssm.test;
 
 import com.quantour.ssm.dao.DayKLineMapper;
-import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
-import com.quantour.ssm.service.StockService;
-import com.quantour.ssm.service.impl.StockServiceImpl;
 import com.quantour.ssm.util.FKSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -28,7 +25,10 @@ public class DayKLineImplTest {
 
         DayKLineImplTest test = new DayKLineImplTest();
 //        test.testGetAllDateByCode();
+//        long startTime = System.currentTimeMillis();
 //        test.testGetOneDayKLine();
+//        long endTime = System.currentTimeMillis();
+//        System.out.println(endTime - startTime + "ms");
 //        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
@@ -39,14 +39,20 @@ public class DayKLineImplTest {
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
-        try {
-            long startTime = System.currentTimeMillis();
-            test.testGetMarketDates();
-            long endTime = System.currentTimeMillis();
-            System.out.println((endTime - startTime) + "ms");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+////            long startTime = System.currentTimeMillis();
+////            test.testGetYesterdayDayKLines();
+////            long endTime = System.currentTimeMillis();
+////            System.out.println((endTime - startTime) + "ms");
+//
+//            long startTime2 = System.currentTimeMillis();
+//            test.testGetOneDayDayKLines();
+//            long endTime2 = System.currentTimeMillis();
+//            System.out.println((endTime2 - startTime2) + "ms");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 //        test.testGetBlockAllDate();
 //        test.testGetConceptBlockStockCodes();
@@ -55,7 +61,10 @@ public class DayKLineImplTest {
 //        test.testGetAllCodeByBlock();
 //        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
+        long startTime = System.currentTimeMillis();
         test.test();
+        long endTime = System.currentTimeMillis();
+        System.out.println((endTime - startTime) + "ms");
     }
 
     /**
@@ -103,9 +112,9 @@ public class DayKLineImplTest {
     public void testGetOneDayDayKLines(){
         Date date = Date.valueOf("2017-03-13");
         List<DayKLine> list = dayKLineMapper.getOneDayDayKLines(date);
-        for(DayKLine dayKLine : list){
-            printDayKLine(dayKLine);
-        }
+//        for(DayKLine dayKLine : list){
+//            printDayKLine(dayKLine);
+//        }
     }
 
 
@@ -117,9 +126,9 @@ public class DayKLineImplTest {
     public void testGetYesterdayDayKLines(){
         Date date = Date.valueOf("2017-03-24");
         List<DayKLine> list = dayKLineMapper.getYesterdayDayKLines(date);
-        for(DayKLine dayKLine : list){
-            printDayKLine(dayKLine);
-        }
+//        for(DayKLine dayKLine : list){
+//            printDayKLine(dayKLine);
+//        }
     }
 
     /**
@@ -312,10 +321,13 @@ public class DayKLineImplTest {
     }
 
     public void test(){
-        StockService stockService = new StockServiceImpl();
-        stockDTO stockDTO = stockService.getStockInfo("000001","2017-03-17");
-        System.out.println(stockDTO.getId());
-        System.out.println(stockDTO.getAdjClose());
+        HashMap<String,Date> map = new HashMap<String, Date>();
+        map.put("start",Date.valueOf("2017-01-01"));
+        map.put("end",Date.valueOf("2017-02-01"));
+        List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
+        for(DayKLine dayKLine : dayKLines){
+            printDayKLine(dayKLine);
+        }
     }
 
     public static void printDayKLine(DayKLine dayKLine){
