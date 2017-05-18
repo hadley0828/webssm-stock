@@ -13,15 +13,8 @@
 <%--</c:forEach>--%>
 <%--</c:if>--%>
 <c:if test="${marketdto!=null}">
-    市场名字：${marketdto.name} &nbsp;&nbsp;
-    成交量：${marketdto.volume} &nbsp;&nbsp;
-    日期：${marketdto.date} &nbsp;&nbsp;
-    涨停数：${marketdto.limitup} &nbsp;&nbsp;
-    跌停数：${marketdto.limitdown} &nbsp;&nbsp;
-    涨5%: ${marketdto.upfive} &nbsp;&nbsp;
-    跌5%: ${marketdto.downfive} &nbsp;&nbsp;
-    差价涨5%: ${marketdto.upnum} &nbsp;&nbsp;
-    差价跌5%: ${marketdto.downnum} &nbsp;&nbsp;
+    市场信息：${marketdto.toString()} &nbsp;&nbsp;
+
     <br>
 </c:if>
 </body>
