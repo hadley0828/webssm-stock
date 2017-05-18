@@ -214,8 +214,13 @@ public class StockServiceImpl implements StockService {
         map.put("code",firstCode);
         map.put("start",Date.valueOf(realSDate));
         map.put("end",Date.valueOf(realLDate));
+
+        System.out.println(firstCode+" "+realSDate+" "+realLDate);
+
         ArrayList<DayKLine> firstDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getTimesDayKLines(map);
 
+        System.out.println(firstDayKLineList.get(0).getLowPrice());
+        System.out.println(firstDayKLineList.get(0).getStockCode());
 
         ArrayList<String> dateList=new ArrayList<String>();
         double lowestPrice=firstDayKLineList.get(0).getLowPrice();

@@ -106,7 +106,7 @@ public class StaticServiceImpl implements StaticService {
 
         HashMap<String,Object> map = new HashMap<String, Object>();
         map.put("block", blockCode);
-        map.put("start",Date.valueOf(realSDate));
+        map.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realSDate,14)));
         map.put("end",Date.valueOf(realLDate));
 
         ArrayList<DayKLine> blockList= (ArrayList<DayKLine>) dayklinemapper.getTimesBlockInfo(map);
@@ -119,7 +119,10 @@ public class StaticServiceImpl implements StaticService {
 //            e.printStackTrace();
 //        }
         //blockList中的时间格式是XXXX-XX-XX
+
+
         for(int count=0;count<blockList.size();count++){
+
             blockMap.put(DateConvert.dateToString(blockList.get(count).getStockDate()),blockList.get(count));
         }
 
@@ -239,8 +242,21 @@ public class StaticServiceImpl implements StaticService {
 
                 standardUp=standardUp/validCodeList.size();
             }else{
+                System.out.println(currentDate);
+                System.out.println(DateConvert.getLastNDate(allDateList,currentDate,1));
+
+
                 DayKLine nowStockPo=blockMap.get(currentDate);
+                System.out.println(nowStockPo.getClosePrice());
+
+
+                System.out.println(blockMap.containsKey(currentDate));
+                System.out.println(blockMap.containsKey(DateConvert.getLastNDate(allDateList,currentDate,1)));
+
+
                 DayKLine yesterdayBlockPo=blockMap.get(DateConvert.getLastNDate(allDateList,currentDate,1));
+                System.out.println(yesterdayBlockPo.getClosePrice());
+
                 standardUp=StockCalculator.getIncrease(yesterdayBlockPo.getClosePrice(),nowStockPo.getClosePrice());
 
             }
@@ -478,7 +494,7 @@ public class StaticServiceImpl implements StaticService {
 
         HashMap<String,Object> map = new HashMap<String, Object>();
         map.put("block", blockCode);
-        map.put("start",Date.valueOf(realSDate));
+        map.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realSDate,14)));
         map.put("end",Date.valueOf(realLDate));
 
         ArrayList<DayKLine> blockList= (ArrayList<DayKLine>) dayklinemapper.getTimesBlockInfo(map);
