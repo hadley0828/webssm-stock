@@ -68,12 +68,12 @@
                         <p>主页</p>
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        <i class="ti-user"></i>
-                        <p>个股信息</p>
-                    </a>
-                </li>
+                <%--<li>--%>
+                    <%--<a href="">--%>
+                        <%--<i class="ti-user"></i>--%>
+                        <%--<p>个股信息</p>--%>
+                    <%--</a>--%>
+                <%--</li>--%>
                 <li>
                     <a href="">
                         <i class="ti-view-list-alt"></i>
@@ -106,6 +106,11 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="form-group" style="padding-top: 15px">
+                                <input type="text" placeholder="Search" class="form-control">
+                            </div>
+                        </li>
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-user"></i>
