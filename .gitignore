@@ -86,3 +86,4 @@ $RECYCLE.BIN/
 /src/main/resources/jdbc.properties
 /.idea/
 logs/
+/src/main/resources/mybatis-config.xml

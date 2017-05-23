@@ -62,7 +62,7 @@ public class DayKLineImplTest {
 //        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
         long startTime = System.currentTimeMillis();
-        test.test();
+        test.testGetStocksByTimes();
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
     }
@@ -317,6 +317,16 @@ public class DayKLineImplTest {
         }
         for(String s : list3){
             System.out.println(s);
+        }
+    }
+
+    public void testGetStocksByTimes(){
+        HashMap<String,Date> map = new HashMap<String, Date>();
+        map.put("start",Date.valueOf("2017-01-01"));
+        map.put("end",Date.valueOf("2017-02-01"));
+        List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
+        for(DayKLine dayKLine : dayKLines){
+            printDayKLine(dayKLine);
         }
     }
 
