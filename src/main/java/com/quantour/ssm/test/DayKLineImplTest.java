@@ -332,12 +332,13 @@ public class DayKLineImplTest {
 
     public void test(){
         HashMap<String,Date> map = new HashMap<String, Date>();
-        map.put("start",Date.valueOf("2017-01-01"));
-        map.put("end",Date.valueOf("2017-02-01"));
+        map.put("start",Date.valueOf("2015-01-01"));
+        map.put("end",Date.valueOf("2016-01-08"));
         List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
-        for(DayKLine dayKLine : dayKLines){
-            printDayKLine(dayKLine);
-        }
+//        for(DayKLine dayKLine : dayKLines){
+//            printDayKLine(dayKLine);
+//        }
+        System.out.println(dayKLines.size());
     }
 
     public static void printDayKLine(DayKLine dayKLine){

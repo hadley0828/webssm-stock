@@ -37,7 +37,7 @@ public class StockController {
 
     @RequestMapping("/stockkline")
     public String showKline(HttpServletRequest request,Model model){
-        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000001","2008-11-22","2008-12-20");
+        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000001","2007-11-22","2008-12-20");
         model.addAttribute("klineDTOArrayList",klineDTOArrayList);
         return "serviceTest/stockkline";
     }
@@ -88,6 +88,8 @@ public class StockController {
     public String showGetTop(HttpServletRequest request,Model model){
         ArrayList<waveDTO> waveDTOArrayList=stockService.getTopNCodesByDays(20,"2006-09-11",1);
         model.addAttribute("waveDTOArrayList",waveDTOArrayList);
+        ArrayList<waveDTO> waveDTOArrayList1=stockService.getTopNCodesByDays(10,"2006-09-11",2);
+        model.addAttribute("waveDTOArrayList1",waveDTOArrayList1);
         return "serviceTest/waveDTOArrayList";
     }
 

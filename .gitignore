@@ -87,3 +87,4 @@ $RECYCLE.BIN/
 /.idea/
 logs/
 /src/main/resources/mybatis-config.xml
+src/main/webapp/WEB-INF/jsp/serviceTest/echarts.js

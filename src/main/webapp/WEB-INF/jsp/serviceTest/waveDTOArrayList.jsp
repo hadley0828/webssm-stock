@@ -12,5 +12,12 @@
         <br>
     </c:forEach>
 </c:if>
+<c:if test="${!empty waveDTOArrayList1}">
+    <c:forEach var="wavedto1" items="${waveDTOArrayList1}">
+        单个股票信息：${wavedto1.toString()} &nbsp;&nbsp;
+        <br>
+    </c:forEach>
+</c:if>
+
 </body>
 </html>
