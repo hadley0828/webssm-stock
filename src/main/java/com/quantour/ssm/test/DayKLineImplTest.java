@@ -24,11 +24,9 @@ public class DayKLineImplTest {
 
 
         DayKLineImplTest test = new DayKLineImplTest();
+
 //        test.testGetAllDateByCode();
-//        long startTime = System.currentTimeMillis();
 //        test.testGetOneDayKLine();
-//        long endTime = System.currentTimeMillis();
-//        System.out.println(endTime - startTime + "ms");
 //        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
@@ -39,20 +37,20 @@ public class DayKLineImplTest {
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
-//        try {
-////            long startTime = System.currentTimeMillis();
-////            test.testGetYesterdayDayKLines();
-////            long endTime = System.currentTimeMillis();
-////            System.out.println((endTime - startTime) + "ms");
-//
-//            long startTime2 = System.currentTimeMillis();
-//            test.testGetOneDayDayKLines();
-//            long endTime2 = System.currentTimeMillis();
-//            System.out.println((endTime2 - startTime2) + "ms");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+//            long startTime = System.currentTimeMillis();
+//            test.testGetYesterdayDayKLines();
+//            long endTime = System.currentTimeMillis();
+//            System.out.println((endTime - startTime) + "ms");
+
+            long startTime2 = System.currentTimeMillis();
+            test.testGetOneDayDayKLines();
+            long endTime2 = System.currentTimeMillis();
+            System.out.println((endTime2 - startTime2) + "ms");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        test.testGetBlockAllDate();
 //        test.testGetConceptBlockStockCodes();
@@ -61,10 +59,7 @@ public class DayKLineImplTest {
 //        test.testGetAllCodeByBlock();
 //        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
-        long startTime = System.currentTimeMillis();
-        test.testGetStocksByTimes();
-        long endTime = System.currentTimeMillis();
-        System.out.println((endTime - startTime) + "ms");
+//        test.testGetStocksByTimes();
     }
 
     /**
@@ -85,7 +80,7 @@ public class DayKLineImplTest {
      */
     public void testGetOneDayKLine(){
         DayKLineKey dayKLineKey = new DayKLineKey();
-        dayKLineKey.setStockCode("000001");
+        dayKLineKey.setStockCode("000018");
         dayKLineKey.setStockDate(Date.valueOf("2017-03-21"));
         DayKLine dayKLine = dayKLineMapper.getOneDayKLine(dayKLineKey);
         printDayKLine(dayKLine);
@@ -155,6 +150,18 @@ public class DayKLineImplTest {
      */
     public void testGetAllStockInfos(){
         List<StockBasicInfo> list = dayKLineMapper.getAllStockInfos();
+//        try {
+//            FileWriter fileWriter = new FileWriter("codelist");
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            for(StockBasicInfo s : list){
+//                bufferedWriter.write(s.getCode());
+//                bufferedWriter.newLine();
+//                bufferedWriter.flush();
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         for(StockBasicInfo stockBasicInfo : list){
             System.out.print(stockBasicInfo.getCode() + " ");
             System.out.print(stockBasicInfo.getName() + " ");

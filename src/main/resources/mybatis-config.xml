@@ -5,6 +5,12 @@
 <configuration>
 
 
+    <plugins>
+        <plugin interceptor="com.quantour.ssm.plugin.CheckSQLInterceptor">
+            <property name="dialect" value="mysql"></property>
+        </plugin>
+    </plugins>
+
     <!-- 对事务的管理和连接池的配置 -->
     <environments default="development">
         <environment id="development">

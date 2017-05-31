@@ -36,7 +36,7 @@
      and  stock_date = #{stockDate,jdbcType=DATE}
   </select>
 
-  <select id="getTimesDayKLines" resultMap="BaseResultMap">
+  <select id="getTimesDayKLines" parameterType="java.util.HashMap" resultMap="BaseResultMap">
     select *
     from day_stock
     where stock_code = #{code} and
