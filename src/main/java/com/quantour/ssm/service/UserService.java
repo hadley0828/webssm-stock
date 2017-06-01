@@ -13,6 +13,14 @@ public interface UserService {
     public List<User> getAllUser();
 
     /**
+     * 根据账号和密码来创建一个新的账号
+     * @param account
+     * @param password
+     * @return
+     */
+    public boolean setNewAccount(String account,String password);
+
+    /**
      * 根据账号判断这个账号是否存在
      * @param account
      * @return

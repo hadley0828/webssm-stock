@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean setNewAccount(String account, String password) {
+        return false;
+    }
+
+    @Override
     public boolean isAccountValid(String account) {
         return false;
     }
