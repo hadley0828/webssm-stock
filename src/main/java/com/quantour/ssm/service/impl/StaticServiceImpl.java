@@ -10,15 +10,14 @@ import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.annotation.Resource;
 import java.rmi.RemoteException;
+import java.sql.Array;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 
 /**
@@ -79,11 +78,14 @@ public class StaticServiceImpl implements StaticService {
 //                //跳出提示框提示自选股票数量不足100
 //            }
 
-            for(int count=0;count<codeList.size();count++){
-                stockCodeList.add(codeList.get(count).split("  ")[0]);
-            }
         }else{
             //跳出提示框 提示传入的参数不对
+        }
+
+
+        HashSet<String> stockCodeSet=new HashSet<String>();
+        for(int count=0;count<stockCodeList.size();count++){
+            stockCodeSet.add(stockCodeList.get(count));
         }
 
 
@@ -106,10 +108,32 @@ public class StaticServiceImpl implements StaticService {
 
         HashMap<String,Object> map = new HashMap<String, Object>();
         map.put("block", blockCode);
-        map.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realSDate,14)));
+        map.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realSDate,20))); //为什么取14天。。？？
         map.put("end",Date.valueOf(realLDate));
 
         ArrayList<DayKLine> blockList= (ArrayList<DayKLine>) dayklinemapper.getTimesBlockInfo(map);
+
+        HashMap<String,Date> timeMap = new HashMap<String, Date>();
+        timeMap.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realSDate,20)));
+        timeMap.put("end",Date.valueOf(realLDate));
+        ArrayList<DayKLine> allStockInfoList= (ArrayList<DayKLine>) dayklinemapper.getStocksByTimes(timeMap);
+
+        //      日期            股票编号 单支股票的信息
+        HashMap<String,HashMap<String,DayKLine>> allStockMap=new HashMap<String, HashMap<String, DayKLine>>();
+
+        for(int count=allDateList.indexOf(DateConvert.getLastNDate(allDateList,realSDate,20));count<=allDateList.indexOf(realLDate);count++){
+            HashMap<String,DayKLine> oneDayMap=new HashMap<String, DayKLine>();
+            allStockMap.put(allDateList.get(count),oneDayMap);
+        }
+
+        for(int count=0;count<allStockInfoList.size();count++){
+            if(stockCodeSet.contains(allStockInfoList.get(count).getStockCode())){
+                String oneStockDate=DateConvert.dateToString(allStockInfoList.get(count).getStockDate());
+                allStockMap.get(oneStockDate).put(allStockInfoList.get(count).getStockCode(),allStockInfoList.get(count));
+            }
+        }
+
+
 
 
 //        ArrayList<BlockPO> blockList=new ArrayList<BlockPO>();
@@ -149,18 +173,23 @@ public class StaticServiceImpl implements StaticService {
             ArrayList<DayKLine> yesterdayStockList=new ArrayList<DayKLine>(); //前一个交易日的有信息的股票列表
             ArrayList<DayKLine> beforeFormdaysStockList=new ArrayList<DayKLine>(); //形成期之前的有信息的股票列表
 
-            currentStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(currentDate));
+//            currentStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(currentDate));
 
-            HashMap<String,DayKLine> currentStockMap=new HashMap<String,DayKLine>();
-            for(int index=0;index<currentStockList.size();index++){
-                currentStockMap.put(currentStockList.get(index).getStockCode(),currentStockList.get(index));
-            }
 
-            yesterdayStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,currentDate,1)));
-            HashMap<String,DayKLine> yesterdayStockMap=new HashMap<String,DayKLine>();
-            for(int index=0;index<yesterdayStockList.size();index++){
-                yesterdayStockMap.put(yesterdayStockList.get(index).getStockCode(),yesterdayStockList.get(index));
-            }
+//            HashMap<String,DayKLine> currentStockMap=new HashMap<String,DayKLine>();
+//            for(int index=0;index<currentStockList.size();index++){
+//                currentStockMap.put(currentStockList.get(index).getStockCode(),currentStockList.get(index));
+//            }
+
+            HashMap<String,DayKLine> currentStockMap=allStockMap.get(currentDate);
+
+//            yesterdayStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,currentDate,1)));
+//            HashMap<String,DayKLine> yesterdayStockMap=new HashMap<String,DayKLine>();
+//            for(int index=0;index<yesterdayStockList.size();index++){
+//                yesterdayStockMap.put(yesterdayStockList.get(index).getStockCode(),yesterdayStockList.get(index));
+//            }
+
+            HashMap<String,DayKLine> yesterdayStockMap=allStockMap.get(DateConvert.getLastNDate(allDateList,currentDate,1));
 
 
 
@@ -172,13 +201,14 @@ public class StaticServiceImpl implements StaticService {
 
             }
 
-            beforeFormdaysStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,currentDate,formDays)));
+//            beforeFormdaysStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,currentDate,formDays)));
 
             if(currentDate.equals(changeDate)){
-                HashMap<String,DayKLine> beforeFormdaysStockMap=new HashMap<String,DayKLine>();
-                for(int index=0;index<beforeFormdaysStockList.size();index++){
-                    beforeFormdaysStockMap.put(beforeFormdaysStockList.get(index).getStockCode(),beforeFormdaysStockList.get(index));
-                }
+//                HashMap<String,DayKLine> beforeFormdaysStockMap=new HashMap<String,DayKLine>();
+//                for(int index=0;index<beforeFormdaysStockList.size();index++){
+//                    beforeFormdaysStockMap.put(beforeFormdaysStockList.get(index).getStockCode(),beforeFormdaysStockList.get(index));
+//                }
+                HashMap<String,DayKLine> beforeFormdaysStockMap=allStockMap.get(DateConvert.getLastNDate(allDateList,currentDate,formDays));
 
                 //进行持有股票池的重新选择
                 double stockSize=validCodeList.size();
@@ -242,20 +272,21 @@ public class StaticServiceImpl implements StaticService {
 
                 standardUp=standardUp/validCodeList.size();
             }else{
-                System.out.println(currentDate);
-                System.out.println(DateConvert.getLastNDate(allDateList,currentDate,1));
+                //打印信息
+//                System.out.println(currentDate);
+//                System.out.println(DateConvert.getLastNDate(allDateList,currentDate,1));
 
 
                 DayKLine nowStockPo=blockMap.get(currentDate);
-                System.out.println(nowStockPo.getClosePrice());
-
-
-                System.out.println(blockMap.containsKey(currentDate));
-                System.out.println(blockMap.containsKey(DateConvert.getLastNDate(allDateList,currentDate,1)));
+//                System.out.println(nowStockPo.getClosePrice());
+//
+//
+//                System.out.println(blockMap.containsKey(currentDate));
+//                System.out.println(blockMap.containsKey(DateConvert.getLastNDate(allDateList,currentDate,1)));
 
 
                 DayKLine yesterdayBlockPo=blockMap.get(DateConvert.getLastNDate(allDateList,currentDate,1));
-                System.out.println(yesterdayBlockPo.getClosePrice());
+//                System.out.println(yesterdayBlockPo.getClosePrice());
 
                 standardUp=StockCalculator.getIncrease(yesterdayBlockPo.getClosePrice(),nowStockPo.getClosePrice());
 
