@@ -67,6 +67,9 @@ public interface DayKLineMapper {
     public List<DayKLine> getOneDayDayKLines(Date date);
 
 
+    public DayKLine getYesterdayDayKLine(DayKLineKey dayKLineKey);
+
+
     /**
      * 根据日期获得该日期前一个交易日的所有股票信息
      * @param date

@@ -36,18 +36,17 @@
      and  stock_date = #{stockDate,jdbcType=DATE}
   </select>
 
-  <select id="getTimesDayKLines" resultMap="BaseResultMap">
+  <select id="getTimesDayKLines" parameterType="java.util.HashMap" resultMap="BaseResultMap">
     select *
     from day_stock
-    where stock_code = #{code} and
-          stock_date between #{start} and #{end}
+    where stock_date between #{start} and #{end}
   </select>
   
   <select id="getStocksByTimes"  resultMap="BaseResultMap">
     select *
     from day_stock
     where stock_date between #{start} and #{end}
-    order by stock_date
+
   </select>
 
   <select id="getOneDayDayKLines" parameterType="java.sql.Date" resultMap="BaseResultMap">

@@ -8,6 +8,7 @@ import com.quantour.ssm.util.FKSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,26 +25,30 @@ public class DayKLineImplTest {
 
 
         DayKLineImplTest test = new DayKLineImplTest();
+
+        long startTime = System.currentTimeMillis();
+        test.testGetStocksByTimes();
+        long endTime = System.currentTimeMillis();
+        System.out.println((endTime - startTime) + "ms");
 //        test.testGetAllDateByCode();
-//        long startTime = System.currentTimeMillis();
 //        test.testGetOneDayKLine();
-//        long endTime = System.currentTimeMillis();
-//        System.out.println(endTime - startTime + "ms");
 //        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
 //        test.testGetAllDayKLinesByCode();
 //        test.testGetAllStockInfos();
 //        test.testGetOneBlockInfo();
+
+//        test.testGetYesterdayDayKline();
 //        test.testGetTimesBlockInfo();
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
 //        try {
-////            long startTime = System.currentTimeMillis();
-////            test.testGetYesterdayDayKLines();
-////            long endTime = System.currentTimeMillis();
-////            System.out.println((endTime - startTime) + "ms");
+//            long startTime = System.currentTimeMillis();
+//            test.testGetYesterdayDayKLines();
+//            long endTime = System.currentTimeMillis();
+//            System.out.println((endTime - startTime) + "ms");
 //
 //            long startTime2 = System.currentTimeMillis();
 //            test.testGetOneDayDayKLines();
@@ -61,10 +66,7 @@ public class DayKLineImplTest {
 //        test.testGetAllCodeByBlock();
 //        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
-        long startTime = System.currentTimeMillis();
-        test.testGetStocksByTimes();
-        long endTime = System.currentTimeMillis();
-        System.out.println((endTime - startTime) + "ms");
+//        test.testGetStocksByTimes();
     }
 
     /**
@@ -85,7 +87,7 @@ public class DayKLineImplTest {
      */
     public void testGetOneDayKLine(){
         DayKLineKey dayKLineKey = new DayKLineKey();
-        dayKLineKey.setStockCode("000001");
+        dayKLineKey.setStockCode("000018");
         dayKLineKey.setStockDate(Date.valueOf("2017-03-21"));
         DayKLine dayKLine = dayKLineMapper.getOneDayKLine(dayKLineKey);
         printDayKLine(dayKLine);
@@ -118,6 +120,13 @@ public class DayKLineImplTest {
     }
 
 
+    public void testGetYesterdayDayKline(){
+        DayKLineKey dayKLineKey = new DayKLineKey();
+        dayKLineKey.setStockCode("000001");
+        dayKLineKey.setStockDate(Date.valueOf("2017-03-24"));
+
+        DayKLine dayKLine = dayKLineMapper.getYesterdayDayKLine(dayKLineKey);
+    }
 
 
     /**
@@ -155,6 +164,18 @@ public class DayKLineImplTest {
      */
     public void testGetAllStockInfos(){
         List<StockBasicInfo> list = dayKLineMapper.getAllStockInfos();
+//        try {
+//            FileWriter fileWriter = new FileWriter("codelist");
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            for(StockBasicInfo s : list){
+//                bufferedWriter.write(s.getCode());
+//                bufferedWriter.newLine();
+//                bufferedWriter.flush();
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         for(StockBasicInfo stockBasicInfo : list){
             System.out.print(stockBasicInfo.getCode() + " ");
             System.out.print(stockBasicInfo.getName() + " ");
@@ -322,23 +343,28 @@ public class DayKLineImplTest {
 
     public void testGetStocksByTimes(){
         HashMap<String,Date> map = new HashMap<String, Date>();
-        map.put("start",Date.valueOf("2017-01-01"));
+        map.put("start",Date.valueOf("2014-01-01"));
         map.put("end",Date.valueOf("2017-02-01"));
-        List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
-        for(DayKLine dayKLine : dayKLines){
-            printDayKLine(dayKLine);
-        }
-    }
-
-    public void test(){
-        HashMap<String,Date> map = new HashMap<String, Date>();
-        map.put("start",Date.valueOf("2015-01-01"));
-        map.put("end",Date.valueOf("2016-01-08"));
         List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
 //        for(DayKLine dayKLine : dayKLines){
 //            printDayKLine(dayKLine);
 //        }
-        System.out.println(dayKLines.size());
+    }
+
+    public void test(){
+        List<String> codeList = new ArrayList<String>();
+        List<StockBasicInfo> list = dayKLineMapper.getAllStockInfos();
+        List<DayKLine> result = new ArrayList<DayKLine>();
+        for(StockBasicInfo s : list){
+            codeList.add(s.getCode());
+        }
+
+        for(String s : codeList){
+            DayKLineKey dayKLineKey = new DayKLineKey();
+            dayKLineKey.setStockCode(s);
+            dayKLineKey.setStockDate(Date.valueOf("2017-03-17"));
+            result.add(dayKLineMapper.getYesterdayDayKLine(dayKLineKey));
+        }
     }
 
     public static void printDayKLine(DayKLine dayKLine){
