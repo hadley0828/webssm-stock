@@ -3,23 +3,33 @@ package com.quantour.ssm.dao;
 import com.quantour.ssm.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public interface UserMapper {
-    int deleteByPrimaryKey(Long id);
+    public void deleteByPrimaryKey(String id);
 
-    int insert(User record);
+    public void insert(User record);
 
-    int insertSelective(User record);
+    public int insertSelective(User record);
 
-    User selectByPrimaryKey(Long id);
+    public User selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(User record);
+    public int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    public int updateByPrimaryKey(User record);
 
-    List<User> getAllUser();
 
+    public void deletePassword(String id);
+
+    public void insertPassword(HashMap map);
+
+    public void updatePassword(HashMap map);
+
+    public String selectPassword(String id);
+
+
+    public List<String> getAllUserId();
 
 }

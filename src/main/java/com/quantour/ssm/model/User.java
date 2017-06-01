@@ -1,32 +1,32 @@
 package com.quantour.ssm.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
-    private Long id;
+    private String id;
 
     private String userName;
+
+    private Integer userSex;
+
+    private Integer userAge;
+
+    private Date userBirthday;
 
     private String userPhone;
 
     private String userEmail;
 
-    private String userPwd;
+    private String userAddress;
 
-    private String pwdSalt;
+    private String userIntro;
 
-    private Date createTime;
-
-    private Date modifyTime;
-
-    private Byte isDelete;
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUserName() {
@@ -35,6 +35,30 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Integer getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
+    }
+
+    public Integer getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(Integer userAge) {
+        this.userAge = userAge;
+    }
+
+    public Date getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(Date userBirthday) {
+        this.userBirthday = userBirthday;
     }
 
     public String getUserPhone() {
@@ -53,43 +77,19 @@ public class User {
         this.userEmail = userEmail == null ? null : userEmail.trim();
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd == null ? null : userPwd.trim();
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress == null ? null : userAddress.trim();
     }
 
-    public String getPwdSalt() {
-        return pwdSalt;
+    public String getUserIntro() {
+        return userIntro;
     }
 
-    public void setPwdSalt(String pwdSalt) {
-        this.pwdSalt = pwdSalt == null ? null : pwdSalt.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
+    public void setUserIntro(String userIntro) {
+        this.userIntro = userIntro == null ? null : userIntro.trim();
     }
 }

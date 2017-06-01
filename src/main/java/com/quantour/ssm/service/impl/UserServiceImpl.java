@@ -22,11 +22,15 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     public List<User> getAllUser() {
-        return userMapper.getAllUser();
+        return null;
     }
 
     @Override
     public boolean setNewAccount(String account, String password) {
+        User user = new User();
+        user.setId(account);
+
+        userMapper.insert(user);
         return false;
     }
 
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(String account, userDTO userdto) {
+
         return false;
     }
 

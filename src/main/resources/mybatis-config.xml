@@ -29,5 +29,6 @@
     <!-- mapping 文件路径配置 -->
     <mappers>
         <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/DayKLineMapper.xml" />
+        <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/UserMapper.xml" />
     </mappers>
 </configuration>

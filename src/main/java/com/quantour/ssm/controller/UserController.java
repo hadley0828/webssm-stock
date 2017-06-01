@@ -31,4 +31,11 @@ public class UserController {
         return "showUser";
     }
 
+    @RequestMapping("/insert")
+    public String insertUser(HttpServletRequest request, Model model){
+        log.info("");
+        boolean flag = userService.setNewAccount("000001","sdfadfdas");
+        model.addAttribute("flag",flag);
+        return "insert";
+    }
 }

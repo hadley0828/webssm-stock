@@ -58,9 +58,9 @@ public class CheckSQLInterceptor implements Interceptor {
 //        DayKLineKey test = (DayKLineKey) parameter;
 
 //        initCodeList();
-        System.out.println(boundSql.getSql());
+//        System.out.println(boundSql.getSql());
         String sql = modifySql(boundSql.getSql(),parameter);
-        System.out.println(sql);
+//        System.out.println(sql);
 
         BoundSql newSQL = new BoundSql(new Configuration(),sql,boundSql.getParameterMappings(),boundSql.getParameterObject());
 
