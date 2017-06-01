@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/dashboard")
 public class DashBoardController {
 
-    private Logger log = Logger.getLogger(StockController.class);
+    private Logger log = Logger.getLogger(DashBoardController.class);
 
     @Resource
     private StockService stockService;

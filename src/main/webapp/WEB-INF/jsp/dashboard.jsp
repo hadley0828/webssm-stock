@@ -133,11 +133,16 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <li class="dropdown">
+                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown" >
                                 <i class="ti-user"></i>
                                 <p>未登录</p>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#myModal" data-toggle="modal">登录</a></li>
+                                <li><a href="#">注册</a></li>
+                            </ul>
+
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -165,6 +170,7 @@
                 </div>
             </div>
         </nav>
+
 
 
         <div class="content">
@@ -378,6 +384,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">登录</h4>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" action="/dashboard/temple.form">
+                    <ul >
+                        <li><label id="registerInfo"></label></li>
+                        <li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>
+                        <%--<li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>--%>
+                        <li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>
+                        <%--<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>--%>
+                        <li><span >提示信息</span>
+
+                        </li>
+                        <li id="tipmsg"></li>
+                        <li >
+                            <div align="right">
+                                <!--a <a href="javascript:document.getElementById('form1').submit();">立即注册</a>-->
+                                <input type="submit" id="btn_register" value="立即注册" >
+                            </div>
+
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <%--<div class="modal-footer">--%>
+                <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
+                <%--<button type="button" class="btn btn-primary">提交更改</button>--%>
+            <%--</div>--%>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 </body>
 
