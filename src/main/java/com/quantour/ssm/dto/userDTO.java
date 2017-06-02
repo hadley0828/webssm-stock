@@ -5,6 +5,7 @@ package com.quantour.ssm.dto;
  */
 public class userDTO {
     String account;
+    String name;
     String sex; //数据库中的是0男 1女 2保密
     int age;
     String birthday;
@@ -13,14 +14,11 @@ public class userDTO {
     String address;
     String introduction;
 
-    public userDTO(){
-        super();
-    }
-
     @Override
     public String toString() {
         return "userDTO{" +
                 "account='" + account + '\'' +
+                ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", age=" + age +
                 ", birthday='" + birthday + '\'' +
@@ -30,6 +28,11 @@ public class userDTO {
                 ", introduction='" + introduction + '\'' +
                 '}';
     }
+
+    public userDTO(){
+        super();
+    }
+
 
 
 
@@ -41,6 +44,14 @@ public class userDTO {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSex() {
