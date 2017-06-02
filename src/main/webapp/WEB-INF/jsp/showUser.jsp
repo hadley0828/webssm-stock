@@ -11,23 +11,34 @@
 <html>
 <head>
     <title>用户信息列表</title>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
         function webLogin() {
-            var loginname = $('#u').val();
-            var password = $('#p').val();
+
+
+
+            var loginname = $("#u").val();
+            var password = $("#p").val();
+
+//            alert(loginname);
+//            alert("loginname:" + loginname);
+//            alert( $("#u").val());
 
             if(loginname == ""){
-                $("#u").tips({
-                    side:2,
-                    msg:'用户名不得为空',
-                    bg: '#AE81FF',
-                    time: 3
-                });
-                $("#u").focus;
-                return false;
+                alert("用户名不得为空!");
+//                $("#u").tips({
+//                    side:2,
+//                    msg:'用户名不得为空',
+//                    bg: '#AE81FF',
+//                    time: 3
+//                });
+//                $("#u").focus;
+//                return false;
             }
 
             if(password == ""){
+                alert("密码不得为空!");
                 $("#p").tips({
                     side:2,
                     msg:"密码不得为空",
@@ -38,33 +49,33 @@
                 return false;
             }
 
+
             $.ajax({
                 type: "POST",
-                url: "/user/login",
-                data:{loginId: loginname, pwd: password},
+                url: '<%=request.getContextPath()%>/user/login',
+//                contentType:'application/json',
+                data:{id: loginname, password: password},
                 dataType: 'json',
-                cache: false,
-                success: function (data) {
-                    if(data.code == 1){
-                        window.location.href = "/dashboard";
-                    }else{
-                        alert(data.msg);
-                        $("#u").focus;
-                    }
+//                cache: false,
+//                async: false,
+                success: function (result) {
+                    var msg = result;
+                    alert(msg);
+//                    alert(result);
+//                    alert(data.ms);
                 }
             });
         }
     </script>
-
 </head>
 <body>
 
 
-    <c:if test="${!empty userList}">
-        <c:forEach var="user" items="${userList}">
-            姓名：${user.userName} &nbsp;&nbsp; 密码：${user.userPwd} &nbsp;&nbsp;手机号：${user.userPhone} &nbsp;&nbsp;邮箱：${user.userEmail} &nbsp;&nbsp;<br>
-        </c:forEach>
-    </c:if>
+    <%--<c:if test="${!empty userList}">--%>
+        <%--<c:forEach var="user" items="${userList}">--%>
+            <%--姓名：${user.userName} &nbsp;&nbsp; 密码：${user.userPwd} &nbsp;&nbsp;手机号：${user.userPhone} &nbsp;&nbsp;邮箱：${user.userEmail} &nbsp;&nbsp;<br>--%>
+        <%--</c:forEach>--%>
+    <%--</c:if>--%>
 
     <form action=""
           name = "loginform"
@@ -94,12 +105,14 @@
             <input type="button"
                    id="btn_login"
                    value="登 录"
-                   onclick="webLogin();"
-            style="width:150px;"
-            <%--class="button_blue"/>--%>
+                   onclick= "webLogin()"
+                   style="width:150px;"
+                   class="button_blue"/>
         </div>
 
     </form>
+
+
 
 </body>
 </html>

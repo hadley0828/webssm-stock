@@ -3,6 +3,7 @@ package com.quantour.ssm.controller;
 import com.google.gson.Gson;
 import com.quantour.ssm.model.User;
 import com.quantour.ssm.service.UserService;
+import com.quantour.ssm.util.ResponseObj;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private ResponseObj responseObj;
 
     @RequestMapping("/showUser")
     public String showUser(HttpServletRequest request, Model model){
@@ -45,12 +47,34 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String login(HttpServletRequest req, User user){
-        String result;
+    public String login(String id, String password){
+//        String result = "";
+//        System.out.println(id);
+        User user = userService.getOneUserByAccount(id);
+
         if(user == null){
+            responseObj = new ResponseObj();
+            responseObj.setCode("0");
+            responseObj.setMessage("未找到该用户");
+            return new Gson().toJson(responseObj);
 
+        }else{
+            if(userService.isPasswordValid(id,password)){
+                responseObj = new ResponseObj();
+                responseObj.setCode("1");
+                responseObj.setMessage("pass");
+                return new Gson().toJson(responseObj);
+            }
         }
-
-        return new Gson().toJson("");
+//        String result = "true";
+//        System.out.println(userPwd.getId());
+//        System.out.println(userPwd.getPassword());
+//        if(!userService.isAccountValid(userPwd.getId())){
+//            result = "false";
+//        }
+//        else if(!userService.isPasswordValid(userPwd.getId(),userPwd.getPassword())){
+//            result = "fasle";
+//        }
+        return null;
     }
 }

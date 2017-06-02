@@ -395,9 +395,9 @@
 
                 <form method="post" action="/dashboard/temple.form">
                     <ul >
-                        <li><label id="registerInfo"></label></li>
+                        <%--<li><label id="registerInfo"></label></li>--%>
                         <li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>
-                        <%--<li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>--%>
+                        <li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>
                         <li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>
                         <%--<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>--%>
                         <li><span >提示信息</span>
