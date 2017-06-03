@@ -134,14 +134,14 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                            <a  href="<%=contextPath%>/dashboard/login"  >
                                 <i class="ti-user"></i>
-                                <p>未登录</p>
+                                <p>登录</p>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#myModal" data-toggle="modal">登录</a></li>
-                                <li><a href="#">注册</a></li>
-                            </ul>
+                            <%--<ul class="dropdown-menu">--%>
+                                <%--<li><a href="#myModal" data-toggle="modal">登录</a></li>--%>
+                                <%--<li><a href="#">注册</a></li>--%>
+                            <%--</ul>--%>
 
                         </li>
                         <li class="dropdown">
@@ -394,10 +394,10 @@
             <div class="modal-body">
 
                 <form method="post" action="/dashboard/temple.form">
-                    <ul >
-                        <%--<li><label id="registerInfo"></label></li>--%>
+                    <ul class="list-unstyled">
+                        <li><label id="registerInfo"></label></li>
                         <li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>
-                        <li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>
+                        <%--<li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>--%>
                         <li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>
                         <%--<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>--%>
                         <li><span >提示信息</span>
