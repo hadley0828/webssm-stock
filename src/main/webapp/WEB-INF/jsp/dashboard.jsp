@@ -134,9 +134,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="<%=contextPath%>/dashboard/login" >
                                 <i class="ti-user"></i>
-                                <p>未登录</p>
+                                <p>登录</p>
                             </a>
                         </li>
                         <li class="dropdown">

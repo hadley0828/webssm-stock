@@ -27,7 +27,7 @@ public class DayKLineImplTest {
         DayKLineImplTest test = new DayKLineImplTest();
 
         long startTime = System.currentTimeMillis();
-        test.testGetStocksByTimes();
+        test.testGetTimesDayKLines();
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
 //        test.testGetAllDateByCode();

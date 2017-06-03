@@ -3,7 +3,7 @@ package com.quantour.ssm.controller;
 import com.google.gson.Gson;
 import com.quantour.ssm.model.User;
 import com.quantour.ssm.service.UserService;
-import com.quantour.ssm.util.ResponseObj;
+import com.quantour.ssm.model.ResponseObj;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +45,18 @@ public class UserController {
         return "insert";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(HttpServletRequest request,Model model){
+        log.info("Log in");
+        return "login";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(HttpServletRequest request, Model model){
+        log.info("Register");
+        return "register";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String login(String id, String password){
@@ -65,6 +77,12 @@ public class UserController {
                 responseObj.setMessage("pass");
                 return new Gson().toJson(responseObj);
             }
+            else{
+                responseObj = new ResponseObj();
+                responseObj.setCode("0");
+                responseObj.setMessage("密码不正确");
+                return new Gson().toJson(responseObj);
+            }
         }
 //        String result = "true";
 //        System.out.println(userPwd.getId());
@@ -75,6 +93,24 @@ public class UserController {
 //        else if(!userService.isPasswordValid(userPwd.getId(),userPwd.getPassword())){
 //            result = "fasle";
 //        }
-        return null;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String register(String id, String password){
+        User user = userService.getOneUserByAccount(id);
+
+        if(user != null){
+            responseObj = new ResponseObj();
+            responseObj.setCode("0");
+            responseObj.setMessage("this account alreay exist!");
+            return new Gson().toJson(responseObj);
+        }else{
+            userService.setNewAccount(id,password);
+            responseObj = new ResponseObj();
+            responseObj.setCode("1");
+            responseObj.setMessage("Register successfully!");
+            return new Gson().toJson(responseObj);
+        }
     }
 }

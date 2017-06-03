@@ -1,4 +1,4 @@
-package com.quantour.ssm.util;
+package com.quantour.ssm.model;
 
 /**
  * Created by loohaze on 2017/6/2.

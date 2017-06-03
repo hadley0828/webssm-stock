@@ -41,4 +41,14 @@ public class DashBoardController {
         model.addAttribute("name",name);
         return "temple";
     }
+
+    @RequestMapping("/login")
+    public String doLogin(HttpServletRequest request,Model model){
+        return "userLogin";
+    }
+
+    @RequestMapping("/regist")
+    public String doRegist(HttpServletRequest request,Model model){
+        return "userRegist";
+    }
 }
