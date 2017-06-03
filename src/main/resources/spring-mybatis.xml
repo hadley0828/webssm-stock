@@ -12,6 +12,9 @@
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.quantour.ssm"/>
 
+
+
+
     <!-- 第一种方式：加载一个properties文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>
@@ -55,6 +58,16 @@
 
     <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+        <!-- 配置Mybatis的插件plugin-->
+        <property name="plugins">
+            <array>
+                <bean class="com.quantour.ssm.plugin.CheckSQLInterceptor">                                                                                                          <property name="properties">                                                                                                                                          <value>  property-key=property-value </value>
+                </property>
+                </bean>
+            </array>
+        </property>
+
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:mapping/*.xml"></property>
