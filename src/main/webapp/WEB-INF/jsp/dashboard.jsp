@@ -61,63 +61,57 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="dashboard.html">
+                <li>
+                    <a href="My_dashboard.html">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user.html">
+                    <a href="compare.html">
+                        <i class="ti-flag-alt-2"></i>
+                        <p>Compare</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="strategy.html">
+                        <i class="ti-receipt"></i>
+                        <p>Strategy</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="personal.html">
                         <i class="ti-user"></i>
-                        <p>User Profile</p>
+                        <p>User</p>
                     </a>
                 </li>
                 <li>
-                    <a href="table.html">
-                        <i class="ti-view-list-alt"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="ti-text"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
+                    <a href="#">
                         <i class="ti-pencil-alt2"></i>
                         <p>Icons</p>
                     </a>
                 </li>
                 <li>
-                    <a href="maps.html">
+                    <a href="#">
                         <i class="ti-map"></i>
                         <p>Maps</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="#">
                         <i class="ti-bell"></i>
                         <p>Notifications</p>
                     </a>
                 </li>
-                <li class="active-pro">
-                    <a href="dashboard/temple">
-                        <i class="ti-export"></i>
-                        <p>temple</p>
-                    </a>
-                </li>
-                <%--<li>--%>
-                   <%--<form method="post" action="/dashboard/temple.form" >--%>
-                       <%--<input type="text" name="name">--%>
-                    <%--</form>--%>
-                <%--</li>--%>
+                <!--<li class="active-pro">-->
+                <!--<a href="upgrade.html">-->
+                <!--<i class="ti-export"></i>-->
+                <!--<p>Upgrade to PRO</p>-->
+                <!--</a>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
-
 
     <div class="main-panel">
         <nav class="navbar navbar-default">
@@ -131,18 +125,19 @@
                     </button>
                     <a class="navbar-brand" href="#">Dashboard</a>
                 </div>
+
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                        <li>
+                            <div class="form-group" style="padding-top: 15px">
+                                <input type="text" placeholder="Search" class="form-control">
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-user"></i>
                                 <p>未登录</p>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#myModal" data-toggle="modal">登录</a></li>
-                                <li><a href="#">注册</a></li>
-                            </ul>
-
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -152,11 +147,11 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">消息 1</a></li>
-                                <li><a href="#">消息 2</a></li>
-                                <li><a href="#">消息 3</a></li>
-                                <li><a href="#">消息 4</a></li>
-                                <li><a href="#">更多</a></li>
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
                             </ul>
                         </li>
                         <li>
@@ -171,217 +166,232 @@
             </div>
         </nav>
 
-
-
         <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-warning text-center">
-                                            <i class="ti-arrow-up"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>up</p>
-                                            105GB
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Up
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">市场温度计</h4>
+                            <hr>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="ti-arrow-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>down</p>
-                                            $1,345
-                                        </div>
-                                    </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-4 col-xs-12">
+                                    <ul class="nav nav-stacked" role="tablist">
+                                        <li class="active">
+                                            <a href="#UpDown" role="tab" data-toggle="tab">
+                                                涨跌分布
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#limit" role="tab" data-toggle="tab";>
+                                                涨跌停
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#unknown" role="tab" data-toggle="tab">
+                                                未定
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-calendar"></i> down
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-danger text-center">
-                                            <i class="ti-pulse"></i>
+                                <div class="col-md-8 col-sm-8 col-xs-6">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="UpDown">
+                                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                                <div class="card">
+                                                    <!--<div class="header"></div>-->
+                                                    <div class="content">
+                                                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                                                        <div class="footer">
+                                                            <div class="chart-legend">
+                                                                <i class="fa fa-circle text-info"></i> Open
+                                                                <i class="fa fa-circle text-danger"></i> Bounce
+                                                                <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Errors</p>
-                                            23
+                                        <div class="tab-pane" id="limit">
+                                            <p>涨跌停</p>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> In the last hour
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-info text-center">
-                                            <i class="ti-twitter-alt"></i>
+                                        <div class="tab-pane" id="unknown">
+                                            <p>unknown</p>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Followers</p>
-                                            +45
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+            </div>
 
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
-                                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Users Behavior</h4>
+                            <p class="category">24 Hours performance</p>
+                        </div>
+                        <div class="content">
+                            <div id="chartHours" class="ct-chart"></div>
+                            <div class="footer">
+                                <div class="chart-legend">
+                                    <i class="fa fa-circle text-info"></i> Open
+                                    <i class="fa fa-circle text-danger"></i> Click
+                                    <i class="fa fa-circle text-warning"></i> Click Second Time
+                                </div>
+                                <hr>
+                                <div class="stats">
+                                    <i class="ti-reload"></i> Updated 3 minutes ago
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+            </div>
 
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> Campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">全部股票</h4>
+                            <p class="category">Here is a subtitle for this table</p>
+                            <hr>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">2015 Sales</h4>
-                                <p class="category">All products including Taxes</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-check"></i> Data information certified
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-striped">
+                                <thead>
+                                <th style="width: 72px;">序号</th>
+                                <th style="width: 108px;">编号</th>
+                                <th style="width: 108px">名称</th>
+                                <th style="width: 108px;">
+                                    <a href="#">
+                                        现价
+                                        <i></i>
+                                    </a>
+                                </th>
+                                <th style="width: 108px;">
+                                    <a href="#">
+                                        涨跌幅(%)
+                                    </a>
+                                </th>
+                                <th style="width: 108px;">
+                                    <a href="#">
+                                        涨跌
+                                    </a>
+                                </th>
+                                <th style="width: 108px;">成交量</th>
+                                <th style="width: 72px;">加自选</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>000001</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>000002</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>000003</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>000004</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>000005</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>000006</td>
+                                    <td>xx股票</td>
+                                    <td>0.0</td>
+                                    <td>0.0%</td>
+                                    <td>0.0</td>
+                                    <td>1000000</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <ul class="pagination" style="margin: 0 420px;">
+                                <li><a href="#">&laquo;</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-
-                        <li>
-                            <a href="#">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="#">Creative Tim</a>. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
-                </div>
-            </div>
-        </footer>
-
     </div>
+
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

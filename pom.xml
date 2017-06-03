@@ -51,6 +51,8 @@
       <scope>test</scope>
     </dependency>
 
+
+
     <!-- 添加spring核心依赖 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -117,6 +119,7 @@
       <artifactId>mybatis-spring</artifactId>
       <version>1.2.2</version>
     </dependency>
+
 
     <!-- 添加mysql驱动依赖 -->
     <dependency>

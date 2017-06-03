@@ -50,6 +50,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/web-ssm/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="cseiii_quantour_i3/web/Web" />
+      <element id="dir-copy" path="/Library/Tomcat/webapps" />
     </root>
   </artifact>
 </component>
