@@ -1,5 +1,8 @@
 package com.quantour.ssm.dto;
 
+import com.quantour.ssm.model.User;
+import com.quantour.ssm.util.DateConvert;
+
 /**
  * Created by zhangzy on 2017/5/25.
  */
@@ -33,7 +36,23 @@ public class userDTO {
         super();
     }
 
-
+    public userDTO(User user){
+        this.account=user.getId();
+        this.name=user.getUserName();
+        if(user.getUserSex()==0){
+            this.sex="男";
+        }else if(user.getUserSex()==1){
+            this.sex="女";
+        }else if(user.getUserSex()==2){
+            this.sex="保密";
+        }
+        this.age=user.getUserAge();
+        this.birthday= DateConvert.dateToString(user.getUserBirthday());
+        this.handsetNumber=user.getUserPhone();
+        this.mail=user.getUserEmail();
+        this.address=user.getUserAddress();
+        this.introduction=user.getUserIntro();
+    }
 
 
 
