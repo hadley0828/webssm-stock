@@ -1,20 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: loohaze
-  Date: 2017/6/2
-  Time: 下午3:04
+  Date: 2017/6/3
+  Time: 下午2:30
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Register</title>
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-        function webLogin() {
-
-
+        function webRegister() {
 
             var loginname = $("#u").val();
             var password = $("#p").val();
@@ -50,7 +48,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '<%=request.getContextPath()%>/user/login',
+                url: '<%=request.getContextPath()%>/user/register',
 //                contentType:'application/json',
                 data:{id: loginname, password: password},
                 dataType: "json",
@@ -58,24 +56,24 @@
 //                async: false,
                 success: function (data) {
                     var mydata = JSON.parse(data);
-                    alert(mydata.ms);
+
+                    if(mydata.code == "0"){
+                        alert(mydata.ms);
+                    }else if(mydata.code == "1"){
+                        alert(mydata.ms);
+                        window.location.href="login";
+                    }
                 }
             });
         }
     </script>
-
-    <script type="text/javascript">
-        function jumptoRegister() {
-            window.location.href="register";
-        }
-    </script>
-
 </head>
 <body>
+
     <form action=""
-          name = "loginform"
+          name = "registerform"
           accept-charset="utf-8"
-          id = "login_form"
+          id = "register_form"
     <%--class = ""--%>
           method = "post"
     >
@@ -99,20 +97,12 @@
         <div style="padding-left:50px;margin-top:20px;">
             <input type="button"
                    id="btn_login"
-                   value="登 录"
-                   onclick= "webLogin()"
+                   value="注 册"
+                   onclick= "webRegister()"
                    style="width:150px;"
                    class="button_blue"/>
         </div>
 
-        <div style="padding-left:50px;margin-top: 20px;">
-            <input type="button"
-                   id="btn_register"
-                   value="未拥有账户，点击注册"
-                   onclick="jumptoRegister()"
-                   style="width:150px;"
-                   class="button_blue"/>
-        </div>
     </form>
 </body>
 </html>

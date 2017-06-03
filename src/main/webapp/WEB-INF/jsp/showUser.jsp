@@ -55,14 +55,13 @@
                 url: '<%=request.getContextPath()%>/user/login',
 //                contentType:'application/json',
                 data:{id: loginname, password: password},
-                dataType: 'json',
-//                cache: false,
+                dataType: "json",
+                cache: false,
 //                async: false,
-                success: function (result) {
-                    var msg = result;
-                    alert(msg);
-//                    alert(result);
-//                    alert(data.ms);
+                success: function (data) {
+                   var madata = JSON.parse(data);
+//                   alert(madata);
+                   alert(madata.ms);
                 }
             });
         }
