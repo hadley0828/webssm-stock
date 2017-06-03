@@ -67,8 +67,8 @@
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <p>
-                            "click here to "
-                            <a herf="<%=contextPath%>/dashboard/regist">regist</a>
+                            click here to
+                            <a href="<%=contextPath%>/dashboard/regist">regist</a>
                         </p>
 
                     </div>
