@@ -42,13 +42,56 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function webRegister() {
+
+            var loginname = $("#u").val();
+            var password = $("#p").val();
+            var password2 = $("#pp").val();
+
+//            alert(loginname);
+//            alert("loginname:" + loginname);
+//            alert( $("#u").val());
+
+            if(loginname == ""){
+                alert("用户名不得为空!");
+            }
+
+            if(password == ""){
+                alert("密码不得为空!");
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: '<%=request.getContextPath()%>/user/register',
+//                contentType:'application/json',
+                data:{id: loginname, password: password, password2: password2},
+                dataType: "json",
+                cache: false,
+//                async: false,
+                success: function (data) {
+                    var mydata = JSON.parse(data);
+
+                    if(mydata.code == "0"){
+                        alert(mydata.ms);
+                    }else if(mydata.code == "1"){
+                        alert(mydata.ms);
+                        window.location.href="login";
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <div class="card">
             <div class="header" style="background-color: #f4f3ef">
-                <h4 class="title" style="color:#FF9500">login</h4>
+                <h4 class="title" style="color:#FF9500">Register</h4>
                 <hr/>
             </div>
             <div class="content">
@@ -56,29 +99,33 @@
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
                             <label>username</label>
-                            <input type="text" class="form-control border-input"  placeholder="username" name="userName">
+                            <input type="text" id="u" class="form-control border-input"  placeholder="username" name="userName">
                         </div>
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="text" class="form-control border-input"  placeholder="password" name="password">
+                            <input type="password" id="p" class="form-control border-input"  placeholder="password" name="password">
                         </div>
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
                             <label>Password Confirm</label>
-                            <input type="text" class="form-control border-input"  placeholder="password confirm" name="passwordConfirm">
+                            <input type="password" id="pp" class="form-control border-input"  placeholder="password confirm" name="passwordConfirm">
                         </div>
                     </div>
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <p>click here to <a herf="#">sign up</a></p>
-                    </div>
+                    <%--<div class="col-xs-6 col-xs-offset-3">--%>
+                        <%--<p>click here to <a href="">sign up</a></p>--%>
+                    <%--</div>--%>
 
                     <div class="col-xs-4 col-xs-offset-8">
-                        <button class="btn btn-primary">login</button>
+                        <input type="button"
+                               id="btn_login"
+                               value="注 册"
+                               onclick= "webRegister()"
+                               style="width:100px;"
+                               class="btn btn-primary"/>
                     </div>
-                </div>
                 <div class="footer">
 
                 </div>
