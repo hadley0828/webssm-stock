@@ -8,5 +8,7 @@ public class MessageDTO {
     double MessageScore;    //消息面得分
     double partScore;   //根据下面的指标获得的分数 用来排名
     double defeatPercent;   //击败了多少百分比的股票
+    int numberOfMessage;    //近一个月的消息数量
+    //TODO
 
 }
