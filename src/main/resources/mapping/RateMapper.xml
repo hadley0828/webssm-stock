@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantour.ssm.dao.RateMapper">
+
+    <resultMap id="EarningAbilityMap" type="com.quantour.ssm.model.EarningAbility">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="arturnover" jdbcType="VARCHAR" property="arturnover"/>
+        <result column="arturndays" jdbcType="VARCHAR" property="arturndays"/>
+        <result column="inventory_turnover" jdbcType="VARCHAR" property="inventory_turnover"/>
+        <result column="inventory_days" jdbcType="VARCHAR" property="inventory_days"/>
+        <result column="currentasset_turnover" jdbcType="VARCHAR" property="currentasset_turnover"/>
+        <result column="currentasset_days" jdbcType="VARCHAR" property="currentasset_days"/>
+    </resultMap>
+
+    <resultMap id="GrowAbilityMap" type="com.quantour.ssm.model.GrowAbility">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="mbrg" jdbcType="VARCHAR" property="mbrg"/>
+        <result column="nprg" jdbcType="VARCHAR" property="nprg"/>
+        <result column="nav" jdbcType="VARCHAR" property="nav"/>
+        <result column="targ" jdbcType="VARCHAR" property="targ"/>
+        <result column="epsg" jdbcType="VARCHAR" property="epsg"/>
+        <result column="seg" jdbcType="VARCHAR" property="seg"/>
+    </resultMap>
+
+    <resultMap id="PaymentAbilityMap" type="com.quantour.ssm.model.PaymentAbility">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="currentratio" jdbcType="VARCHAR" property="currentratio"/>
+        <result column="quickratio" jdbcType="VARCHAR" property="quickratio"/>
+        <result column="cashratio" jdbcType="VARCHAR" property="cashratio"/>
+        <result column="icratio" jdbcType="VARCHAR" property="icratio"/>
+        <result column="sheqratio" jdbcType="VARCHAR" property="sheqratio"/>
+        <result column="adratio" jdbcType="VARCHAR" property="adratio"/>
+    </resultMap>
+
+    <resultMap id="CashFlowMap" type="com.quantour.ssm.model.CashFlow">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="cf_sales" jdbcType="VARCHAR" property="cf_sales"/>
+        <result column="rateofreturn" jdbcType="VARCHAR" property="rateofreturn"/>
+        <result column="cf_nm" jdbcType="VARCHAR" property="cf_nm"/>
+        <result column="cf_liabilities" jdbcType="VARCHAR" property="cf_liabilities"/>
+        <result column="cashflowratio" jdbcType="VARCHAR" property="cashflowratio"/>
+    </resultMap>
+
+    <resultMap id="ProfitAbilityMap" type="com.quantour.ssm.model.ProfitAbility">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="roe" jdbcType="VARCHAR" property="roe"/>
+        <result column="net_profit_ratio" jdbcType="VARCHAR" property="net_profit_ratio"/>
+        <result column="gross_profit_rate" jdbcType="VARCHAR" property="gross_profit_rate"/>
+        <result column="net_profits" jdbcType="VARCHAR" property="net_profits"/>
+        <result column="esp" jdbcType="VARCHAR" property="esp"/>
+        <result column="business_income" jdbcType="VARCHAR" property="business_income"/>
+        <result column="bips" jdbcType="VARCHAR" property="bips"/>
+    </resultMap>
+
+    <resultMap id="SingleStockFundFlowsMap" type="com.quantour.ssm.model.SingleStockFundFlows">
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <id column="trade_date" jdbcType="DATE" property="date"/>
+        <result column="inflow" jdbcType="VARCHAR" property="inflow"/>
+    </resultMap>
+
+    <resultMap id="ProfessionFundFlowsMap" type="com.quantour.ssm.model.ProfessionFundFlows">
+        <id column="industry" jdbcType="VARCHAR" property="industry"/>
+        <id column="trade_date" jdbcType="DATE" property="date"/>
+        <result column="inflow" jdbcType="VARCHAR" property="inflow"/>
+        <result column="change_percent" jdbcType="VARCHAR" property="change_percent"/>
+    </resultMap>
+
+    <select id="getSingleStockFundFlows" parameterType="java.util.HashMap" resultMap="SingleStockFundFlowsMap">
+        select *
+        from ability_stockEquFlow
+        where code = #{code} and trade_date = #{date}
+    </select>
+
+    <select id="getAllSingleStockFundFlows" resultMap="SingleStockFundFlowsMap">
+        select *
+        from ability_stockEquFlow
+    </select>
+
+    <select id="getOneProfessionFundFlows" parameterType="java.util.HashMap" resultMap="ProfessionFundFlowsMap">
+        select *
+        from ability_industryFlow
+        where industry = #{industry} and trade_date = #{date}
+    </select>
+
+    <select id="getAllProfessionFundFlows" resultMap="ProfessionFundFlowsMap">
+        select *
+        from ability_industryFlow
+    </select>
+
+    <select id="getOneCashFlow" parameterType="java.lang.String" resultMap="CashFlowMap">
+        select *
+        from ability_cashflow
+        where code = #{stockCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllCashFlow" resultMap="CashFlowMap">
+        select *
+        from ability_cashflow
+    </select>
+
+
+    <select id="getOneEarningAbility" parameterType="java.lang.String" resultMap="EarningAbilityMap">
+        select *
+        from ability_earning
+        where code = #{stockCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllEarningAbility" resultMap="EarningAbilityMap">
+        select *
+        from ability_earning
+    </select>
+
+
+    <select id="getOneGrowAbility" parameterType="java.lang.String" resultMap="GrowAbilityMap">
+        select *
+        from ability_grow
+        where code = #{stockCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllGrowAbility" resultMap="GrowAbilityMap">
+        select *
+        from ability_grow
+    </select>
+
+
+    <select id="getOnePaymentAbility" parameterType="java.lang.String" resultMap="PaymentAbilityMap">
+        select *
+        from ability_payment
+        where code = #{stockCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllPaymentAbility" resultMap="PaymentAbilityMap">
+        select *
+        from ability_payment
+    </select>
+
+
+    <select id="getOneProfitAbility" parameterType="java.lang.String" resultMap="ProfitAbilityMap">
+        select *
+        from ability_profit
+        where code = #{stockCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllProfitAbility" resultMap="ProfitAbilityMap">
+       select *
+       from ability_profit
+    </select>
+
+
+    <insert id="insertProfessionFundFlows" parameterType="com.quantour.ssm.model.ProfessionFundFlows">
+        insert into ability_industryFlow(industry, trade_date, inflow, change_percent)
+        VALUES (#{industry,jdbcType=VARCHAR} , #{date,jdbcType=DATE} , #{inflow,jdbcType=VARCHAR}, #{change_percent,jdbcType=DOUBLE})
+    </insert>
+</mapper>

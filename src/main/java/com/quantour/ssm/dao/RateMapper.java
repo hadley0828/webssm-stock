@@ -3,6 +3,7 @@ package com.quantour.ssm.dao;
 import com.quantour.ssm.model.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -58,19 +59,22 @@ public interface RateMapper {
 
     /**
      * 行业资金流向
-     * @param stockCode
+     * @param map industry & date
      * @return
      */
-    public ProfessionFundFlows getOneProfessionFundFlows(String stockCode);
+    public ProfessionFundFlows getOneProfessionFundFlows(HashMap map);
 
     public List<ProfessionFundFlows> getAllProfessionFundFlows();
 
     /**
      * 个股资金流向
-     * @param stockCode
+     * @param map code & date
      * @return
      */
-    public SingleStockFundFlows getSingleStockFundFlows(String stockCode);
+    public SingleStockFundFlows getSingleStockFundFlows(HashMap map);
 
     public List<SingleStockFundFlows> getAllSingleStockFundFlows();
+
+
+    public void insertProfessionFundFlows(ProfessionFundFlows professionFundFlows);
 }
