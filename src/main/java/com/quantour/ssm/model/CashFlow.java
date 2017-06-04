@@ -2,15 +2,16 @@ package com.quantour.ssm.model;
 
 /**
  * Created by zhangzy on 2017/6/3.
+ * 现金流量
  */
 public class CashFlow {
     private String code;
     private String name;
-    private Double cf_sales;
-    private Double rateofreturn;
-    private Double cf_nm;
-    private Double cf_liabilities;
-    private Double cashflowratio;
+    private String cf_sales;
+    private String rateofreturn;
+    private String cf_nm;
+    private String cf_liabilities;
+    private String cashflowratio;
 
     public String getCode() {
         return code;
@@ -28,43 +29,43 @@ public class CashFlow {
         this.name = name;
     }
 
-    public Double getCf_sales() {
+    public String getCf_sales() {
         return cf_sales;
     }
 
-    public void setCf_sales(Double cf_sales) {
+    public void setCf_sales(String cf_sales) {
         this.cf_sales = cf_sales;
     }
 
-    public Double getRateofreturn() {
+    public String getRateofreturn() {
         return rateofreturn;
     }
 
-    public void setRateofreturn(Double rateofreturn) {
+    public void setRateofreturn(String rateofreturn) {
         this.rateofreturn = rateofreturn;
     }
 
-    public Double getCf_nm() {
+    public String getCf_nm() {
         return cf_nm;
     }
 
-    public void setCf_nm(Double cf_nm) {
+    public void setCf_nm(String cf_nm) {
         this.cf_nm = cf_nm;
     }
 
-    public Double getCf_liabilities() {
+    public String getCf_liabilities() {
         return cf_liabilities;
     }
 
-    public void setCf_liabilities(Double cf_liabilities) {
+    public void setCf_liabilities(String cf_liabilities) {
         this.cf_liabilities = cf_liabilities;
     }
 
-    public Double getCashflowratio() {
+    public String getCashflowratio() {
         return cashflowratio;
     }
 
-    public void setCashflowratio(Double cashflowratio) {
+    public void setCashflowratio(String cashflowratio) {
         this.cashflowratio = cashflowratio;
     }
 }

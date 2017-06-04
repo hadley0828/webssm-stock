@@ -7,12 +7,12 @@ package com.quantour.ssm.model;
 public class PaymentAbility {
     private String code;
     private String name;
-    private Double currentratio;
-    private Double quickratio;
-    private Double cashratio;
-    private Double icratio;
-    private Double sheqratio;
-    private Double adratio;
+    private String currentratio;
+    private String quickratio;
+    private String cashratio;
+    private String icratio;
+    private String sheqratio;
+    private String adratio;
 
     public String getCode() {
         return code;
@@ -30,51 +30,51 @@ public class PaymentAbility {
         this.name = name;
     }
 
-    public Double getCurrentratio() {
+    public String getCurrentratio() {
         return currentratio;
     }
 
-    public void setCurrentratio(Double currentratio) {
+    public void setCurrentratio(String currentratio) {
         this.currentratio = currentratio;
     }
 
-    public Double getQuickratio() {
+    public String getQuickratio() {
         return quickratio;
     }
 
-    public void setQuickratio(Double quickratio) {
+    public void setQuickratio(String quickratio) {
         this.quickratio = quickratio;
     }
 
-    public Double getCashratio() {
+    public String getCashratio() {
         return cashratio;
     }
 
-    public void setCashratio(Double cashratio) {
+    public void setCashratio(String cashratio) {
         this.cashratio = cashratio;
     }
 
-    public Double getIcratio() {
+    public String getIcratio() {
         return icratio;
     }
 
-    public void setIcratio(Double icratio) {
+    public void setIcratio(String icratio) {
         this.icratio = icratio;
     }
 
-    public Double getSheqratio() {
+    public String getSheqratio() {
         return sheqratio;
     }
 
-    public void setSheqratio(Double sheqratio) {
+    public void setSheqratio(String sheqratio) {
         this.sheqratio = sheqratio;
     }
 
-    public Double getAdratio() {
+    public String getAdratio() {
         return adratio;
     }
 
-    public void setAdratio(Double adratio) {
+    public void setAdratio(String adratio) {
         this.adratio = adratio;
     }
 }

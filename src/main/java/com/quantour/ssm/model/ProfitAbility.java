@@ -7,13 +7,13 @@ package com.quantour.ssm.model;
 public class ProfitAbility {
     private String code;
     private String name;
-    private Double roe;
-    private Double net_profit_ratio;
-    private Double gross_profit_rate;
-    private Double net_profits;
-    private Double esp;
-    private Double business_income;
-    private Double bips;
+    private String roe;
+    private String net_profit_ratio;
+    private String gross_profit_rate;
+    private String net_profits;
+    private String esp;
+    private String business_income;
+    private String bips;
 
     public String getCode() {
         return code;
@@ -31,59 +31,59 @@ public class ProfitAbility {
         this.name = name;
     }
 
-    public Double getRoe() {
+    public String getRoe() {
         return roe;
     }
 
-    public void setRoe(Double roe) {
+    public void setRoe(String roe) {
         this.roe = roe;
     }
 
-    public Double getNet_profit_ratio() {
+    public String getNet_profit_ratio() {
         return net_profit_ratio;
     }
 
-    public void setNet_profit_ratio(Double net_profit_ratio) {
+    public void setNet_profit_ratio(String net_profit_ratio) {
         this.net_profit_ratio = net_profit_ratio;
     }
 
-    public Double getGross_profit_rate() {
+    public String getGross_profit_rate() {
         return gross_profit_rate;
     }
 
-    public void setGross_profit_rate(Double gross_profit_rate) {
+    public void setGross_profit_rate(String gross_profit_rate) {
         this.gross_profit_rate = gross_profit_rate;
     }
 
-    public Double getNet_profits() {
+    public String getNet_profits() {
         return net_profits;
     }
 
-    public void setNet_profits(Double net_profits) {
+    public void setNet_profits(String net_profits) {
         this.net_profits = net_profits;
     }
 
-    public Double getEsp() {
+    public String getEsp() {
         return esp;
     }
 
-    public void setEsp(Double esp) {
+    public void setEsp(String esp) {
         this.esp = esp;
     }
 
-    public Double getBusiness_income() {
+    public String getBusiness_income() {
         return business_income;
     }
 
-    public void setBusiness_income(Double business_income) {
+    public void setBusiness_income(String business_income) {
         this.business_income = business_income;
     }
 
-    public Double getBips() {
+    public String getBips() {
         return bips;
     }
 
-    public void setBips(Double bips) {
+    public void setBips(String bips) {
         this.bips = bips;
     }
 }

@@ -7,12 +7,12 @@ package com.quantour.ssm.model;
 public class EarningAbility {
     private String code;
     private String name;
-    private Double arturnover;
-    private Double arturndays;
-    private Double inventory_turnover;
-    private Double inventory_days;
-    private Double currentasset_turnover;
-    private Double currentasset_days;
+    private String arturnover;
+    private String arturndays;
+    private String inventory_turnover;
+    private String inventory_days;
+    private String currentasset_turnover;
+    private String currentasset_days;
 
     public String getCode() {
         return code;
@@ -30,51 +30,51 @@ public class EarningAbility {
         this.name = name;
     }
 
-    public Double getArturnover() {
+    public String getArturnover() {
         return arturnover;
     }
 
-    public void setArturnover(Double arturnover) {
+    public void setArturnover(String arturnover) {
         this.arturnover = arturnover;
     }
 
-    public Double getArturndays() {
+    public String getArturndays() {
         return arturndays;
     }
 
-    public void setArturndays(Double arturndays) {
+    public void setArturndays(String arturndays) {
         this.arturndays = arturndays;
     }
 
-    public Double getInventory_turnover() {
+    public String getInventory_turnover() {
         return inventory_turnover;
     }
 
-    public void setInventory_turnover(Double inventory_turnover) {
+    public void setInventory_turnover(String inventory_turnover) {
         this.inventory_turnover = inventory_turnover;
     }
 
-    public Double getInventory_days() {
+    public String getInventory_days() {
         return inventory_days;
     }
 
-    public void setInventory_days(Double inventory_days) {
+    public void setInventory_days(String inventory_days) {
         this.inventory_days = inventory_days;
     }
 
-    public Double getCurrentasset_turnover() {
+    public String getCurrentasset_turnover() {
         return currentasset_turnover;
     }
 
-    public void setCurrentasset_turnover(Double currentasset_turnover) {
+    public void setCurrentasset_turnover(String currentasset_turnover) {
         this.currentasset_turnover = currentasset_turnover;
     }
 
-    public Double getCurrentasset_days() {
+    public String getCurrentasset_days() {
         return currentasset_days;
     }
 
-    public void setCurrentasset_days(Double currentasset_days) {
+    public void setCurrentasset_days(String currentasset_days) {
         this.currentasset_days = currentasset_days;
     }
 }

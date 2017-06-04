@@ -7,12 +7,12 @@ package com.quantour.ssm.model;
 public class GrowAbility {
     private String code;
     private String name;
-    private Double mbrg;
-    private Double nprg;
-    private Double nav;
-    private Double targ;
-    private Double epsg;
-    private Double seg;
+    private String mbrg;
+    private String nprg;
+    private String nav;
+    private String targ;
+    private String epsg;
+    private String seg;
 
     public String getCode() {
         return code;
@@ -30,51 +30,51 @@ public class GrowAbility {
         this.name = name;
     }
 
-    public Double getMbrg() {
+    public String getMbrg() {
         return mbrg;
     }
 
-    public void setMbrg(Double mbrg) {
+    public void setMbrg(String mbrg) {
         this.mbrg = mbrg;
     }
 
-    public Double getNprg() {
+    public String getNprg() {
         return nprg;
     }
 
-    public void setNprg(Double nprg) {
+    public void setNprg(String nprg) {
         this.nprg = nprg;
     }
 
-    public Double getNav() {
+    public String getNav() {
         return nav;
     }
 
-    public void setNav(Double nav) {
+    public void setNav(String nav) {
         this.nav = nav;
     }
 
-    public Double getTarg() {
+    public String getTarg() {
         return targ;
     }
 
-    public void setTarg(Double targ) {
+    public void setTarg(String targ) {
         this.targ = targ;
     }
 
-    public Double getEpsg() {
+    public String getEpsg() {
         return epsg;
     }
 
-    public void setEpsg(Double epsg) {
+    public void setEpsg(String epsg) {
         this.epsg = epsg;
     }
 
-    public Double getSeg() {
+    public String getSeg() {
         return seg;
     }
 
-    public void setSeg(Double seg) {
+    public void setSeg(String seg) {
         this.seg = seg;
     }
 }

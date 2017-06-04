@@ -6,4 +6,5 @@ package com.quantour.ssm.service;
  */
 public interface RateService {
 
+
 }
