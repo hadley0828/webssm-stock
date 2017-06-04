@@ -138,6 +138,13 @@
                                 <i class="ti-user"></i>
                                 <p>登录</p>
                             </a>
+                            <%--<ul class="dropdown-menu">--%>
+                                <%--<li><a href="#">Notification 1</a></li>--%>
+                                <%--<li><a href="#">Notification 2</a></li>--%>
+                                <%--<li><a href="#">Notification 3</a></li>--%>
+                                <%--<li><a href="#">Notification 4</a></li>--%>
+                                <%--<li><a href="#">Another notification</a></li>--%>
+                            <%--</ul>--%>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -399,7 +406,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">登录</h4>
+                <h4 class="modal-title" id="    myModalLabel">登录</h4>
             </div>
             <div class="modal-body">
 
