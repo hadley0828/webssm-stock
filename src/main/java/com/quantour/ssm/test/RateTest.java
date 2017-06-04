@@ -46,6 +46,7 @@ public class RateTest {
 //            System.out.println(c.getName());
 //        }
 
+
         for(SingleStockFundFlows s : list1){
             System.out.println(s.getInflow());
         }
