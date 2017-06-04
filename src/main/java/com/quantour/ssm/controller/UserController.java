@@ -1,9 +1,10 @@
 package com.quantour.ssm.controller;
 
 import com.google.gson.Gson;
+import com.quantour.ssm.dto.userDTO;
+import com.quantour.ssm.model.ResponseObj;
 import com.quantour.ssm.model.User;
 import com.quantour.ssm.service.UserService;
-import com.quantour.ssm.model.ResponseObj;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,8 +75,11 @@ public class UserController {
             if(userService.isPasswordValid(id,password)){
                 responseObj = new ResponseObj();
                 responseObj.setCode("1");
-                responseObj.setMessage("pass");
+                responseObj.setMessage("登录成功");
+                responseObj.setData(new userDTO(user));
+                responseObj.setData(new userDTO(user));
                 return new Gson().toJson(responseObj);
+
             }
             else{
                 responseObj = new ResponseObj();
@@ -97,20 +101,28 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String register(String id, String password){
+    public String register(String id, String password,String password2){
         User user = userService.getOneUserByAccount(id);
 
-        if(user != null){
+        if(!password.equals(password2) ){
             responseObj = new ResponseObj();
             responseObj.setCode("0");
-            responseObj.setMessage("this account alreay exist!");
+            responseObj.setMessage("请输入相同密码！");
             return new Gson().toJson(responseObj);
         }else{
-            userService.setNewAccount(id,password);
-            responseObj = new ResponseObj();
-            responseObj.setCode("1");
-            responseObj.setMessage("Register successfully!");
-            return new Gson().toJson(responseObj);
+            if(user != null){
+                responseObj = new ResponseObj();
+                responseObj.setCode("0");
+                responseObj.setMessage("this account alreay exist!");
+                return new Gson().toJson(responseObj);
+            }else{
+                userService.setNewAccount(id,password);
+                responseObj = new ResponseObj();
+                responseObj.setCode("1");
+                responseObj.setMessage("Register successfully!");
+                return new Gson().toJson(responseObj);
+            }
         }
+
     }
 }

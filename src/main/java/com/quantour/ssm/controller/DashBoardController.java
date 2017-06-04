@@ -4,17 +4,15 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/5/16.
  */
 
-import com.quantour.ssm.model.User;
 import com.quantour.ssm.service.StockService;
-import com.quantour.ssm.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -25,10 +23,11 @@ public class DashBoardController {
     @Resource
     private StockService stockService;
 
-    @RequestMapping("")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String showBoard(HttpServletRequest request, Model model){
         return "dashboard";
     }
+
 
     @RequestMapping("/temple")
     public String showBoardtemple(HttpServletRequest request, Model model){
