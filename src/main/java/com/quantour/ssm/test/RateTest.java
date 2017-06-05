@@ -2,11 +2,10 @@ package com.quantour.ssm.test;
 
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dao.RateMapper;
-import com.quantour.ssm.model.CashFlow;
-import com.quantour.ssm.model.ProfessionFundFlows;
-import com.quantour.ssm.model.SingleStockFundFlows;
+import com.quantour.ssm.model.*;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.FKSqlSessionFactory;
+import com.quantour.ssm.util.StockCalculator;
 import org.apache.ibatis.session.SqlSession;
 
 import java.lang.reflect.Array;
@@ -114,9 +113,9 @@ public class RateTest {
             for(int index=0;index<20;index++){
                 String date=allDateList.get(index);
 
-                int numberOfStockInIndustry=0;
-                double changePercent=0.0;
-                double totalPercnet=0.0;
+                int numberOfStockInIndustry=0;  //当天有信息的行业内股票次数
+                double changePercent=0.0;   //行业的涨跌幅 算法=总涨幅/股票支数
+                double totalPercent=0.0;    //总涨幅
 
                 double totalFlow=0.0;
                 for(int i=0;i<industryAllStock.size();i++){
@@ -128,17 +127,50 @@ public class RateTest {
                     }
 
 
-                //TODO 处理行业的涨跌幅
+                //处理行业的涨跌幅
+                    ArrayList<DayKLine> nowList= (ArrayList<DayKLine>) dayKLineMapper.getOneDayDayKLines(DateConvert.stringToDate(date));
+                    ArrayList<DayKLine> lastList= (ArrayList<DayKLine>) dayKLineMapper.getYesterdayDayKLines(DateConvert.stringToDate(date));
+                    //String是股票编号 Double是收盘价
+                    HashMap<String,Double> nowMap=new HashMap<String, Double>();
+                    HashMap<String,Double> lastMap=new HashMap<String, Double>();
+
+                    for(int j=0;j<nowList.size();j++){
+                        DayKLine dayKLine=nowList.get(j);
+                        nowMap.put(dayKLine.getStockCode(),dayKLine.getClosePrice());
+                    }
+
+                    for(int j=0;j<lastList.size();j++){
+                        DayKLine dayKLine=lastList.get(j);
+                        lastMap.put(dayKLine.getStockCode(),dayKLine.getClosePrice());
+                    }
+
+                    if(nowMap.containsKey(code)&&lastMap.containsKey(code)){
+                        double oneStockChange= StockCalculator.getIncrease(lastMap.get(code),nowMap.get(code));
+                        totalPercent=totalPercent+oneStockChange;
+                        numberOfStockInIndustry++;
+                    }
+
+
 
 
                 }
+
+                if(numberOfStockInIndustry==0){
+                    changePercent=0.0;
+                }else{
+                    changePercent=totalPercent/numberOfStockInIndustry;
+                }
+
+                System.out.println(changePercent);
+
+
 
                 ProfessionFundFlows p = new ProfessionFundFlows();
 
                 p.setIndustry(industryName);
                 p.setDate(Date.valueOf(date));
                 p.setInflow(String.valueOf(totalFlow));
-                p.setChange_percent(0.0);
+                p.setChange_percent(changePercent);
 
                 rateMapper.insertProfessionFundFlows(p);
             }
