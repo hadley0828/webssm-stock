@@ -109,13 +109,25 @@ public class StockController {
 
         long startTime = System.currentTimeMillis();
 
-        strategyResultDTO resultDTO=staticService.getStraOneResult(20,10,"2010-09-11","2011-9-11",1,codeList,"sh000300");
+        strategyResultDTO resultDTO=staticService.getStraOneResult(20,10,"2010-09-11","2011-09-11",1,codeList,"sh000300");
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
 
         model.addAttribute("resultDTO",resultDTO);
         return "serviceTest/resultOneDTO";
+    }
+
+
+    @RequestMapping("/getStrategyTwo")
+    public String showStrategyTwo(HttpServletRequest request,Model model){
+        ArrayList<String> codeList=new ArrayList<String>();
+        codeList.add("000001");
+
+        strategyResultDTO resultDTO=staticService.getStraTwoResult(10,10,5,"2010-09-11","2011-09-11",1,codeList,"sh000300");
+
+        model.addAttribute("resultDTO",resultDTO);
+        return "serviceTest/resultTwoDTO";
     }
 
 
