@@ -88,3 +88,4 @@ $RECYCLE.BIN/
 logs/
 /src/main/resources/mybatis-config.xml
 src/main/webapp/WEB-INF/jsp/serviceTest/echarts.js
+!/src/main/java/com/quantour/ssm/model/CashFlow.java

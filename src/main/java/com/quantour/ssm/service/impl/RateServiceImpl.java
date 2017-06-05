@@ -1,5 +1,7 @@
 package com.quantour.ssm.service.impl;
 
+import com.quantour.ssm.dto.stockRate.GeneralScoreDTO;
+import com.quantour.ssm.service.RateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class RateServiceImpl {
+public class RateServiceImpl implements RateService{
 
 
+    @Override
+    public GeneralScoreDTO getOneStockGeneralStore(String code) {
+        return null;
+    }
 }
