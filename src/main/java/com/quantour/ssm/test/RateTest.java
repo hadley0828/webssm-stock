@@ -114,6 +114,10 @@ public class RateTest {
             for(int index=0;index<20;index++){
                 String date=allDateList.get(index);
 
+                int numberOfStockInIndustry=0;
+                double changePercent=0.0;
+                double totalPercnet=0.0;
+
                 double totalFlow=0.0;
                 for(int i=0;i<industryAllStock.size();i++){
                     String code=industryAllStock.get(i);
@@ -122,6 +126,11 @@ public class RateTest {
                             totalFlow=totalFlow+allStockFlowMap.get(code).get(date);
                         }
                     }
+
+
+                //TODO 处理行业的涨跌幅
+
+
                 }
 
                 ProfessionFundFlows p = new ProfessionFundFlows();
