@@ -30,7 +30,10 @@ public class RateTest {
 //        test.testGetOne();
 //        test.testGetAll();
 //        test.testAllSingleFundFlows();
-        test.insertIndustryData();
+//        test.insertIndustryData();
+//        test.printAllIndustry();
+//        test.printAllConcept();
+        test.printAllRegion();
     }
 
     public void testGetOne(){
@@ -179,4 +182,26 @@ public class RateTest {
         session.commit();
     }
 
+
+    public void printAllIndustry(){
+        ArrayList<String> allIndustryList= (ArrayList<String>) dayKLineMapper.getAllIndustryBlock();
+        for(int count=0;count<allIndustryList.size();count++){
+            System.out.println(allIndustryList.get(count));
+        }
+    }
+
+    public void printAllConcept(){
+        ArrayList<String> allConceptList= (ArrayList<String>) dayKLineMapper.getAllConceptBlock();
+        for(int count=0;count<allConceptList.size();count++){
+            System.out.println(allConceptList.get(count));
+        }
+
+    }
+
+    public void printAllRegion(){
+        ArrayList<String> allRegionList= (ArrayList<String>) dayKLineMapper.getAllAreaBlock();
+        for(int count=0;count<allRegionList.size();count++){
+            System.out.println(allRegionList.get(count));
+        }
+    }
 }
