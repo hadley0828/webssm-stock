@@ -52,6 +52,9 @@ public class DashBoardController {
         return "userRegist";
     }
 
+    @RequestMapping("/stockData")
+    public String showData(HttpServletRequest request,Model model){return "stock";}
+
 //    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 //    @ResponseBody
 //    public String showRank(int limit,int offset,String department,String statu){
