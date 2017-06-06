@@ -29,17 +29,17 @@ public class DashBoardController {
     }
 
 
-    @RequestMapping("/temple")
-    public String showBoardtemple(HttpServletRequest request, Model model){
-        return "temple";
-    }
+//    @RequestMapping("/temple")
+//    public String showBoardtemple(HttpServletRequest request, Model model){
+//        return "temple";
+//    }
 
-    @RequestMapping("/temple.form")
-    public String testPrint(HttpServletRequest request,Model model){
-        String name = request.getParameter("name");
-        model.addAttribute("name",name);
-        return "temple";
-    }
+//    @RequestMapping("/temple.form")
+//    public String testPrint(HttpServletRequest request,Model model){
+//        String name = request.getParameter("name");
+//        model.addAttribute("name",name);
+//        return "temple";
+//    }
 
     @RequestMapping("/login")
     public String doLogin(HttpServletRequest request,Model model){
@@ -50,4 +50,14 @@ public class DashBoardController {
     public String doRegist(HttpServletRequest request,Model model){
         return "userRegist";
     }
+
+//    @RequestMapping("/compare")
+//    public String showCompare(HttpServletRequest request, Model model){
+//        return "compare";
+//    }
+//
+//    @RequestMapping("/doctor")
+//    public String showDoctor(HttpServletRequest request, Model model){
+//        return "doctor";
+//    }
 }

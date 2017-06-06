@@ -62,53 +62,30 @@
 
             <ul class="nav">
                 <li>
-                    <a href="My_dashboard.html">
+                    <a href="<%=contextPath%>/dashboard/">
                         <i class="ti-panel"></i>
-                        <p>Dashboard</p>
+                        <p>主页</p>
                     </a>
                 </li>
                 <li>
-                    <a href="compare.html">
+                    <a href="<%=contextPath%>/compare/">
                         <i class="ti-flag-alt-2"></i>
-                        <p>Compare</p>
+                        <p>股票对比</p>
                     </a>
                 </li>
                 <li>
-                    <a href="strategy.html">
+                    <a href="<%=contextPath%>/TODO">
                         <i class="ti-receipt"></i>
-                        <p>Strategy</p>
+                        <p>股市策略</p>
                     </a>
                 </li>
                 <li>
-                    <a href="personal.html">
+                    <a href="<%=contextPath%>/doctor/">
                         <i class="ti-user"></i>
-                        <p>User</p>
+                        <p>股票诊断</p>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="ti-pencil-alt2"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="ti-map"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="ti-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-                <!--<li class="active-pro">-->
-                <!--<a href="upgrade.html">-->
-                <!--<i class="ti-export"></i>-->
-                <!--<p>Upgrade to PRO</p>-->
-                <!--</a>-->
-                <!--</li>-->
+
             </ul>
         </div>
     </div>
@@ -123,7 +100,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">主页</a>
                 </div>
 
                 <div class="collapse navbar-collapse">

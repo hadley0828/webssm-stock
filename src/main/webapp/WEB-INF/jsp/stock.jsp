@@ -61,28 +61,28 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="">
+                <li>
+                    <a href="<%=contextPath%>/dashboard/">
                         <i class="ti-panel"></i>
                         <p>主页</p>
                     </a>
                 </li>
-                <%--<li>--%>
-                <%--<a href="">--%>
-                <%--<i class="ti-user"></i>--%>
-                <%--<p>个股信息</p>--%>
-                <%--</a>--%>
-                <%--</li>--%>
                 <li>
-                    <a href="">
-                        <i class="ti-view-list-alt"></i>
+                    <a href="<%=contextPath%>/compare/">
+                        <i class="ti-flag-alt-2"></i>
                         <p>股票对比</p>
                     </a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="ti-text"></i>
-                        <p>策略应用</p>
+                    <a href="<%=contextPath%>/TODO">
+                        <i class="ti-receipt"></i>
+                        <p>股市策略</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<%=contextPath%>/doctor/">
+                        <i class="ti-user"></i>
+                        <p>股票诊断</p>
                     </a>
                 </li>
 
@@ -101,7 +101,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">个股信息</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -111,9 +111,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="<%=contextPath%>/dashboard/login" >
                                 <i class="ti-user"></i>
-                                <p>未登录</p>
+                                <p>登录</p>
                             </a>
                         </li>
                         <li class="dropdown">
@@ -292,20 +292,20 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="<%=contextPath%>/assets/js/demo.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
+<%--&lt;%&ndash;<script type="text/javascript">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;$(document).ready(function(){&ndash;%&gt;--%>
 
-        demo.initChartist();
+        <%--&lt;%&ndash;demo.initChartist();&ndash;%&gt;--%>
 
-        $.notify({
-            icon: 'ti-gift',
-            message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
+        <%--&lt;%&ndash;$.notify({&ndash;%&gt;--%>
+            <%--&lt;%&ndash;icon: 'ti-gift',&ndash;%&gt;--%>
+            <%--&lt;%&ndash;message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."&ndash;%&gt;--%>
 
-        },{
-            type: 'success',
-            timer: 4000
-        });
+        <%--&lt;%&ndash;},{&ndash;%&gt;--%>
+            <%--&lt;%&ndash;type: 'success',&ndash;%&gt;--%>
+            <%--&lt;%&ndash;timer: 4000&ndash;%&gt;--%>
+        <%--&lt;%&ndash;});&ndash;%&gt;--%>
 
-    });
-</script>
+    <%--&lt;%&ndash;});&ndash;%&gt;--%>
+<%--</script>--%>
 </html>
