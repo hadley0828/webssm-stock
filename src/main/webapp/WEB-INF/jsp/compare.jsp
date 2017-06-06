@@ -35,7 +35,7 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />
+    <%--<link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />--%>
 
 
     <!--  Fonts and icons     -->
@@ -309,8 +309,8 @@
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="<%=contextPath%>/assets/js/demo.js"></script>
+<%--<!-- Paper Dashboard DEMO methods, don't include it in your project! -->--%>
+<%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <%--<script type="text/javascript">--%>
     <%--$(document).ready(function(){--%>

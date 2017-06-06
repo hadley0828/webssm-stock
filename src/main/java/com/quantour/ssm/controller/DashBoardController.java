@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +51,12 @@ public class DashBoardController {
     public String doRegist(HttpServletRequest request,Model model){
         return "userRegist";
     }
+
+//    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+//    @ResponseBody
+//    public String showRank(int limit,int offset,String department,String statu){
+//
+//    }
 
 //    @RequestMapping("/compare")
 //    public String showCompare(HttpServletRequest request, Model model){

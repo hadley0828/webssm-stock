@@ -42,6 +42,9 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
+
+    <%--Bootstrap table--%>
+    <link href="<%=contextPath%>/assets/css/bootstrap-table.min.css" rel="stylesheet" >
 </head>
 <body>
 
@@ -215,7 +218,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="header">
                             <h4 class="title">Users Behavior</h4>
@@ -237,10 +240,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="header">
                             <h4 class="title">全部股票</h4>
@@ -248,173 +248,112 @@
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width">
-                            <table class="table table-striped">
-                                <thead>
-                                <th style="width: 72px;">序号</th>
-                                <th style="width: 108px;">编号</th>
-                                <th style="width: 108px">名称</th>
-                                <th style="width: 108px;">
-                                    <a href="#">
-                                        现价
-                                        <i></i>
-                                    </a>
-                                </th>
-                                <th style="width: 108px;">
-                                    <a href="#">
-                                        涨跌幅(%)
-                                    </a>
-                                </th>
-                                <th style="width: 108px;">
-                                    <a href="#">
-                                        涨跌
-                                    </a>
-                                </th>
-                                <th style="width: 108px;">成交量</th>
-                                <th style="width: 72px;">加自选</th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>000001</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>000002</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>000003</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>000004</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>000005</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>000006</td>
-                                    <td>xx股票</td>
-                                    <td>0.0</td>
-                                    <td>0.0%</td>
-                                    <td>0.0</td>
-                                    <td>1000000</td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <hr>
-                            <ul class="pagination" style="margin: 0 420px;">
-                                <li><a href="#">&laquo;</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&raquo;</a></li>
-                            </ul>
+                            <%--<table data-toggle="table">--%>
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                            <%--<th>Item ID</th>--%>
+                            <%--<th>Item Name</th>--%>
+                            <%--<th>Item Price</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+                            <%--<tr>--%>
+                            <%--<td>1</td>--%>
+                            <%--<td>Item 1</td>--%>
+                            <%--<td>$1</td>--%>
+                            <%--</tr>--%>
+                            <%--<tr>--%>
+                            <%--<td>2</td>--%>
+                            <%--<td>Item 2</td>--%>
+                            <%--<td>$2</td>--%>
+                            <%--</tr>--%>
+                            <%--</tbody>--%>
+                            <%--</table>--%>
+                            <table id="stockTable"></table>
+
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <%--<div class="col-md-12">--%>
+                    <%--<div class="card">--%>
+                        <%--<div class="header">--%>
+                            <%--<h4 class="title">全部股票</h4>--%>
+                            <%--<p class="category">Here is a subtitle for this table</p>--%>
+                            <%--<hr>--%>
+                        <%--</div>--%>
+                        <%--<div class="content table-responsive table-full-width">--%>
+                            <%--&lt;%&ndash;<table data-toggle="table">&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<thead>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<th>Item ID</th>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<th>Item Name</th>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<th>Item Price</th>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</thead>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<tbody>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>1</td>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>Item 1</td>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>$1</td>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>2</td>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>Item 2</td>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<td>$2</td>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</tbody>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;</table>&ndash;%&gt;--%>
+                            <%--<table id="stockTable"></table>--%>
+
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </div>
         </div>
     </div>
 
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="    myModalLabel">登录</h4>
-            </div>
-            <div class="modal-body">
-
-                <form method="post" action="/dashboard/temple.form">
-                    <ul >
-                        <%--<li><label id="registerInfo"></label></li>--%>
-                        <li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>
-                        <li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>
-                        <li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>
-                        <%--<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>--%>
-                        <li><span >提示信息</span>
-
-                        </li>
-                        <li id="tipmsg"></li>
-                        <li >
-                            <div align="right">
-                                <!--a <a href="javascript:document.getElementById('form1').submit();">立即注册</a>-->
-                                <input type="submit" id="btn_register" value="立即注册" >
-                            </div>
-
-                        </li>
-                    </ul>
-                </form>
-            </div>
-            <%--<div class="modal-footer">--%>
-                <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
-                <%--<button type="button" class="btn btn-primary">提交更改</button>--%>
+<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
+    <%--<div class="modal-dialog">--%>
+        <%--<div class="modal-content">--%>
+            <%--<div class="modal-header">--%>
+                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--%>
+                <%--<h4 class="modal-title" id="    myModalLabel">登录</h4>--%>
             <%--</div>--%>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+            <%--<div class="modal-body">--%>
+
+                <%--<form method="post" action="/dashboard/temple.form">--%>
+                    <%--<ul >--%>
+                        <%--&lt;%&ndash;<li><label id="registerInfo"></label></li>&ndash;%&gt;--%>
+                        <%--<li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>--%>
+                        <%--<li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>--%>
+                        <%--<li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>--%>
+                        <%--&lt;%&ndash;<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>&ndash;%&gt;--%>
+                        <%--<li><span >提示信息</span>--%>
+
+                        <%--</li>--%>
+                        <%--<li id="tipmsg"></li>--%>
+                        <%--<li >--%>
+                            <%--<div align="right">--%>
+                                <%--<!--a <a href="javascript:document.getElementById('form1').submit();">立即注册</a>-->--%>
+                                <%--<input type="submit" id="btn_register" value="立即注册" >--%>
+                            <%--</div>--%>
+
+                        <%--</li>--%>
+                    <%--</ul>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--&lt;%&ndash;<div class="modal-footer">&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<button type="button" class="btn btn-primary">提交更改</button>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+        <%--</div><!-- /.modal-content -->--%>
+    <%--</div><!-- /.modal -->--%>
+<%--</div>--%>
 
 </body>
 
@@ -437,6 +376,11 @@
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
+<%--Bootstrap table--%>
+<script src="<%=contextPath%>/assets/js/bootstrap-table.min.js"></script>
+<script src="<%=contextPath%>/assets/js/bootstrap-table-zh-CN.js"></script>
+
+
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="<%=contextPath%>/assets/js/demo.js"></script>
 
@@ -444,6 +388,42 @@
     $(document).ready(function(){
 
         demo.initChartist();
+
+        $('#stockTable').bootstrapTable({
+            url:'<%=contextPath%>/dashboard/showRanking',
+            method: 'post',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: false,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            //queryParams: oTableInit.queryParams,//传递参数（*）
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: false,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+            height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            //uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+            showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'code',
+                title: '股票代码'
+            }, {
+                field: 'percent',
+                title: '涨跌幅'
+            }]
+        })
 
         $.notify({
             icon: 'ti-gift',
@@ -456,4 +436,7 @@
 
     });
 </script>
+
+
+
 </html>
