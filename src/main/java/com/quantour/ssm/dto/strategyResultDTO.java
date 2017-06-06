@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by zhangzy on 2017/5/14.
  */
 public class strategyResultDTO {
-    String straId;         //该次回测使用的策略编号
+    String straId;         //该次回测使用的策略名称
     double yearProfit;     //年化收益率
     double standardProfit; //基准年化收益率
     double alpha;          //阿尔法值
