@@ -155,21 +155,21 @@
                                     <input type="text" placeholder="代码/名称" class="form-control">
                                 </div>
                             </div>
-                            <ul class="list-inline" style="padding-top: 20px">
-                                <li>
-                                    <a href="#">沪深300</a>
-                                    <a href="#" style="padding-left: 10px;padding-right: 20px">x</a>
-                                </li>
-                                <li>
-                                    <a href="#">沪深300</a>
-                                    <a href="#" style="padding-left: 10px">x</a>
-                                </li>
+                            <ul class="list-inline" style="padding-top: 20px" id="choosed_list">
+                                <%--<li >--%>
+                                    <%--<a>沪深300</a>--%>
+                                    <%--<a style="padding-left: 10px;padding-right: 20px">x</a>--%>
+                                <%--</li>--%>
+                                <%--<li>--%>
+                                    <%--<a>沪深300</a>--%>
+                                    <%--<a  style="padding-left: 10px">x</a>--%>
+                                <%--</li>--%>
                             </ul>
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-4">
-                                    <button class="btn btn-success">比较</button>
+                                    <button class="btn btn-success" onclick="doCompare()">比较</button>
                                 </div>
-                                <button class="btn btn-danger">清空</button>
+                                <button class="btn btn-danger" onclick="deleteAllUl()">清空</button>
                             </div>
                             <hr>
                             <ul class="nav nav-pills">
@@ -201,14 +201,14 @@
                                         <table class="table table-striped">
                                             <tbody>
                                             <tr>
-                                                <td>工商银行</td>
+                                                <td id="hot_name_1">工商银行</td>
                                                 <td>0.00</td>
-                                                <th><a href="#">对比</a></th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('hot_name_1').innerHTML)">对比</a></th>
                                             </tr>
                                             <tr>
-                                                <td>农业银行</td>
+                                                <td id="hot_name_2">农业银行</td>
                                                 <td>0.00</td>
-                                                <th><a href="#">对比</a> </th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('hot_name_2').innerHTML)">对比</a> </th>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -277,6 +277,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div>
+                                <p id="test">
+                                    text
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -312,6 +317,77 @@
 <%--<!-- Paper Dashboard DEMO methods, don't include it in your project! -->--%>
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
+<script>
+    function addUl(name) {
+        var text = name;
+        var ul =document.getElementById("choosed_list");
+        var li =document.createElement("li");
+        var a1=document.createElement("a");
+        var a2=document.createElement("a");
+
+
+
+        a1.innerHTML=name;
+        a2.innerHTML="x";
+        a2.style="padding-left: 10px;padding-right: 20px";
+
+        li.id=a1;
+        li.onclick=function(){deleteUl(this)};
+        li.appendChild(a1);
+        li.appendChild(a2);
+
+
+        ul.appendChild(li);
+        
+    }
+
+    function doCompare() {
+        var codeList ="";
+        var ul = document.getElementById("choosed_list");
+        var lis= ul.getElementsByTagName('li');
+
+        for(var i =0;i<lis.length;i++){
+            var as = lis[i].getElementsByTagName('a');
+
+            codeList = codeList+as[0].innerHTML;
+        }
+
+        $("#test").html(codeList);
+
+        $.ajax({
+            type:"POST",
+            url:'<%=request.getContextPath()%>/compare/doCompare',
+            data:{id_List:codeList},
+            dataType:"json",
+            cache:false,
+            success:function (data) {
+                var mydata = JSON.parse(data);
+                alert(mydata);
+//                if(mydata=="{}"){
+//                    alert("no message");
+//                }else{
+//                    $("#test").html("");
+//                    $.each(mydata,function (i,item) {
+//                        var li=document.createElement("li");
+//                        li.innerHTML=item;
+//                        $("#test").appendChild(li);
+//                    })
+//                }
+            }
+        })
+    }
+    
+    function deleteUl(objs){
+        var ul=document.getElementById("choosed_list");
+
+        ul.removeChild(objs);
+    }
+
+    function deleteAllUl(){
+        var ul = document.getElementById("choosed_list");
+        ul.innerHTML="";
+    }
+</script>
 <%--<script type="text/javascript">--%>
     <%--$(document).ready(function(){--%>
 
