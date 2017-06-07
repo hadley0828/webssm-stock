@@ -451,7 +451,7 @@ public class StaticServiceImpl implements StaticService {
     @Override
     public strategyResultDTO getStraTwoResult(int averageDays, int holdDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
         strategyResultDTO straresultvo=new strategyResultDTO();
-        straresultvo.setStraId("军指挥鬼");
+        straresultvo.setStraId("均值回归");
         ArrayList<oneDayProfitDTO> oneDayProfitList=new ArrayList<oneDayProfitDTO>();
 
         //c图的数据

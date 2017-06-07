@@ -453,10 +453,13 @@ public class CustomizeServiceImpl implements CustomizeService{
                 if(alternativeStockList.size()<tradeModelDTO.getMaxHoldStockNumber()){
                     holdStockCodeList=alternativeStockList;
                 }else{
-                    for(int index=0;index<tradeModelDTO.getMaxHoldStockNumber();count++){
+                    for(int index=0;index<tradeModelDTO.getMaxHoldStockNumber();index++){
+
                         holdStockCodeList.add(alternativeStockList.get(index));
                     }
                 }
+
+                number=holdStockCodeList.size();
 
 
                 if(allDateList.indexOf(realLDate)-allDateList.indexOf(currentDate)>tradeModelDTO.getTransferCycle()-1){
