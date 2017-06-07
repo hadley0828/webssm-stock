@@ -3,6 +3,7 @@ package com.quantour.ssm.dao;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
+import com.quantour.ssm.util.CodeIndustryMap;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public interface DayKLineMapper {
+public interface DayKLineMapper    {
     int deleteByPrimaryKey(DayKLineKey key);
 
     int insert(DayKLine record);
@@ -233,6 +234,15 @@ public interface DayKLineMapper {
      */
     public List<String> getConceptByStock(String code);
 
+
+    /**
+     * 在调用这个方法时，传入的参数为新建的自定义类 CodeIndustryMap
+     * 通过dayKLineMapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));  调用
+     *
+     * 获得行业与股票编号的一一对应  key=code  value=industry
+     * @return
+     */
+    public HashMap<String,String> getAllIndustryAndCode(CodeIndustryMap param);
 
 
 

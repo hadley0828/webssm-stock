@@ -4,6 +4,7 @@ import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
+import com.quantour.ssm.util.CodeIndustryMap;
 import com.quantour.ssm.util.FKSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -26,10 +27,7 @@ public class DayKLineImplTest {
 
         DayKLineImplTest test = new DayKLineImplTest();
 
-        long startTime = System.currentTimeMillis();
-        test.testGetTimesDayKLines();
-        long endTime = System.currentTimeMillis();
-        System.out.println((endTime - startTime) + "ms");
+        test.testGetAllIndustryAndCode();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
 //        test.testGetTimesDayKLines();
@@ -349,6 +347,13 @@ public class DayKLineImplTest {
 //        for(DayKLine dayKLine : dayKLines){
 //            printDayKLine(dayKLine);
 //        }
+    }
+
+
+    public void testGetAllIndustryAndCode(){
+        HashMap<String,String> map = dayKLineMapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));
+
+        System.out.println(map.keySet());
     }
 
     public void test(){

@@ -4,13 +4,13 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/5/16.
  */
 
+import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +53,14 @@ public class DashBoardController {
     }
 
     @RequestMapping("/stockData")
-    public String showData(HttpServletRequest request,Model model){return "stock";}
+    public String showData(HttpServletRequest request,Model model){
+        stockDTO s = new stockDTO();
+        s.setName("万科A");
+        s.setId("000001");
+        model.addAttribute("stock",s);
+
+        return "stock";
+    }
 
 //    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 //    @ResponseBody

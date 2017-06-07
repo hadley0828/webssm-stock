@@ -42,6 +42,17 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
+
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="text/javascript">
+        function getOneDayStockInfo(){
+
+            var stock_id;
+            var date;
+        }
+    </script>
+
 </head>
 <body>
 
@@ -148,32 +159,32 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="header"><blockquote>万科A&#32(000001)</blockquote></div>
+                        <div class="header"><blockquote>${stock.name} (${stock.id})</blockquote></div>
                         <hr>
                         <div class="row" style="padding-left: 10px">
                             <div class="col-xs-1">
-                                <dt>今开</dt>
-                                <dd class="text-danger">0.00</dd>
+                                <dt>开盘</dt>
+                                <dd class="text-danger">${stock.openPrice}</dd>
                             </div>
                             <div class="col-xs-1">
-                                <dt>昨收</dt>
-                                <dd>0.00</dd>
+                                <dt>收盘</dt>
+                                <dd>${stock.closePrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>最高</dt>
-                                <dd class="text-danger">0.00</dd>
+                                <dd class="text-danger">${stock.highPrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>最低</dt>
-                                <dd class="text-success">0.00</dd>
+                                <dd class="text-success">${stock.closePrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>成交量</dt>
-                                <dd>0.00</dd>
+                                <dd>${stock.volume}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>涨跌</dt>
-                                <dd class="text-danger">0.00</dd>
+                                <dd class="text-danger">${stock.uplift}</dd>
                             </div>
                         </div>
                         <hr>
@@ -256,6 +267,8 @@
                     <div class="card">
                         <div class="header">
                             <blockquote>股票详情</blockquote>
+                            <hr>
+
                         </div>
                         <hr>
 

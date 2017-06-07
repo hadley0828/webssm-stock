@@ -14,10 +14,14 @@
     <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
     <result column="market" jdbcType="VARCHAR" property="market" />
   </resultMap>
+
+
+
   <sql id="Base_Column_List">
     stock_code, stock_date, stock_serial, open_price, high_price, low_price, close_price, 
     volume, adj_close, stock_name, market
   </sql>
+
 
   <select id="getAllDateByCode" parameterType="java.lang.String" resultType="String">
     select stock_date
@@ -52,6 +56,7 @@
     where stock_date = (select date_sub(#{stockDate,jdbcType=DATE},interval 1 day))
       and stock_code = #{stockCode,jdbcType=VARCHAR}
   </select>
+
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.StockKey" resultMap="BaseResultMap">
     select

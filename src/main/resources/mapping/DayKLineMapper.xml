@@ -19,6 +19,11 @@
   </resultMap>
 
 
+  <resultMap id="IndustryAndCodeMap" type="java.util.HashMap">
+    <id column="stock_code" jdbcType="VARCHAR" property="code"></id>
+    <result column="industry" jdbcType="VARCHAR" property="industry"></result>
+  </resultMap>
+
   <sql id="Base_Column_List">
     stock_code, stock_date, volume, open_price, close_price, high_price, low_price
   </sql>
@@ -189,6 +194,12 @@
     select concept
     from concept_block
     where stock_code = #{code}
+  </select>
+
+
+  <select id="getAllIndustryAndCode" parameterType="com.quantour.ssm.util.CodeIndustryMap" resultType="map">
+    select stock_code,industry
+    from industry_block
   </select>
 
   <select id="selectByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey" resultMap="BaseResultMap">

@@ -62,11 +62,12 @@
         <!-- 配置Mybatis的插件plugin-->
         <property name="plugins">
             <array>
-                <bean class="com.quantour.ssm.plugin.CheckSQLInterceptor">                                                                                                          <property name="properties">                                                                                                                                          <value>  property-key=property-value </value>
-                </property>
-                </bean>
+                <bean class="com.quantour.ssm.plugin.CheckSQLInterceptor"/>
+                <bean class="com.quantour.ssm.plugin.MapInterceptor"/>
             </array>
         </property>
+
+
 
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
