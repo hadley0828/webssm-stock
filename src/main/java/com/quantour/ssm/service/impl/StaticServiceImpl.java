@@ -232,7 +232,7 @@ public class StaticServiceImpl implements StaticService {
 
 
                 //有可能有问题
-                if(allDateList.indexOf(lDate)-allDateList.indexOf(currentDate)>holdDays-1){
+                if(allDateList.indexOf(realLDate)-allDateList.indexOf(currentDate)>holdDays-1){
                     changeDate=DateConvert.getLastNDate(allDateList,currentDate,-holdDays);
                 }
 
@@ -451,7 +451,7 @@ public class StaticServiceImpl implements StaticService {
     @Override
     public strategyResultDTO getStraTwoResult(int averageDays, int holdDays, int stockNumbers, String sDate, String lDate, int stockType, ArrayList<String> codeList, String blockCode) {
         strategyResultDTO straresultvo=new strategyResultDTO();
-        straresultvo.setStraId("均值回归");
+        straresultvo.setStraId("军指挥鬼");
         ArrayList<oneDayProfitDTO> oneDayProfitList=new ArrayList<oneDayProfitDTO>();
 
         //c图的数据

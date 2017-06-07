@@ -13,6 +13,7 @@ public class StockPondDTO {
     String concept;            //全选加上全部的概念板块(保险重仓、券商重仓等)
     String STStock;            //包含ST   排除ST    仅有ST
     String exchange;           //全选 上海  深圳
+    String region;             //全选加上全部的地域板块(深圳、北京等)
 
     @Override
     public String toString() {
@@ -92,7 +93,7 @@ public class StockPondDTO {
         this.region = region;
     }
 
-    String region;             //全选加上全部的地域板块(深圳、北京等)
+
 
     public StockPondDTO(){
         super();
