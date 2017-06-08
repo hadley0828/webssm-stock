@@ -2,6 +2,7 @@ package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dao.RateMapper;
+import com.quantour.ssm.dao.StrategyMapper;
 import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
@@ -35,6 +36,8 @@ public class CustomizeServiceImpl implements CustomizeService{
 
     @Resource
     private DayKLineMapper dayKLineMapper;
+    @Resource
+    private StrategyMapper strategyMapper;
 
     @Override
     public ArrayList<String> getAllIndustryBlock() {
@@ -1317,7 +1320,8 @@ public class CustomizeServiceImpl implements CustomizeService{
     }
 
     @Override
-    public CustomizeStrategyDTO getOneStrategy(String id, String strategyName) {
+    public CustomizeStrategyDTO getOneStrategy(String strategyId) {
+        //TODO
         return null;
     }
 

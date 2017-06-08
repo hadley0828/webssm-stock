@@ -45,12 +45,11 @@ public interface CustomizeService {
     public strategyResultDTO getCustomizeStrategyResult(String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO);
 
     /**
-     * 根据用户的id和策略的名字获得一个策略的基本信息
-     * @param id
-     * @param strategyName
+     * 根据策略的编号获得一个自定义策略 strategyId=userId+" "+dateTime
+     * @param strategyId
      * @return
      */
-    public CustomizeStrategyDTO getOneStrategy(String id,String strategyName);
+    public CustomizeStrategyDTO getOneStrategy(String strategyId);
 
     /**
      * 向数据库中插入一个新的策略 如果这个策略的用户id和策略姓名不存在则返回TRUE
