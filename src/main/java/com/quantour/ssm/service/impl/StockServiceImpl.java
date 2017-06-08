@@ -5,6 +5,7 @@ import com.quantour.ssm.dto.*;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
+import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
@@ -78,6 +79,117 @@ public class StockServiceImpl implements StockService {
 
 
         return stockdto;
+    }
+
+    @Override
+    public ArrayList<stockDTO> getSeveralStockInfo(ArrayList<String> codeList, String date) {
+        ArrayList<stockDTO> stockDTOArrayList=new ArrayList<stockDTO>();
+
+
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+        ArrayList<DayKLine> nowStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(realDate));
+        ArrayList<DayKLine> lastStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,realDate,1)));
+
+        HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
+        HashMap<String,DayKLine> lastStockMap=new HashMap<String, DayKLine>();
+
+        for(int count=0;count<nowStockList.size();count++){
+            nowStockMap.put(nowStockList.get(count).getStockCode(),nowStockList.get(count));
+        }
+
+        for(int count=0;count<lastStockList.size();count++){
+            lastStockMap.put(lastStockList.get(count).getStockCode(),lastStockList.get(count));
+        }
+
+        ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
+        HashMap<String,StockBasicInfo> stockBasicInfoHashMap=new HashMap<String, StockBasicInfo>();
+
+        //在这里能取到更多的数据 TODO
+        for(int count=0;count<stockBasicInfoArrayList.size();count++){
+            stockBasicInfoHashMap.put(stockBasicInfoArrayList.get(count).getCode(),stockBasicInfoArrayList.get(count));
+        }
+
+        for(int count=0;count<codeList.size();count++){
+            String stockCode=codeList.get(count);
+
+            if(!nowStockMap.containsKey(stockCode)){
+
+                    stockDTO stockdto=new stockDTO();
+                    stockdto.setId(stockCode);
+                    stockdto.setName(stockBasicInfoHashMap.get(stockCode).getName());
+                    if(stockdto.getId().charAt(0)=='0'){
+                        stockdto.setMarket("深圳");
+                    }else if(stockdto.getId().charAt(0)=='3'){
+                        stockdto.setMarket("创业板");
+                    }else if(stockdto.getId().charAt(0)=='6'){
+                        stockdto.setMarket("上海");
+                    }
+                    stockdto.setOpenPrice(0.0);
+                    stockdto.setClosePrice(0.0);
+                    stockdto.setHighPrice(0.0);
+                    stockdto.setLowPrice(0.0);
+
+                    stockdto.setUplift(0.0);
+                    stockdto.setAdjClose(0.0);
+                    stockdto.setVolume(0);
+                    stockdto.setLogYield(0.0);
+
+                    stockDTOArrayList.add(stockdto);
+            }else{
+
+                DayKLine dayKLine=new DayKLine();
+                DayKLine lastDayKLine=new DayKLine();
+
+                if(lastStockMap.containsKey(stockCode)){
+                    dayKLine=nowStockMap.get(stockCode);
+                    lastDayKLine=lastStockMap.get(stockCode);
+
+                }else{
+                    dayKLine=nowStockMap.get(stockCode);
+
+                    DayKLineKey dayKLineKey = new DayKLineKey();
+                    dayKLineKey.setStockCode(stockCode);
+                    dayKLineKey.setStockDate(Date.valueOf(realDate));
+                    lastDayKLine=dayklinemapper.getYesterdayDayKLine(dayKLineKey);
+
+                }
+
+
+                stockDTO stockdto=new stockDTO();
+                stockdto.setId(stockCode);
+                stockdto.setName(stockBasicInfoHashMap.get(stockCode).getName());
+                if(stockdto.getId().charAt(0)=='0'){
+                    stockdto.setMarket("深圳");
+                }else if(stockdto.getId().charAt(0)=='3'){
+                    stockdto.setMarket("创业板");
+                }else if(stockdto.getId().charAt(0)=='6'){
+                    stockdto.setMarket("上海");
+                }
+                stockdto.setOpenPrice(dayKLine.getOpenPrice());
+                stockdto.setClosePrice(dayKLine.getClosePrice());
+                stockdto.setHighPrice(dayKLine.getHighPrice());
+                stockdto.setLowPrice(dayKLine.getLowPrice());
+
+                stockdto.setUplift(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+                stockdto.setAdjClose(dayKLine.getClosePrice());
+                stockdto.setVolume(Math.round(dayKLine.getVolume()));
+                stockdto.setLogYield(StockCalculator.getLogYield(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+
+                stockDTOArrayList.add(stockdto);
+
+
+            }
+        }
+
+        return stockDTOArrayList;
     }
 
     //需要实现开始日期和结束日期不存在的情况
@@ -213,12 +325,12 @@ public class StockServiceImpl implements StockService {
         map.put("start",Date.valueOf(realSDate));
         map.put("end",Date.valueOf(realLDate));
 
-        System.out.println(firstCode+" "+realSDate+" "+realLDate);
+//        System.out.println(firstCode+" "+realSDate+" "+realLDate);
 
         ArrayList<DayKLine> firstDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getTimesDayKLines(map);
 
-        System.out.println(firstDayKLineList.get(0).getLowPrice());
-        System.out.println(firstDayKLineList.get(0).getStockCode());
+//        System.out.println(firstDayKLineList.get(0).getLowPrice());
+//        System.out.println(firstDayKLineList.get(0).getStockCode());
 
         ArrayList<String> dateList=new ArrayList<String>();
         double lowestPrice=firstDayKLineList.get(0).getLowPrice();

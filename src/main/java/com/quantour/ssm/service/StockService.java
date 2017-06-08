@@ -23,6 +23,15 @@ public interface StockService {
      */
     public stockDTO getStockInfo(String code, String date);
 
+
+    /**
+     * 根据股票编号的列表和日期按照顺序获得这些股票的当天信息
+     * @param codeList
+     * @param date
+     * @return
+     */
+    public ArrayList<stockDTO> getSeveralStockInfo(ArrayList<String> codeList,String date);
+
     /**
      * 根据股票编号 开始日期 结束日期获得一段时间内的该股票k线图信息
      * @param code
@@ -132,6 +141,11 @@ public interface StockService {
      * @return
      */
     public boolean isBlockDateValid(String date,String blockCode);
+
+    //-------------------------------------------------------------------
+    //处理和自选股相关的接口
+
+    //TODO
 
 
 }

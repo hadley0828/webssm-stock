@@ -90,3 +90,4 @@ logs/
 src/main/webapp/WEB-INF/jsp/serviceTest/echarts.js
 !/src/main/java/com/quantour/ssm/model/CashFlow.java
 !/src/main/java/com/quantour/ssm/service/impl/StaticServiceImpl.java
+!/src/main/java/com/quantour/ssm/controller/StockController.java

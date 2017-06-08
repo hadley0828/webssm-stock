@@ -18,4 +18,6 @@ public class RateServiceImpl implements RateService{
     public GeneralScoreDTO getOneStockGeneralStore(String code) {
         return null;
     }
+
+
 }

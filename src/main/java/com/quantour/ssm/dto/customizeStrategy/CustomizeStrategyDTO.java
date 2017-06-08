@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class CustomizeStrategyDTO {
     String createrID;   //创建者的用户ID
-    String strategyName;    //策略姓名
+    String strategyName;    //策略名称
     String strategyExplanation; //策略说明
     String createTime;         //创建的时间
     StockPondDTO stockPondDTO;
