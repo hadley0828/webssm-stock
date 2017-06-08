@@ -33,5 +33,6 @@
         <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/DayKLineMapper.xml" />
         <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/UserMapper.xml" />
         <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/RateMapper.xml" />
+        <mapper url="file:///Users/loohaze/cseiii_quantour_i3/src/main/resources/mapping/HistoryMapper.xml" />
     </mappers>
 </configuration>

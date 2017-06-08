@@ -1,5 +1,7 @@
 package com.quantour.ssm.model;
 
+import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
+
 import java.sql.Date;
 
 /**
@@ -22,6 +24,29 @@ public class StrategyRecord {
     private Double info_percent;
     private Double max_back;
     private Double turnover_rate;
+
+    public StrategyRecord(){
+        super();
+    }
+
+    public StrategyRecord(StrategyResultRecordDTO strategyResultRecordDTO) {
+        this.user_id=strategyResultRecordDTO.getUser_id();
+        this.result_time=strategyResultRecordDTO.getResult_time();
+        this.strategy_name=strategyResultRecordDTO.getStrategy_name();
+        this.strategy_intro=strategyResultRecordDTO.getStrategy_intro();
+        this.start_time=strategyResultRecordDTO.getStart_time();
+        this.end_time=strategyResultRecordDTO.getEnd_time();
+        this.base_block=strategyResultRecordDTO.getBase_block();
+        this.year_profit=strategyResultRecordDTO.getYear_profit();
+        this.standard_profit=strategyResultRecordDTO.getStandard_profit();
+        this.alpha=strategyResultRecordDTO.getAlpha();
+        this.beta=strategyResultRecordDTO.getBeta();
+        this.sharp_rate=strategyResultRecordDTO.getSharp_rate();
+        this.profit_waverate=strategyResultRecordDTO.getProfit_waverate();
+        this.info_percent=strategyResultRecordDTO.getInfo_percent();
+        this.max_back=strategyResultRecordDTO.getMax_back();
+        this.turnover_rate=strategyResultRecordDTO.getTurnover_rate();
+    }
 
     public String getUser_id() {
         return user_id;

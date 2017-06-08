@@ -83,6 +83,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public ArrayList<stockDTO> getSeveralStockInfo(ArrayList<String> codeList, String date) {
+
         ArrayList<stockDTO> stockDTOArrayList=new ArrayList<stockDTO>();
 
 
@@ -94,6 +95,7 @@ public class StockServiceImpl implements StockService {
         }
 
         String realDate=DateConvert.getRealEndDate(date,allDateList);
+
 
         ArrayList<DayKLine> nowStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(realDate));
         ArrayList<DayKLine> lastStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(DateConvert.getLastNDate(allDateList,realDate,1)));
@@ -112,7 +114,8 @@ public class StockServiceImpl implements StockService {
         ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
         HashMap<String,StockBasicInfo> stockBasicInfoHashMap=new HashMap<String, StockBasicInfo>();
 
-        //在这里能取到更多的数据 TODO
+        //TODO 在这里能取到更多的数据
+
         for(int count=0;count<stockBasicInfoArrayList.size();count++){
             stockBasicInfoHashMap.put(stockBasicInfoArrayList.get(count).getCode(),stockBasicInfoArrayList.get(count));
         }
@@ -767,4 +770,59 @@ public class StockServiceImpl implements StockService {
             return false;
         }
     }
+
+    //TODO 未测试
+    @Override
+    public ArrayList<String> getUserAllOptionalStock(String userId) {
+        return dayklinemapper.getUserAllStock(userId);
+    }
+
+    @Override
+    public boolean addOneNewOptionalStock(String userId, String stockCode) {
+
+        ArrayList<String> userAllStockList=dayklinemapper.getUserAllStock(userId);
+
+        if(userAllStockList.contains(stockCode)){
+            return false;
+        }else{
+
+            dayklinemapper.insertOneOptionalStock(userId,stockCode);
+            return true;
+        }
+
+    }
+
+    @Override
+    public boolean deleteOneOptionalStock(String userId, String stockCode) {
+        ArrayList<String> userAllStockList=dayklinemapper.getUserAllStock(userId);
+
+        if(userAllStockList.contains(stockCode)){
+            dayklinemapper.deleteOneOptionalStock(userId,stockCode);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUserAllOptionalStock(String userId) {
+
+        ArrayList<String> userAllStockList = dayklinemapper.getUserAllStock(userId);
+
+        if (userAllStockList.size() == 0) {
+            return false;
+        } else {
+            for (int count = 0; count < userAllStockList.size(); count++) {
+                String stockCode = userAllStockList.get(count);
+                dayklinemapper.deleteOneOptionalStock(userId, stockCode);
+
+
+            }
+
+            return true;
+
+        }
+    }
+
+
 }

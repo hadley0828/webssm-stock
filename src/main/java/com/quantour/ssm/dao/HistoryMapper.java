@@ -35,12 +35,6 @@ public interface HistoryMapper {
      */
     public int insertOneStockRecord(StockRecord stockRecord);
 
-    /**
-     * 更新一条浏览记录
-     * @param stockRecord
-     * @return
-     */
-    public int updateOneStockRecord(StockRecord stockRecord);
 
     /**
      * 删除一条浏览记录
@@ -49,6 +43,9 @@ public interface HistoryMapper {
      * @return
      */
     public int deleteOneStockRecord(String userid,String date_time);
+
+    public int deleteAllStockRecord(String userid);
+
 
     /**
      * 获得一个用户的全部策略生成记录
@@ -72,12 +69,6 @@ public interface HistoryMapper {
      */
     public int insertOneStrategyRecord(StrategyRecord strategyRecord);
 
-    /**
-     * 更新一条策略生成记录
-     * @param strategyRecord
-     * @return
-     */
-    public int updateOneStrategyRecord(StrategyRecord strategyRecord);
 
     /**
      * 删除一条策略生成记录
@@ -87,4 +78,7 @@ public interface HistoryMapper {
      */
     public int deleteOneStrategyRecord(String userid,String result_time);
 
+
+
+    public int deleteAllStrategyRecord(String userid);
 }

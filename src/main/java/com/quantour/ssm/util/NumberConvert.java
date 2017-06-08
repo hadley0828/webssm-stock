@@ -1,5 +1,8 @@
 package com.quantour.ssm.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by zhangzy on 2017/6/7.
  */
@@ -22,6 +25,11 @@ public class NumberConvert {
     public static void main(String[] args) {
         System.out.println(doubleToBiggerInt(1.5));
         System.out.println(doubleToSmallerInt(1.5));
+
+        SimpleDateFormat myFmt1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now=new Date();
+        String rq=myFmt1.format(now);
+        System.out.println(rq);
 
     }
 

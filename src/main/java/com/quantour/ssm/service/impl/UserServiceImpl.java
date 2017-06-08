@@ -78,9 +78,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getOneUserByAccount(String account) {
+    public userDTO getOneUserByAccount(String account) {
+        userDTO userdto=new userDTO();
         User user=userMapper.selectByPrimaryKey(account);
-        return user;
+
+        userdto.setAccount(user.getId());
+        userdto.setName(user.getUserName());
+        if(user.getUserSex()==0){
+            userdto.setSex("男");
+        }else if(user.getUserSex()==1){
+            userdto.setSex("女");
+        }else{
+            userdto.setSex("保密");
+        }
+        userdto.setAge(user.getUserAge());
+        userdto.setBirthday(DateConvert.dateToString(user.getUserBirthday()));
+        userdto.setHandsetNumber(user.getUserPhone());
+        userdto.setMail(user.getUserEmail());
+        userdto.setAddress(user.getUserAddress());
+        userdto.setIntroduction(user.getUserIntro());
+
+        return userdto;
     }
 
     @Override
