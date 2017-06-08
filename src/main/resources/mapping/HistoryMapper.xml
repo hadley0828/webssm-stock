@@ -55,7 +55,7 @@
     </delete>
 
 
-    <select id="getUserAllStrategyRecord" parameterType="java.lang.String">
+    <select id="getUserAllStrategyRecord" parameterType="java.lang.String" resultMap="StrategyRecordMap">
         select *
         from t_user_strategy_record
         where user_id = #{userid}
