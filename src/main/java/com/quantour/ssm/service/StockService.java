@@ -142,5 +142,10 @@ public interface StockService {
      */
     public boolean isBlockDateValid(String date,String blockCode);
 
+    //-------------------------------------------------------------------
+    //处理和自选股相关的接口
+
+    //TODO
+
 
 }
