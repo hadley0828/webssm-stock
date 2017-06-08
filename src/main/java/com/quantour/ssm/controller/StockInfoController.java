@@ -42,6 +42,7 @@ public class StockInfoController {
         return model;
     }
 
+
     @RequestMapping(value = "/getDayKLineInfo")
     @ResponseBody
     public String getDayKLineInfo(String codeid, String sdate, String ldate){

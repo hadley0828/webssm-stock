@@ -395,7 +395,20 @@
                 <div class="col-md-12">
                     <div class="card">
 
-                        <div class="header"><blockquote> ${stock.name} (${stock.id})</blockquote></div>
+                        <div class="row">
+                            <div class="header">
+
+                                <div class="col-md-10">
+                                    <blockquote>
+                                        ${stock.name} (${stock.id})
+                                    </blockquote>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <input type="text" id="stocksearch"  class="form-control border-input">
+                                </div>
+                            </div>
+                        </div>
                         <hr>
                         <div class="row" style="padding-left: 10px">
                             <div class="col-xs-1">
