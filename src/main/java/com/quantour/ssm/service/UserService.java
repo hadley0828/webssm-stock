@@ -40,7 +40,7 @@ public interface UserService {
      * @param account
      * @return
      */
-    public User getOneUserByAccount(String account);
+    public userDTO getOneUserByAccount(String account);
 
     /**
      * 根据account和userdto更新该账号客户的账号信息

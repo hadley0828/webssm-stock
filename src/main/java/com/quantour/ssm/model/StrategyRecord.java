@@ -25,6 +25,10 @@ public class StrategyRecord {
     private Double max_back;
     private Double turnover_rate;
 
+    public StrategyRecord(){
+        super();
+    }
+
     public StrategyRecord(StrategyResultRecordDTO strategyResultRecordDTO) {
         this.user_id=strategyResultRecordDTO.getUser_id();
         this.result_time=strategyResultRecordDTO.getResult_time();
