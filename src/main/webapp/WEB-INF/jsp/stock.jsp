@@ -392,7 +392,7 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <div class="card">
 
                         <div class="row">
@@ -439,10 +439,7 @@
                         <hr>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-md-3">
                     <div class="card">
                         <div class="header">
                             <blockquote>其他股票</blockquote>
@@ -511,8 +508,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-9">
+            <div class="row">
+
+
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
                             <blockquote>股票详情</blockquote>
