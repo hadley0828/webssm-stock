@@ -331,12 +331,16 @@ public class DayKLineImplTest {
         List<String> list2 = dayKLineMapper.getAreaByStock(code);
         List<String> list3 = dayKLineMapper.getConceptByStock(code);
 
+
+        System.out.println("行业:");
         for(String s : list1){
             System.out.println(s);
         }
+        System.out.println("地域:");
         for(String s : list2){
             System.out.println(s);
         }
+        System.out.println("概念板块:");
         for(String s : list3){
             System.out.println(s);
         }

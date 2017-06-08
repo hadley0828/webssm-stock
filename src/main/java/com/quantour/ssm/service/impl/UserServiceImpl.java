@@ -83,20 +83,37 @@ public class UserServiceImpl implements UserService {
         User user=userMapper.selectByPrimaryKey(account);
 
         userdto.setAccount(user.getId());
-        userdto.setName(user.getUserName());
-        if(user.getUserSex()==0){
-            userdto.setSex("男");
-        }else if(user.getUserSex()==1){
-            userdto.setSex("女");
-        }else{
-            userdto.setSex("保密");
+
+        if(user.getUserName()!=null){
+            userdto.setName(user.getUserName());
         }
-        userdto.setAge(user.getUserAge());
-        userdto.setBirthday(DateConvert.dateToString(user.getUserBirthday()));
-        userdto.setHandsetNumber(user.getUserPhone());
-        userdto.setMail(user.getUserEmail());
-        userdto.setAddress(user.getUserAddress());
-        userdto.setIntroduction(user.getUserIntro());
+        if(user.getUserSex()!=null){
+            if(user.getUserSex()==0){
+                userdto.setSex("男");
+            }else if(user.getUserSex()==1){
+                userdto.setSex("女");
+            }else{
+                userdto.setSex("保密");
+            }
+        }
+        if(user.getUserAge()!=null){
+            userdto.setAge(user.getUserAge());
+        }
+        if(user.getUserBirthday()!=null){
+            userdto.setBirthday(DateConvert.dateToString(user.getUserBirthday()));
+        }
+        if(user.getUserPhone()!=null){
+            userdto.setHandsetNumber(user.getUserPhone());
+        }
+        if(user.getUserEmail()!=null){
+            userdto.setMail(user.getUserEmail());
+        }
+        if(user.getUserAddress()!=null){
+            userdto.setAddress(user.getUserAddress());
+        }
+        if(user.getUserIntro()!=null){
+            userdto.setIntroduction(user.getUserIntro());
+        }
 
         return userdto;
     }

@@ -15,7 +15,12 @@ public class RateServiceImpl implements RateService{
 
 
     @Override
-    public GeneralScoreDTO getOneStockGeneralScore(String code) {
+    public GeneralScoreDTO getOneStockGeneralScore(String code,String date) {
+
+
+
+
+
         return null;
     }
 
