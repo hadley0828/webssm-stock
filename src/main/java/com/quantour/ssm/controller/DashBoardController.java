@@ -54,9 +54,13 @@ public class DashBoardController {
 
     @RequestMapping("/stockData")
     public String showData(HttpServletRequest request,Model model){
+        String searchCode = request.getParameter("searchCode");
+
         stockDTO s = new stockDTO();
-        s.setName("万科A");
-        s.setId("000001");
+        s = stockService.getStockInfo(searchCode,"2013-03-06");
+//        s.setName("万科A");
+//        s.setId("000001");
+
         model.addAttribute("stock",s);
 
         return "stock";
