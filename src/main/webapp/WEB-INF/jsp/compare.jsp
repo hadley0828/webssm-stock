@@ -183,14 +183,14 @@
                                         <table class="table table-striped">
                                             <tbody>
                                             <tr>
-                                                <td>中国石油</td>
+                                                <td id="cold_name_1">中国石油</td>
                                                 <td>0.00</td>
-                                                <th><a href="#">对比</a></th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('cold_name_1').innerHTML)">对比</a></th>
                                             </tr>
                                             <tr>
-                                                <td>中国石化</td>
+                                                <td id="cold_name_2">中国石化</td>
                                                 <td>0.00</td>
-                                                <th><a href="#">对比</a> </th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('cold_name_2').innerHTML)">对比</a> </th>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -320,28 +320,46 @@
 <script>
     function addUl(name) {
         var text = name;
+        var tag = 0;
         var ul =document.getElementById("choosed_list");
-        var li =document.createElement("li");
-        var a1=document.createElement("a");
-        var a2=document.createElement("a");
+        var lis=ul.getElementsByTagName('li');
+
+        if(lis.length !== 0){               //分析是否已被选中
+            for(var i=0;i<lis.length;i++){
+                var as = lis[i].getElementsByTagName('a');
+                var oldcode = as[0].innerHTML;
+                if(text === oldcode){
+                    tag = 1;
+                    break;
+                }
+            }
+        }
+
+        if(tag === 0 && lis.length !== 2){                      //已被选中将不再被添加,上限为2
+
+            var li =document.createElement("li");
+            var a1=document.createElement("a");
+            var a2=document.createElement("a");
 
 
 
-        a1.innerHTML=name;
-        a2.innerHTML="x";
-        a2.style="padding-left: 10px;padding-right: 20px";
+            a1.innerHTML=name;
+            a2.innerHTML="x";
+            a2.style="padding-left: 10px;padding-right: 20px";
 
-        li.id=a1;
-        li.onclick=function(){deleteUl(this)};
-        li.appendChild(a1);
-        li.appendChild(a2);
+            li.id=a1;
+            li.onclick=function(){deleteUl(this)};
+            li.appendChild(a1);
+            li.appendChild(a2);
 
 
-        ul.appendChild(li);
+            ul.appendChild(li);
+        }
+
         
     }
 
-    function doCompare() {
+    function doCompare() {                  //对比功能
         var codeList ="";
         var ul = document.getElementById("choosed_list");
         var lis= ul.getElementsByTagName('li');
@@ -354,7 +372,7 @@
 
         $("#test").html(codeList);
 
-        $.ajax({
+        $.ajax({            //传：两个股票代码，得到对比数据绘图
             type:"POST",
             url:'<%=request.getContextPath()%>/compare/doCompare',
             data:{id_List:codeList},
@@ -383,7 +401,34 @@
         ul.removeChild(objs);
     }
 
-    function deleteAllUl(){
+    function addCodelist(tbody_name){           //用于向热门，收藏添加条目
+        var t=document.getElementById(tbody_name);
+        var _tr=document.createElement('tr');
+        var td1=document.createElement('td');
+        var td2=document.createElement('td');
+        var _th=document.createElement('th');
+        var _a=document.createElement('a');
+
+        td1.innerHTML="修改成股票名称";
+        td1.id="股票名称"
+
+        td2.innerHTML="股票代码";
+        td2.id="股票代码";
+
+        a.innerHTML="添加";
+        a.onclick=function () {addUl("股票名称+股票代码")}
+
+        _th.appendChild(_a);
+
+        _tr.appendChild(td1);
+        _tr.appendChild(td2);
+        _tr.appendChild(_th);
+
+        t.appendChild(_tr);
+
+    }
+
+    function deleteAllUl(){         //清空选择
         var ul = document.getElementById("choosed_list");
         ul.innerHTML="";
     }
