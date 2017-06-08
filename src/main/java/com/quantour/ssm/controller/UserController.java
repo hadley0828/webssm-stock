@@ -49,13 +49,13 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request,Model model){
         log.info("Log in");
-        return "login";
+        return "userLogin";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(HttpServletRequest request, Model model){
         log.info("Register");
-        return "register";
+        return "userRegist";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")

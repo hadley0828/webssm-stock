@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.quantour.ssm.dto.stockDTO" %><%--
   Created by IntelliJ IDEA.
   User: wangty
   Date: 2017/6/3
@@ -44,13 +44,248 @@
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
 
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <script src="text/javascript">
-        function getOneDayStockInfo(){
 
-            var stock_id;
-            var date;
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+
+    <script type="text/javascript">
+
+        function getKLineInfo(){
+
+            var sdate = "2007-01-01";
+            var ldate = "2017-06-01";
+            var code = String(${stock.id});
+
+            while(code.length < 6){
+                code = "0" + code;
+            }
+//            alert(code);
+
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/getDayKLineInfo',
+                data: {codeid:code, sdate:sdate, ldate:ldate},
+                dataType: "json",
+                success: function (result) {
+                    mydata = JSON.parse(result);
+                    fillCharts(mydata);
+                },
+                error:function () {
+                    alert("!");
+                }
+            });
+
         }
+
+        function splitData(rawdata) {
+            var categoryData = [];
+            var values = [];
+            for (var i = 0; i < rawdata.length; i++) {
+                categoryData.push(rawdata[i].splice(0,1)[0]);
+                values.push(rawdata[i]);
+            }
+            return {
+                categoryData: categoryData,
+                values: values
+            };
+        }
+
+        function calculateMA(dayCount) {
+            var result = [];
+            for (var i = 0, len = data0.values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += data0.values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+        function fillCharts(rawdata){
+            var daykline = echarts.init(document.getElementById('dayKLine'));
+
+
+//            alert("!");
+
+            data0 = splitData(rawdata);
+
+            daykline.setOption(my_option ={
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                legend: {
+                    data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                },
+                grid: {
+                    left: '10%',
+                    right: '10%',
+                    bottom: '15%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data0.categoryData,
+                    scale: true,
+                    boundaryGap : false,
+                    axisLine: {onZero: false},
+                    splitLine: {show: false},
+                    splitNumber: 20,
+                    min: 'dataMin',
+                },
+                yAxis: {
+                    scale: true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 90,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 90,
+                        end: 100
+                    }
+                ],
+                series: [
+                    {
+                        name: '日K',
+                        type: 'candlestick',
+                        data: data0.values,
+                        markPoint: {
+                            label: {
+                                normal: {
+                                    formatter: function (param) {
+                                        return param != null ? Math.round(param.value) : '';
+                                    }
+                                }
+                            },
+                            data: [
+                                {
+                                    name: 'XX标点',
+                                    coord: ['2013/5/31', 2300],
+                                    value: 2300,
+                                    itemStyle: {
+                                        normal: {color: 'rgb(41,60,85)'}
+                                    }
+                                },
+                                {
+                                    name: 'highest value',
+                                    type: 'max',
+                                    valueDim: 'highest'
+                                },
+                                {
+                                    name: 'lowest value',
+                                    type: 'min',
+                                    valueDim: 'lowest'
+                                },
+                                {
+                                    name: 'average value on close',
+                                    type: 'average',
+                                    valueDim: 'close'
+                                }
+                            ],
+                            tooltip: {
+                                formatter: function (param) {
+                                    return param.name + '<br>' + (param.data.coord || '');
+                                }
+                            }
+                        },
+                        markLine: {
+                            symbol: ['none', 'none'],
+                            data: [
+                                [
+                                    {
+                                        name: 'from lowest to highest',
+                                        type: 'min',
+                                        valueDim: 'lowest',
+                                        symbol: 'circle',
+                                        symbolSize: 10,
+                                        label: {
+                                            normal: {show: false},
+                                            emphasis: {show: false}
+                                        }
+                                    },
+                                    {
+                                        type: 'max',
+                                        valueDim: 'highest',
+                                        symbol: 'circle',
+                                        symbolSize: 10,
+                                        label: {
+                                            normal: {show: false},
+                                            emphasis: {show: false}
+                                        }
+                                    }
+                                ],
+                                {
+                                    name: 'min line on close',
+                                    type: 'min',
+                                    valueDim: 'close'
+                                },
+                                {
+                                    name: 'max line on close',
+                                    type: 'max',
+                                    valueDim: 'close'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        name: 'MA5',
+                        type: 'line',
+                        data: calculateMA(5),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA10',
+                        type: 'line',
+                        data: calculateMA(10),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA20',
+                        type: 'line',
+                        data: calculateMA(20),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA30',
+                        type: 'line',
+                        data: calculateMA(30),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+
+                ]
+            }
+            );
+        }
+
+
+
     </script>
 
 </head>
@@ -159,7 +394,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="header"><blockquote>${stock.name} (${stock.id})</blockquote></div>
+
+                        <div class="header"><blockquote> ${stock.name} (${stock.id})</blockquote></div>
                         <hr>
                         <div class="row" style="padding-left: 10px">
                             <div class="col-xs-1">
@@ -267,8 +503,10 @@
                     <div class="card">
                         <div class="header">
                             <blockquote>股票详情</blockquote>
-                            <hr>
-
+                            <div id="dayKLine" style="width: 850px;height:400px;"></div>
+                            <script>
+                                getKLineInfo();
+                            </script>
                         </div>
                         <hr>
 
@@ -281,29 +519,33 @@
 </div>
 
 
+
 </body>
 
 <!--   Core JS Files   -->
-<script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
 
 <!--  Charts Plugin -->
-<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>
+<%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
 
 <!--  Notifications Plugin    -->
 <script src="<%=contextPath%>/assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="<%=contextPath%>/assets/js/demo.js"></script>
+
+<%--<!--   echarts   --!>--%>
+
+
 
 <%--&lt;%&ndash;<script type="text/javascript">&ndash;%&gt;--%>
     <%--&lt;%&ndash;$(document).ready(function(){&ndash;%&gt;--%>
