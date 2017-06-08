@@ -13,9 +13,11 @@ public interface RateService {
      * @param code
      * @return
      */
-    public GeneralScoreDTO getOneStockGeneralStore(String code);
+    public GeneralScoreDTO getOneStockGeneralScore(String code);
 
     //从数据库中获取当天的信息
+
+    public void calculateOneDayStockScore(String date);
 
 
 }

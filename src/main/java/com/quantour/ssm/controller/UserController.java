@@ -63,7 +63,7 @@ public class UserController {
     public String login(String id, String password){
 //        String result = "";
 //        System.out.println(id);
-        User user = userService.getOneUserByAccount(id);
+        userDTO user = userService.getOneUserByAccount(id);
 
         if(user == null){
             responseObj = new ResponseObj();
@@ -76,8 +76,8 @@ public class UserController {
                 responseObj = new ResponseObj();
                 responseObj.setCode("1");
                 responseObj.setMessage("登录成功");
-                responseObj.setData(new userDTO(user));
-                responseObj.setData(new userDTO(user));
+                responseObj.setData(user);
+                responseObj.setData(user);
                 return new Gson().toJson(responseObj);
 
             }
@@ -102,7 +102,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String register(String id, String password,String password2){
-        User user = userService.getOneUserByAccount(id);
+        userDTO user = userService.getOneUserByAccount(id);
 
         if(!password.equals(password2) ){
             responseObj = new ResponseObj();

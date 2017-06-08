@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * 用来表示整个自定义策略
  */
 public class CustomizeStrategyDTO {
+    String strategyID;  //createrID+" "+createTime
     String createrID;   //创建者的用户ID
     String strategyName;    //策略名称
     String strategyExplanation; //策略说明
@@ -16,16 +17,12 @@ public class CustomizeStrategyDTO {
     StockPondDTO stockPondDTO;
     ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList;
     TradeModelDTO tradeModelDTO;
-    strategyResultDTO resultDTO; //在保存策略的时候生成一个区间的结果 用于展示自定义策略的时候可以出现示意图
-
-    public CustomizeStrategyDTO(){
-        super();
-    }
 
     @Override
     public String toString() {
         return "CustomizeStrategyDTO{" +
-                "createrID='" + createrID + '\'' +
+                "strategyID='" + strategyID + '\'' +
+                ", createrID='" + createrID + '\'' +
                 ", strategyName='" + strategyName + '\'' +
                 ", strategyExplanation='" + strategyExplanation + '\'' +
                 ", createTime='" + createTime + '\'' +
@@ -36,6 +33,21 @@ public class CustomizeStrategyDTO {
                 '}';
     }
 
+    strategyResultDTO resultDTO; //在保存策略的时候生成一个区间的结果 用于展示自定义策略的时候可以出现示意图
+
+    public CustomizeStrategyDTO(){
+        super();
+    }
+
+
+
+    public String getStrategyID() {
+        return strategyID;
+    }
+
+    public void setStrategyID(String strategyID) {
+        this.strategyID = strategyID;
+    }
 
 
     public String getCreaterID() {

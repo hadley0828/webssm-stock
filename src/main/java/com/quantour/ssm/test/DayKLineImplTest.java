@@ -65,7 +65,7 @@ public class DayKLineImplTest {
 //        test.testGetIndustryBlockStockCodes();
 //        test.testGetAreaBlockStockCodes();
 //        test.testGetAllCodeByBlock();
-//        test.testGetBlockByStock();
+        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
 //        test.testGetStocksByTimes();
     }
