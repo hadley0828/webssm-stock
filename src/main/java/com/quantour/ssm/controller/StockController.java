@@ -168,6 +168,20 @@ public class StockController {
 
     }
 
+    @RequestMapping("/getSeveralStock")
+    public String showSeveralStock(HttpServletRequest request,Model model){
+        ArrayList<String> codeList=new ArrayList<String>();
+        codeList.add("000001");
+        codeList.add("000002");
+        codeList.add("000004");
+        codeList.add("000005");
+
+        ArrayList<stockDTO> stockDTOArrayList=stockService.getSeveralStockInfo(codeList,"2010-09-11");
+
+        model.addAttribute("stockDTOArrayList",stockDTOArrayList);
+        return "serviceTest/stockDTOArrayList";
+    }
+
 
 
 
