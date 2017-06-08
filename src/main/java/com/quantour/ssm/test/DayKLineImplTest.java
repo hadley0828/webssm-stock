@@ -26,8 +26,11 @@ public class DayKLineImplTest {
 
         DayKLineImplTest test = new DayKLineImplTest();
 
+//        test.testInsertUserStock();
+//        test.testGetUserAllStock();
+//        test.testDeleteUserStock();
 //        test.testGetAllIndustryAndCode();
-        test.printTwoIndustryMap();
+//        test.printTwoIndustryMap();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
 //        test.testGetTimesDayKLines();
@@ -394,6 +397,33 @@ public class DayKLineImplTest {
         System.out.println(dayKLine.getLowPrice()+ " ");
 
 
+    }
+
+    public void testGetUserAllStock(){
+
+        ArrayList<String> list = dayKLineMapper.getUserAllStock("loohaze");
+
+        for(String s : list){
+            System.out.println(s);
+        }
+    }
+
+    public void testInsertUserStock(){
+        String userid = "loohaze";
+        String stockCode = "000001";
+
+        dayKLineMapper.insertOneOptionalStock(userid,stockCode);
+
+        session.commit();
+    }
+
+    public void testDeleteUserStock(){
+        String userid = "loohaze";
+        String stockCode = "000001";
+
+        dayKLineMapper.deleteOneOptionalStock(userid,stockCode);
+
+        session.commit();
     }
 
     public void printTwoIndustryMap(){

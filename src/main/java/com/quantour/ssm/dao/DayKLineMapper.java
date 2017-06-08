@@ -7,6 +7,7 @@ import com.quantour.ssm.util.CodeIndustryMap;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -244,6 +245,31 @@ public interface DayKLineMapper    {
      */
     public HashMap<String,String> getAllIndustryAndCode(CodeIndustryMap param);
 
+
+    //下面是和自选股票相关的功能
+
+    /**
+     * 获得一个用户全部的自选股票编号
+     * @param userid
+     * @return
+     */
+    public ArrayList<String> getUserAllStock(String userid);
+
+    /**
+     * 添加一条自选股票
+     * @param userid
+     * @param stockCode
+     * @return
+     */
+    public int insertOneOptionalStock(String userid,String stockCode);
+
+    /**
+     * 删除一条自选股票
+     * @param userid
+     * @param stockCode
+     * @return
+     */
+    public int deleteOneOptionalStock(String userid,String stockCode);
 
 
 }

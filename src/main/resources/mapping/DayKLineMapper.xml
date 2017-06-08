@@ -28,6 +28,22 @@
     stock_code, stock_date, volume, open_price, close_price, high_price, low_price
   </sql>
 
+  <select id="getUserAllStock" parameterType="java.lang.String" resultType="java.lang.String" >
+    select code_id
+    from t_user_stock
+    where user_id = #{userid,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertOneOptionalStock">
+    insert into t_user_stock(user_id,code_id)
+    VALUES (#{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+
+  <delete id="deleteOneOptionalStock">
+    delete from t_user_stock
+    where user_id = #{param1,jdbcType=VARCHAR} and code_id = #{param2,jdbcType=VARCHAR}
+  </delete>
+
   <select id="getAllDateByCode" parameterType="java.lang.String" resultType="java.lang.String">
     select stock_date
     from day_stock
