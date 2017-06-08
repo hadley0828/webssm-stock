@@ -5,13 +5,12 @@ import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
 import com.quantour.ssm.util.CodeIndustryMap;
+import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.FKSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by loohaze on 2017/5/12.
@@ -27,7 +26,8 @@ public class DayKLineImplTest {
 
         DayKLineImplTest test = new DayKLineImplTest();
 
-        test.testGetAllIndustryAndCode();
+//        test.testGetAllIndustryAndCode();
+        test.printTwoIndustryMap();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
 //        test.testGetTimesDayKLines();
@@ -349,11 +349,23 @@ public class DayKLineImplTest {
 //        }
     }
 
-
+    /**
+     * 当天存在信息的股票支数会比行业中的全部股票要少
+     */
     public void testGetAllIndustryAndCode(){
         HashMap<String,String> map = dayKLineMapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));
 
-        System.out.println(map.keySet());
+//        System.out.println(map.keySet());
+        int number=0;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
+            number++;
+        }
+
+        System.out.println(number);
+
+        ArrayList<DayKLine> oneDayAllStock= (ArrayList<DayKLine>) dayKLineMapper.getOneDayDayKLines(DateConvert.stringToDate("2017-03-06"));
+        System.out.println(oneDayAllStock.size());
     }
 
     public void test(){
@@ -382,5 +394,33 @@ public class DayKLineImplTest {
         System.out.println(dayKLine.getLowPrice()+ " ");
 
 
+    }
+
+    public void printTwoIndustryMap(){
+        HashMap<String,String> codeToIndustryMap=dayKLineMapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));
+        //      行业名称 股票编号的set
+        HashMap<String,HashSet<String>> industryToCodeMap=new HashMap<String, HashSet<String>>();
+
+        for (Map.Entry<String, String> entry : codeToIndustryMap.entrySet()) {
+            String oneCode=entry.getKey();
+            String oneIndustry=entry.getValue();
+
+            if(industryToCodeMap.containsKey(oneIndustry)){
+                industryToCodeMap.get(oneIndustry).add(oneCode);
+            }else {
+                HashSet<String> newSet=new HashSet<String>();
+                industryToCodeMap.put(oneIndustry,newSet);
+                industryToCodeMap.get(oneIndustry).add(oneCode);
+            }
+        }
+
+        for (Map.Entry<String, HashSet<String>> entry : industryToCodeMap.entrySet()) {
+            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue().size());
+            HashSet<String> set=entry.getValue();
+
+            for(String str:set){
+                System.out.println(str);
+            }
+        }
     }
 }

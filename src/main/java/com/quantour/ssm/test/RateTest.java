@@ -30,10 +30,13 @@ public class RateTest {
 //        test.testGetOne();
 //        test.testGetAll();
 //        test.testAllSingleFundFlows();
-//        test.insertIndustryData();
+        test.insertIndustryData();
 //        test.printAllIndustry();
 //        test.printAllConcept();
-        test.printAllRegion();
+//        test.printAllRegion();
+//        String oneCode="0123456";
+//        System.out.println(oneCode.substring(0,2));
+//        System.out.println(oneCode.substring(0,3));
     }
 
     public void testGetOne(){

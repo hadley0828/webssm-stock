@@ -232,7 +232,7 @@ public class StaticServiceImpl implements StaticService {
 
 
                 //有可能有问题
-                if(allDateList.indexOf(lDate)-allDateList.indexOf(currentDate)>holdDays-1){
+                if(allDateList.indexOf(realLDate)-allDateList.indexOf(currentDate)>holdDays-1){
                     changeDate=DateConvert.getLastNDate(allDateList,currentDate,-holdDays);
                 }
 

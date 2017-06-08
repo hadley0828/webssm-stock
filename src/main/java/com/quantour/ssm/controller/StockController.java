@@ -1,6 +1,10 @@
 package com.quantour.ssm.controller;
 
 import com.quantour.ssm.dto.*;
+import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
+import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
+import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StaticService;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
@@ -26,6 +30,8 @@ public class StockController {
     private StockService stockService;
     @Resource
     private StaticService staticService;
+    @Resource
+    private CustomizeService customizeService;
 
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
@@ -128,6 +134,38 @@ public class StockController {
 
         model.addAttribute("resultDTO",resultDTO);
         return "serviceTest/resultTwoDTO";
+    }
+
+    @RequestMapping("/getCustomize")
+    public String showCustomize(HttpServletRequest request,Model model){
+        StockPondDTO stockPondDTO=new StockPondDTO();
+        stockPondDTO.setStockPondChosen("全部股票");
+        stockPondDTO.setIndexIngredient("全选");
+        stockPondDTO.setBlock("全选");
+        stockPondDTO.setIndustry("全选");
+        stockPondDTO.setConcept("全选");
+        stockPondDTO.setSTStock("包含ST");
+        stockPondDTO.setExchange("全选");
+        stockPondDTO.setRegion("全选");
+
+
+        ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList=new ArrayList<ScreeningConditionDTO>();
+        ScreeningConditionDTO screeningConditionDTO=new ScreeningConditionDTO();
+        screeningConditionDTO.setConditionName("开盘价");
+        screeningConditionDTO.setCompareSymbol("排名最大");
+        screeningConditionDTO.setScope("全部");
+        screeningConditionDTO.setFirstValue(10.0);
+        screeningConditionDTOArrayList.add(screeningConditionDTO);
+
+        TradeModelDTO tradeModelDTO=new TradeModelDTO();
+        tradeModelDTO.setMaxHoldStockNumber(10);
+        tradeModelDTO.setTransferCycle(10);
+
+        strategyResultDTO resultDTO=customizeService.getCustomizeStrategyResult("2010-09-11","2011-09-11","sh000300",stockPondDTO,screeningConditionDTOArrayList,tradeModelDTO);
+
+        model.addAttribute("resultDTO",resultDTO);
+        return "serviceTest/customizeResultDTO";
+
     }
 
 
