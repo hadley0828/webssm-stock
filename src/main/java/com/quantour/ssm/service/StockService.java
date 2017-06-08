@@ -145,7 +145,36 @@ public interface StockService {
     //-------------------------------------------------------------------
     //处理和自选股相关的接口
 
-    //TODO
+
+    /**
+     * 获取一个用户的全部自选股编号
+     * @param userId
+     * @return
+     */
+    public ArrayList<String> getUserAllOptionalStock(String userId);
+
+    /**
+     * 添加一个自选股票
+     * @param userId
+     * @param stockCode
+     * @return
+     */
+    public boolean addOneNewOptionalStock(String userId,String stockCode);
+
+    /**
+     * 删除一个自选股票
+     * @param userId
+     * @param stockCode
+     * @return
+     */
+    public boolean deleteOneOptionalStock(String userId,String stockCode);
+
+    /**
+     * 删除一个用户全部的自选股票
+     * @param userId
+     * @return
+     */
+    public boolean deleteUserAllOptionalStock(String userId);
 
 
 }
