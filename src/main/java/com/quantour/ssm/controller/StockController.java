@@ -7,6 +7,7 @@ import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StaticService;
 import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class StockController {
     private StaticService staticService;
     @Resource
     private CustomizeService customizeService;
+    @Resource
+    private UserService userService;
 
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
@@ -43,14 +46,14 @@ public class StockController {
 
     @RequestMapping("/stockkline")
     public String showKline(HttpServletRequest request,Model model){
-        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000001","2007-11-22","2008-12-20");
+        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000002","2007-11-22","2008-12-20");
         model.addAttribute("klineDTOArrayList",klineDTOArrayList);
         return "serviceTest/stockkline";
     }
 
     @RequestMapping("/market")
     public String showMarket(HttpServletRequest request,Model model){
-        marketDTO marketdto=stockService.getMarketInfo("2008-11-28");
+        marketDTO marketdto=stockService.getMarketInfo("2016-11-28");
         model.addAttribute("marketdto",marketdto);
         return "serviceTest/market";
     }
@@ -204,6 +207,13 @@ public class StockController {
 
     }
 
+
+    @RequestMapping("/getUser")
+    public String showUser(HttpServletRequest request,Model model){
+        userDTO userdto=userService.getOneUserByAccount("loohaze");
+        model.addAttribute("userdto",userdto);
+        return "serviceTest/userdto";
+    }
 
 
 }

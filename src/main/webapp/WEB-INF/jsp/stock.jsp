@@ -397,12 +397,13 @@
 
                         <div class="row">
                             <div class="header">
-                                <blockquote>
+                                <blockquote style="font-size: 25px">
                                     ${stock.name} (${stock.id})
                                 </blockquote>
+                                <hr>
                             </div>
                         </div>
-                        <hr>
+
                         <div class="row" style="padding-left: 30px">
                             <div class="col-xs-1">
                                 <dt>开盘</dt>

@@ -1,5 +1,7 @@
 package com.quantour.ssm.dto;
 
+import java.util.ArrayList;
+
 /**
  * Created by zhangzy on 2017/5/14.
  */
@@ -18,11 +20,11 @@ public class marketDTO {
     int upnum;		//开盘-收盘小于-5%*上一个交易日收盘价的股票个数;
     int downnum;	//开盘-收盘大于5%*上一个交易日收盘价的股票个数;
 
-    //TODO 市场温度计需要加上两个图的数据
+    int riseStockNumber;    //上涨的股票个数
+    int declineStockNumber; //下跌的股票个数
 
-    public marketDTO(){
+    ArrayList<Integer> changePercentNumberList; //10-8-6-4-2-0-2-4-6-8-10
 
-    }
     @Override
     public String toString() {
         return "marketDTO{" +
@@ -35,7 +37,14 @@ public class marketDTO {
                 ", downfive=" + downfive +
                 ", upnum=" + upnum +
                 ", downnum=" + downnum +
+                ", riseStockNumber=" + riseStockNumber +
+                ", declineStockNumber=" + declineStockNumber +
+                ", changePercentNumberList=" + changePercentNumberList +
                 '}';
+    }
+
+    public marketDTO(){
+
     }
 
 
@@ -110,6 +119,30 @@ public class marketDTO {
 
     public void setDownnum(int downnum) {
         this.downnum = downnum;
+    }
+
+    public int getRiseStockNumber() {
+        return riseStockNumber;
+    }
+
+    public void setRiseStockNumber(int riseStockNumber) {
+        this.riseStockNumber = riseStockNumber;
+    }
+
+    public int getDeclineStockNumber() {
+        return declineStockNumber;
+    }
+
+    public void setDeclineStockNumber(int declineStockNumber) {
+        this.declineStockNumber = declineStockNumber;
+    }
+
+    public ArrayList<Integer> getChangePercentNumberList() {
+        return changePercentNumberList;
+    }
+
+    public void setChangePercentNumberList(ArrayList<Integer> changePercentNumberList) {
+        this.changePercentNumberList = changePercentNumberList;
     }
 
 }
