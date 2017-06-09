@@ -43,14 +43,14 @@ public class StockController {
 
     @RequestMapping("/stockkline")
     public String showKline(HttpServletRequest request,Model model){
-        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000001","2007-11-22","2008-12-20");
+        ArrayList<klineDTO> klineDTOArrayList=stockService.getKline("000002","2007-11-22","2008-12-20");
         model.addAttribute("klineDTOArrayList",klineDTOArrayList);
         return "serviceTest/stockkline";
     }
 
     @RequestMapping("/market")
     public String showMarket(HttpServletRequest request,Model model){
-        marketDTO marketdto=stockService.getMarketInfo("2008-11-28");
+        marketDTO marketdto=stockService.getMarketInfo("2016-11-28");
         model.addAttribute("marketdto",marketdto);
         return "serviceTest/market";
     }

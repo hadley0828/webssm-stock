@@ -31,7 +31,7 @@ public class StockServiceImpl implements StockService {
     //数据层传来的格式为dayKline
     //传入的日期格式为2007-01-01
 
-    //关于取前一天的DayKline可能会出bug  不能取不存在的日期
+    //可以取不存在的日期
     @Override
     public stockDTO getStockInfo(String code, String date) {
 
@@ -275,6 +275,18 @@ public class StockServiceImpl implements StockService {
         int upnum=0;		//开盘-收盘小于-5%*上一个交易日收盘价的股票个数;
         int downnum=0;	//开盘-收盘大于5%*上一个交易日收盘价的股票个数;
 
+        int riseStockNumber=0;
+        int declineStockNumber=0;
+        ArrayList<Integer> changePercentNumberList=new ArrayList<Integer>();
+        for(int count=0;count<10;count++){
+            int i=0;
+            changePercentNumberList.add(i);
+        }
+
+
+
+
+
         ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
         ArrayList<String> allDateList=new ArrayList<String>();
         for(int count=0;count<allSqlDateList.size();count++){
@@ -303,6 +315,50 @@ public class StockServiceImpl implements StockService {
                 DayKLine yesterdayKLine=yesterdayStockMap.get(stockCode);
 
                 Volume=Volume+Math.round(currentDayKLine.getVolume());
+
+                double changePercent=StockCalculator.getIncrease(yesterdayKLine.getClosePrice(),currentDayKLine.getClosePrice());
+
+                if(changePercent<=-0.08){
+                    changePercentNumberList.set(0,changePercentNumberList.get(0)+1);
+                    declineStockNumber++;
+
+                }else if(-0.08<changePercent&&changePercent<=-0.06){
+                    changePercentNumberList.set(1,changePercentNumberList.get(1)+1);
+                    declineStockNumber++;
+
+
+                }else if(-0.06<changePercent&&changePercent<=-0.04){
+                    changePercentNumberList.set(2,changePercentNumberList.get(2)+1);
+                    declineStockNumber++;
+
+                }else if(-0.04<changePercent&&changePercent<=-0.02){
+                    changePercentNumberList.set(3,changePercentNumberList.get(3)+1);
+                    declineStockNumber++;
+
+                }else if(-0.02<changePercent&&changePercent<=0.0){
+                    changePercentNumberList.set(4,changePercentNumberList.get(4)+1);
+                    declineStockNumber++;
+
+                }else if(0.0<changePercent&&changePercent<=0.02){
+                    changePercentNumberList.set(5,changePercentNumberList.get(5)+1);
+                    riseStockNumber++;
+
+                }else if(0.02<changePercent&&changePercent<=0.04){
+                    changePercentNumberList.set(6,changePercentNumberList.get(6)+1);
+                    riseStockNumber++;
+
+                }else if(0.04<changePercent&&changePercent<=0.06){
+                    changePercentNumberList.set(7,changePercentNumberList.get(7)+1);
+                    riseStockNumber++;
+
+                }else if(0.06<changePercent&&changePercent<=0.08){
+                    changePercentNumberList.set(8,changePercentNumberList.get(8)+1);
+                    riseStockNumber++;
+
+                }else if(changePercent>0.08){
+                    changePercentNumberList.set(9,changePercentNumberList.get(9)+1);
+                    riseStockNumber++;
+                }
 
                 if(StockChangeHelper.isLimitUp(yesterdayKLine.getClosePrice(),currentDayKLine.getClosePrice())){
                     limitup++;
@@ -335,6 +391,10 @@ public class StockServiceImpl implements StockService {
         marketdto.setDownfive(downfive);
         marketdto.setUpnum(upnum);
         marketdto.setDownnum(downnum);
+
+        marketdto.setRiseStockNumber(riseStockNumber);
+        marketdto.setDeclineStockNumber(declineStockNumber);
+        marketdto.setChangePercentNumberList(changePercentNumberList);
 
         return marketdto;
     }
