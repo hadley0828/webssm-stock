@@ -18,6 +18,31 @@
     <result column="stock_area" jdbcType="VARCHAR" property="area"/>
   </resultMap>
 
+  <resultMap id="StockNewsMap" type="com.quantour.ssm.model.StockNews">
+    <id column="code" jdbcType="VARCHAR" property="stockCode"/>
+    <id column="date" jdbcType="VARCHAR" property="date"/>
+    <result column="type" jdbcType="VARCHAR" property="type"/>
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="url" jdbcType="VARCHAR" property="url"/>
+  </resultMap>
+
+  <resultMap id="AchievementForecastMap" type="com.quantour.ssm.model.AchievementForecast">
+    <id column="code" jdbcType="VARCHAR" property="code"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="type" jdbcType="VARCHAR" property="type"/>
+    <result column="report_date" jdbcType="DATE" property="report_date"/>
+    <result column="pre_eps" jdbcType="VARCHAR" property="pre_eps"/>
+    <result column="out_range" jdbcType="VARCHAR" property="range"/>
+  </resultMap>
+
+  <resultMap id="AllocationPlanMap" type="com.quantour.ssm.model.AllocationPlan">
+    <id column="code" jdbcType="VARCHAR" property="code"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="year" jdbcType="VARCHAR" property="year"/>
+    <result column="report_date" jdbcType="DATE" property="report_name"/>
+    <result column="divi" jdbcType="VARCHAR" property="divi"/>
+    <result column="shares" jdbcType="INTEGER" property="shares"/>
+  </resultMap>
 
   <resultMap id="IndustryAndCodeMap" type="java.util.HashMap">
     <id column="stock_code" jdbcType="VARCHAR" property="code"></id>
@@ -27,6 +52,39 @@
   <sql id="Base_Column_List">
     stock_code, stock_date, volume, open_price, close_price, high_price, low_price
   </sql>
+
+  <select id="getOneStockAllNews" parameterType="java.lang.String" resultMap="StockNewsMap">
+    select *
+    from notices
+    where code = #{code}
+  </select>
+
+  <select id="getAllNews" resultMap="StockNewsMap">
+    select *
+    from notices
+  </select>
+
+  <select id="getOneStockForecast" parameterType="java.lang.String" resultMap="AchievementForecastMap">
+    select *
+    from forecast
+    where code = #{code}
+  </select>
+
+  <select id="getAllForecast" resultMap="AchievementForecastMap">
+    select *
+    from forecast
+  </select>
+
+  <select id="getOneAllocationPlan" parameterType="java.lang.String" resultMap="AllocationPlanMap">
+    select *
+    from distribute
+    where code = #{code}
+  </select>
+
+  <select id="getAllAllocationPlan" resultMap="AllocationPlanMap">
+    select *
+    from distribute
+  </select>
 
   <select id="getUserAllStock" parameterType="java.lang.String" resultType="java.lang.String" flushCache="true" >
     select code_id
@@ -225,6 +283,7 @@
     where stock_code = #{stockCode,jdbcType=VARCHAR}
       and stock_date = #{stockDate,jdbcType=DATE}
   </select>
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="com.quantour.ssm.model.DayKLineKey" >

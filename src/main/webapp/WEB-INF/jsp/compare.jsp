@@ -955,6 +955,19 @@
                                     <%--<a  style="padding-left: 10px">x</a>--%>
                                 <%--</li>--%>
                             </ul>
+                            <br>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="sDate">开始时间</label>
+                                    <input id="sDate" type="date">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eDate">结束时间</label>
+                                    <input id="eDate" type="date">
+                                </div>
+                            </div>
+                            <hr>
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-4">
                                     <button class="btn btn-success" onclick="doCompare()">比较</button>

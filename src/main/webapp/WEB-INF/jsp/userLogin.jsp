@@ -78,7 +78,7 @@
                         alert(mydata.ms);
                     }else if(mydata.code == "1"){
                         alert(mydata.ms);
-                        window.location.href = "<%=contextPath%>/dashboard?id=" + mydata.data.account;
+                        window.location.href = "<%=contextPath%>/dashboard/?id=" + mydata.data.account;
                     }
 //                    alert(mydata.data[0].account);
 

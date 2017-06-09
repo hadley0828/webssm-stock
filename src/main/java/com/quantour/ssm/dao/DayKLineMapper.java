@@ -269,6 +269,7 @@ public interface DayKLineMapper    {
      */
     public int deleteOneOptionalStock(String userid,String stockCode);
 
+
     /**
      * 获得一个股票的全部新闻
      * @param code

@@ -5,14 +5,15 @@ package com.quantour.ssm.controller;
  */
 
 import com.quantour.ssm.dto.stockDTO;
+import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,21 @@ public class DashBoardController {
 
     @Resource
     private StockService stockService;
+    @Resource
     private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showBoard(@Param("id") String user_id, HttpServletRequest request, Model model){
+    public String showBoard(@RequestParam(value = "id",required=false ) String user_id, HttpServletRequest request, Model model){
+
+        try{
+            System.out.println(":"+user_id);
+            userDTO user = userService.getOneUserByAccount(user_id);
+            System.out.println(user.getAccount());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
         return "dashboard";
     }
 

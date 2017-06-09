@@ -246,56 +246,30 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Users Behavior</h4>
-                            <p class="category">24 Hours performance</p>
+                            <blockquote>
+                                <span class="ti-alarm-clock" style="font-size: 25px">上证指数</span>
+                            </blockquote>
                         </div>
-                        <div class="content">
-                            <div id="chartHours" class="ct-chart"></div>
-                            <div class="footer">
-                                <div class="chart-legend">
-                                    <i class="fa fa-circle text-info"></i> Open
-                                    <i class="fa fa-circle text-danger"></i> Click
-                                    <i class="fa fa-circle text-warning"></i> Click Second Time
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="ti-reload"></i> Updated 3 minutes ago
-                                </div>
-                            </div>
+                        <hr>
+                        <div class="content" style="height: 300px">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="header">
-                            <h4 class="title">全部股票</h4>
-                            <p class="category">Here is a subtitle for this table</p>
-                            <hr>
-                        </div>
-                        <div class="content table-responsive table-full-width">
-                            <%--<table data-toggle="table">--%>
-                            <%--<thead>--%>
-                            <%--<tr>--%>
-                            <%--<th>Item ID</th>--%>
-                            <%--<th>Item Name</th>--%>
-                            <%--<th>Item Price</th>--%>
-                            <%--</tr>--%>
-                            <%--</thead>--%>
-                            <%--<tbody>--%>
-                            <%--<tr>--%>
-                            <%--<td>1</td>--%>
-                            <%--<td>Item 1</td>--%>
-                            <%--<td>$1</td>--%>
-                            <%--</tr>--%>
-                            <%--<tr>--%>
-                            <%--<td>2</td>--%>
-                            <%--<td>Item 2</td>--%>
-                            <%--<td>$2</td>--%>
-                            <%--</tr>--%>
-                            <%--</tbody>--%>
-                            <%--</table>--%>
-                            <table id="stockTable"></table>
+            </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <blockquote>个股查询</blockquote>
+                                </div>
+                                <div class="col-xs-6 input-group" style="padding-top: 5px">
+                                    <input type="text" placeholder="编号/名称" class="form-control">
+                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -310,33 +284,13 @@
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width">
-                            <%--<table data-toggle="table">--%>
-                            <%--<thead>--%>
-                            <%--<tr>--%>
-                            <%--<th>Item ID</th>--%>
-                            <%--<th>Item Name</th>--%>
-                            <%--<th>Item Price</th>--%>
-                            <%--</tr>--%>
-                            <%--</thead>--%>
-                            <%--<tbody>--%>
-                            <%--<tr>--%>
-                            <%--<td>1</td>--%>
-                            <%--<td>Item 1</td>--%>
-                            <%--<td>$1</td>--%>
-                            <%--</tr>--%>
-                            <%--<tr>--%>
-                            <%--<td>2</td>--%>
-                            <%--<td>Item 2</td>--%>
-                            <%--<td>$2</td>--%>
-                            <%--</tr>--%>
-                            <%--</tbody>--%>
-                            <%--</table>--%>
-                            <table id="stockTable"></table>
+
+                            <table id="stockTable1"></table>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="header">
                             <h4 class="title">全部股票</h4>
@@ -344,28 +298,8 @@
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width">
-                            <%--<table data-toggle="table">--%>
-                            <%--<thead>--%>
-                            <%--<tr>--%>
-                            <%--<th>Item ID</th>--%>
-                            <%--<th>Item Name</th>--%>
-                            <%--<th>Item Price</th>--%>
-                            <%--</tr>--%>
-                            <%--</thead>--%>
-                            <%--<tbody>--%>
-                            <%--<tr>--%>
-                            <%--<td>1</td>--%>
-                            <%--<td>Item 1</td>--%>
-                            <%--<td>$1</td>--%>
-                            <%--</tr>--%>
-                            <%--<tr>--%>
-                            <%--<td>2</td>--%>
-                            <%--<td>Item 2</td>--%>
-                            <%--<td>$2</td>--%>
-                            <%--</tr>--%>
-                            <%--</tbody>--%>
-                            <%--</table>--%>
-                            <table id="stockTable"></table>
+
+                            <table id="stockTable2"></table>
 
                         </div>
                     </div>
@@ -377,43 +311,6 @@
 
 </div>
 
-<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
-    <%--<div class="modal-dialog">--%>
-        <%--<div class="modal-content">--%>
-            <%--<div class="modal-header">--%>
-                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--%>
-                <%--<h4 class="modal-title" id="    myModalLabel">登录</h4>--%>
-            <%--</div>--%>
-            <%--<div class="modal-body">--%>
-
-                <%--<form method="post" action="/dashboard/temple.form">--%>
-                    <%--<ul >--%>
-                        <%--&lt;%&ndash;<li><label id="registerInfo"></label></li>&ndash;%&gt;--%>
-                        <%--<li><span>用户名</span><input type="text" id="username" name="username" class="ipt field" maxlength="50"/><label></label></li>--%>
-                        <%--<li><span>注册邮箱</span><input type="text" id="email" name="email" class="ipt field" maxlength="50"/><label></label></li>--%>
-                        <%--<li><span>用户密码</span><input type="password" id="password" name="password" class="ipt field" /><label></label></li>--%>
-                        <%--&lt;%&ndash;<li><span>确认密码</span><input type="password" id="password2" name="password2" class="ipt field "/><label></label></li>&ndash;%&gt;--%>
-                        <%--<li><span >提示信息</span>--%>
-
-                        <%--</li>--%>
-                        <%--<li id="tipmsg"></li>--%>
-                        <%--<li >--%>
-                            <%--<div align="right">--%>
-                                <%--<!--a <a href="javascript:document.getElementById('form1').submit();">立即注册</a>-->--%>
-                                <%--<input type="submit" id="btn_register" value="立即注册" >--%>
-                            <%--</div>--%>
-
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</form>--%>
-            <%--</div>--%>
-            <%--&lt;%&ndash;<div class="modal-footer">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<button type="button" class="btn btn-primary">提交更改</button>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--</div><!-- /.modal-content -->--%>
-    <%--</div><!-- /.modal -->--%>
-<%--</div>--%>
 
 </body>
 
@@ -465,7 +362,7 @@
         var oTableInit = new Object();
 
         oTableInit.Init = function () {
-            $('#stockTable').bootstrapTable({
+            $('#stockTable1').bootstrapTable({
                 url:'<%=contextPath%>/dashboard/showRanking',
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -513,6 +410,18 @@
         };
 
         return oTableInit;
+    }
+
+    function add() {
+
+    }
+
+    function changeColor() {
+        document.getElementById("searchIcon").setAttribute("style","color:orange");
+    }
+
+    function reColor() {
+        document.getElementById("searchIcon").setAttribute("style","color:black");
     }
 </script>
 
