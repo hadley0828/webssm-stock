@@ -1,5 +1,7 @@
 package com.quantour.ssm.dto;
 
+import java.util.ArrayList;
+
 /**
  * Created by zhangzy on 2017/5/14.
  */
@@ -18,9 +20,9 @@ public class stockDTO {
     double logYield;	//对数收益率;
     double logVariance;	//对数收益方差;
 
-    public stockDTO(){
-
-    }
+    String stockIndustry;
+    String stockArea;
+    ArrayList<NewsDTO> newsDTOArrayList;
 
     @Override
     public String toString() {
@@ -37,8 +39,16 @@ public class stockDTO {
                 ", Volume=" + Volume +
                 ", logYield=" + logYield +
                 ", logVariance=" + logVariance +
+                ", stockIndustry='" + stockIndustry + '\'' +
+                ", stockArea='" + stockArea + '\'' +
+                ", newsDTOArrayList=" + newsDTOArrayList +
                 '}';
     }
+
+    public stockDTO(){
+
+    }
+
 
     public String getId() {
         return id;
@@ -134,6 +144,30 @@ public class stockDTO {
 
     public void setLogVariance(double logVariance) {
         this.logVariance = logVariance;
+    }
+
+    public String getStockIndustry() {
+        return stockIndustry;
+    }
+
+    public void setStockIndustry(String stockIndustry) {
+        this.stockIndustry = stockIndustry;
+    }
+
+    public String getStockArea() {
+        return stockArea;
+    }
+
+    public void setStockArea(String stockArea) {
+        this.stockArea = stockArea;
+    }
+
+    public ArrayList<NewsDTO> getNewsDTOArrayList() {
+        return newsDTOArrayList;
+    }
+
+    public void setNewsDTOArrayList(ArrayList<NewsDTO> newsDTOArrayList) {
+        this.newsDTOArrayList = newsDTOArrayList;
     }
 
 

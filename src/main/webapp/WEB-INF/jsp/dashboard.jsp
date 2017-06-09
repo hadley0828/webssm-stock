@@ -243,7 +243,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="header">
                             <h4 class="title">Users Behavior</h4>
@@ -302,40 +302,75 @@
             </div>
 
             <div class="row">
-                <%--<div class="col-md-12">--%>
-                    <%--<div class="card">--%>
-                        <%--<div class="header">--%>
-                            <%--<h4 class="title">全部股票</h4>--%>
-                            <%--<p class="category">Here is a subtitle for this table</p>--%>
-                            <%--<hr>--%>
-                        <%--</div>--%>
-                        <%--<div class="content table-responsive table-full-width">--%>
-                            <%--&lt;%&ndash;<table data-toggle="table">&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<thead>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<th>Item ID</th>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<th>Item Name</th>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<th>Item Price</th>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</thead>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<tbody>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>1</td>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>Item 1</td>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>$1</td>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>2</td>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>Item 2</td>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<td>$2</td>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</tbody>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;</table>&ndash;%&gt;--%>
-                            <%--<table id="stockTable"></table>--%>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">全部股票</h4>
+                            <p class="category">Here is a subtitle for this table</p>
+                            <hr>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <%--<table data-toggle="table">--%>
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                            <%--<th>Item ID</th>--%>
+                            <%--<th>Item Name</th>--%>
+                            <%--<th>Item Price</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+                            <%--<tr>--%>
+                            <%--<td>1</td>--%>
+                            <%--<td>Item 1</td>--%>
+                            <%--<td>$1</td>--%>
+                            <%--</tr>--%>
+                            <%--<tr>--%>
+                            <%--<td>2</td>--%>
+                            <%--<td>Item 2</td>--%>
+                            <%--<td>$2</td>--%>
+                            <%--</tr>--%>
+                            <%--</tbody>--%>
+                            <%--</table>--%>
+                            <table id="stockTable"></table>
 
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">全部股票</h4>
+                            <p class="category">Here is a subtitle for this table</p>
+                            <hr>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <%--<table data-toggle="table">--%>
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                            <%--<th>Item ID</th>--%>
+                            <%--<th>Item Name</th>--%>
+                            <%--<th>Item Price</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+                            <%--<tr>--%>
+                            <%--<td>1</td>--%>
+                            <%--<td>Item 1</td>--%>
+                            <%--<td>$1</td>--%>
+                            <%--</tr>--%>
+                            <%--<tr>--%>
+                            <%--<td>2</td>--%>
+                            <%--<td>Item 2</td>--%>
+                            <%--<td>$2</td>--%>
+                            <%--</tr>--%>
+                            <%--</tbody>--%>
+                            <%--</table>--%>
+                            <table id="stockTable"></table>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

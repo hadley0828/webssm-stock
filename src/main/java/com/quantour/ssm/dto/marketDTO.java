@@ -18,6 +18,8 @@ public class marketDTO {
     int upnum;		//开盘-收盘小于-5%*上一个交易日收盘价的股票个数;
     int downnum;	//开盘-收盘大于5%*上一个交易日收盘价的股票个数;
 
+    //TODO 市场温度计需要加上两个图的数据
+
     public marketDTO(){
 
     }
