@@ -1050,35 +1050,36 @@
                                 <li><a data-toggle="pill" href="#logLine">收藏股票</a> </li>
                             </ul>
 
-                            <div id="dayKline">
-                                <div id="dayKLine1" style="width: 750px; height: 400px;">
+                            <div class="table-content">
+                                <div  id="dayKline" class="tab-pane fade in active">
+                                    <div id="dayKLine1" style="width: 750px; height: 400px;">
                                     <script>
                                         function getKline1(code) {
                                             getKLine1Info(code);
                                         }
                                     </script>
                                 </div>
-                                <hr>
-                                <div id="dayKLine2" style="width: 750px; height: 400px;">
+                                    <hr>
+                                    <div id="dayKLine2" style="width: 750px; height: 400px;">
                                     <script>
                                         function getKline2(code){
                                             getKLine2Info(code);
                                         }
                                     </script>
                                 </div>
-                            </div>
-
-                            <div id="logLine">
-                                <div id="logLine1" style="width: 750px; height: 400px;">
-
-                                </div>
-                                <hr>
-                                <div id="logLine2" style="width: 750px; height: 400px;">
-
                                 </div>
 
-                            </div>
+                                <div  id="logLine" class="tab-pane fade">
+                                    <div id="logLine1" style="width: 750px; height: 400px;">
 
+                                    </div>
+                                    <hr>
+                                    <div id="logLine2" style="width: 750px; height: 400px;">
+
+                                    </div>
+
+                                </div>
+                            </div>
 
                             <%--<hr>--%>
                             <%----%>
