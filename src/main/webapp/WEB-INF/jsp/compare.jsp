@@ -1032,31 +1032,44 @@
                         <div class="header">
                             <blockquote>股票对比</blockquote>
 
-                            <div id="dayKLine1" style="width: 750px; height: 400px;">
-                                <script>
-                                    function getKline1(code) {
-                                        getKLine1Info(code);
-                                    }
-                                </script>
+                            <ul class="nav nav-pills">
+                                <li class="active"><a data-toggle="pill" href="#dayKline">热门股票</a></li>
+                                <li><a data-toggle="pill" href="#logLine">收藏股票</a> </li>
+                            </ul>
+
+                            <div id="dayKline">
+                                <div id="dayKLine1" style="width: 750px; height: 400px;">
+                                    <script>
+                                        function getKline1(code) {
+                                            getKLine1Info(code);
+                                        }
+                                    </script>
+                                </div>
+                                <hr>
+                                <div id="dayKLine2" style="width: 750px; height: 400px;">
+                                    <script>
+                                        function getKline2(code){
+                                            getKLine2Info(code);
+                                        }
+                                    </script>
+                                </div>
                             </div>
-                            <hr>
-                            <div id="dayKLine2" style="width: 750px; height: 400px;">
-                                <script>
-                                    function getKline2(code){
-                                        getKLine2Info(code);
-                                    }
-                                </script>
-                            </div>
-                            <hr>
-                            <div id="logLine1" style="width: 750px; height: 400px;">
+
+                            <div id="logLine">
+                                <div id="logLine1" style="width: 750px; height: 400px;">
+
+                                </div>
+                                <hr>
+                                <div id="logLine2" style="width: 750px; height: 400px;">
+
+                                </div>
 
                             </div>
-                            <hr>
-                            <div id="logLine2" style="width: 750px; height: 400px;">
 
-                            </div>
 
-                             <hr>
+                            <%--<hr>--%>
+                            <%----%>
+                             <%--<hr>--%>
                         </div>
 
                         <div class="content">
@@ -1122,12 +1135,10 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+    </div>
+
 </div>
-
-
 </body>
 
 <!--   Core JS Files   -->
