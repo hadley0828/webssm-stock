@@ -155,6 +155,8 @@
                                     <button class="btn btn-success">创建</button>
                                 </div>
                             </div>
+                            <textarea class="form-control" placeholder="请输入策略说明" rows="3"></textarea>
+                            <hr>
                         </div>
                     </div>
                 </div>
@@ -831,14 +833,6 @@
 
         demo.initChartist();
 
-        $.notify({
-            icon: 'ti-gift',
-            message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
-
-        },{
-            type: 'success',
-            timer: 4000
-        });
 
     });
 
