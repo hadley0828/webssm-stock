@@ -83,6 +83,12 @@ public class StockServiceImpl implements StockService {
         stockdto.setAdjClose(dayKLine.getClosePrice());
         stockdto.setVolume(Math.round(dayKLine.getVolume()));
         stockdto.setLogYield(StockCalculator.getLogYield(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+        stockdto.setStockIndustry(stockBasicInfo.getIndustry());
+        stockdto.setStockArea(stockBasicInfo.getArea());
+
+        ArrayList<NewsDTO> newsDTOArrayList=new ArrayList<NewsDTO>();
+
+
 
 
         return stockdto;
