@@ -33,6 +33,22 @@ public class JsonConvert {
         return new Gson().toJson(obj);
     }
 
+
+    public static String logLineConvert(List<Double> data, List<String>date){
+        String result = "";
+
+        Object[] obj = new Object[data.size()];
+        for(int i = 0; i < data.size(); i++){
+            Object[] o = {
+                    dateConvert(date.get(i)),data.get(i)
+            };
+            obj[i] = o;
+        }
+
+        return new Gson().toJson(obj);
+    }
+
+
     private static String[] kLineConvert(klineDTO dto){
         String[] data = new String[5];
         data[0] = dateConvert(dto.getDate());

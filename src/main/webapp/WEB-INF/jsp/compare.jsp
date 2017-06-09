@@ -65,7 +65,7 @@
                 dataType: "json",
                 success: function (result) {
                     klinedata = JSON.parse(result);
-                    fillCharts1(klinedata);
+                    fillCharts1(klinedata,code);
                 },
                 error:function () {
                     alert("!");
@@ -90,7 +90,7 @@
                 dataType: "json",
                 success: function (result) {
                     klinedata = JSON.parse(result);
-                    fillCharts2(klinedata);
+                    fillCharts2(klinedata,code);
                 },
                 error:function () {
                     alert("!");
@@ -129,7 +129,7 @@
         }
 
 
-        function fillCharts1(rawdata){
+        function fillCharts1(rawdata,codeid){
             var daykline1 = echarts.init(document.getElementById('dayKLine1'));
 
 //            alert("!");
@@ -143,8 +143,25 @@
                             type: 'cross'
                         }
                     },
+                    title:{
+                        text: codeid+":k线图",
+                        textStyle:{
+                            fontSize: 16
+                        },
+                        left: 40
+                    },
                     legend: {
                         data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            saveAsImage: {}
+                        },
+                        right:20
                     },
                     grid: {
                         left: '10%',
@@ -305,7 +322,7 @@
                 }
             );
         }
-        function fillCharts2(rawdata){
+        function fillCharts2(rawdata,codeid){
             var daykline2 = echarts.init(document.getElementById('dayKLine2'));
 
 //            alert("!");
@@ -319,9 +336,26 @@
                             type: 'cross'
                         }
                     },
+                    title:{
+                        text: codeid +":k线图",
+                        textStyle:{
+                            fontSize: 16
+                        },
+                        left: 40
+                    },
 
                     legend: {
                         data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            saveAsImage: {}
+                        },
+                        right:20
                     },
                     grid: {
                         left: '10%',
@@ -556,6 +590,7 @@
                     getKline2(mydata.codeid2);
                     getStock1BasicInfo(mydata.codeid1);
                     getStock2BasicInfo(mydata.codeid2);
+                    getLogLine(mydata.codeid1,mydata.codeid2);
 
 //                if(mydata=="{}"){
 //                    alert("no message");
@@ -570,6 +605,192 @@
                 }
             });
         }
+
+        function getLogLine(id1, id2){
+
+            var sdate = "2007-01-04";
+            var ldate = "2017-06-01";
+            var code1 = String(id1);
+            var code2 = String(id2);
+
+            while(code1.length < 6){
+                code1 = "0" + code1;
+            }
+            while(code2.length < 6){
+                code2 = "0" + code2;
+            }
+
+            $.ajax({
+                type:"POST",
+                url: '<%=request.getContextPath()%>/compare/getLogLine',
+                data: {codeid1:code1,codeid2:code2, sdate:sdate, ldate:ldate},
+                dataType: "json",
+                success:function(result){
+                    mylogdata = JSON.parse(result);
+                    fillLogCharts1(JSON.parse(mylogdata.code1),code1);
+                    fillLogCharts2(JSON.parse(mylogdata.code2),code2);
+                }
+            });
+
+        }
+
+        function splitLogData(rawdata){
+            var categoryData = [];
+            var values = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                categoryData.push(rawdata[i].splice(0,1)[0]);
+                values.push(rawdata[i][0]);
+            }
+            return{
+                categoryLogData: categoryData,
+                logValues: values
+            };
+        }
+
+        function fillLogCharts1(rawlogdata,codeid){
+            var logLine1 = echarts.init(document.getElementById('logLine1'));
+
+            data0 = splitLogData(rawlogdata);
+
+            logLine1.setOption(option={
+                title:{
+                    text: codeid  + ":对数收益方差",
+                    textStyle:{
+                        fontSize: 16
+                    },
+                    left: 40
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
+                    },
+                    right:20
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: data0.categoryLogData
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 95,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 95,
+                        end: 100
+                    }
+                ],
+                series:
+                    {
+                        name:'对数收益率',
+                        type:'line',
+                        data: data0.logValues,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    }
+
+            });
+        }
+
+        function fillLogCharts2(rawlogdata,codeid){
+            var logLine2 = echarts.init(document.getElementById('logLine2'));
+
+            data0 = splitLogData(rawlogdata);
+
+            logLine2.setOption(option={
+                title:{
+                    text: codeid + ":对数收益方差",
+                    textStyle:{
+                        fontSize: 16
+                    },
+                    left: 40
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
+                    },
+                    right:20
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: data0.categoryLogData
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 95,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 95,
+                        end: 100
+                    }
+                ],
+                series: [
+                    {
+                        name:'对数收益率',
+                        type:'line',
+                        data: data0.logValues,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                ]
+
+            });
+        }
+
 
         function deleteUl(objs){
             var ul=document.getElementById("choosed_list");
@@ -818,8 +1039,7 @@
                                     }
                                 </script>
                             </div>
-
-
+                            <hr>
                             <div id="dayKLine2" style="width: 750px; height: 400px;">
                                 <script>
                                     function getKline2(code){
@@ -827,16 +1047,18 @@
                                     }
                                 </script>
                             </div>
-
+                            <hr>
                             <div id="logLine1" style="width: 750px; height: 400px;">
 
                             </div>
-
+                            <hr>
                             <div id="logLine2" style="width: 750px; height: 400px;">
 
                             </div>
 
                              <hr>
+                        </div>
+
                         <div class="content">
                             <%--<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>--%>
 

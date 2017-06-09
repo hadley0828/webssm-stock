@@ -33,7 +33,7 @@ public class DayKLineImplTest {
 //        test.printTwoIndustryMap();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
-//        test.testGetTimesDayKLines();
+        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
 //        test.testGetAllDayKLinesByCode();
@@ -65,7 +65,7 @@ public class DayKLineImplTest {
 //        test.testGetIndustryBlockStockCodes();
 //        test.testGetAreaBlockStockCodes();
 //        test.testGetAllCodeByBlock();
-        test.testGetBlockByStock();
+//        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
 //        test.testGetStocksByTimes();
     }
@@ -103,8 +103,18 @@ public class DayKLineImplTest {
         map.put("start",Date.valueOf("2017-01-01"));
         map.put("end",Date.valueOf("2017-01-31"));
 
+        HashMap<String,Object> map1 = new HashMap<String, Object>();
+        map1.put("code","000002");
+        map1.put("start",Date.valueOf("2017-01-01"));
+        map1.put("end", Date.valueOf("2017-01-31"));
+
         List<DayKLine> list = dayKLineMapper.getTimesDayKLines(map);
+        List<DayKLine> list1 = dayKLineMapper.getTimesDayKLines(map1);
         for(DayKLine dayKLine : list){
+            printDayKLine(dayKLine);
+        }
+
+        for(DayKLine dayKLine : list1){
             printDayKLine(dayKLine);
         }
     }
