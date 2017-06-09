@@ -1349,17 +1349,85 @@ public class CustomizeServiceImpl implements CustomizeService{
         return customizeStrategyDTO;
     }
 
+    //添加数据的时候需要对两个表进行操作
     @Override
     public boolean insertOneStrategy(CustomizeStrategyDTO customizeStrategyDTO) {
-        //TODO
 
-        return false;
+        ArrayList<CustomizeStrategy> customizeStrategyArrayList=strategyMapper.getAllCustomizeStrategy();
+        HashSet<String> allStrategyIdSet=new HashSet<String>();
+
+        for(int count=0;count<customizeStrategyArrayList.size();count++){
+            allStrategyIdSet.add(customizeStrategyArrayList.get(count).getStrategyId());
+        }
+
+        if(allStrategyIdSet.contains(customizeStrategyDTO.getStrategyID())){
+            return false;
+        }else{
+
+            CustomizeStrategy customizeStrategy=new CustomizeStrategy(customizeStrategyDTO);
+
+            strategyMapper.insertCustomizeStrategy(customizeStrategy);
+
+
+            ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList=customizeStrategyDTO.getScreeningConditionDTOArrayList();
+
+            for(int count=0;count<screeningConditionDTOArrayList.size();count++){
+                ScreeningConditionDTO screeningConditionDTO=screeningConditionDTOArrayList.get(count);
+
+                ScreenCondition screenCondition=new ScreenCondition(screeningConditionDTO);
+
+                strategyMapper.insertStrategyrAllCondition(screenCondition);
+
+
+            }
+
+            return true;
+        }
+
+
     }
 
     @Override
-    public boolean updateOneStrategy(CustomizeStrategyDTO customizeStrategyDTO) {
+    public boolean deleteOneStrategy(String strategyId) {
+        ArrayList<CustomizeStrategy> customizeStrategyArrayList=strategyMapper.getAllCustomizeStrategy();
 
-        return false;
+        HashSet<String> allStrategySet=new HashSet<String>();
+        for(int count=0;count<customizeStrategyArrayList.size();count++){
+            allStrategySet.add(customizeStrategyArrayList.get(count).getStrategyId());
+        }
+
+        if(allStrategySet.contains(strategyId)){
+            strategyMapper.deleteCustomizeStrategy(strategyId);
+            strategyMapper.deleteStrategyAllCondition(strategyId);
+
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+
+    @Override
+    public boolean deleteUserAllStrategy(String userId) {
+
+        ArrayList<CustomizeStrategy> allStrategyList=strategyMapper.getAllCustomizeStrategy();
+
+        for(int count=0;count<allStrategyList.size();count++){
+            String strategyId=allStrategyList.get(count).getStrategyId();
+
+            if(strategyId.split(" ")[0].equals(userId)){
+                strategyMapper.deleteStrategyAllCondition(strategyId);
+                strategyMapper.deleteCustomizeStrategy(strategyId);
+
+
+
+            }
+
+
+
+        }
+        return true;
     }
 
     @Override

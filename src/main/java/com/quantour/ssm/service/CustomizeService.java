@@ -65,11 +65,18 @@ public interface CustomizeService {
     public boolean insertOneStrategy(CustomizeStrategyDTO customizeStrategyDTO);
 
     /**
-     * 更新数据库中的一条策略信息 如果相应的id和策略名称不存在则返回false
-     * @param customizeStrategyDTO
+     * 根据策略id删除一条策略
+     * @param strategyId
      * @return
      */
-    public boolean updateOneStrategy(CustomizeStrategyDTO customizeStrategyDTO);
+    public boolean deleteOneStrategy(String strategyId);
+
+    /**
+     * 删除一个用户创建的全部策略
+     * @param userId
+     * @return
+     */
+    public boolean deleteUserAllStrategy(String userId);
 
     /**
      * 获得数据库中全部的策略用来展示

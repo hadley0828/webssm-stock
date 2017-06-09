@@ -1,5 +1,9 @@
 package com.quantour.ssm.model;
 
+import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
+import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
+import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.dto.strategyResultDTO;
 import com.quantour.ssm.util.DateConvert;
 
 /**
@@ -35,6 +39,71 @@ public class CustomizeStrategy {
     private Double turnoverRate;
     private Double currentStandardProfit;
     private Double currentStraProfit;
+
+    public CustomizeStrategy(){
+        super();
+    }
+
+    public CustomizeStrategy(CustomizeStrategyDTO csd){
+        this.strategyId=csd.getStrategyID();
+        if(csd.getCreaterID()!=null){
+            this.creatorId=csd.getCreaterID();
+        }
+        if(csd.getStrategyName()!=null){
+            this.strategyName=csd.getStrategyName();
+        }
+        if(csd.getStrategyExplanation()!=null){
+            this.strategyExplanation=csd.getStrategyExplanation();
+        }
+        if(csd.getCreateTime()!=null){
+            this.createTime=csd.getCreateTime();
+        }
+        StockPondDTO spd=csd.getStockPondDTO();
+        if(spd.getStockPondChosen()!=null){
+            this.stockPondChosen=spd.getStockPondChosen();
+        }
+        if(spd.getIndexIngredient()!=null){
+            this.indexIngredient=spd.getIndexIngredient();
+        }
+        if(spd.getBlock()!=null){
+            this.block=spd.getBlock();
+        }
+        if(spd.getIndustry()!=null){
+            this.industry=spd.getIndustry();
+        }
+        if(spd.getConcept()!=null){
+            this.concept=spd.getConcept();
+        }
+        if(spd.getSTStock()!=null){
+            this.stStock=spd.getSTStock();
+        }
+        if(spd.getExchange()!=null){
+            this.exchange=spd.getExchange();
+        }
+        if(spd.getRegion()!=null){
+            this.region=spd.getRegion();
+        }
+        TradeModelDTO tmd=csd.getTradeModelDTO();
+        this.transferCycle=tmd.getTransferCycle();
+        this.maxHoldStockNumber=tmd.getMaxHoldStockNumber();
+
+        strategyResultDTO resultDTO=csd.getResultDTO();
+
+        this.straId=resultDTO.getStraId();
+        this.yearProfit=resultDTO.getYearProfit();
+        this.standardProfit=resultDTO.getStandardProfit();
+        this.alpha=resultDTO.getAlpha();
+        this.beta=resultDTO.getBeta();
+        this.sharpRate=resultDTO.getSharpRate();
+        this.profitWaveRate=resultDTO.getProfitWaveRate();
+        this.infoPercent=resultDTO.getInfoPercent();
+        this.maxBack=resultDTO.getMaxBack();
+        this.turnoverRate=resultDTO.getTurnoverRate();
+        this.currentStandardProfit=resultDTO.getCurrentStandardProfit();
+        this.currentStraProfit=resultDTO.getCurrentStraProfit();
+
+
+    }
 
     public String getStrategyId() {
         return strategyId;

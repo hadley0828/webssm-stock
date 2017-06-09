@@ -1,5 +1,7 @@
 package com.quantour.ssm.model;
 
+import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
+
 /**
  * Created by zhangzy on 2017/6/9.
  * 自定义策略的筛选条件
@@ -11,6 +13,23 @@ public class ScreenCondition {
     private String scope;
     private Double firstValue;
     private Double secondValue;
+
+
+    public ScreenCondition(){
+        super();
+    }
+
+    public ScreenCondition(ScreeningConditionDTO scd) {
+        this.strategyId=scd.getStrategyId();
+        this.conditionName=scd.getConditionName();
+        this.compareSymbol=scd.getCompareSymbol();
+        if(scd.getScope()!=null){
+            this.scope=scd.getScope();
+        }
+        this.firstValue=scd.getFirstValue();
+        this.secondValue=scd.getSecondValue();
+        //TODO 可能会出错
+    }
 
     public String getStrategyId() {
         return strategyId;
