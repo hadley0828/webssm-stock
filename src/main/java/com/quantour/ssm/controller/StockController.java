@@ -7,6 +7,7 @@ import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StaticService;
 import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class StockController {
     private StaticService staticService;
     @Resource
     private CustomizeService customizeService;
+    @Resource
+    private UserService userService;
 
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
@@ -204,6 +207,13 @@ public class StockController {
 
     }
 
+
+    @RequestMapping("/getUser")
+    public String showUser(HttpServletRequest request,Model model){
+        userDTO userdto=userService.getOneUserByAccount("loohaze");
+        model.addAttribute("userdto",userdto);
+        return "serviceTest/userdto";
+    }
 
 
 }
