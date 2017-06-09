@@ -54,11 +54,11 @@ public interface StrategyMapper {
     public ArrayList<ScreenCondition> selectStrategyAllCondition(String strategyId);
 
     /**
-     * 添加一个策略全部的筛选条件
-     * @param screenConditionArrayList
+     * 添加一个策略一个的筛选条件
+     * @param screenCondition
      * @return
      */
-    public int insertStrategyrAllCondition(ArrayList<ScreenCondition> screenConditionArrayList);
+    public int insertStrategyrAllCondition(ScreenCondition screenCondition);
 
     /**
      * 删除一个策略对应的全部的筛选条件

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantour.ssm.dao.StrategyMapper">
+
+    <resultMap id="CustomizeStrategyMap" type="com.quantour.ssm.model.CustomizeStrategy">
+        <id column="stragety_id" jdbcType="VARCHAR" property="strategyId"/>
+        <result column="creator_id" jdbcType="VARCHAR" property="creatorId"/>
+        <result column="stragety_name" jdbcType="VARCHAR" property="strategyName"/>
+        <result column="stragety_explanation" jdbcType="VARCHAR" property="strategyExplanation"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="stock_pond_chosen" jdbcType="VARCHAR" property="stockPondChosen"/>
+        <result column="index_ingredient" jdbcType="VARCHAR" property="indexIngredient"/>
+        <result column="block" jdbcType="VARCHAR" property="block"/>
+        <result column="industry" jdbcType="VARCHAR" property="industry"/>
+        <result column="concept" jdbcType="VARCHAR" property="concept"/>
+        <result column="st_stock" jdbcType="VARCHAR" property="stStock"/>
+        <result column="exchange" jdbcType="VARCHAR" property="exchange"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="transfer_cycle" jdbcType="INTEGER" property="transferCycle"/>
+        <result column="max_hold_stock_name" jdbcType="INTEGER" property="maxHoldStockNumber"/>
+        <result column="stra_id" jdbcType="VARCHAR" property="straId"/>
+        <result column="year_profit" jdbcType="DOUBLE" property="yearProfit"/>
+        <result column="standard_profit" jdbcType="DOUBLE" property="standardProfit"/>
+        <result column="alpha" jdbcType="DOUBLE" property="alpha"/>
+        <result column="beta" jdbcType="DOUBLE" property="beta"/>
+        <result column="sharp_rate" jdbcType="DOUBLE" property="sharpRate"/>
+        <result column="profit_waverate" jdbcType="DOUBLE" property="profitWaveRate"/>
+        <result column="info_percent" jdbcType="DOUBLE" property="infoPercent"/>
+        <result column="max_back" jdbcType="DOUBLE" property="maxBack"/>
+        <result column="turnover_rate" jdbcType="DOUBLE" property="turnoverRate"/>
+        <result column="current_standard_profit" jdbcType="DOUBLE" property="currentStandardProfit"/>
+        <result column="current_stra_profit" jdbcType="DOUBLE" property="currentStraProfit"/>
+    </resultMap>
+
+    <resultMap id="ScreenConditionMap" type="com.quantour.ssm.model.ScreenCondition">
+        <id column="stragety_id" jdbcType="VARCHAR" property="strategyId"/>
+        <result column="condition_name" jdbcType="VARCHAR" property="conditionName"/>
+        <result column="compare_symbol" jdbcType="VARCHAR" property="compareSymbol"/>
+        <result column="scope" jdbcType="VARCHAR" property="scope"/>
+        <result column="first_value" jdbcType="DOUBLE" property="firstValue"/>
+        <result column="second_value" jdbcType="DOUBLE" property="secondValue"/>
+    </resultMap>
+
+    <select id="getAllCustomizeStrategy" resultMap="CustomizeStrategyMap">
+        select *
+        from customize_strategy
+    </select>
+
+    <select id="selectCustomizeStrategy" parameterType="java.lang.String" resultMap="CustomizeStrategyMap">
+        select *
+        from customize_strategy
+        where stragety_id = #{strategyId}
+    </select>
+
+    <insert id="insertCustomizeStrategy" parameterType="com.quantour.ssm.model.CustomizeStrategy">
+        insert into customize_strategy(stragety_id,creator_id,stragety_name,stragety_explanation,create_time,
+        stock_pond_chosen,index_ingredient,block,industry,concept,st_stock,exchange,region,transfer_cycle,max_hold_stock_name,
+        stra_id,year_profit,standard_profit,alpha,beta,sharp_rate,profit_waverate,info_percent,max_back,turnover_rate,current_standard_profit,current_stra_profit)
+        VALUES (#{strategyId},#{creatorId},#{strategyName},#{strategyExplanation},#{createTime},
+        #{stockPondChosen},#{indexIngredient},#{block},#{industry},#{concept},#{stStock},#{exchange},#{region},#{transferCycle},
+        #{maxHoldStockNumber},#{straId},#{yearProfit},#{standardProfit},#{alpha},#{beta},#{sharpRate},#{profitWaveRate},
+        #{infoPercent},#{maxBack},#{turnoverRate},#{currentStandardProfit},#{currentStraProfit})
+    </insert>
+
+    <delete id="deleteCustomizeStrategy" parameterType="java.lang.String">
+        delete from customize_strategy
+        where stragety_id = #{strategyId}
+    </delete>
+
+
+    <select id="getAllScreenCondition" resultMap="ScreenConditionMap">
+        select *
+        from customize_strategy_screencondition
+    </select>
+
+    <select id="selectStrategyAllCondition" parameterType="java.lang.String" resultMap="ScreenConditionMap">
+        select *
+        from customize_strategy_screencondition
+        where stragety_id = #{strategyId}
+    </select>
+
+    <insert id="insertStrategyrAllCondition" parameterType="com.quantour.ssm.model.ScreenCondition">
+        insert into customize_strategy_screencondition(stragety_id,condition_name,compare_symbol,scope,first_value,second_value)
+        VALUES (#{strategyId},#{conditionName},#{compareSymbol},#{scope},#{firstValue},#{secondValue})
+    </insert>
+
+    <delete id="deleteStrategyAllCondition" parameterType="java.lang.String">
+        delete from customize_strategy_screencondition
+        where stragety_id = #{strategyId}
+    </delete>
+</mapper>

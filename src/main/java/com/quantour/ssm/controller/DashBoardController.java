@@ -6,6 +6,8 @@ package com.quantour.ssm.controller;
 
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +25,10 @@ public class DashBoardController {
 
     @Resource
     private StockService stockService;
+    private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showBoard(HttpServletRequest request, Model model){
+    public String showBoard(@Param("id") String user_id, HttpServletRequest request, Model model){
         return "dashboard";
     }
 
