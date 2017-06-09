@@ -392,7 +392,7 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card">
 
                         <div class="row">
@@ -403,7 +403,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row" style="padding-left: 10px">
+                        <div class="row" style="padding-left: 30px">
                             <div class="col-xs-1">
                                 <dt>开盘</dt>
                                 <dd class="text-danger">${stock.openPrice}</dd>
@@ -432,6 +432,29 @@
                         <hr>
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <blockquote>股票详情</blockquote>
+                            <div id="dayKLine" style="width: 1150px;height:400px;"></div>
+                            <script>
+                                getKLineInfo();
+                            </script>
+                        </div>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-9"></div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="header">
@@ -499,24 +522,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-
-
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="header">
-                            <blockquote>股票详情</blockquote>
-                            <div id="dayKLine" style="width: 1150px;height:400px;"></div>
-                            <script>
-                                getKLineInfo();
-                            </script>
-                        </div>
-                        <hr>
-
                     </div>
                 </div>
             </div>
