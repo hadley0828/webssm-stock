@@ -11,7 +11,9 @@ import com.quantour.ssm.dto.indexProfitDTO;
 import com.quantour.ssm.dto.oneDayProfitDTO;
 import com.quantour.ssm.dto.strategyResultDTO;
 import com.quantour.ssm.dto.waveDTO;
+import com.quantour.ssm.model.CustomizeStrategy;
 import com.quantour.ssm.model.DayKLine;
+import com.quantour.ssm.model.ScreenCondition;
 import com.quantour.ssm.model.StockBasicInfo;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.util.CodeIndustryMap;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.*;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -1320,13 +1323,35 @@ public class CustomizeServiceImpl implements CustomizeService{
     }
 
     @Override
+    public String getCurrentTime() {
+        SimpleDateFormat myFmt1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date now=new java.util.Date();
+        String rq=myFmt1.format(now);
+
+        return rq;
+    }
+
+    /**
+     * id=userId+" "+dateTime
+     * @param strategyId
+     * @return
+     */
+    @Override
     public CustomizeStrategyDTO getOneStrategy(String strategyId) {
-        //TODO
-        return null;
+
+
+        CustomizeStrategy customizeStrategy=strategyMapper.selectCustomizeStrategy(strategyId);
+        ArrayList<ScreenCondition> screenConditionArrayList=strategyMapper.selectStrategyAllCondition(strategyId);
+
+        CustomizeStrategyDTO customizeStrategyDTO=new CustomizeStrategyDTO(customizeStrategy,screenConditionArrayList);
+
+        return customizeStrategyDTO;
     }
 
     @Override
     public boolean insertOneStrategy(CustomizeStrategyDTO customizeStrategyDTO) {
+        //TODO mapper中的方法未确定
+
         return false;
     }
 
@@ -1337,12 +1362,58 @@ public class CustomizeServiceImpl implements CustomizeService{
 
     @Override
     public ArrayList<CustomizeStrategyDTO> getAllCustomizeStrategy() {
-        return null;
+        ArrayList<CustomizeStrategyDTO> strategyDTOArrayList=new ArrayList<CustomizeStrategyDTO>();
+
+        ArrayList<CustomizeStrategy> strategyArrayList=strategyMapper.getAllCustomizeStrategy();
+
+        ArrayList<ScreenCondition> screenConditionArrayList=strategyMapper.getAllScreenCondition();
+        //      策略id  策略对应的筛选条件
+        HashMap<String,ArrayList<ScreenCondition>> conditionMap=new HashMap<String, ArrayList<ScreenCondition>>();
+        for(int count=0;count<screenConditionArrayList.size();count++){
+            String strategyId=screenConditionArrayList.get(count).getStrategyId();
+
+            if(conditionMap.containsKey(strategyId)){
+                conditionMap.get(strategyId).add(screenConditionArrayList.get(count));
+            }else{
+                ArrayList<ScreenCondition> newList=new ArrayList<ScreenCondition>();
+                conditionMap.put(strategyId,newList);
+                conditionMap.get(strategyId).add(screenConditionArrayList.get(count));
+
+            }
+        }
+
+
+        for(int count=0;count<strategyArrayList.size();count++){
+            String strategyId=strategyArrayList.get(count).getStrategyId();
+
+            CustomizeStrategy customizeStrategy=strategyArrayList.get(count);
+            ArrayList<ScreenCondition> screenConditions=new ArrayList<ScreenCondition>();
+
+            if(conditionMap.containsKey(strategyId)){
+                screenConditions=conditionMap.get(strategyId);
+            }
+
+            CustomizeStrategyDTO customizeStrategyDTO=new CustomizeStrategyDTO(customizeStrategy,screenConditions);
+
+            strategyDTOArrayList.add(customizeStrategyDTO);
+
+
+        }
+        return strategyDTOArrayList;
     }
 
     @Override
     public ArrayList<CustomizeStrategyDTO> getOneUserAllStrategy(String userID) {
-        return null;
+        ArrayList<CustomizeStrategyDTO> resultList=new ArrayList<CustomizeStrategyDTO>();
+
+        ArrayList<CustomizeStrategyDTO> allList=getAllCustomizeStrategy();
+        for(int count=0;count<allList.size();count++){
+            if(allList.get(count).getCreaterID().equals(userID)){
+                resultList.add(allList.get(count));
+            }
+        }
+
+        return resultList;
     }
 
 

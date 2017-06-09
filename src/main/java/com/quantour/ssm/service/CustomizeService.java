@@ -44,6 +44,12 @@ public interface CustomizeService {
      */
     public strategyResultDTO getCustomizeStrategyResult(String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO);
 
+
+    /**
+     * 获得当前的系统时间 格式为"yyyy-MM-dd HH:mm:ss"
+     * @return
+     */
+    public String getCurrentTime();
     /**
      * 根据策略的编号获得一个自定义策略 strategyId=userId+" "+dateTime
      * @param strategyId
