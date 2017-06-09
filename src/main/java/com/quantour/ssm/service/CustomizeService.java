@@ -42,7 +42,7 @@ public interface CustomizeService {
      * @param tradeModelDTO 策略的交易模型
      * @return
      */
-    public strategyResultDTO getCustomizeStrategyResult(String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO);
+    public strategyResultDTO getCustomizeStrategyResult(String userId,String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO);
 
 
     /**

@@ -4,6 +4,7 @@ import com.quantour.ssm.dto.*;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StaticService;
 import com.quantour.ssm.service.StockService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -164,7 +166,7 @@ public class StockController {
         tradeModelDTO.setMaxHoldStockNumber(10);
         tradeModelDTO.setTransferCycle(10);
 
-        strategyResultDTO resultDTO=customizeService.getCustomizeStrategyResult("2010-09-11","2011-09-11","sh000300",stockPondDTO,screeningConditionDTOArrayList,tradeModelDTO);
+        strategyResultDTO resultDTO=customizeService.getCustomizeStrategyResult("po","2010-09-11","2011-09-11","sh000300",stockPondDTO,screeningConditionDTOArrayList,tradeModelDTO);
 
         model.addAttribute("resultDTO",resultDTO);
         return "serviceTest/customizeResultDTO";
@@ -215,5 +217,11 @@ public class StockController {
         return "serviceTest/userdto";
     }
 
+    @RequestMapping("/getBlockKLine")
+    public String showBlockKLine(HttpServletRequest request,Model model){
+        ArrayList<klineDTO> dayKLineArrayList=stockService.getBlockKline("sh000001","2008-05-11","2009-08-09");
+        model.addAttribute("dayKLineArrayList",dayKLineArrayList);
+        return "serviceTest/blockKLine";
+    }
 
 }

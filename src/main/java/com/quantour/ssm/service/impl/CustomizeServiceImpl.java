@@ -58,7 +58,7 @@ public class CustomizeServiceImpl implements CustomizeService{
     }
 
     @Override
-    public strategyResultDTO getCustomizeStrategyResult(String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO) {
+    public strategyResultDTO getCustomizeStrategyResult(String userId,String sDate, String lDate, String blockCode, StockPondDTO stockPondDTO, ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList, TradeModelDTO tradeModelDTO) {
         strategyResultDTO strategyResultdto=new strategyResultDTO();
         strategyResultdto.setStraId("未知");
         ArrayList<oneDayProfitDTO> oneDayProfitList=new ArrayList<oneDayProfitDTO>();
@@ -87,8 +87,9 @@ public class CustomizeServiceImpl implements CustomizeService{
 
 
         }else if(stockPondDTO.getStockPondChosen().equals("自选股票池")){
-            //TODO
             //initialCodeList=getOneUserOptionalStocks(String id)
+            initialCodeList=dayKLineMapper.getUserAllStock(userId);
+
         }
 
         //下面获取行业和股票 股票和行业的对应关系
@@ -1350,13 +1351,14 @@ public class CustomizeServiceImpl implements CustomizeService{
 
     @Override
     public boolean insertOneStrategy(CustomizeStrategyDTO customizeStrategyDTO) {
-        //TODO mapper中的方法未确定
+        //TODO
 
         return false;
     }
 
     @Override
     public boolean updateOneStrategy(CustomizeStrategyDTO customizeStrategyDTO) {
+
         return false;
     }
 

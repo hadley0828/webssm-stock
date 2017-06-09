@@ -33,7 +33,7 @@ public class DayKLineImplTest {
 //        test.printTwoIndustryMap();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
-        test.testGetTimesDayKLines();
+//        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
 //        test.testGetAllDayKLinesByCode();
@@ -41,7 +41,7 @@ public class DayKLineImplTest {
 //        test.testGetOneBlockInfo();
 
 //        test.testGetYesterdayDayKline();
-//        test.testGetTimesBlockInfo();
+        test.testGetTimesBlockInfo();
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
@@ -239,7 +239,7 @@ public class DayKLineImplTest {
     public void testGetTimesBlockInfo(){
         HashMap<String,Object> map = new HashMap<String, Object>();
 
-        map.put("block", "sh000300");
+        map.put("block", "sh000001");
         map.put("start",Date.valueOf("2017-01-01"));
         map.put("end",Date.valueOf("2017-01-31"));
 

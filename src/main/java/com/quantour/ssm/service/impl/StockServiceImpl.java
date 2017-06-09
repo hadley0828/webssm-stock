@@ -261,6 +261,60 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public ArrayList<klineDTO> getBlockKline(String code, String sDate, String lDate) {
+        ArrayList<klineDTO> klineDTOArrayList=new ArrayList<klineDTO>();
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        //allDateList是全部日期按照顺序排列
+        String realSDate=DateConvert.getRealStartDate(sDate,allDateList);
+        String realLDate=DateConvert.getRealEndDate(lDate,allDateList);
+
+        HashMap<String,Object> map = new HashMap<String, Object>();
+
+        map.put("block", code);
+        map.put("start",Date.valueOf(realSDate));
+        map.put("end",Date.valueOf(realLDate));
+
+        ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getTimesBlockInfo(map);
+
+        String name="未知";
+        if(code.equals("sh000001")){
+            name="上证指数";
+        }else if(code.equals("sh000016")){
+            name="上证50";
+        }else if(code.equals("sh000300")){
+            name="沪深300";
+        }else if(code.equals("sh000905")){
+            name="中证500";
+        }else if(code.equals("sz399001")){
+            name="深证成指";
+        }else if(code.equals("sz399005")){
+            name="中小板指";
+        }else if(code.equals("sz399006")){
+            name="创业板指";
+        }
+
+        for(int count=0;count<dayKLineArrayList.size();count++){
+            klineDTO klineDTO=new klineDTO();
+            DayKLine dayKLine=dayKLineArrayList.get(count);
+            klineDTO.setId(code);
+            klineDTO.setOpenPrice(dayKLine.getOpenPrice());
+            klineDTO.setClosePrice(dayKLine.getClosePrice());
+            klineDTO.setHighPrice(dayKLine.getHighPrice());
+            klineDTO.setLowPrice(dayKLine.getLowPrice());
+            klineDTO.setDate(DateConvert.dateToString(dayKLine.getStockDate()));
+            klineDTO.setName(name);
+            klineDTOArrayList.add(klineDTO);
+
+        }
+        return klineDTOArrayList;
+    }
+
+    @Override
     public marketDTO getMarketInfo(String date) {
         marketDTO marketdto=new marketDTO();
 

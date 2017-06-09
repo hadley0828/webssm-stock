@@ -41,6 +41,16 @@ public interface StockService {
      */
     public ArrayList<klineDTO> getKline(String code, String sDate, String lDate);
 
+
+    /**
+     * 根据板块编号 开始日期 结束日期获得这一段时间内该板块的K线图信息
+     * @param code
+     * @param sDate
+     * @param lDate
+     * @return
+     */
+    public ArrayList<klineDTO> getBlockKline(String code,String sDate,String lDate);
+
     /**
      * 根据日期获得当天上圳市场的市场信息
      * @param date
@@ -190,6 +200,7 @@ public interface StockService {
      * @return
      */
     public ArrayList<String> getStockCodesByNames(ArrayList<String> stockNameList);
+
 
 
 }
