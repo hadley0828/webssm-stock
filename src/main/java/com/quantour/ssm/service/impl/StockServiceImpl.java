@@ -8,13 +8,14 @@ import com.quantour.ssm.model.StockBasicInfo;
 import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
+import com.quantour.ssm.util.FKSqlSessionFactory;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.security.auth.login.AccountExpiredException;
 import java.sql.Date;
 import java.util.*;
 
@@ -35,19 +36,24 @@ public class StockServiceImpl implements StockService {
     //关于取前一天的DayKline可能会出bug  不能取不存在的日期
     @Override
     public stockDTO getStockInfo(String code, String date) {
-        DayKLineKey dayKLineKey=new DayKLineKey();
-        dayKLineKey.setStockCode(code);
-        dayKLineKey.setStockDate(Date.valueOf(date));
-
-
-        DayKLine dayKLine=dayklinemapper.getOneDayKLine(dayKLineKey);
 
         ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
         ArrayList<String> allDateList=new ArrayList<String>();
         for(int count=0;count<allSqlDateList.size();count++){
             allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
         }
-        String lastDate=DateConvert.getLastNDate(allDateList,date,1);
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+        DayKLineKey dayKLineKey=new DayKLineKey();
+        dayKLineKey.setStockCode(code);
+        dayKLineKey.setStockDate(Date.valueOf(realDate));
+
+
+        DayKLine dayKLine=dayklinemapper.getOneDayKLine(dayKLineKey);
+
+
+        String lastDate=DateConvert.getLastNDate(allDateList,realDate,1);
 
 
         dayKLineKey.setStockCode(code);
@@ -316,6 +322,7 @@ public class StockServiceImpl implements StockService {
     //not test
     @Override
     public ArrayList<compareDTO> getCompareInfo(String firstCode, String secondCode, String sDate, String lDate) {
+
         ArrayList<compareDTO> compareDTOArrayList=new ArrayList<compareDTO>();
 
         compareDTO firstdto=new compareDTO();
@@ -386,11 +393,11 @@ public class StockServiceImpl implements StockService {
         realSDate=DateConvert.getRealStartDate(sDate,secondDateList);
         realLDate=DateConvert.getRealEndDate(lDate,secondDateList);
 
-        map=new HashMap<String, Object>();
-        map.put("code",secondCode);
-        map.put("start",Date.valueOf(realSDate));
-        map.put("end",Date.valueOf(realLDate));
-        ArrayList<DayKLine> secondDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getTimesDayKLines(map);
+        HashMap<String,Object> newMap=new HashMap<String, Object>();
+        newMap.put("code",secondCode);
+        newMap.put("start",Date.valueOf(realSDate));
+        newMap.put("end",Date.valueOf(realLDate));
+        ArrayList<DayKLine> secondDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getTimesDayKLines(newMap);
 
         dateList=new ArrayList<String>();
         lowestPrice=secondDayKLineList.get(0).getLowPrice();
