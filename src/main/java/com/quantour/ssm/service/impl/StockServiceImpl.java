@@ -5,13 +5,11 @@ import com.quantour.ssm.dto.*;
 import com.quantour.ssm.model.DayKLine;
 import com.quantour.ssm.model.DayKLineKey;
 import com.quantour.ssm.model.StockBasicInfo;
-import com.quantour.ssm.service.HistoryService;
+import com.quantour.ssm.model.StockNews;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
-import com.quantour.ssm.util.FKSqlSessionFactory;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,9 +85,24 @@ public class StockServiceImpl implements StockService {
         stockdto.setStockArea(stockBasicInfo.getArea());
 
         ArrayList<NewsDTO> newsDTOArrayList=new ArrayList<NewsDTO>();
+        ArrayList<StockNews> stockNewsArrayList=dayklinemapper.getOneStockAllNews(realDate);
 
+        if(stockNewsArrayList.size()!=0){
+            for(int count=0;count<stockNewsArrayList.size();count++){
+                StockNews stockNews=stockNewsArrayList.get(count);
 
+                NewsDTO newsDTO=new NewsDTO();
+                newsDTO.setCode(stockNews.getStockCode());
+                newsDTO.setDate(DateConvert.dateToString(stockNews.getDate()));
+                newsDTO.setType(stockNews.getType());
+                newsDTO.setTitle(stockNews.getTitle());
+                newsDTO.setUrl(stockNews.getUrl());
 
+                newsDTOArrayList.add(newsDTO);
+            }
+        }
+
+        stockdto.setNewsDTOArrayList(newsDTOArrayList);
 
         return stockdto;
     }

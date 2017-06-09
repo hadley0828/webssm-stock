@@ -1,8 +1,6 @@
 package com.quantour.ssm.dao;
 
-import com.quantour.ssm.model.DayKLine;
-import com.quantour.ssm.model.DayKLineKey;
-import com.quantour.ssm.model.StockBasicInfo;
+import com.quantour.ssm.model.*;
 import com.quantour.ssm.util.CodeIndustryMap;
 import org.springframework.stereotype.Repository;
 
@@ -271,5 +269,44 @@ public interface DayKLineMapper    {
      */
     public int deleteOneOptionalStock(String userid,String stockCode);
 
+    /**
+     * 获得一个股票的全部新闻
+     * @param code
+     * @return
+     */
+    public ArrayList<StockNews> getOneStockAllNews(String code);
 
+    /**
+     * 获得全部股票的全部新闻
+     * @return
+     */
+    public ArrayList<StockNews> getAllNews();
+
+
+    /**
+     * 获得一个股票的全部业绩预测
+     * @param code
+     * @return
+     */
+    public AchievementForecast getOneStockForecast(String code);
+
+    /**
+     * 获得全部的业绩预测
+     * @return
+     */
+    public ArrayList<AchievementForecast> getAllForecast();
+
+
+    /**
+     * 获得一个股票的分配预案
+     * @param code
+     * @return
+     */
+    public AllocationPlan getOneAllocationPlan(String code);
+
+    /**
+     * 获得全部的分配预案
+     * @return
+     */
+    public ArrayList<AllocationPlan> getAllAllocationPlan();
 }
