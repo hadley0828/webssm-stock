@@ -176,5 +176,20 @@ public interface StockService {
      */
     public boolean deleteUserAllOptionalStock(String userId);
 
+    /**
+     * 根据一个股票名称获取对应的股票编号
+     * @param stockName
+     * @return
+     */
+    public String getStockCodeByName(String stockName);
+
+
+    /**
+     * 根据几个股票名称获得对应的股票编号
+     * @param stockNameList
+     * @return
+     */
+    public ArrayList<String> getStockCodesByNames(ArrayList<String> stockNameList);
+
 
 }

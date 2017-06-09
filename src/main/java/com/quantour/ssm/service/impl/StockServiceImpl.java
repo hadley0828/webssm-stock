@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.security.auth.login.AccountExpiredException;
 import java.sql.Date;
 import java.util.*;
 
@@ -822,6 +823,49 @@ public class StockServiceImpl implements StockService {
             return true;
 
         }
+    }
+
+    @Override
+    public String getStockCodeByName(String stockName) {
+        ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
+
+        for(int count=0;count<stockBasicInfoArrayList.size();count++){
+            if(stockBasicInfoArrayList.get(count).getName().equals(stockName)){
+                return stockBasicInfoArrayList.get(count).getCode();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getStockCodesByNames(ArrayList<String> stockNameList) {
+        ArrayList<String> codeList=new ArrayList<String>();
+
+        ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
+        HashMap<String,String> nameToCodeMap=new HashMap<String, String>();
+
+        for(int count=0;count<stockBasicInfoArrayList.size();count++){
+            nameToCodeMap.put(stockBasicInfoArrayList.get(count).getName(),stockBasicInfoArrayList.get(count).getCode());
+        }
+
+
+
+
+        if(stockNameList.size()!=0){
+            for(int count=0;count<stockNameList.size();count++){
+                String stockName=stockNameList.get(count);
+
+                if(nameToCodeMap.containsKey(stockName)){
+                    codeList.add(nameToCodeMap.get(stockName));
+                }
+
+            }
+
+
+
+
+        }
+        return codeList;
     }
 
 

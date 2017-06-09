@@ -182,6 +182,27 @@ public class StockController {
         return "serviceTest/stockDTOArrayList";
     }
 
+    @RequestMapping("/getStockCode")
+    public String showStockCode(HttpServletRequest request,Model model){
+        String stockCode=stockService.getStockCodeByName("平安银行");
+        model.addAttribute("stockCode",stockCode);
+
+        return "serviceTest/stockCode";
+    }
+
+    @RequestMapping("/getStockCodes")
+    public String showStockCodes(HttpServletRequest request,Model model){
+        ArrayList<String> nameList=new ArrayList<String>();
+        nameList.add("平安银行");
+        nameList.add("国农科技");
+        nameList.add("世纪星源");
+
+        ArrayList<String> codeList=stockService.getStockCodesByNames(nameList);
+        model.addAttribute("codeList",codeList);
+
+        return "serviceTest/stockCodes";
+
+    }
 
 
 
