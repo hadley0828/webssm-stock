@@ -5,7 +5,6 @@ package com.quantour.ssm.controller;
  */
 
 import com.google.gson.Gson;
-import com.quantour.ssm.model.ResponseObj;
 import com.quantour.ssm.service.StockService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/compare")
@@ -33,11 +33,15 @@ public class CompareController {
 
     @RequestMapping(value="/doCompare",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String doCompare(String id_List){
-        int j = 0;
+    public String doCompare(String codename1, String codename2){
 
-        System.out.println(id_List);
+        String codeid1 = stockService.getStockCodeByName(codename1);
+        String codeid2 = stockService.getStockCodeByName(codename2);
 
-        return new Gson().toJson(id_List);
+        HashMap<String,String> map = new HashMap<String, String>();
+        map.put("codeid1",codeid1);
+        map.put("codeid2",codeid2);
+
+        return new Gson().toJson(map);
     }
 }

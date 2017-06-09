@@ -397,16 +397,9 @@
 
                         <div class="row">
                             <div class="header">
-
-                                <div class="col-md-10">
-                                    <blockquote>
-                                        ${stock.name} (${stock.id})
-                                    </blockquote>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <input type="text" id="stocksearch"  class="form-control border-input">
-                                </div>
+                                <blockquote>
+                                    ${stock.name} (${stock.id})
+                                </blockquote>
                             </div>
                         </div>
                         <hr>
@@ -517,7 +510,7 @@
                     <div class="card">
                         <div class="header">
                             <blockquote>股票详情</blockquote>
-                            <div id="dayKLine" style="width: 850px;height:400px;"></div>
+                            <div id="dayKLine" style="width: 1150px;height:400px;"></div>
                             <script>
                                 getKLineInfo();
                             </script>

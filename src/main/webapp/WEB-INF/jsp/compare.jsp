@@ -42,6 +42,575 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+
+    <script type="text/javascript">
+
+        function getKLine1Info(code){
+
+            var sdate = "2007-01-01";
+            var ldate = "2017-06-01";
+            var code = String(code);
+
+            while(code.length < 6){
+                code = "0" + code;
+            }
+//            alert(code);
+
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/getDayKLineInfo',
+                data: {codeid:code, sdate:sdate, ldate:ldate},
+                dataType: "json",
+                success: function (result) {
+                    klinedata = JSON.parse(result);
+                    fillCharts1(klinedata);
+                },
+                error:function () {
+                    alert("!");
+                }
+            });
+
+        }
+        function getKLine2Info(code){
+
+            var sdate = "2007-01-01";
+            var ldate = "2017-06-01";
+            var code = String(code);
+
+            while(code.length < 6){
+                code = "0" + code;
+            }
+//            alert(code);
+
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/getDayKLineInfo',
+                data: {codeid:code, sdate:sdate, ldate:ldate},
+                dataType: "json",
+                success: function (result) {
+                    klinedata = JSON.parse(result);
+                    fillCharts2(klinedata);
+                },
+                error:function () {
+                    alert("!");
+                }
+            });
+
+        }
+
+        function splitData(rawdata) {
+            var categoryData = [];
+            var values = [];
+            for (var i = 0; i < rawdata.length; i++) {
+                categoryData.push(rawdata[i].splice(0,1)[0]);
+                values.push(rawdata[i]);
+            }
+            return {
+                categoryData: categoryData,
+                values: values
+            };
+        }
+
+        function calculateMA(dayCount,data) {
+            var result = [];
+            for (var i = 0, len = data0.values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += data0.values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+
+        function fillCharts1(rawdata){
+            var daykline1 = echarts.init(document.getElementById('dayKLine1'));
+
+//            alert("!");
+
+            data0 = splitData(rawdata);
+
+            daykline1.setOption(my_option ={
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    legend: {
+                        data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '10%',
+                        bottom: '15%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: data0.categoryData,
+                        scale: true,
+                        boundaryGap : false,
+                        axisLine: {onZero: false},
+                        splitLine: {show: false},
+                        splitNumber: 20,
+                        min: 'dataMin',
+                    },
+                    yAxis: {
+                        scale: true,
+                        splitArea: {
+                            show: true
+                        }
+                    },
+                    dataZoom: [
+                        {
+                            type: 'inside',
+                            start: 95,
+                            end: 100
+                        },
+                        {
+                            show: true,
+                            type: 'slider',
+                            y: '90%',
+                            start: 95,
+                            end: 100
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '日K',
+                            type: 'candlestick',
+                            data: data0.values,
+                            markPoint: {
+                                label: {
+                                    normal: {
+                                        formatter: function (param) {
+                                            return param != null ? Math.round(param.value) : '';
+                                        }
+                                    }
+                                },
+                                data: [
+                                    {
+                                        name: 'XX标点',
+                                        coord: ['2013/5/31', 2300],
+                                        value: 2300,
+                                        itemStyle: {
+                                            normal: {color: 'rgb(41,60,85)'}
+                                        }
+                                    },
+                                    {
+                                        name: 'highest value',
+                                        type: 'max',
+                                        valueDim: 'highest'
+                                    },
+                                    {
+                                        name: 'lowest value',
+                                        type: 'min',
+                                        valueDim: 'lowest'
+                                    },
+                                    {
+                                        name: 'average value on close',
+                                        type: 'average',
+                                        valueDim: 'close'
+                                    }
+                                ],
+                                tooltip: {
+                                    formatter: function (param) {
+                                        return param.name + '<br>' + (param.data.coord || '');
+                                    }
+                                }
+                            },
+                            markLine: {
+                                symbol: ['none', 'none'],
+                                data: [
+                                    [
+                                        {
+                                            name: 'from lowest to highest',
+                                            type: 'min',
+                                            valueDim: 'lowest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        },
+                                        {
+                                            type: 'max',
+                                            valueDim: 'highest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        }
+                                    ],
+                                    {
+                                        name: 'min line on close',
+                                        type: 'min',
+                                        valueDim: 'close'
+                                    },
+                                    {
+                                        name: 'max line on close',
+                                        type: 'max',
+                                        valueDim: 'close'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            name: 'MA5',
+                            type: 'line',
+                            data: calculateMA(5,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA10',
+                            type: 'line',
+                            data: calculateMA(10,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA20',
+                            type: 'line',
+                            data: calculateMA(20,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA30',
+                            type: 'line',
+                            data: calculateMA(30,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+
+                    ]
+                }
+            );
+        }
+        function fillCharts2(rawdata){
+            var daykline2 = echarts.init(document.getElementById('dayKLine2'));
+
+//            alert("!");
+
+            data0 = splitData(rawdata);
+
+            daykline2.setOption(my_option ={
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+
+                    legend: {
+                        data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '10%',
+                        bottom: '15%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: data0.categoryData,
+                        scale: true,
+                        boundaryGap : false,
+                        axisLine: {onZero: false},
+                        splitLine: {show: false},
+                        splitNumber: 20,
+                        min: 'dataMin',
+                    },
+                    yAxis: {
+                        scale: true,
+                        splitArea: {
+                            show: true
+                        }
+                    },
+                    dataZoom: [
+                        {
+                            type: 'inside',
+                            start: 95,
+                            end: 100
+                        },
+                        {
+                            show: true,
+                            type: 'slider',
+                            y: '90%',
+                            start: 95,
+                            end: 100
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '日K',
+                            type: 'candlestick',
+                            data: data0.values,
+                            markPoint: {
+                                label: {
+                                    normal: {
+                                        formatter: function (param) {
+                                            return param != null ? Math.round(param.value) : '';
+                                        }
+                                    }
+                                },
+                                data: [
+                                    {
+                                        name: 'XX标点',
+                                        coord: ['2013/5/31', 2300],
+                                        value: 2300,
+                                        itemStyle: {
+                                            normal: {color: 'rgb(41,60,85)'}
+                                        }
+                                    },
+                                    {
+                                        name: 'highest value',
+                                        type: 'max',
+                                        valueDim: 'highest'
+                                    },
+                                    {
+                                        name: 'lowest value',
+                                        type: 'min',
+                                        valueDim: 'lowest'
+                                    },
+                                    {
+                                        name: 'average value on close',
+                                        type: 'average',
+                                        valueDim: 'close'
+                                    }
+                                ],
+                                tooltip: {
+                                    formatter: function (param) {
+                                        return param.name + '<br>' + (param.data.coord || '');
+                                    }
+                                }
+                            },
+                            markLine: {
+                                symbol: ['none', 'none'],
+                                data: [
+                                    [
+                                        {
+                                            name: 'from lowest to highest',
+                                            type: 'min',
+                                            valueDim: 'lowest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        },
+                                        {
+                                            type: 'max',
+                                            valueDim: 'highest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        }
+                                    ],
+                                    {
+                                        name: 'min line on close',
+                                        type: 'min',
+                                        valueDim: 'close'
+                                    },
+                                    {
+                                        name: 'max line on close',
+                                        type: 'max',
+                                        valueDim: 'close'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            name: 'MA5',
+                            type: 'line',
+                            data: calculateMA(5,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA10',
+                            type: 'line',
+                            data: calculateMA(10,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA20',
+                            type: 'line',
+                            data: calculateMA(20,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA30',
+                            type: 'line',
+                            data: calculateMA(30,data0),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+
+                    ]
+                }
+            );
+        }
+
+        function addUl(name) {
+            var text = name;
+            var tag = 0;
+            var ul =document.getElementById("choosed_list");
+            var lis=ul.getElementsByTagName('li');
+
+            if(lis.length !== 0){               //分析是否已被选中
+                for(var i=0;i<lis.length;i++){
+                    var as = lis[i].getElementsByTagName('a');
+                    var oldcode = as[0].innerHTML;
+                    if(text === oldcode){
+                        tag = 1;
+                        break;
+                    }
+                }
+            }
+
+            if(tag === 0 && lis.length !== 2){                      //已被选中将不再被添加,上限为2
+
+                var li =document.createElement("li");
+                var a1=document.createElement("a");
+                var a2=document.createElement("a");
+
+
+
+                a1.innerHTML=name;
+                a2.innerHTML="x";
+                a2.style="padding-left: 10px;padding-right: 20px";
+
+                li.id=a1;
+                li.onclick=function(){deleteUl(this)};
+                li.appendChild(a1);
+                li.appendChild(a2);
+
+
+                ul.appendChild(li);
+            }
+
+
+        }
+
+        function doCompare() {                  //对比功能
+            var codename1 = "";
+            var codename2 = "";
+            var ul = document.getElementById("choosed_list");
+            var lis= ul.getElementsByTagName('li');
+
+            codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
+            codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
+//        for(var i =0;i<lis.length;i++){
+//            var as = lis[i].getElementsByTagName('a');
+//
+//            codeList = codeList+as[0].innerHTML;
+//        }
+
+//        $("#test").html(codeList);
+
+            $.ajax({            //传：两个股票代码，得到对比数据绘图
+                type:"POST",
+                url:'<%=request.getContextPath()%>/compare/doCompare',
+                data:{codename1:codename1, codename2:codename2},
+                dataType:"json",
+                cache:false,
+                success:function (data) {
+                    mydata = JSON.parse(data);
+//                    alert(mydata);
+//                    alert(typeof mydata);
+//                    alert(mydata.codeid1);
+//                    alert(mydata.codeid2);
+                    getKline1(mydata.codeid1);
+                    getKline2(mydata.codeid2);
+                    getStock1BasicInfo(mydata.codeid1);
+                    getStock2BasicInfo(mydata.codeid2);
+
+//                if(mydata=="{}"){
+//                    alert("no message");
+//                }else{
+//                    $("#test").html("");
+//                    $.each(mydata,function (i,item) {
+//                        var li=document.createElement("li");
+//                        li.innerHTML=item;
+//                        $("#test").appendChild(li);
+//                    })
+//                }
+                }
+            });
+        }
+
+        function deleteUl(objs){
+            var ul=document.getElementById("choosed_list");
+
+            ul.removeChild(objs);
+        }
+
+        function addCodelist(tbody_name){           //用于向热门，收藏添加条目
+            var t=document.getElementById(tbody_name);
+            var _tr=document.createElement('tr');
+            var td1=document.createElement('td');
+            var td2=document.createElement('td');
+            var _th=document.createElement('th');
+            var _a=document.createElement('a');
+
+            td1.innerHTML="修改成股票名称";
+            td1.id="股票名称"
+
+            td2.innerHTML="股票代码";
+            td2.id="股票代码";
+
+            a.innerHTML="添加";
+            a.onclick=function () {addUl("股票名称+股票代码")}
+
+            _th.appendChild(_a);
+
+            _tr.appendChild(td1);
+            _tr.appendChild(td2);
+            _tr.appendChild(_th);
+
+            t.appendChild(_tr);
+
+        }
+
+        function deleteAllUl(){         //清空选择
+            var ul = document.getElementById("choosed_list");
+            ul.innerHTML="";
+        }
+
+    </script>
+
 </head>
 <body>
 
@@ -183,12 +752,12 @@
                                         <table class="table table-striped">
                                             <tbody>
                                             <tr>
-                                                <td id="cold_name_1">中国石油</td>
+                                                <td id="cold_name_1">平安银行</td>
                                                 <td>0.00</td>
                                                 <th><a href="#" onclick="addUl(document.getElementById('cold_name_1').innerHTML)">对比</a></th>
                                             </tr>
                                             <tr>
-                                                <td id="cold_name_2">中国石化</td>
+                                                <td id="cold_name_2">万 科Ａ</td>
                                                 <td>0.00</td>
                                                 <th><a href="#" onclick="addUl(document.getElementById('cold_name_2').innerHTML)">对比</a> </th>
                                             </tr>
@@ -241,14 +810,58 @@
                     <div class="card">
                         <div class="header">
                             <blockquote>股票对比</blockquote>
-                        </div>
-                        <hr>
-                        <div class="content">
-                            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
 
-                            <hr>
+                            <div id="dayKLine1" style="width: 750px; height: 400px;">
+                                <script>
+                                    function getKline1(code) {
+                                        getKLine1Info(code);
+                                    }
+                                </script>
+                            </div>
+
+
+                            <div id="dayKLine2" style="width: 750px; height: 400px;">
+                                <script>
+                                    function getKline2(code){
+                                        getKLine2Info(code);
+                                    }
+                                </script>
+                            </div>
+
+                            <div id="logLine1" style="width: 750px; height: 400px;">
+
+                            </div>
+
+                            <div id="logLine2" style="width: 750px; height: 400px;">
+
+                            </div>
+
+                             <hr>
+                        <div class="content">
+                            <%--<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>--%>
+
+                            <%--<hr>--%>
                             <blockquote>基本指标对比</blockquote>
                             <div class="content table-responsive table-full-width">
+                                <script>
+                                    function getStock1BasicInfo(code) {
+//
+//                                        $.ajax({
+//                                            type : "POST",
+//                                            url: '',
+//                                            data:{id:code},
+//                                            dataType:"json",
+//                                            success:function (result) {
+//
+//                                            }
+//                                        });
+                                    }
+
+                                    function getStock2BasicInfo(code){
+
+                                    }
+                                </script>
+                                
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -296,7 +909,6 @@
 </body>
 
 <!--   Core JS Files   -->
-<script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
@@ -318,120 +930,7 @@
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <script>
-    function addUl(name) {
-        var text = name;
-        var tag = 0;
-        var ul =document.getElementById("choosed_list");
-        var lis=ul.getElementsByTagName('li');
 
-        if(lis.length !== 0){               //分析是否已被选中
-            for(var i=0;i<lis.length;i++){
-                var as = lis[i].getElementsByTagName('a');
-                var oldcode = as[0].innerHTML;
-                if(text === oldcode){
-                    tag = 1;
-                    break;
-                }
-            }
-        }
-
-        if(tag === 0 && lis.length !== 2){                      //已被选中将不再被添加,上限为2
-
-            var li =document.createElement("li");
-            var a1=document.createElement("a");
-            var a2=document.createElement("a");
-
-
-
-            a1.innerHTML=name;
-            a2.innerHTML="x";
-            a2.style="padding-left: 10px;padding-right: 20px";
-
-            li.id=a1;
-            li.onclick=function(){deleteUl(this)};
-            li.appendChild(a1);
-            li.appendChild(a2);
-
-
-            ul.appendChild(li);
-        }
-
-        
-    }
-
-    function doCompare() {                  //对比功能
-        var codeList ="";
-        var ul = document.getElementById("choosed_list");
-        var lis= ul.getElementsByTagName('li');
-
-        for(var i =0;i<lis.length;i++){
-            var as = lis[i].getElementsByTagName('a');
-
-            codeList = codeList+as[0].innerHTML;
-        }
-
-        $("#test").html(codeList);
-
-        $.ajax({            //传：两个股票代码，得到对比数据绘图
-            type:"POST",
-            url:'<%=request.getContextPath()%>/compare/doCompare',
-            data:{id_List:codeList},
-            dataType:"json",
-            cache:false,
-            success:function (data) {
-                var mydata = JSON.parse(data);
-                alert(mydata);
-//                if(mydata=="{}"){
-//                    alert("no message");
-//                }else{
-//                    $("#test").html("");
-//                    $.each(mydata,function (i,item) {
-//                        var li=document.createElement("li");
-//                        li.innerHTML=item;
-//                        $("#test").appendChild(li);
-//                    })
-//                }
-            }
-        })
-    }
-    
-    function deleteUl(objs){
-        var ul=document.getElementById("choosed_list");
-
-        ul.removeChild(objs);
-    }
-
-    function addCodelist(tbody_name){           //用于向热门，收藏添加条目
-        var t=document.getElementById(tbody_name);
-        var _tr=document.createElement('tr');
-        var td1=document.createElement('td');
-        var td2=document.createElement('td');
-        var _th=document.createElement('th');
-        var _a=document.createElement('a');
-
-        td1.innerHTML="修改成股票名称";
-        td1.id="股票名称"
-
-        td2.innerHTML="股票代码";
-        td2.id="股票代码";
-
-        a.innerHTML="添加";
-        a.onclick=function () {addUl("股票名称+股票代码")}
-
-        _th.appendChild(_a);
-
-        _tr.appendChild(td1);
-        _tr.appendChild(td2);
-        _tr.appendChild(_th);
-
-        t.appendChild(_tr);
-
-    }
-
-    function deleteAllUl(){         //清空选择
-        var ul = document.getElementById("choosed_list");
-        ul.innerHTML="";
-    }
 </script>
 <%--<script type="text/javascript">--%>
     <%--$(document).ready(function(){--%>
