@@ -2,6 +2,8 @@ package com.quantour.ssm.controller;
 
 
 import com.quantour.ssm.dto.klineDTO;
+import com.quantour.ssm.dto.limitUpAndDownNumsDTO;
+import com.quantour.ssm.dto.marketDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.JsonConvert;
@@ -57,4 +59,32 @@ public class StockInfoController {
         return data;
     }
 
+    @RequestMapping(value = "/getShDayKLine")
+    @ResponseBody
+    public String getSH000001KLine(String codeid, String sdate, String ldate){
+        List<klineDTO> list = stockService.getBlockKline(codeid,sdate,ldate);
+
+        String data = JsonConvert.kLineConvert(list);
+
+        return data;
+    }
+
+    @RequestMapping(value = "/getLimit")
+    @ResponseBody
+    public String getLimitInfo(String date){
+        List<limitUpAndDownNumsDTO> list = stockService.getLimitUpAndDownNumber(date);
+
+        String data = JsonConvert.limitLineConvert(list);
+
+        return data;
+    }
+
+    @RequestMapping(value = "/getUpDown")
+    @ResponseBody
+    public String getUpDownInfo(String date){
+        marketDTO market= stockService.getMarketInfo(date);
+
+        String data = JsonConvert.upDownLineConvert(market.getChangePercentNumberList());
+        return data;
+    }
 }

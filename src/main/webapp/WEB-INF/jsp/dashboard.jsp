@@ -46,6 +46,435 @@
 
     <%--Bootstrap table--%>
     <link href="<%=contextPath%>/assets/css/bootstrap-table.min.css" rel="stylesheet" >
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+
+    <script>
+        function getShKLineInfo() {
+            var sdate = "2007-01-01";
+            var ldate = "2017-06-01";
+            var code = "sh000001";
+
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/getShDayKLine',
+                data: {codeid: code, sdate:sdate, ldate:ldate},
+                dataType:"json",
+                success: function (result) {
+                    mydata = JSON.parse(result);
+                    fillCharts(mydata);
+                },
+                error:function () {
+                    alert("查找上证指数失败！");
+                }
+            });
+        }
+
+        function splitData(rawdata) {
+            var categoryData = [];
+            var values = [];
+            for (var i = 0; i < rawdata.length; i++) {
+                categoryData.push(rawdata[i].splice(0,1)[0]);
+                values.push(rawdata[i]);
+            }
+            return {
+                categoryData: categoryData,
+                values: values
+            };
+        }
+
+        function calculateMA(dayCount) {
+            var result = [];
+            for (var i = 0, len = data0.values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += data0.values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+        function fillCharts(rawdata){
+            var daykline = echarts.init(document.getElementById('sh000001'));
+
+
+//            alert("!");
+
+            data0 = splitData(rawdata);
+
+            daykline.setOption(my_option ={
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    legend: {
+                        data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '10%',
+                        bottom: '15%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: data0.categoryData,
+                        scale: true,
+                        boundaryGap : false,
+                        axisLine: {onZero: false},
+                        splitLine: {show: false},
+                        splitNumber: 20,
+                        min: 'dataMin',
+                    },
+                    yAxis: {
+                        scale: true,
+                        splitArea: {
+                            show: true
+                        }
+                    },
+                    dataZoom: [
+                        {
+                            type: 'inside',
+                            start: 95,
+                            end: 100
+                        },
+                        {
+                            show: true,
+                            type: 'slider',
+                            y: '90%',
+                            start: 95,
+                            end: 100
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '日K',
+                            type: 'candlestick',
+                            data: data0.values,
+                            markPoint: {
+                                label: {
+                                    normal: {
+                                        formatter: function (param) {
+                                            return param != null ? Math.round(param.value) : '';
+                                        }
+                                    }
+                                },
+                                data: [
+                                    {
+                                        name: 'XX标点',
+                                        coord: ['2013/5/31', 2300],
+                                        value: 2300,
+                                        itemStyle: {
+                                            normal: {color: 'rgb(41,60,85)'}
+                                        }
+                                    },
+                                    {
+                                        name: 'highest value',
+                                        type: 'max',
+                                        valueDim: 'highest'
+                                    },
+                                    {
+                                        name: 'lowest value',
+                                        type: 'min',
+                                        valueDim: 'lowest'
+                                    },
+                                    {
+                                        name: 'average value on close',
+                                        type: 'average',
+                                        valueDim: 'close'
+                                    }
+                                ],
+                                tooltip: {
+                                    formatter: function (param) {
+                                        return param.name + '<br>' + (param.data.coord || '');
+                                    }
+                                }
+                            },
+                            markLine: {
+                                symbol: ['none', 'none'],
+                                data: [
+                                    [
+                                        {
+                                            name: 'from lowest to highest',
+                                            type: 'min',
+                                            valueDim: 'lowest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        },
+                                        {
+                                            type: 'max',
+                                            valueDim: 'highest',
+                                            symbol: 'circle',
+                                            symbolSize: 10,
+                                            label: {
+                                                normal: {show: false},
+                                                emphasis: {show: false}
+                                            }
+                                        }
+                                    ],
+                                    {
+                                        name: 'min line on close',
+                                        type: 'min',
+                                        valueDim: 'close'
+                                    },
+                                    {
+                                        name: 'max line on close',
+                                        type: 'max',
+                                        valueDim: 'close'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            name: 'MA5',
+                            type: 'line',
+                            data: calculateMA(5),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA10',
+                            type: 'line',
+                            data: calculateMA(10),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA20',
+                            type: 'line',
+                            data: calculateMA(20),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+                        {
+                            name: 'MA30',
+                            type: 'line',
+                            data: calculateMA(30),
+                            smooth: true,
+                            lineStyle: {
+                                normal: {opacity: 0.5}
+                            }
+                        },
+
+                    ]
+                }
+            );
+        }
+
+        function getUpDownInfo() {
+            var date = "2017-06-01";
+
+            $.ajax({
+                url:'<%=request.getContextPath()%>/stockinfo/getUpDown',
+                data:{date:date},
+                dataType:"json",
+                success:function (result) {
+                    myUpDownData = JSON.parse(result);
+                    fillUpDownCharts(myUpDownData);
+                }
+            });
+        }
+
+        function splitUpDownData(rawdata) {
+            var categoryData = [];
+            for (var i = 0; i < rawdata.length; i++) {
+                categoryData.push(rawdata[i]);
+            }
+            return {
+                categoryUpDownData: categoryData
+            };
+        }
+
+        function fillUpDownCharts(rawdata) {
+            var upDownCharts = echarts.init(document.getElementById("updownPic"));
+
+            data0 = splitUpDownData(rawdata);
+
+            upDownCharts.setOption(
+                option = {
+                    title : {
+                        text: '涨跌分布',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        x : 'center',
+                        y : 'bottom',
+                        data:['跌幅8%-跌停','跌幅6%-跌幅8%','跌幅4%-跌幅6%','跌幅2%-跌幅4%','跌幅2%-0','0-涨幅2%','涨幅2%-涨幅4%','涨幅4%-涨幅6%','涨幅6%-涨幅8%','涨幅8%-涨停']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series :
+                        {
+                            name:'面积模式',
+                            type:'pie',
+                            radius : [30, 110],
+                            center : ['50%', '50%'],
+                            roseType : 'area',
+                            data:[
+                                {value:data0.categoryUpDownData[0], name:'跌幅8%-跌停'},
+                                {value:data0.categoryUpDownData[1], name:'跌幅6%-跌幅8%'},
+                                {value:data0.categoryUpDownData[2], name:'跌幅4%-跌幅6%'},
+                                {value:data0.categoryUpDownData[3], name:'跌幅2%-跌幅4%'},
+                                {value:data0.categoryUpDownData[4], name:'跌幅2%-0'},
+                                {value:data0.categoryUpDownData[5], name:'0-涨幅2%'},
+                                {value:data0.categoryUpDownData[6], name:'涨幅2%-涨幅4%'},
+                                {value:data0.categoryUpDownData[7], name:'涨幅4%-涨幅6%'},
+                                {value:data0.categoryUpDownData[8], name:'涨幅6%-涨幅8%'},
+                                {value:data0.categoryUpDownData[7], name:'涨幅8%-涨停'}
+                            ]
+                        }
+
+                });
+        }
+
+        function getLimitInfo() {
+            var date = "2017-06-01";
+
+            $.ajax({
+                url:'<%=request.getContextPath()%>/stockinfo/getLimit',
+                data:{date:date},
+                dataType:"json",
+                success:function (result) {
+                    myLimitData = JSON.parse(result);
+                    fillLimitCharts(myLimitData);
+                }
+            });
+        }
+
+        function splitLimitData(rawdata){
+            var categoryData = [];
+            var upvalues = [];
+            var downvalues = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                categoryData.push(rawdata[i][0]);
+                upvalues.push(rawdata[i][1]);
+                downvalues.push(rawdata[i][2]);
+            }
+            return{
+                categoryLimitData: categoryData,
+                limitUpValues: upvalues,
+                limitDownValues: downvalues
+            };
+        }
+
+        function fillLimitCharts(rawdata){
+            var limitCharts = echarts.init(document.getElementById("limitPic"));
+
+            data0 = splitLimitData(rawdata);
+
+            limitCharts.setOption(option={
+                title:{
+                    text: "涨跌停",
+                    textStyle:{
+                        fontSize: 16
+                    },
+                    left: 40
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
+                    },
+                    right:20
+                },
+                legend: {
+                    data:['涨停','跌停']
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: data0.categoryLimitData
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 20,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 20,
+                        end: 100
+                    }
+                ],
+                series:[
+                    {
+                        name:'涨停',
+                        type:'line',
+                        data: data0.limitUpValues,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                        {
+                        name:'跌停',
+                            type:'line',
+                            data:data0.limitDownValues,
+                            markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }}
+                     ]
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -179,13 +608,24 @@
                             <div class="row">
                                 <div class="col-xs-3">
                                     <ul class="nav nav-stacked" role="tablist">
+                                        <script>
+                                            function getMarketInfo() {
+                                                var date = "2017-06-01";
+
+                                                $.ajax({
+                                                    url: '<%=request.getContextPath()%>/stockinfo/getMarketInfo',
+
+                                                });
+                                            }
+                                        </script>
                                         <li class="active">
                                             <blockquote>
                                                 <span class="ti-bar-chart"></span>
                                                 <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px">涨跌分布</a>
                                                 <div class="row">
-                                                    <div class="col-xs-6" style="font-size: 10px;color:red">上涨:1000</div>
-                                                    <div class="col-xs-6" style="font-size: 10px;color:green">下跌:1000</div>
+
+                                                    <div class="col-xs-6"  style="font-size: 10px;color:red">上涨:1000</div>
+                                                    <div class="col-xs-6"  style="font-size: 10px;color:green">下跌:1000</div>
                                                 </div>
                                             </blockquote>
 
@@ -210,30 +650,21 @@
                                 <div class="col-xs-9">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="UpDown">
-                                            <div class="col-md-6 col-sm-8 col-xs-8">
-                                                <div class="card">
-                                                    <!--<div class="header"></div>-->
-                                                    <div class="content">
-                                                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                                        <div class="footer">
-                                                            <div class="chart-legend">
-                                                                <i class="fa fa-circle text-info"></i> Open
-                                                                <i class="fa fa-circle text-danger"></i> Bounce
-                                                                <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                                            </div>
-                                                            <hr>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div id="updownPic" style="width: 700px;height: 400px;">
+                                                <script >
+                                                    getUpDownInfo();
+                                                </script>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane" id="limit">
-                                            <p>涨跌停</p>
+                                            <div id="limitPic" style="width: 700px;height: 400px;">
+                                                <script>
+                                                    getLimitInfo();
+                                                </script>
+                                            </div>
                                         </div>
-                                        <div class="tab-pane" id="unknown">
-                                            <p>unknown</p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -249,9 +680,13 @@
                             <blockquote>
                                 <span class="ti-alarm-clock" style="font-size: 25px">上证指数</span>
                             </blockquote>
-                        </div>
-                        <hr>
-                        <div class="content" style="height: 300px">
+
+                            <hr>
+                            <div id="sh000001" style="width: 1150px;height:400px;">
+                                <script>
+                                    getShKLineInfo();
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -315,7 +750,6 @@
 </body>
 
 <!--   Core JS Files   -->
-<script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
