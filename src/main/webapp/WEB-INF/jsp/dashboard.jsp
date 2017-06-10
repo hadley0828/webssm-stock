@@ -701,7 +701,7 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <input type="text" placeholder="编号/名称" class="form-control">
+                                    <input type="text" placeholder="编号/名称" class="form-control" id="tags">
                                     <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
                                 </div>
                             </div>
@@ -857,6 +857,17 @@
     function reColor() {
         document.getElementById("searchIcon").setAttribute("style","color:black");
     }
+
+    $(function () {
+        var availableTags = new Array();
+        var i=0;
+        <c:forEach var="each" items="${codeAndName}">
+            availableTags[i] = each;
+            i++;
+        </c:forEach>
+
+        $("#tags").autocomplete({source:availableTags});
+    });
 </script>
 
 
