@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -36,11 +37,18 @@ public class DashBoardController {
             System.out.println(":"+user_id);
             userDTO user = userService.getOneUserByAccount(user_id);
             System.out.println(user.getAccount());
+
+            model.addAttribute("user",user);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-
+        try{
+            ArrayList<String> codeAndName = stockService.getAllCodeAndName();
+            model.addAttribute("codeAndName",codeAndName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "dashboard";
     }
 
