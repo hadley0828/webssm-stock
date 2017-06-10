@@ -1,14 +1,16 @@
 package com.quantour.ssm.controller;
 
 import com.quantour.ssm.dto.*;
+import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
+import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
 import com.quantour.ssm.model.DayKLine;
-import com.quantour.ssm.service.CustomizeService;
-import com.quantour.ssm.service.StaticService;
-import com.quantour.ssm.service.StockService;
-import com.quantour.ssm.service.UserService;
+import com.quantour.ssm.model.StockRecord;
+import com.quantour.ssm.model.StrategyRecord;
+import com.quantour.ssm.service.*;
+import com.quantour.ssm.util.DateConvert;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,8 @@ public class StockController {
     private CustomizeService customizeService;
     @Resource
     private UserService userService;
+    @Resource
+    private HistoryService historyService;
 
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
@@ -222,6 +226,44 @@ public class StockController {
         ArrayList<klineDTO> dayKLineArrayList=stockService.getBlockKline("sh000001","2008-05-11","2009-08-09");
         model.addAttribute("dayKLineArrayList",dayKLineArrayList);
         return "serviceTest/blockKLine";
+    }
+
+    @RequestMapping("/getUserAllStockRecord")
+    public String showUserAllStockRecord(HttpServletRequest request,Model model){
+        historyService.deleteOneStockRecord("po","2017-06-10 10:23:09");
+        StockRecordDTO stockRecordDTO=new StockRecordDTO();
+        stockRecordDTO.setUser_id("po");
+        stockRecordDTO.setCode_id("000005");
+        stockRecordDTO.setDate_time(customizeService.getCurrentTime());
+
+        historyService.createNewStockRecord(stockRecordDTO);
+
+        ArrayList<StockRecordDTO> userDTOArrayList=historyService.getUserAllStockRecord("po","2014-08-09");
+
+
+        model.addAttribute("userDTOArrayList",userDTOArrayList);
+        return "serviceTest/userAllStockRecord";
+    }
+
+    @RequestMapping("/getUserAllStrategyRecord")
+    public String showUserAllStrategyRecord(HttpServletRequest request,Model model){
+        StrategyResultRecordDTO srrd=new StrategyResultRecordDTO();
+        srrd.setUser_id("po");
+        srrd.setResult_time(customizeService.getCurrentTime());
+        srrd.setStrategy_name("用来测试");
+        srrd.setStrategy_intro("用来测试插入数据");
+        srrd.setStart_time(DateConvert.stringToDate("2010-09-11"));
+        srrd.setEnd_time(DateConvert.stringToDate("2011-09-11"));
+        srrd.setBase_block("sh000300");
+
+
+
+//        historyService.createNewStrategyRecord()
+        ArrayList<StrategyResultRecordDTO> strategyRecordArrayList=historyService.getUserAllStrategyRecord("po");
+
+        model.addAttribute("strategyRecordArrayList",strategyRecordArrayList);
+        return "serviceTest/userAllStrategyRecord";
+
     }
 
 }

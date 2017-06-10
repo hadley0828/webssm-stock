@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by zhangzy on 2017/5/25.
@@ -31,7 +32,7 @@ public class HistoryServiceImpl implements HistoryService{
     private DayKLineMapper dayKLineMapper;
 
 
-    //TODO 未测试
+    //个股浏览记录 已测试
     @Override
     public ArrayList<StockRecordDTO> getUserAllStockRecord(String userId,String date) {
         ArrayList<StockRecord> stockRecordArrayList=historyMapper.getUserAllStockRecord(userId);
@@ -80,7 +81,6 @@ public class HistoryServiceImpl implements HistoryService{
         ArrayList<StockBasicInfo> stockBasicInfoArrayList= (ArrayList<StockBasicInfo>) dayKLineMapper.getAllStockInfos();
         HashMap<String,StockBasicInfo> stockBasicInfoHashMap=new HashMap<String, StockBasicInfo>();
 
-        //TODO 在这里能取到更多的数据
 
         for(int count=0;count<stockBasicInfoArrayList.size();count++){
             stockBasicInfoHashMap.put(stockBasicInfoArrayList.get(count).getCode(),stockBasicInfoArrayList.get(count));
@@ -180,14 +180,29 @@ public class HistoryServiceImpl implements HistoryService{
 
     @Override
     public boolean createNewStockRecord(StockRecordDTO stockRecordDTO) {
-        StockRecord stockRecord=new StockRecord();
-        stockRecord.setUser_id(stockRecordDTO.getUser_id());
-        stockRecord.setCode_id(stockRecordDTO.getCode_id());
-        stockRecord.setDate_time(stockRecordDTO.getDate_time());
 
-        historyMapper.insertOneStockRecord(stockRecord);
+        String userId=stockRecordDTO.getUser_id();
+        ArrayList<StockRecordDTO> userAllStock=getUserAllStockRecord(userId,"2017-05-04");
 
-        return true;
+        HashSet<String> userAllStockSet=new HashSet<String>();
+        for(int count=0;count<userAllStock.size();count++){
+            userAllStockSet.add(userAllStock.get(count).getCode_id());
+        }
+
+        if(userAllStockSet.contains(stockRecordDTO.getCode_id())){
+            return false;
+        }else {
+            StockRecord stockRecord=new StockRecord();
+            stockRecord.setUser_id(stockRecordDTO.getUser_id());
+            stockRecord.setCode_id(stockRecordDTO.getCode_id());
+            stockRecord.setDate_time(stockRecordDTO.getDate_time());
+
+            historyMapper.insertOneStockRecord(stockRecord);
+
+            return true;
+        }
+
+
     }
 
     @Override
@@ -205,6 +220,7 @@ public class HistoryServiceImpl implements HistoryService{
         return true;
     }
 
+    //TODO 策略生成记录 未测试
     @Override
     public ArrayList<StrategyResultRecordDTO> getUserAllStrategyRecord(String userid) {
         ArrayList<StrategyRecord> strategyRecordArrayList=historyMapper.getUserAllStrategyRecord(userid);

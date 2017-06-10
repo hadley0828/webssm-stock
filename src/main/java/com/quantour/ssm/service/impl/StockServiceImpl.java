@@ -318,8 +318,16 @@ public class StockServiceImpl implements StockService {
     public marketDTO getMarketInfo(String date) {
         marketDTO marketdto=new marketDTO();
 
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
         String name="上圳";
-        String Date=date;
+        String Date=realDate;
         long Volume=0;
 
         int limitup=0; //这里的涨停没有考虑ST股票
@@ -338,19 +346,11 @@ public class StockServiceImpl implements StockService {
         }
 
 
+        String lastDate=DateConvert.getLastNDate(allDateList,realDate,1);
 
 
 
-        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
-        ArrayList<String> allDateList=new ArrayList<String>();
-        for(int count=0;count<allSqlDateList.size();count++){
-            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
-        }
-        String lastDate=DateConvert.getLastNDate(allDateList,date,1);
-
-
-
-        ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(date));
+        ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(realDate));
         HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
         for(int count=0;count<dayKLineArrayList.size();count++){
             nowStockMap.put(dayKLineArrayList.get(count).getStockCode(),dayKLineArrayList.get(count));
@@ -755,14 +755,17 @@ public class StockServiceImpl implements StockService {
         for(int count=0;count<allSqlDateList.size();count++){
             allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
         }
-        String lastDate=DateConvert.getLastNDate(allDateList,date,changeDays);
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+        String lastDate=DateConvert.getLastNDate(allDateList,realDate,changeDays);
         //date是当前日期 lastDate是上一个作比较的日期
 
         ArrayList<waveDTO> waveDTOArrayList=new ArrayList<waveDTO>();
         ArrayList<waveDTO> resultList=new ArrayList<waveDTO>();
 
 
-        ArrayList<DayKLine> nowDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(date));
+        ArrayList<DayKLine> nowDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(realDate));
         HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
         for(int count=0;count<nowDayKLineList.size();count++){
             nowStockMap.put(nowDayKLineList.get(count).getStockCode(),nowDayKLineList.get(count));
@@ -824,29 +827,55 @@ public class StockServiceImpl implements StockService {
             allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
         }
 
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+        HashMap<String,Date> timeMap = new HashMap<String, Date>();
+        timeMap.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realDate,40)));
+        timeMap.put("end",Date.valueOf(realDate));
+        ArrayList<DayKLine> allStockInfoList= (ArrayList<DayKLine>) dayklinemapper.getStocksByTimes(timeMap);
+
+        //      日期            股票编号 单支股票的信息
+        HashMap<String,HashMap<String,DayKLine>> allStockMap=new HashMap<String, HashMap<String, DayKLine>>();
+
+        for(int count=allDateList.indexOf(DateConvert.getLastNDate(allDateList,realDate,40));count<=allDateList.indexOf(realDate);count++){
+            HashMap<String,DayKLine> oneDayMap=new HashMap<String, DayKLine>();
+            allStockMap.put(allDateList.get(count),oneDayMap);
+        }
+
+        for(int count=0;count<allStockInfoList.size();count++){
+
+            String oneStockDate=DateConvert.dateToString(allStockInfoList.get(count).getStockDate());
+            allStockMap.get(oneStockDate).put(allStockInfoList.get(count).getStockCode(),allStockInfoList.get(count));
+
+        }
+
+
         for(int count=30;count>=1;count--){
-            String lastDate=DateConvert.getLastNDate(allDateList,date,count+1);
-            String currentDate=DateConvert.getLastNDate(allDateList,date,count);
+            String lastDate=DateConvert.getLastNDate(allDateList,realDate,count+1);
+            String currentDate=DateConvert.getLastNDate(allDateList,realDate,count);
 
             int limitUpNumber=0;
             int limitDownNumber=0;
 
-            ArrayList<DayKLine> currentDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(currentDate));
-            HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
-            for(int index=0;index<currentDayKLineList.size();index++){
-                nowStockMap.put(currentDayKLineList.get(index).getStockCode(),currentDayKLineList.get(index));
-            }
+//            ArrayList<DayKLine> currentDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(currentDate));
+//            HashMap<String,DayKLine> nowStockMap=new HashMap<String, DayKLine>();
+//            for(int index=0;index<currentDayKLineList.size();index++){
+//                nowStockMap.put(currentDayKLineList.get(index).getStockCode(),currentDayKLineList.get(index));
+//            }
+            HashMap<String,DayKLine> nowStockMap=allStockMap.get(currentDate);
+
+//            ArrayList<DayKLine> lastDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(lastDate));
+//            HashMap<String,DayKLine> lastStockMap=new HashMap<String, DayKLine>();
+//            for(int index=0;index<lastDayKLineList.size();index++){
+//                lastStockMap.put(lastDayKLineList.get(index).getStockCode(),lastDayKLineList.get(index));
+//            }
+            HashMap<String,DayKLine> lastStockMap=allStockMap.get(lastDate);
 
 
-            ArrayList<DayKLine> lastDayKLineList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(lastDate));
-            HashMap<String,DayKLine> lastStockMap=new HashMap<String, DayKLine>();
-            for(int index=0;index<lastDayKLineList.size();index++){
-                lastStockMap.put(lastDayKLineList.get(index).getStockCode(),lastDayKLineList.get(index));
-            }
+            for (Map.Entry<String, DayKLine> entry : nowStockMap.entrySet()) {
 
-            for(int index=0;index<currentDayKLineList.size();index++){
-                String currentCode=currentDayKLineList.get(index).getStockCode();
-                if(nowStockMap.containsKey(currentCode)&&lastStockMap.containsKey(currentCode)){
+                String currentCode=entry.getKey();
+                if(lastStockMap.containsKey(currentCode)){
                     double lastPrice=lastStockMap.get(currentCode).getClosePrice();
                     double nowPrice=nowStockMap.get(currentCode).getClosePrice();
 
@@ -858,7 +887,26 @@ public class StockServiceImpl implements StockService {
                         limitDownNumber++;
                     }
                 }
+
+
             }
+
+
+//            for(int index=0;index<currentDayKLineList.size();index++){
+//                String currentCode=currentDayKLineList.get(index).getStockCode();
+//                if(nowStockMap.containsKey(currentCode)&&lastStockMap.containsKey(currentCode)){
+//                    double lastPrice=lastStockMap.get(currentCode).getClosePrice();
+//                    double nowPrice=nowStockMap.get(currentCode).getClosePrice();
+//
+//                    if(StockChangeHelper.isLimitUp(lastPrice,nowPrice)){
+//                        limitUpNumber++;
+//                    }
+//
+//                    if(StockChangeHelper.isLimitDown(lastPrice,nowPrice)){
+//                        limitDownNumber++;
+//                    }
+//                }
+//            }
 
             limitUpAndDownNumsDTO limitUpAndDownNumsdto=new limitUpAndDownNumsDTO();
             limitUpAndDownNumsdto.setDate(currentDate);
