@@ -801,6 +801,52 @@ public class StockServiceImpl implements StockService {
                 resultList.add(waveDTOArrayList.get(count));
             }
         }
+
+
+
+        return resultList;
+    }
+
+    @Override
+    public ArrayList<RankDTO> getTopNStockByDays(int n, String date, int changeDays) {
+        ArrayList<RankDTO> resultList=new ArrayList<RankDTO>();
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+        ArrayList<waveDTO> waveDTOArrayList=getTopNCodesByDays(n,date,changeDays);
+
+        ArrayList<StockBasicInfo> allStockInfoList= (ArrayList<StockBasicInfo>) dayklinemapper.getAllStockInfos();
+        HashMap<String,String> codeToNameMap=new HashMap<String, String>();
+        for(int count=0;count<allStockInfoList.size();count++){
+            codeToNameMap.put(allStockInfoList.get(count).getCode(),allStockInfoList.get(count).getName());
+        }
+
+        ArrayList<DayKLine> oneDayStockList= (ArrayList<DayKLine>) dayklinemapper.getOneDayDayKLines(DateConvert.stringToDate(realDate));
+        HashMap<String,Double> codeToPriceMap=new HashMap<String, Double>();
+        for(int count=0;count<oneDayStockList.size();count++){
+            codeToPriceMap.put(oneDayStockList.get(count).getStockCode(),oneDayStockList.get(count).getClosePrice());
+        }
+
+
+        if(waveDTOArrayList.size()!=0){
+            for(int index=0;index<waveDTOArrayList.size();index++){
+                RankDTO rankDTO=new RankDTO();
+                String code=waveDTOArrayList.get(index).getStockCode();
+                rankDTO.setStockCode(code);
+                rankDTO.setChangePercent(waveDTOArrayList.get(index).getChangePercent());
+                rankDTO.setStockName(codeToNameMap.get(code));
+                rankDTO.setNewestPrice(codeToPriceMap.get(code));
+
+                resultList.add(rankDTO);
+            }
+
+        }
         return resultList;
     }
 

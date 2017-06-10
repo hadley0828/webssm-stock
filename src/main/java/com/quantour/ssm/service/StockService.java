@@ -117,7 +117,6 @@ public interface StockService {
     public ArrayList<String> getOneStockAllPlate(String stockCode);
 
     //-------------------------------------------------------------
-    //TODO 需要给waveDTO中多添加数据
     /**
      * 该方法用来获得某一天全部股票中涨幅前n名的股票的List
      * 用于生成排行榜
@@ -128,6 +127,14 @@ public interface StockService {
      */
     public ArrayList<waveDTO> getTopNCodesByDays(int n,String date,int changeDays);
 
+    /**
+     * 该方法用来获取一天的排行榜的每条的具体信息
+     * @param n
+     * @param date
+     * @param changeDays
+     * @return
+     */
+    public ArrayList<RankDTO> getTopNStockByDays(int n,String date,int changeDays);
     /**
      * 该方法用来获得某一个日期从前30个交易日为止的每天的涨停数和跌停数
      * @param date
@@ -155,7 +162,7 @@ public interface StockService {
     //-------------------------------------------------------------------
     //处理和自选股相关的接口
 
-
+    //TODO TEST!
     /**
      * 获取一个用户的全部自选股编号
      * @param userId

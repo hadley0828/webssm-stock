@@ -100,12 +100,14 @@ public class StockController {
 
     @RequestMapping("/getTop")
     public String showGetTop(HttpServletRequest request,Model model){
-        ArrayList<waveDTO> waveDTOArrayList=stockService.getTopNCodesByDays(20,"2006-09-11",1);
+        ArrayList<waveDTO> waveDTOArrayList=stockService.getTopNCodesByDays(10,"2006-09-11",1);
         model.addAttribute("waveDTOArrayList",waveDTOArrayList);
-        ArrayList<waveDTO> waveDTOArrayList1=stockService.getTopNCodesByDays(10,"2006-09-11",2);
+        ArrayList<RankDTO> waveDTOArrayList1=stockService.getTopNStockByDays(10,"2006-09-11",1);
         model.addAttribute("waveDTOArrayList1",waveDTOArrayList1);
         return "serviceTest/waveDTOArrayList";
     }
+
+
 
     //4s左右
     @RequestMapping("/getChangeNumber")
