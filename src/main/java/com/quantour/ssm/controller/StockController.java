@@ -229,6 +229,28 @@ public class StockController {
         return "serviceTest/blockKLine";
     }
 
+    @RequestMapping("/getOptionalStock")
+    public String showOptionalStock(HttpServletRequest request,Model model){
+
+//        stockService.addOneNewOptionalStock("123","000001");
+//        stockService.addOneNewOptionalStock("123","000002");
+//        stockService.addOneNewOptionalStock("123","000004");
+
+        stockService.deleteUserAllOptionalStock("123");
+//        stockService.deleteOneOptionalStock("po","000001");
+
+
+        ArrayList<String> userAllStockList=stockService.getUserAllOptionalStock("123");
+
+
+
+        model.addAttribute("userAllStockList",userAllStockList);
+
+        return "serviceTest/optionalStock";
+
+
+    }
+
     @RequestMapping("/getUserAllStockRecord")
     public String showUserAllStockRecord(HttpServletRequest request,Model model){
         historyService.deleteOneStockRecord("po","2017-06-10 10:23:09");
