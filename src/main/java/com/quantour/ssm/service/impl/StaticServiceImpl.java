@@ -77,7 +77,6 @@ public class StaticServiceImpl implements StaticService {
 //            }else{
 //                //跳出提示框提示自选股票数量不足100
 //            }
-            //TODO 应该是获得一个人的全部自选股
             stockCodeList=codeList;
 
         }else{
@@ -499,7 +498,6 @@ public class StaticServiceImpl implements StaticService {
 //            }else{
 //                //跳出提示框提示自选股票数量不足100
 //            }
-            //TODO 不知道传入的codeList的格式 需要修改
             stockCodeList=codeList;
         }else{
             //跳出提示框 提示传入的参数不对

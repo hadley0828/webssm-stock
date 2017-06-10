@@ -220,7 +220,6 @@ public class HistoryServiceImpl implements HistoryService{
         return true;
     }
 
-    //TODO 策略生成记录 未测试
     @Override
     public ArrayList<StrategyResultRecordDTO> getUserAllStrategyRecord(String userid) {
         ArrayList<StrategyRecord> strategyRecordArrayList=historyMapper.getUserAllStrategyRecord(userid);

@@ -1,6 +1,6 @@
 package com.quantour.ssm.service.impl;
 
-import com.quantour.ssm.dto.stockRate.GeneralScoreDTO;
+import com.quantour.ssm.dto.stockRate.*;
 import com.quantour.ssm.service.RateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +16,36 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public GeneralScoreDTO getOneStockGeneralScore(String code,String date) {
-
-
-
-
-
         return null;
     }
 
     @Override
     public void calculateOneDayStockScore(String date) {
 
+    }
+
+    @Override
+    public TechnicalDTO getOneStockTechnicalScore(String code, String date) {
+        return null;
+    }
+
+    @Override
+    public CapitalDTO getOneStockCapitalScore(String code, String date) {
+        return null;
+    }
+
+    @Override
+    public MessageDTO getOneStockMessageScore(String code, String date) {
+        return null;
+    }
+
+    @Override
+    public IndustryDTO getOneStockIndustryScore(String code, String date) {
+        return null;
+    }
+
+    @Override
+    public BasicDTO getOneStockBasicScore(String code, String date) {
+        return null;
     }
 }

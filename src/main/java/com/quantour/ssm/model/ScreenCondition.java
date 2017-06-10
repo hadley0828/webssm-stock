@@ -28,7 +28,7 @@ public class ScreenCondition {
         }
         this.firstValue=scd.getFirstValue();
         this.secondValue=scd.getSecondValue();
-        //TODO 可能会出错
+        //scd的六个数据必须都要有
     }
 
     public String getStrategyId() {

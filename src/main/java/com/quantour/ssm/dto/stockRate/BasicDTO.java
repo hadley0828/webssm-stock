@@ -5,4 +5,6 @@ package com.quantour.ssm.dto.stockRate;
  * 基本面诊股
  */
 public class BasicDTO {
+
+
 }
