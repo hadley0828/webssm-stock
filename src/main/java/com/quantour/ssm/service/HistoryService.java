@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by zhangzy on 2017/5/25.
+ * 全部测试
  */
 public interface HistoryService {
 

@@ -117,7 +117,7 @@ public interface StockService {
     public ArrayList<String> getOneStockAllPlate(String stockCode);
 
     //-------------------------------------------------------------
-
+    //TODO 需要给waveDTO中多添加数据
     /**
      * 该方法用来获得某一天全部股票中涨幅前n名的股票的List
      * 用于生成排行榜

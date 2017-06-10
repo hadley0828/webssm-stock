@@ -3,12 +3,11 @@ package com.quantour.ssm.controller;
 import com.quantour.ssm.dto.*;
 import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
 import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
+import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
-import com.quantour.ssm.model.DayKLine;
-import com.quantour.ssm.model.StockRecord;
-import com.quantour.ssm.model.StrategyRecord;
+import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.*;
 import com.quantour.ssm.util.DateConvert;
 import org.apache.log4j.Logger;
@@ -273,5 +272,86 @@ public class StockController {
         return "serviceTest/userAllStrategyRecord";
 
     }
+
+    @RequestMapping("/getAllCustomizeStrategy")
+    public String showAllCustomizeStrategy(HttpServletRequest request,Model model){
+        ArrayList<CustomizeStrategyDTO> allList=customizeService.getOneUserAllStrategy("123");
+        model.addAttribute("allList",allList);
+        return "serviceTest/allCustomizeStrategy";
+
+    }
+
+
+    @RequestMapping("/getCustomizeStrategy")
+    public String showCustomizeStrategy(HttpServletRequest request,Model model){
+
+        CustomizeStrategyDTO oneStrategy=customizeService.getOneStrategy("po 2017-06-10 14:04:19");
+
+        CustomizeStrategyDTO twoStrategy=new CustomizeStrategyDTO();
+        String userId="123";
+        String time=customizeService.getCurrentTime();
+
+        twoStrategy.setStrategyID(userId+" "+time);
+        twoStrategy.setCreaterID(userId);
+        twoStrategy.setStrategyName("新创建的策略");
+        twoStrategy.setStrategyExplanation("该策略为新创建的策略");
+        twoStrategy.setCreateTime(time);
+
+        StockPondDTO stockPondDTO=new StockPondDTO();
+        stockPondDTO.setStockPondChosen("全部股票");
+        stockPondDTO.setIndexIngredient("全选");
+        stockPondDTO.setBlock("全选");
+        stockPondDTO.setIndustry("全选");
+        stockPondDTO.setConcept("全选");
+        stockPondDTO.setSTStock("包含ST");
+        stockPondDTO.setExchange("全选");
+        stockPondDTO.setRegion("全选");
+        twoStrategy.setStockPondDTO(stockPondDTO);
+
+        ArrayList<ScreeningConditionDTO> conditionList=new ArrayList<ScreeningConditionDTO>();
+        ScreeningConditionDTO oneCondition=new ScreeningConditionDTO();
+        oneCondition.setStrategyId(userId+" "+time);
+        oneCondition.setConditionName("当日成交量");
+        oneCondition.setCompareSymbol("大于");
+        oneCondition.setScope("全部");
+        oneCondition.setFirstValue(10);
+        oneCondition.setSecondValue(20);
+
+        conditionList.add(oneCondition);
+        twoStrategy.setScreeningConditionDTOArrayList(conditionList);
+
+        TradeModelDTO tradeModelDTO=new TradeModelDTO();
+        tradeModelDTO.setMaxHoldStockNumber(10);
+        tradeModelDTO.setTransferCycle(8);
+        twoStrategy.setTradeModelDTO(tradeModelDTO);
+
+        strategyResultDTO resultDTO=new strategyResultDTO();
+        resultDTO.setStraId(userId+" "+time);
+        resultDTO.setYearProfit(1.0);
+        resultDTO.setStandardProfit(1.0);
+        resultDTO.setAlpha(1.0);
+        resultDTO.setBeta(1.0);
+        resultDTO.setSharpRate(1.0);
+        resultDTO.setProfitWaveRate(1.0);
+        resultDTO.setInfoPercent(1.0);
+        resultDTO.setMaxBack(1.0);
+        resultDTO.setTurnoverRate(1.0);
+        resultDTO.setCurrentStraProfit(1.0);
+        resultDTO.setCurrentStandardProfit(1.0);
+        twoStrategy.setResultDTO(resultDTO);
+
+
+
+        customizeService.insertOneStrategy(twoStrategy);
+
+//        customizeService.deleteOneStrategy("123 2017-06-10 15:21:46");
+
+//        customizeService.deleteUserAllStrategy("123");
+
+        model.addAttribute("oneStrategy",oneStrategy);
+        return "serviceTest/customizeStrategy";
+    }
+
+
 
 }

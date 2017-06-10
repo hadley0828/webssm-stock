@@ -59,30 +59,42 @@ public class CustomizeStrategyDTO {
         if(cs.getCreateTime()!=null){
             this.createTime=cs.getCreateTime();
         }
+
+
+        StockPondDTO oneStockPond=new StockPondDTO();
+
+
         if(cs.getStockPondChosen()!=null){
-            stockPondDTO.setStockPondChosen(cs.getStockPondChosen());
+            oneStockPond.setStockPondChosen(cs.getStockPondChosen());
         }
+
+
         if(cs.getIndexIngredient()!=null){
-            stockPondDTO.setIndexIngredient(cs.getIndexIngredient());
+            oneStockPond.setIndexIngredient(cs.getIndexIngredient());
         }
         if(cs.getBlock()!=null){
-            stockPondDTO.setBlock(cs.getBlock());
+            oneStockPond.setBlock(cs.getBlock());
         }
         if(cs.getIndustry()!=null){
-            stockPondDTO.setIndustry(cs.getIndustry());
+            oneStockPond.setIndustry(cs.getIndustry());
         }
         if(cs.getConcept()!=null){
-            stockPondDTO.setConcept(cs.getConcept());
+            oneStockPond.setConcept(cs.getConcept());
         }
         if(cs.getStStock()!=null){
-            stockPondDTO.setSTStock(cs.getStStock());
+            oneStockPond.setSTStock(cs.getStStock());
         }
         if(cs.getExchange()!=null){
-            stockPondDTO.setExchange(cs.getExchange());
+            oneStockPond.setExchange(cs.getExchange());
         }
         if(cs.getRegion()!=null){
-            stockPondDTO.setRegion(cs.getRegion());
+            oneStockPond.setRegion(cs.getRegion());
         }
+
+        this.stockPondDTO=oneStockPond;
+
+
+        ArrayList<ScreeningConditionDTO> allConditionList=new ArrayList<ScreeningConditionDTO>();
 
         if(screenConditionArrayList.size()!=0){
             for(int count=0;count<screenConditionArrayList.size();count++){
@@ -105,54 +117,61 @@ public class CustomizeStrategyDTO {
                     screeningConditionDTO.setSecondValue(sc.getSecondValue());
                 }
 
-                screeningConditionDTOArrayList.add(screeningConditionDTO);
+                allConditionList.add(screeningConditionDTO);
             }
         }
+        this.screeningConditionDTOArrayList=allConditionList;
 
-
+        TradeModelDTO oneTradeModel=new TradeModelDTO();
 
         if(cs.getTransferCycle()!=null){
-            tradeModelDTO.setTransferCycle(cs.getTransferCycle());
+            oneTradeModel.setTransferCycle(cs.getTransferCycle());
         }
         if(cs.getMaxHoldStockNumber()!=null){
-            tradeModelDTO.setMaxHoldStockNumber(cs.getMaxHoldStockNumber());
+            oneTradeModel.setMaxHoldStockNumber(cs.getMaxHoldStockNumber());
         }
+
+        this.tradeModelDTO=oneTradeModel;
+
+        strategyResultDTO oneResult=new strategyResultDTO();
+
         if(cs.getStraId()!=null){
-            resultDTO.setStraId(cs.getStraId());
+            oneResult.setStraId(cs.getStraId());
         }
         if(cs.getYearProfit()!=null){
-            resultDTO.setYearProfit(cs.getYearProfit());
+            oneResult.setYearProfit(cs.getYearProfit());
         }
         if(cs.getStandardProfit()!=null){
-            resultDTO.setStandardProfit(cs.getStandardProfit());
+            oneResult.setStandardProfit(cs.getStandardProfit());
         }
         if(cs.getAlpha()!=null){
-            resultDTO.setAlpha(cs.getAlpha());
+            oneResult.setAlpha(cs.getAlpha());
         }
         if(cs.getBeta()!=null){
-            resultDTO.setBeta(cs.getBeta());
+            oneResult.setBeta(cs.getBeta());
         }
         if(cs.getSharpRate()!=null){
-            resultDTO.setSharpRate(cs.getSharpRate());
+            oneResult.setSharpRate(cs.getSharpRate());
         }
         if(cs.getProfitWaveRate()!=null){
-            resultDTO.setProfitWaveRate(cs.getProfitWaveRate());
+            oneResult.setProfitWaveRate(cs.getProfitWaveRate());
         }
         if(cs.getInfoPercent()!=null){
-            resultDTO.setInfoPercent(cs.getInfoPercent());
+            oneResult.setInfoPercent(cs.getInfoPercent());
         }
         if(cs.getMaxBack()!=null){
-            resultDTO.setMaxBack(cs.getMaxBack());
+            oneResult.setMaxBack(cs.getMaxBack());
         }
         if(cs.getTurnoverRate()!=null){
-            resultDTO.setTurnoverRate(cs.getTurnoverRate());
+            oneResult.setTurnoverRate(cs.getTurnoverRate());
         }
         if(cs.getCurrentStandardProfit()!=null){
-            resultDTO.setStandardProfit(cs.getStandardProfit());
+            oneResult.setStandardProfit(cs.getStandardProfit());
         }
         if(cs.getCurrentStraProfit()!=null){
-            resultDTO.setCurrentStraProfit(cs.getCurrentStraProfit());
+            oneResult.setCurrentStraProfit(cs.getCurrentStraProfit());
         }
+        this.resultDTO=oneResult;
 
 
 
