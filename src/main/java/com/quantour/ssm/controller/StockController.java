@@ -255,10 +255,18 @@ public class StockController {
         srrd.setStart_time(DateConvert.stringToDate("2010-09-11"));
         srrd.setEnd_time(DateConvert.stringToDate("2011-09-11"));
         srrd.setBase_block("sh000300");
+        srrd.setYear_profit(0.0);
+        srrd.setStandard_profit(0.0);
+        srrd.setAlpha(0.0);
+        srrd.setBeta(0.0);
+        srrd.setSharp_rate(0.0);
+        srrd.setProfit_waverate(0.0);
+        srrd.setInfo_percent(0.0);
+        srrd.setMax_back(0.0);
+        srrd.setTurnover_rate(0.0);
 
 
-
-//        historyService.createNewStrategyRecord()
+        historyService.createNewStrategyRecord(srrd);
         ArrayList<StrategyResultRecordDTO> strategyRecordArrayList=historyService.getUserAllStrategyRecord("po");
 
         model.addAttribute("strategyRecordArrayList",strategyRecordArrayList);
