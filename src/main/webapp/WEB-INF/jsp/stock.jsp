@@ -351,38 +351,26 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
+
                         <li>
-                            <div class="form-group" style="padding-top: 15px">
-                                <input type="text" placeholder="Search" class="form-control">
-                            </div>
+                            <c:choose>
+                                <c:when test="${user.account != null}">
+                                    <a href="<%=contextPath%>/userInfo/" >
+                                        <i class="ti-user"></i>
+                                        <p>${user.account}</p>
+                                    </a>
+                                </c:when>
+                                <c:when test="${user.account == null}">
+                                    <a href="<%=contextPath%>/dashboard/login" >
+                                        <i class="ti-user"></i>
+                                        <p>登录</p>
+                                    </a>
+                                </c:when>
+                            </c:choose>
+
+
                         </li>
-                        <li>
-                            <a href="<%=contextPath%>/dashboard/login" >
-                                <i class="ti-user"></i>
-                                <p>登录</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-bell"></i>
-                                <p class="notification">5</p>
-                                <p>消息</p>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">消息 1</a></li>
-                                <li><a href="#">消息 2</a></li>
-                                <li><a href="#">消息 3</a></li>
-                                <li><a href="#">消息 4</a></li>
-                                <li><a href="#">更多</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ti-settings"></i>
-                                <p>设置</p>
-                            </a>
-                        </li>
+
                     </ul>
 
                 </div>
@@ -554,7 +542,7 @@
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="<%=contextPath%>/assets/js/demo.js"></script>
+<%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <%--<!--   echarts   --!>--%>
 

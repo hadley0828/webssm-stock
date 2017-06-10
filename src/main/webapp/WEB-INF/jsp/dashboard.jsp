@@ -36,7 +36,7 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />
+    <%--<link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />--%>
 
 
     <!--  Fonts and icons     -->
@@ -44,11 +44,11 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
 
-    <%--Bootstrap table--%>
-    <link href="<%=contextPath%>/assets/css/bootstrap-table.min.css" rel="stylesheet" >
+    <%--Bootstrap select--%>
+    <link href="<%=contextPath%>/assets/css/bootstrap-select.min.css" rel="stylesheet" >
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 
+    <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="<%=contextPath%>/assets/js/echarts.js"></script>
 
     <script>
@@ -475,6 +475,47 @@
             });
         }
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+//            demo.initChartist();
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+        function add() {
+
+        }
+
+        $(function () {
+            $(".selectpicker").selectpicker({dropuAuto:false});
+        })
+
+        function changeColor() {
+            document.getElementById("searchIcon").setAttribute("style","color:orange");
+        }
+
+        function reColor() {
+            document.getElementById("searchIcon").setAttribute("style","color:black");
+        }
+
+//        $(function () {
+//            var availableTags = new Array();
+//            var i=0;
+//
+//
+//            $("#tags").autocomplete({source:availableTags});
+//        });
+    </script>
 </head>
 <body>
 
@@ -538,22 +579,16 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <form action="<%=contextPath%>/dashboard/stockData" method="post">
-                                <div class="form-group" style="padding-top: 15px">
-                                    <input type="text" placeholder="Search" class="form-control" id="searchCode">
-                                </div>
-                            </form>
-                        </li>
+
                         <li>
                             <c:choose>
-                                <c:when test="${username != null}">
+                                <c:when test="${user.account != null}">
                                     <a href="<%=contextPath%>/userInfo/" >
                                         <i class="ti-user"></i>
-                                        <p>${username}</p>
+                                        <p>${user.account}</p>
                                     </a>
                                 </c:when>
-                                <c:when test="${username == null}">
+                                <c:when test="${user.account == null}">
                                     <a href="<%=contextPath%>/dashboard/login" >
                                         <i class="ti-user"></i>
                                         <p>登录</p>
@@ -561,35 +596,9 @@
                                 </c:when>
                             </c:choose>
 
-                            <%--<ul class="dropdown-menu">--%>
-                                <%--<li><a href="#">Notification 1</a></li>--%>
-                                <%--<li><a href="#">Notification 2</a></li>--%>
-                                <%--<li><a href="#">Notification 3</a></li>--%>
-                                <%--<li><a href="#">Notification 4</a></li>--%>
-                                <%--<li><a href="#">Another notification</a></li>--%>
-                            <%--</ul>--%>
+
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-bell"></i>
-                                <p class="notification">5</p>
-                                <p>消息</p>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ti-settings"></i>
-                                <p>设置</p>
-                            </a>
-                        </li>
+
                     </ul>
 
                 </div>
@@ -701,7 +710,14 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <input type="text" placeholder="编号/名称" class="form-control" id="tags">
+                                    <script>
+
+                                    </script>
+                                    <select name="stock" id="stockSearch" class="form-control selectpicker show-tick dropup" data-live-search="true">
+                                        <c:forEach var="oneStock" items="${codeAndName}">
+                                            <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                    </select>
                                     <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
                                 </div>
                             </div>
@@ -720,7 +736,7 @@
                         </div>
                         <div class="content table-responsive table-full-width">
 
-                            <table id="stockTable1"></table>
+
 
                         </div>
                     </div>
@@ -734,7 +750,7 @@
                         </div>
                         <div class="content table-responsive table-full-width">
 
-                            <table id="stockTable2"></table>
+
 
                         </div>
                     </div>
@@ -750,125 +766,33 @@
 </body>
 
 <!--   Core JS Files   -->
+
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
 
 <!--  Charts Plugin -->
-<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>
+<%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
 
 <!--  Notifications Plugin    -->
 <script src="<%=contextPath%>/assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
-<%--Bootstrap table--%>
-<script src="<%=contextPath%>/assets/js/bootstrap-table.min.js"></script>
-<script src="<%=contextPath%>/assets/js/bootstrap-table-zh-CN.js"></script>
+<%--Bootstrap select--%>
+<script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
+<script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
 
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="<%=contextPath%>/assets/js/demo.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        demo.initChartist();
-
-        var oTable = new TableInit();
-        oTable.Init();
+<%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 
-
-
-
-
-
-
-    });
-
-    var TableInit = function () {
-        var oTableInit = new Object();
-
-        oTableInit.Init = function () {
-            $('#stockTable1').bootstrapTable({
-                url:'<%=contextPath%>/dashboard/showRanking',
-                method: 'post',                      //请求方式（*）
-                toolbar: '#toolbar',                //工具按钮用哪个容器
-                striped: true,                      //是否显示行间隔色
-                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-                pagination: true,                   //是否显示分页（*）
-                sortable: false,                     //是否启用排序
-                sortOrder: "asc",                   //排序方式
-                queryParams: oTableInit.queryParams,//传递参数（*）
-                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                pageNumber:1,                       //初始化加载第一页，默认第一页
-                pageSize: 10,                       //每页的记录行数（*）
-                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-                strictSearch: true,
-                showColumns: false,                  //是否显示所有的列
-                showRefresh: false,                  //是否显示刷新按钮
-                minimumCountColumns: 2,             //最少允许的列数
-                clickToSelect: true,                //是否启用点击选中行
-                height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-                //uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
-                cardView: false,                    //是否显示详细视图
-                detailView: false,                   //是否显示父子表
-                columns: [{
-                    checkbox: true
-                }, {
-                    field: 'code',
-                    title: '股票代码'
-                }, {
-                    field: 'percent',
-                    title: '涨跌幅'
-                }]
-            });
-        }
-
-        oTableInit.queryParams = function (params) {
-            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                limit: params.limit,   //页面大小
-                offset: params.offset,  //页码
-                //departmentname: $("#txt_search_departmentname").val(),
-                //statu: $("#txt_search_statu").val()
-            };
-            return temp;
-        };
-
-        return oTableInit;
-    }
-
-    function add() {
-
-    }
-
-    function changeColor() {
-        document.getElementById("searchIcon").setAttribute("style","color:orange");
-    }
-
-    function reColor() {
-        document.getElementById("searchIcon").setAttribute("style","color:black");
-    }
-
-    $(function () {
-        var availableTags = new Array();
-        var i=0;
-        <c:forEach var="each" items="${codeAndName}">
-            availableTags[i] = each;
-            i++;
-        </c:forEach>
-
-        $("#tags").autocomplete({source:availableTags});
-    });
-</script>
 
 
 

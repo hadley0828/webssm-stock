@@ -38,13 +38,17 @@ public class DashBoardController {
             userDTO user = userService.getOneUserByAccount(user_id);
             System.out.println(user.getAccount());
 
+            model.addAttribute("user",user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
             ArrayList<String> codeAndName = stockService.getAllCodeAndName();
             model.addAttribute("codeAndName",codeAndName);
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
         return "dashboard";
     }
 
