@@ -709,13 +709,13 @@
                         </div>
                         <div class="content">
                             <div class="row">
-                                <div class="col-xs-2">回测时间:</div>
+                                <div class="col-xs-2" style="padding-top: 10px">回测时间:</div>
                                 <div class="col-xs-2">
-                                    <input type="date">
+                                    <input type="date" class="form-control">
                                 </div>
-                                <div class="col-xs-1" style="text-align: center">-</div>
+                                <div class="col-xs-1" style="text-align: center;padding-top: 10px">-</div>
                                 <div class="col-xs-2">
-                                    <input type="date">
+                                    <input type="date" class="form-control">
                                 </div>
                                 <div class="col-xs-2" style="text-align: right;padding-top: 10px">收益基准:</div>
                                 <div class="col-xs-2">
