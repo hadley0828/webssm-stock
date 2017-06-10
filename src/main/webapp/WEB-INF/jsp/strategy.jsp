@@ -61,28 +61,28 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="">
+                <li>
+                    <a href="<%=contextPath%>/dashboard/">
                         <i class="ti-panel"></i>
                         <p>主页</p>
                     </a>
                 </li>
-                <%--<li>--%>
-                <%--<a href="">--%>
-                <%--<i class="ti-user"></i>--%>
-                <%--<p>个股信息</p>--%>
-                <%--</a>--%>
-                <%--</li>--%>
                 <li>
-                    <a href="">
-                        <i class="ti-view-list-alt"></i>
+                    <a href="<%=contextPath%>/compare/">
+                        <i class="ti-flag-alt-2"></i>
                         <p>股票对比</p>
                     </a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="ti-text"></i>
-                        <p>策略应用</p>
+                    <a href="<%=contextPath%>/strategy/">
+                        <i class="ti-receipt"></i>
+                        <p>股市策略</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<%=contextPath%>/doctor/">
+                        <i class="ti-user"></i>
+                        <p>股票诊断</p>
                     </a>
                 </li>
 
@@ -186,7 +186,7 @@
                         </div>
                         <div class="content">
                             <div class="col-xs-5"></div>
-                            <a href="#">
+                            <a href="<%=contextPath%>/strategy/createStrategy">
                                 <p style="font-size: 100px">+</p>
                             </a>
                         </div>

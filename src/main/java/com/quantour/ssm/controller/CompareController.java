@@ -6,6 +6,7 @@ package com.quantour.ssm.controller;
 
 import com.google.gson.Gson;
 import com.quantour.ssm.dto.compareDTO;
+import com.quantour.ssm.dto.waveDTO;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.JsonConvert;
 import org.apache.log4j.Logger;
@@ -32,6 +33,12 @@ public class CompareController {
 
     @RequestMapping("")
     public String showCompare(HttpServletRequest request, Model model){
+        try {
+            ArrayList<waveDTO> hot_list = stockService.getTopNCodesByDays(10, "2017-05-08", 1);
+            model.addAttribute("hot_list",hot_list);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "compare";
     }
 

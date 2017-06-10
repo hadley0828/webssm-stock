@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=contextPath%>/TODO">
+                    <a href="<%=contextPath%>/strategy/">
                         <i class="ti-receipt"></i>
                         <p>股市策略</p>
                     </a>
