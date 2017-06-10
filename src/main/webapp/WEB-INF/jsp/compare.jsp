@@ -50,8 +50,8 @@
 
         function getKLine1Info(code){
 
-            var sdate = "2007-01-01";
-            var ldate = "2017-06-01";
+            var sdate = document.getElementById("sDate").value;
+            var ldate = document.getElementById("lDate").value;
             var code = String(code);
 
             while(code.length < 6){
@@ -75,8 +75,8 @@
         }
         function getKLine2Info(code){
 
-            var sdate = "2007-01-01";
-            var ldate = "2017-06-01";
+            var sdate = document.getElementById("sDate").value;
+            var ldate = document.getElementById("lDate").value;
             var code = String(code);
 
             while(code.length < 6){
@@ -608,8 +608,8 @@
 
         function getLogLine(id1, id2){
 
-            var sdate = "2007-01-04";
-            var ldate = "2017-06-01";
+            var sdate = document.getElementById("sDate").value;
+            var ldate = document.getElementById("lDate").value;
             var code1 = String(id1);
             var code2 = String(id2);
 
@@ -963,8 +963,8 @@
                                     <input id="sDate" type="date">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="eDate">结束时间</label>
-                                    <input id="eDate" type="date">
+                                    <label for="lDate">结束时间</label>
+                                    <input id="lDate" type="date">
                                 </div>
                             </div>
                             <hr>
