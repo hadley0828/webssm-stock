@@ -57,6 +57,7 @@
             var ldate = "2017-06-01";
             var code = "sh000001";
 
+
             $.ajax({
                 url: '<%=request.getContextPath()%>/stockinfo/getShDayKLine',
                 data: {codeid: code, sdate:sdate, ldate:ldate},
@@ -355,6 +356,8 @@
                 });
         }
 
+
+
         function getLimitInfo() {
             var date = "2017-06-01";
 
@@ -477,16 +480,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function(){
-
-//            demo.initChartist();
-
-
-
-
-
-
-
-
 
         });
 
@@ -617,24 +610,29 @@
                             <div class="row">
                                 <div class="col-xs-3">
                                     <ul class="nav nav-stacked" role="tablist">
-                                        <script>
-                                            function getMarketInfo() {
-                                                var date = "2017-06-01";
+                                        <%--<script>--%>
+                                            <%--function getMarketInfo() {--%>
+                                                <%--var date = "2017-06-01";--%>
 
-                                                $.ajax({
-                                                    url: '<%=request.getContextPath()%>/stockinfo/getMarketInfo',
+                                                <%--$.ajax({--%>
+                                                    <%--url: '<%=request.getContextPath()%>/stockinfo/getMarketInfo',--%>
+                                                    <%--data:{date:date},--%>
+                                                    <%--dataType:"json",--%>
+                                                    <%--success:function (result) {--%>
+                                                        <%--mydata = JSON.parse(result);--%>
+                                                    <%--}--%>
 
-                                                });
-                                            }
-                                        </script>
+                                                <%--});--%>
+                                            <%--}--%>
+                                        <%--</script>--%>
                                         <li class="active">
                                             <blockquote>
                                                 <span class="ti-bar-chart"></span>
                                                 <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px">涨跌分布</a>
                                                 <div class="row">
 
-                                                    <div class="col-xs-6"  style="font-size: 10px;color:red">上涨:1000</div>
-                                                    <div class="col-xs-6"  style="font-size: 10px;color:green">下跌:1000</div>
+                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:1000</div>
+                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:1000</div>
                                                 </div>
                                             </blockquote>
 
@@ -730,12 +728,29 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">全部股票</h4>
-                            <p class="category">Here is a subtitle for this table</p>
+                            <h4 class="title">单日股票涨幅前5</h4>
+
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width">
-
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>股票名称</th>
+                                    <th>股票代码</th>
+                                    <th>当前价格</th>
+                                    <th>涨幅</th>
+                                </thead>
+                                <tbody>
+                                <%--<c:forEach var="hot_stock" items="${one_day_list}">--%>
+                                    <%--<tr>--%>
+                                        <%--<td id="hot_name_${one_day_list.stockCode}">${one_day_list.stockName}</td>--%>
+                                        <%--<td>${one_day_list.stockCode}</td>--%>
+                                        <%--<td>${one_day_list.newestPrice}</td>--%>
+                                        <%--<th><a  onclick="addUl(document.getElementById('hot_name_${one_day_list.stockCode}').innerHTML)">对比</a> </th>--%>
+                                    <%--</tr>--%>
+                                <%--</c:forEach>--%>
+                                </tbody>
+                            </table>
 
 
                         </div>

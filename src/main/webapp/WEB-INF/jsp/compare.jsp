@@ -799,33 +799,6 @@
             ul.removeChild(objs);
         }
 
-        function addCodelist(tbody_name){           //用于向热门，收藏添加条目
-            var t=document.getElementById(tbody_name);
-            var _tr=document.createElement('tr');
-            var td1=document.createElement('td');
-            var td2=document.createElement('td');
-            var _th=document.createElement('th');
-            var _a=document.createElement('a');
-
-            td1.innerHTML="修改成股票名称";
-            td1.id="股票名称"
-
-            td2.innerHTML="股票代码";
-            td2.id="股票代码";
-
-            a.innerHTML="添加";
-            a.onclick=function () {addUl("股票名称+股票代码")}
-
-            _th.appendChild(_a);
-
-            _tr.appendChild(td1);
-            _tr.appendChild(td2);
-            _tr.appendChild(_th);
-
-            t.appendChild(_tr);
-
-        }
-
         function deleteAllUl(){         //清空选择
             var ul = document.getElementById("choosed_list");
             ul.innerHTML="";
@@ -992,22 +965,19 @@
                                 <div id="hot" class="tab-pane fade in active">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
+                                            <thead>
+                                                <th>股票名称</th>
+                                                <th>股票代码</th>
+                                                <th>当前价格</th>
+                                                <th>添加对比</th>
+                                            </thead>
                                             <tbody>
-                                            <%--<tr>--%>
-                                                <%--<td id="cold_name_1">平安银行</td>--%>
-                                                <%--<td>0.00</td>--%>
-                                                <%--<th><a href="#" onclick="addUl(document.getElementById('cold_name_1').innerHTML)">对比</a></th>--%>
-                                            <%--</tr>--%>
-                                            <%--<tr>--%>
-                                                <%--<td id="cold_name_2">万 科Ａ</td>--%>
-                                                <%--<td>0.00</td>--%>
-                                                <%--<th><a href="#" onclick="addUl(document.getElementById('cold_name_2').innerHTML)">对比</a> </th>--%>
-                                            <%--</tr>--%>
                                             <c:forEach var="hot_stock" items="${hot_list}">
                                                 <tr>
-                                                    <td id="cold_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
-                                                    <td>${hot_stock.changePercent}</td>
-                                                    <th><a href="#" onclick="addUl(document.getElementById('cold_name_${hot_stock.stockCode}').innerHTML)">对比</a> </th>
+                                                    <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
+                                                    <td>${hot_stock.stockCode}</td>
+                                                    <td>${hot_stock.newestPrice}</td>
+                                                    <th><a href="#" onclick="addUl(document.getElementById('hot_name_${hot_stock.stockCode}').innerHTML)">对比</a> </th>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
@@ -1019,14 +989,14 @@
                                         <table class="table table-striped">
                                             <tbody>
                                             <tr>
-                                                <td id="hot_name_1">工商银行</td>
+                                                <td id="collect_name_1">工商银行</td>
                                                 <td>0.00</td>
-                                                <th><a href="#" onclick="addUl(document.getElementById('hot_name_1').innerHTML)">对比</a></th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('collect_name_1').innerHTML)">对比</a></th>
                                             </tr>
                                             <tr>
-                                                <td id="hot_name_2">农业银行</td>
+                                                <td id="collect_name_2">农业银行</td>
                                                 <td>0.00</td>
-                                                <th><a href="#" onclick="addUl(document.getElementById('hot_name_2').innerHTML)">对比</a> </th>
+                                                <th><a href="#" onclick="addUl(document.getElementById('collect_name_2').innerHTML)">对比</a> </th>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -1138,7 +1108,7 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>工商银行</td>
+                                        <td id="name_1">工商银行</td>
                                         <td>0.00</td>
                                         <td>0.00</td>
                                         <td>0.0%</td>
@@ -1154,11 +1124,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
-                                <p id="test">
-                                    text
-                                </p>
-                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/5/16.
  */
 
+import com.quantour.ssm.dto.RankDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.StockService;
@@ -49,6 +50,12 @@ public class DashBoardController {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+//        ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2016-05-08",1);
+//        ArrayList<RankDTO> five_day_list= stockService.getTopNStockByDays(5,"2016-05-08",5);
+//
+//        model.addAttribute("one_day_list",one_day_list);
+//        model.addAttribute("five_day_list",five_day_list);
         return "dashboard";
     }
 
