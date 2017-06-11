@@ -34,8 +34,14 @@ public class StockInfoController {
 
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
-    public ModelAndView showStock(@RequestParam(value = "id",required = false) String user_id, HttpServletRequest request, ModelAndView model){
-        stockDTO s = stockService.getStockInfo("000001","2017-05-23");
+    public ModelAndView showStock(
+            @RequestParam(value = "id",required = false) String user_id,
+            @RequestParam(value = "stockCode",required = false) String stock_code,
+            HttpServletRequest request,
+            ModelAndView model){
+        stock_code = stock_code.substring(0,6);
+
+        stockDTO s = stockService.getStockInfo(stock_code,"2017-05-23");
 
         model.setViewName("stock");
         System.out.println(s.getId());

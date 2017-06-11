@@ -486,7 +486,10 @@
 
 
         function add() {
-
+            var stockSearch = document.getElementById("stockSearch");
+            var stockName = stockSearch.value;
+//            alert(stockName);
+            window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName;
         }
 
 
