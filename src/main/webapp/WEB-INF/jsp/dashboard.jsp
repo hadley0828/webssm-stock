@@ -489,9 +489,12 @@
 
         }
 
+
         $(function () {
-            $(".selectpicker").selectpicker({dropuAuto:false});
-        })
+            $(".selectpicker").selectpicker({
+                size:5
+            });
+        });
 
         function changeColor() {
             document.getElementById("searchIcon").setAttribute("style","color:orange");
@@ -699,7 +702,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="z-index: 0">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="content">
@@ -711,7 +714,7 @@
                                     <script>
 
                                     </script>
-                                    <select name="stock" id="stockSearch" class="form-control selectpicker show-tick dropup" data-live-search="true">
+                                    <select name="stock" id="stockSearch" class="form-control selectpicker show-tick "  data-live-search="true" data-dropup-auto="false">
                                         <c:forEach var="oneStock" items="${codeAndName}">
                                             <option value="${oneStock}">${oneStock}</option>
                                         </c:forEach>
@@ -724,15 +727,15 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="header">
+            <div class="row" style="z-index: -1">
+                <div class="col-md-6" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
                             <h4 class="title">单日股票涨幅前5</h4>
 
                             <hr>
                         </div>
-                        <div class="content table-responsive table-full-width">
+                        <div class="content table-responsive table-full-width" style="z-index: inherit">
                             <table class="table table-striped">
                                 <thead>
                                     <th>股票名称</th>
@@ -756,14 +759,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="header">
+                <div class="col-md-6" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
                             <h4 class="title">全部股票</h4>
                             <p class="category">Here is a subtitle for this table</p>
                             <hr>
                         </div>
-                        <div class="content table-responsive table-full-width">
+                        <div class="content table-responsive table-full-width" style="z-index: inherit">
 
 
 
