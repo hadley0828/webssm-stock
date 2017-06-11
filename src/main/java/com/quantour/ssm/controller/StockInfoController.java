@@ -1,16 +1,15 @@
 package com.quantour.ssm.controller;
 
 
-import com.quantour.ssm.dto.klineDTO;
-import com.quantour.ssm.dto.limitUpAndDownNumsDTO;
-import com.quantour.ssm.dto.marketDTO;
-import com.quantour.ssm.dto.stockDTO;
+import com.quantour.ssm.dto.*;
 import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.UserService;
 import com.quantour.ssm.util.JsonConvert;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,16 +29,26 @@ public class StockInfoController {
 
     @Resource
     private StockService stockService;
+    @Resource
+    private UserService userService;
 
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
-    public ModelAndView showStock(HttpServletRequest request, ModelAndView model){
+    public ModelAndView showStock(@RequestParam(value = "id",required = false) String user_id, HttpServletRequest request, ModelAndView model){
         stockDTO s = stockService.getStockInfo("000001","2017-05-23");
 
         model.setViewName("stock");
         System.out.println(s.getId());
         model.addObject("stock",s);
+        try{
+            System.out.println(";"+user_id);
+            userDTO user = userService.getOneUserByAccount(user_id);
 
+            model.setViewName("user");
+            model.addObject("user",user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return model;
     }

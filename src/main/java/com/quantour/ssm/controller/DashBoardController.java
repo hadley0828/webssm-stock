@@ -46,12 +46,14 @@ public class DashBoardController {
 
         try{
             ArrayList<String> codeAndName = stockService.getAllCodeAndName();
+            //ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2017-05-08",1);
+
             model.addAttribute("codeAndName",codeAndName);
+            //model.addAttribute("one_day_list",one_day_list);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-//        ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2016-05-08",1);
 //        ArrayList<RankDTO> five_day_list= stockService.getTopNStockByDays(5,"2016-05-08",5);
 //
 //        model.addAttribute("one_day_list",one_day_list);

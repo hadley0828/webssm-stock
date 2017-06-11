@@ -7,14 +7,17 @@ package com.quantour.ssm.controller;
 import com.google.gson.Gson;
 import com.quantour.ssm.dto.RankDTO;
 import com.quantour.ssm.dto.compareDTO;
+import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.dto.waveDTO;
 import com.quantour.ssm.service.StockService;
+import com.quantour.ssm.service.UserService;
 import com.quantour.ssm.util.JsonConvert;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -31,12 +34,23 @@ public class CompareController {
 
     @Resource
     private StockService stockService;
+    @Resource
+    private UserService userService;
 
-    @RequestMapping("")
-    public String showCompare(HttpServletRequest request, Model model){
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String showCompare(@RequestParam(value = "id",required = false) String user_id, HttpServletRequest request, Model model){
         try {
+
             ArrayList<RankDTO> hot_list = stockService.getTopNStockByDays(10, "2017-05-08", 1);
             model.addAttribute("hot_list",hot_list);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            System.out.println(";"+user_id);
+            userDTO user =userService.getOneUserByAccount(user_id);
+            model.addAttribute("user",user);
         }catch (Exception e){
             e.printStackTrace();
         }

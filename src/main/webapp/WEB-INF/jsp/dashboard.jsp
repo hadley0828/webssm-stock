@@ -530,33 +530,67 @@
                 </a>
             </div>
 
-            <ul class="nav">
-                <li>
-                    <a href="<%=contextPath%>/dashboard/">
-                        <i class="ti-panel"></i>
-                        <p>主页</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/compare/">
-                        <i class="ti-flag-alt-2"></i>
-                        <p>股票对比</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/strategy/">
-                        <i class="ti-receipt"></i>
-                        <p>股市策略</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/doctor/">
-                        <i class="ti-user"></i>
-                        <p>股票诊断</p>
-                    </a>
-                </li>
+            <c:choose>
+                <c:when test="${user.account != null}">
+                    <ul class="nav">
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/?id=${user.account}">
+                                <i class="ti-panel"></i>
+                                <p>主页</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/compare/?id=${user.account}">
+                                <i class="ti-flag-alt-2"></i>
+                                <p>股票对比</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/strategy/?id=${user.account}">
+                                <i class="ti-receipt"></i>
+                                <p>股市策略</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/doctor/?id=${user.account}">
+                                <i class="ti-user"></i>
+                                <p>股票诊断</p>
+                            </a>
+                        </li>
 
-            </ul>
+                    </ul>
+                </c:when>
+                <c:when test="${user.account == null}">
+                    <ul class="nav">
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/">
+                                <i class="ti-panel"></i>
+                                <p>主页</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/compare/">
+                                <i class="ti-flag-alt-2"></i>
+                                <p>股票对比</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/strategy/">
+                                <i class="ti-receipt"></i>
+                                <p>股市策略</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/doctor/">
+                                <i class="ti-user"></i>
+                                <p>股票诊断</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </c:when>
+            </c:choose>
+
         </div>
     </div>
 
@@ -579,7 +613,7 @@
                         <li>
                             <c:choose>
                                 <c:when test="${user.account != null}">
-                                    <a href="<%=contextPath%>/userInfo/" >
+                                    <a href="<%=contextPath%>/userInfo/?id=${user.account}" >
                                         <i class="ti-user"></i>
                                         <p>${user.account}</p>
                                     </a>
@@ -744,14 +778,14 @@
                                     <th>涨幅</th>
                                 </thead>
                                 <tbody>
-                                <%--<c:forEach var="hot_stock" items="${one_day_list}">--%>
-                                    <%--<tr>--%>
-                                        <%--<td id="hot_name_${one_day_list.stockCode}">${one_day_list.stockName}</td>--%>
-                                        <%--<td>${one_day_list.stockCode}</td>--%>
-                                        <%--<td>${one_day_list.newestPrice}</td>--%>
-                                        <%--<th><a  onclick="addUl(document.getElementById('hot_name_${one_day_list.stockCode}').innerHTML)">对比</a> </th>--%>
-                                    <%--</tr>--%>
-                                <%--</c:forEach>--%>
+                                <c:forEach var="hot_stock" items="${one_day_list}">
+                                    <tr>
+                                        <td id="hot_name_${one_day_list.stockCode}">${one_day_list.stockName}</td>
+                                        <td>${one_day_list.stockCode}</td>
+                                        <td>${one_day_list.newestPrice}</td>
+                                        <th><a  onclick="addUl(document.getElementById('hot_name_${one_day_list.stockCode}').innerHTML)">对比</a> </th>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.quantour.ssm.dto.stockDTO" %><%--
   Created by IntelliJ IDEA.
   User: wangty
@@ -306,33 +307,66 @@
                 </a>
             </div>
 
-            <ul class="nav">
-                <li>
-                    <a href="<%=contextPath%>/dashboard/">
-                        <i class="ti-panel"></i>
-                        <p>主页</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/compare/">
-                        <i class="ti-flag-alt-2"></i>
-                        <p>股票对比</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/strategy/">
-                        <i class="ti-receipt"></i>
-                        <p>股市策略</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=contextPath%>/doctor/">
-                        <i class="ti-user"></i>
-                        <p>股票诊断</p>
-                    </a>
-                </li>
+            <c:choose>
+                <c:when test="${user.account != null}">
+                    <ul class="nav">
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/?id=${user.account}">
+                                <i class="ti-panel"></i>
+                                <p>主页</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/compare/?id=${user.account}">
+                                <i class="ti-flag-alt-2"></i>
+                                <p>股票对比</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/strategy/?id=${user.account}">
+                                <i class="ti-receipt"></i>
+                                <p>股市策略</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/doctor/?id=${user.account}">
+                                <i class="ti-user"></i>
+                                <p>股票诊断</p>
+                            </a>
+                        </li>
 
-            </ul>
+                    </ul>
+                </c:when>
+                <c:when test="${user.account == null}">
+                    <ul class="nav">
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/">
+                                <i class="ti-panel"></i>
+                                <p>主页</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/compare/">
+                                <i class="ti-flag-alt-2"></i>
+                                <p>股票对比</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/strategy/">
+                                <i class="ti-receipt"></i>
+                                <p>股市策略</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/doctor/">
+                                <i class="ti-user"></i>
+                                <p>股票诊断</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </c:when>
+            </c:choose>
         </div>
     </div>
 
@@ -355,7 +389,7 @@
                         <li>
                             <c:choose>
                                 <c:when test="${user.account != null}">
-                                    <a href="<%=contextPath%>/userInfo/" >
+                                    <a href="<%=contextPath%>/userInfo/?id=${user.account}" >
                                         <i class="ti-user"></i>
                                         <p>${user.account}</p>
                                     </a>
@@ -417,6 +451,15 @@
                                 <dt>涨跌</dt>
                                 <dd class="text-danger">${stock.uplift}</dd>
                             </div>
+                            <div class="col-xs-1">
+                                <dt>industry</dt>
+                                <dd class="text-danger">${stock.stockIndustry}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>area</dt>
+                                <dd class="text-danger">${stock.stockArea}</dd>
+                            </div>
+
                         </div>
                         <hr>
                     </div>
@@ -443,7 +486,17 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-9"></div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="header">
+                            <blockquote>相关新闻</blockquote>
+                        </div>
+                        <hr>
+                        <c:forEach var="one_news" items="${stock.newsDTOArrayList}">
+                            <p>${one_news.title}</p>
+                        </c:forEach>
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="header">
