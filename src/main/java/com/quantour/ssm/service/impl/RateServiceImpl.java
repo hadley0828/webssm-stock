@@ -174,7 +174,7 @@ public class RateServiceImpl implements RateService{
             singleTwentyFlow=singleTwentyFlow+oneStockSingleMap.get(currentDate);
             industryTwentyFlow=industryTwentyFlow+oneIndustryMap.get(currentDate);
 
-            System.out.println(oneStockSameKindSet.size());
+//            System.out.println(oneStockSameKindSet.size());
 
             for (String str : oneStockSameKindSet) {
 
@@ -211,16 +211,17 @@ public class RateServiceImpl implements RateService{
         capitalDTO.setTenIndustryFlow(industryTenFlow);
         capitalDTO.setTwentyIndustryFlow(industryTwentyFlow);
 
-        //TODO 等待数据层数据
-//        InstitutionTrade institutionTrade=rateMapper.getOneInstitutionTrade(code);
-        capitalDTO.setStockCode(code);
-        capitalDTO.setStockName("没有");
-        capitalDTO.setbAmount(0.0);
-        capitalDTO.setbCount(0);
-        capitalDTO.setsAmount(0.0);
-        capitalDTO.setsCount(0);
-        capitalDTO.setNet(0.0);
 
+        InstitutionTrade institutionTrade=rateMapper.getOneInstitutionTrade(code);
+        if(institutionTrade!=null){
+            capitalDTO.setStockCode(institutionTrade.getStockCode());
+            capitalDTO.setStockName(institutionTrade.getStockName());
+            capitalDTO.setbAmount(institutionTrade.getBamount());
+            capitalDTO.setbCount(institutionTrade.getBcount());
+            capitalDTO.setsAmount(institutionTrade.getSamount());
+            capitalDTO.setsCount(institutionTrade.getScount());
+            capitalDTO.setNet(institutionTrade.getNet());
+        }
 
         return capitalDTO;
     }
