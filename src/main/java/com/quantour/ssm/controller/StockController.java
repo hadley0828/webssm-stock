@@ -7,6 +7,7 @@ import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.dto.stockRate.CapitalDTO;
 import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.*;
 import com.quantour.ssm.util.DateConvert;
@@ -40,6 +41,8 @@ public class StockController {
     private UserService userService;
     @Resource
     private HistoryService historyService;
+    @Resource
+    private RateService rateService;
 
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
@@ -249,6 +252,15 @@ public class StockController {
         return "serviceTest/optionalStock";
 
 
+    }
+
+    @RequestMapping("/getCapitalScore")
+    public String showCapitalScore(HttpServletRequest request,Model model){
+        CapitalDTO capitalDTO=rateService.getOneStockCapitalScore("000001","2017-06-02");
+
+        model.addAttribute("capitalDTO",capitalDTO);
+
+        return "serviceTest/capitalScore";
     }
 
     @RequestMapping("/getUserAllStockRecord")

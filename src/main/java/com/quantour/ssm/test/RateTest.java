@@ -38,7 +38,8 @@ public class RateTest {
 //        System.out.println(oneCode.substring(0,2));
 //        System.out.println(oneCode.substring(0,3));
 
-        test.printAllIndustryFund();
+//        test.printAllIndustryFund();
+        test.printAllDate();
     }
 
     public void testGetOne(){
@@ -218,5 +219,15 @@ public class RateTest {
         for(int count=0;count<allRegionList.size();count++){
             System.out.println(allRegionList.get(count));
         }
+    }
+
+    public void printAllDate(){
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayKLineMapper.getMarketDates();
+
+        for(int count=0;count<allSqlDateList.size();count++){
+            System.out.println(allSqlDateList.get(count));
+        }
+
+        System.out.println(allSqlDateList.size());
     }
 }

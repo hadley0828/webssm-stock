@@ -1,23 +1,39 @@
 package com.quantour.ssm.dto.stockRate;
 
+import java.util.ArrayList;
+
 /**
  * Created by zhangzy on 2017/6/4.
  * 资金面诊股
  */
 public class CapitalDTO {
-    //分成两个2*2的表格 上面一行近五日资金流向   下面一行机构持股比率
     double capitalScore;    //资金面分数
     double partScore;   //根据指标得到的分数 用来排名
     double defeatPercent;   //击败的多少百分比的股票
+
+    ArrayList<FundFlowMapDTO> flowMapList;  //绘制资金流向图的数据
+
     double todayStockFlow;  //今日股票流向
     double fiveStockFlow;   //五日股票流向
     double tenStockFlow;    //十日股票流向
     double twentyStockFlow; //二十日股票流向
+
     double todayIndustryFlow;   //今日行业流向
     double fiveIndustryFlow;    //五日行业流向
     double tenIndustryFlow;     //十日行业流向
     double twentyIndustryFlow;  //二十日行业流向
-    double institutionPercent;  //机构持股比率
+
+    String stockCode;   //股票编号
+    String stockName;   //股票名称
+    double bAmount;     //累计购买额
+    int bCount;         //买入席位数
+    double sAmount;     //累计卖出额
+    int sCount;         //卖出席位数
+    double net;         //净额(万)
+
+    public double getCapitalScore() {
+        return capitalScore;
+    }
 
     @Override
     public String toString() {
@@ -25,6 +41,7 @@ public class CapitalDTO {
                 "capitalScore=" + capitalScore +
                 ", partScore=" + partScore +
                 ", defeatPercent=" + defeatPercent +
+                ", flowMapList=" + flowMapList +
                 ", todayStockFlow=" + todayStockFlow +
                 ", fiveStockFlow=" + fiveStockFlow +
                 ", tenStockFlow=" + tenStockFlow +
@@ -33,13 +50,16 @@ public class CapitalDTO {
                 ", fiveIndustryFlow=" + fiveIndustryFlow +
                 ", tenIndustryFlow=" + tenIndustryFlow +
                 ", twentyIndustryFlow=" + twentyIndustryFlow +
-                ", institutionPercent=" + institutionPercent +
+                ", stockCode='" + stockCode + '\'' +
+                ", stockName='" + stockName + '\'' +
+                ", bAmount=" + bAmount +
+                ", bCount=" + bCount +
+                ", sAmount=" + sAmount +
+                ", sCount=" + sCount +
+                ", net=" + net +
                 '}';
     }
 
-    public double getCapitalScore() {
-        return capitalScore;
-    }
 
     public void setCapitalScore(double capitalScore) {
         this.capitalScore = capitalScore;
@@ -59,6 +79,14 @@ public class CapitalDTO {
 
     public void setDefeatPercent(double defeatPercent) {
         this.defeatPercent = defeatPercent;
+    }
+
+    public ArrayList<FundFlowMapDTO> getFlowMapList() {
+        return flowMapList;
+    }
+
+    public void setFlowMapList(ArrayList<FundFlowMapDTO> flowMapList) {
+        this.flowMapList = flowMapList;
     }
 
     public double getTodayStockFlow() {
@@ -125,17 +153,69 @@ public class CapitalDTO {
         this.twentyIndustryFlow = twentyIndustryFlow;
     }
 
-    public double getInstitutionPercent() {
-        return institutionPercent;
+    public String getStockCode() {
+        return stockCode;
     }
 
-    public void setInstitutionPercent(double institutionPercent) {
-        this.institutionPercent = institutionPercent;
+    public void setStockCode(String stockCode) {
+        this.stockCode = stockCode;
+    }
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
+    }
+
+    public double getbAmount() {
+        return bAmount;
+    }
+
+    public void setbAmount(double bAmount) {
+        this.bAmount = bAmount;
+    }
+
+    public int getbCount() {
+        return bCount;
+    }
+
+    public void setbCount(int bCount) {
+        this.bCount = bCount;
+    }
+
+    public double getsAmount() {
+        return sAmount;
+    }
+
+    public void setsAmount(double sAmount) {
+        this.sAmount = sAmount;
+    }
+
+    public int getsCount() {
+        return sCount;
+    }
+
+    public void setsCount(int sCount) {
+        this.sCount = sCount;
+    }
+
+    public double getNet() {
+        return net;
+    }
+
+    public void setNet(double net) {
+        this.net = net;
     }
 
     public CapitalDTO(){
         super();
     }
+
+
+
+
 
 
 }

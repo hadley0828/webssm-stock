@@ -85,7 +85,9 @@ public class StockServiceImpl implements StockService {
         stockdto.setStockArea(stockBasicInfo.getArea());
 
         ArrayList<NewsDTO> newsDTOArrayList=new ArrayList<NewsDTO>();
-        ArrayList<StockNews> stockNewsArrayList=dayklinemapper.getOneStockAllNews(realDate);
+        ArrayList<StockNews> stockNewsArrayList=dayklinemapper.getOneStockAllNews(code);
+
+
 
         if(stockNewsArrayList.size()!=0){
             for(int count=0;count<stockNewsArrayList.size();count++){
