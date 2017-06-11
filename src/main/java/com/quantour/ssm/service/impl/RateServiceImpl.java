@@ -3,9 +3,7 @@ package com.quantour.ssm.service.impl;
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dao.RateMapper;
 import com.quantour.ssm.dto.stockRate.*;
-import com.quantour.ssm.model.InstitutionTrade;
-import com.quantour.ssm.model.ProfessionFundFlows;
-import com.quantour.ssm.model.SingleStockFundFlows;
+import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.RateService;
 import com.quantour.ssm.util.CodeIndustryMap;
 import com.quantour.ssm.util.DateConvert;
@@ -229,11 +227,69 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public MessageDTO getOneStockMessageScore(String code, String date) {
-        //TODO
+        MessageDTO messageDTO=new MessageDTO();
 
 
 
-        return null;
+        AllocationPlan allocationPlan=dayKLineMapper.getOneAllocationPlan(code);
+
+        Message_allocationDTO messageAllocationDTO=new Message_allocationDTO();
+        if(allocationPlan!=null){
+            messageAllocationDTO.setCode(allocationPlan.getCode());
+            messageAllocationDTO.setName(allocationPlan.getName());
+            messageAllocationDTO.setYear(allocationPlan.getYear());
+            messageAllocationDTO.setReport_date(DateConvert.dateToString(allocationPlan.getReport_name()));
+            messageAllocationDTO.setDivi(Double.valueOf(allocationPlan.getDivi()));
+            messageAllocationDTO.setShares(Integer.valueOf(allocationPlan.getShares()));
+        }
+
+        messageDTO.setMessage_allocationDTO(messageAllocationDTO);
+
+
+
+
+        AchievementForecast achievementForecast=dayKLineMapper.getOneStockForecast(code);
+
+        Message_forecastDTO messageForecastDTO=new Message_forecastDTO();
+        if(achievementForecast!=null){
+            messageForecastDTO.setCode(achievementForecast.getCode());
+            messageForecastDTO.setName(achievementForecast.getName());
+            messageForecastDTO.setType(achievementForecast.getType());
+            messageForecastDTO.setReport_date(DateConvert.dateToString(achievementForecast.getReport_date()));
+            messageForecastDTO.setPre_eps(Double.valueOf(achievementForecast.getPre_eps()));
+            messageForecastDTO.setOut_range(achievementForecast.getRange());
+        }
+
+        messageDTO.setMessage_forecastDTO(messageForecastDTO);
+
+
+        ArrayList<Message_NewsDTO> messageNewsDTOArrayList=new ArrayList<Message_NewsDTO>();
+
+        ArrayList<StockNews> stockNewsArrayList=dayKLineMapper.getOneStockAllNews(code);
+        if(stockNewsArrayList.size()!=0){
+            for(int count=0;count<stockNewsArrayList.size();count++){
+                StockNews stockNews=stockNewsArrayList.get(count);
+                Message_NewsDTO messageNewsDTO=new Message_NewsDTO();
+                messageNewsDTO.setCode(stockNews.getStockCode());
+                messageNewsDTO.setDate(DateConvert.dateToString(stockNews.getDate()));
+                messageNewsDTO.setType(stockNews.getType());
+                messageNewsDTO.setTitle(stockNews.getTitle());
+                messageNewsDTO.setUrl(stockNews.getUrl());
+
+                messageNewsDTOArrayList.add(messageNewsDTO);
+
+            }
+        }
+        messageDTO.setMessageNewsDTOArrayList(messageNewsDTOArrayList);
+
+
+        messageDTO.setMessageScore(10.0);
+        messageDTO.setPartScore(80);
+        messageDTO.setDefeatPercent(90);
+        messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
+
+
+        return messageDTO;
     }
 
     @Override

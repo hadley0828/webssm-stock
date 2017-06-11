@@ -95,3 +95,4 @@ src/main/webapp/WEB-INF/jsp/serviceTest/echarts.js
 !/src/main/java/com/quantour/ssm/service/RateService.java
 !/src/main/java/com/quantour/ssm/service/impl/StockServiceImpl.java
 !/src/main/java/com/quantour/ssm/dao/DayKLineMapper.java
+!/src/main/java/com/quantour/ssm/dto/stockRate/MessageDTO.java
