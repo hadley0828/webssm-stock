@@ -57,6 +57,16 @@
         <result column="bips" jdbcType="VARCHAR" property="bips"/>
     </resultMap>
 
+    <resultMap id="InstitutionTradeMap" type="com.quantour.ssm.model.InstitutionTrade">
+        <id column="stock_code" jdbcType="VARCHAR" property="stockCode"/>
+        <result column="stock_name" jdbcType="VARCHAR" property="stockName"/>
+        <result column="bamount" jdbcType="DOUBLE" property="bamount"/>
+        <result column="bcount" jdbcType="INTEGER" property="bcount"/>
+        <result column="samount" jdbcType="DOUBLE" property="samount"/>
+        <result column="scount" jdbcType="INTEGER" property="scount"/>
+        <result column="net" jdbcType="DOUBLE" property="net"/>
+    </resultMap>
+
     <resultMap id="SingleStockFundFlowsMap" type="com.quantour.ssm.model.SingleStockFundFlows">
         <id column="code" jdbcType="VARCHAR" property="code"/>
         <id column="trade_date" jdbcType="DATE" property="date"/>
@@ -151,6 +161,16 @@
        from ability_profit
     </select>
 
+    <select id="getOneInstitutionTrade" parameterType="java.lang.String" resultMap="InstitutionTradeMap">
+        select *
+        from ability_institutionTrade
+        where stock_code = #{stockCode}
+    </select>
+
+    <select id="getAllInstitutionTrade" resultMap="InstitutionTradeMap">
+        select *
+        from ability_institutionTrade
+    </select>
 
     <insert id="insertProfessionFundFlows" parameterType="com.quantour.ssm.model.ProfessionFundFlows">
         insert into ability_industryFlow(industry, trade_date, inflow, change_percent)
