@@ -47,9 +47,16 @@ public class StockController {
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
 //        List<String> data = stockService.getAllDateByCode("000001");
-        stockDTO stockdto = stockService.getStockInfo("000001","2017-03-17");
+        stockDTO stockdto = stockService.getStockInfo("000004","2017-05-23");
         model.addAttribute("stockdto",stockdto);
         return "serviceTest/test";
+    }
+
+    @RequestMapping("/testDateValid")
+    public String showDateValid(HttpServletRequest request,Model model){
+        Boolean result=stockService.isDateValid("000001","2017-05-23");
+        model.addAttribute("result",result);
+        return "serviceTest/result";
     }
 
     @RequestMapping("/stockkline")

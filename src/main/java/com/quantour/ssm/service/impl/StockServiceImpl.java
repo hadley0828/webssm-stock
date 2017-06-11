@@ -10,6 +10,7 @@ import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,7 @@ public class StockServiceImpl implements StockService {
 
         StockBasicInfo stockBasicInfo=dayklinemapper.getOneStockInfo(code);
 
+        System.out.println(dayKLine);
 
         stockDTO stockdto=new stockDTO();
         stockdto.setId(stockBasicInfo.getCode());
@@ -604,12 +606,22 @@ public class StockServiceImpl implements StockService {
         String code=nameToCode(input);
         ArrayList<String> allStockDateList= (ArrayList<String>) dayklinemapper.getAllDateByCode(code);
 
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
         HashSet<String> stockAllDateMap=new HashSet<String>();
         for(int count=0;count<allStockDateList.size();count++){
             stockAllDateMap.add(allStockDateList.get(count));
         }
 
-        if(stockAllDateMap.contains(date)){
+        if(stockAllDateMap.contains(realDate)){
             return true;
         }else{
             return false;
@@ -996,12 +1008,23 @@ public class StockServiceImpl implements StockService {
     @Override
     public boolean isBlockDateValid(String date, String blockCode) {
         ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getBlockAllDate(blockCode);
+
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+
+
         HashSet<String> allDateSet=new HashSet<String>();
         for(int count=0;count<allSqlDateList.size();count++){
             allDateSet.add(DateConvert.dateToString(allSqlDateList.get(count)));
         }
 
-        if(allDateSet.contains(date)){
+        if(allDateSet.contains(realDate)){
             return true;
         }else{
             return false;
