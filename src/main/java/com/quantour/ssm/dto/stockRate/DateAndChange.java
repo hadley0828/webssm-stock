@@ -5,13 +5,19 @@ package com.quantour.ssm.dto.stockRate;
  */
 public class DateAndChange {
     String date;
-    double changePercnet;
+    double blockChangePercent;    //大盘的涨跌幅
+    double industryChangePercent; //行业的涨跌幅
+
+    public DateAndChange(){
+        super();
+    }
 
     @Override
     public String toString() {
         return "DateAndChange{" +
                 "date='" + date + '\'' +
-                ", changePercnet=" + changePercnet +
+                ", blockChangePercent=" + blockChangePercent +
+                ", industryChangePercent=" + industryChangePercent +
                 '}';
     }
 
@@ -23,17 +29,23 @@ public class DateAndChange {
         this.date = date;
     }
 
-    public double getChangePercnet() {
-        return changePercnet;
+    public double getBlockChangePercent() {
+        return blockChangePercent;
     }
 
-    public void setChangePercnet(double changePercnet) {
-        this.changePercnet = changePercnet;
+    public void setBlockChangePercent(double blockChangePercent) {
+        this.blockChangePercent = blockChangePercent;
     }
 
-    public DateAndChange(){
-        super();
+    public double getIndustryChangePercent() {
+        return industryChangePercent;
     }
+
+    public void setIndustryChangePercent(double industryChangePercent) {
+        this.industryChangePercent = industryChangePercent;
+    }
+
+
 
 
 }

@@ -33,7 +33,7 @@ public class DayKLineImplTest {
 //        test.printTwoIndustryMap();
 //        test.testGetAllDateByCode();
 //        test.testGetOneDayKLine();
-        test.testGetTimesDayKLines();
+//        test.testGetTimesDayKLines();
 //        test.testGetOneDayDayKLines();
 //        test.testGetYesterdayDayKLines();
 //        test.testGetAllDayKLinesByCode();
@@ -41,7 +41,7 @@ public class DayKLineImplTest {
 //        test.testGetOneBlockInfo();
 
 //        test.testGetYesterdayDayKline();
-//        test.testGetTimesBlockInfo();
+        test.testGetTimesBlockInfo();
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();

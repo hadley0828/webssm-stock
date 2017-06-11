@@ -7,6 +7,7 @@ import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.RateService;
 import com.quantour.ssm.util.CodeIndustryMap;
 import com.quantour.ssm.util.DateConvert;
+import com.quantour.ssm.util.StockCalculator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -295,7 +296,99 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public IndustryDTO getOneStockIndustryScore(String code, String date) {
-        return null;
+        IndustryDTO industryDTO=new IndustryDTO();
+
+        industryDTO.setIndustryScore(10.0);
+        industryDTO.setPartScore(80);
+        industryDTO.setDefeatPercent(80);
+
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayKLineMapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+        //      股票编号 行业名称
+        HashMap<String,String> codeToIndustryMap=dayKLineMapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));
+
+        String belongIndustry=codeToIndustryMap.get(code);
+
+        ArrayList<ProfessionFundFlows> professionFundFlowsArrayList= (ArrayList<ProfessionFundFlows>) rateMapper.getAllProfessionFundFlows();
+        //      日期    涨跌幅   最后取结果需要用到
+        HashMap<String,ProfessionFundFlows> oneIndustryFlowMap=new HashMap<String, ProfessionFundFlows>();
+
+        for(int count=0;count<professionFundFlowsArrayList.size();count++){
+
+            if(professionFundFlowsArrayList.get(count).getIndustry().equals(belongIndustry)){
+                String oneDate=DateConvert.dateToString(professionFundFlowsArrayList.get(count).getDate());
+
+                oneIndustryFlowMap.put(oneDate,professionFundFlowsArrayList.get(count));
+            }
+
+        }
+
+        String lastDate=DateConvert.getLastNDate(allDateList,realDate,10);
+
+        HashMap<String,Object> map = new HashMap<String, Object>();
+
+        map.put("block", "sh000001");
+        map.put("start",Date.valueOf(lastDate));
+        map.put("end",Date.valueOf(realDate));
+
+        ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayKLineMapper.getTimesBlockInfo(map);
+
+        //      日期    收盘价
+        HashMap<String,Double> blockInfoMap=new HashMap<String, Double>();
+        for(int count=0;count<dayKLineArrayList.size();count++){
+            String oneDate=DateConvert.dateToString(dayKLineArrayList.get(count).getStockDate());
+            double price=dayKLineArrayList.get(count).getClosePrice();
+
+            blockInfoMap.put(oneDate,price);
+        }
+
+        ArrayList<DateAndChange> resultList=new ArrayList<DateAndChange>();
+
+        double tenDaysIndustryChange=1.0;
+
+        for(int count=9;count>=0;count--){
+            String currentDate=DateConvert.getLastNDate(allDateList,realDate,count);
+            String yesterdayDate=DateConvert.getLastNDate(allDateList,realDate,count+1);
+
+            double nowPrice=blockInfoMap.get(currentDate);
+            double lastPrice=blockInfoMap.get(yesterdayDate);
+
+            DateAndChange dateAndChange=new DateAndChange();
+
+            dateAndChange.setDate(currentDate);
+            dateAndChange.setBlockChangePercent(StockCalculator.getIncrease(lastPrice,nowPrice));
+            dateAndChange.setIndustryChangePercent(oneIndustryFlowMap.get(currentDate).getChange_percent());
+
+            resultList.add(dateAndChange);
+
+            double changePercent=oneIndustryFlowMap.get(currentDate).getChange_percent();
+            tenDaysIndustryChange=tenDaysIndustryChange*(1+changePercent);
+
+
+
+        }
+
+        tenDaysIndustryChange=tenDaysIndustryChange-1.0;
+
+        double beforePrice=blockInfoMap.get(DateConvert.getLastNDate(allDateList,realDate,10));
+        double nowPrice=blockInfoMap.get(realDate);
+
+
+        double tenDaysMarketChange=StockCalculator.getIncrease(beforePrice,nowPrice);
+
+        industryDTO.setTenDaysIndustryChange(tenDaysIndustryChange);
+        industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
+        industryDTO.setChangeList(resultList);
+
+
+        return industryDTO;
     }
 
     @Override

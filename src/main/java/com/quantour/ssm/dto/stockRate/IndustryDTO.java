@@ -13,7 +13,7 @@ public class IndustryDTO {
     double tenDaysIndustryChange;   //近十天该行业的涨跌幅
     double tenDaysMarketChange;     //近十天大盘的涨跌幅
     //下面画一张两条折线图
-    List<DateAndChange> IndustryChangeList; //近十个交易日每天行业的涨跌幅
+    List<DateAndChange> ChangeList;   //近十个交易日每天市场的涨跌幅
 
     @Override
     public String toString() {
@@ -23,12 +23,9 @@ public class IndustryDTO {
                 ", defeatPercent=" + defeatPercent +
                 ", tenDaysIndustryChange=" + tenDaysIndustryChange +
                 ", tenDaysMarketChange=" + tenDaysMarketChange +
-                ", IndustryChangeList=" + IndustryChangeList +
-                ", MarketChangeList=" + MarketChangeList +
+                ", ChangeList=" + ChangeList +
                 '}';
     }
-
-    List<DateAndChange> MarketChangeList;   //近十个交易日每天市场的涨跌幅
 
     public double getIndustryScore() {
         return industryScore;
@@ -70,21 +67,15 @@ public class IndustryDTO {
         this.tenDaysMarketChange = tenDaysMarketChange;
     }
 
-    public List<DateAndChange> getIndustryChangeList() {
-        return IndustryChangeList;
+
+    public List<DateAndChange> getChangeList() {
+        return ChangeList;
     }
 
-    public void setIndustryChangeList(List<DateAndChange> industryChangeList) {
-        IndustryChangeList = industryChangeList;
+    public void setChangeList(List<DateAndChange> changeList) {
+        ChangeList = changeList;
     }
 
-    public List<DateAndChange> getMarketChangeList() {
-        return MarketChangeList;
-    }
-
-    public void setMarketChangeList(List<DateAndChange> marketChangeList) {
-        MarketChangeList = marketChangeList;
-    }
 
 
 
