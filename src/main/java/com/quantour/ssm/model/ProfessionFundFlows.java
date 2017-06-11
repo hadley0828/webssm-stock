@@ -17,6 +17,16 @@ public class ProfessionFundFlows {
 
     private Double change_percent;
 
+    @Override
+    public String toString() {
+        return "ProfessionFundFlows{" +
+                "industry='" + industry + '\'' +
+                ", date=" + date +
+                ", inflow='" + inflow + '\'' +
+                ", change_percent=" + change_percent +
+                '}';
+    }
+
     public String getIndustry() {
         return industry;
     }

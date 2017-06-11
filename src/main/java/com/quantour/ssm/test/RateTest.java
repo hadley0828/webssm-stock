@@ -30,13 +30,15 @@ public class RateTest {
 //        test.testGetOne();
 //        test.testGetAll();
 //        test.testAllSingleFundFlows();
-        test.insertIndustryData();
+//        test.insertIndustryData();
 //        test.printAllIndustry();
 //        test.printAllConcept();
 //        test.printAllRegion();
 //        String oneCode="0123456";
 //        System.out.println(oneCode.substring(0,2));
 //        System.out.println(oneCode.substring(0,3));
+
+        test.printAllIndustryFund();
     }
 
     public void testGetOne(){
@@ -62,6 +64,16 @@ public class RateTest {
         for(SingleStockFundFlows s : list1){
             System.out.println(s.getInflow());
         }
+    }
+
+
+    public void printAllIndustryFund(){
+        ArrayList<ProfessionFundFlows> flowList= (ArrayList<ProfessionFundFlows>) rateMapper.getAllProfessionFundFlows();
+
+        for(int count=0;count<flowList.size();count++){
+            System.out.println(flowList.get(count).toString());
+        }
+
     }
 
     public void testInsert(){

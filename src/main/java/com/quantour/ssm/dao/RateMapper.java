@@ -77,4 +77,18 @@ public interface RateMapper {
 
 
     public void insertProfessionFundFlows(ProfessionFundFlows professionFundFlows);
+
+    /**
+     * 获得一个股票全部的机构交易
+     * @param stockCode
+     * @return
+     */
+    public InstitutionTrade getOneInstitutionTrade(String stockCode);
+
+    /**
+     * 获得全部的机构交易信息
+     * @return
+     */
+    public List<InstitutionTrade> getAllInstitutionTrade();
+
 }

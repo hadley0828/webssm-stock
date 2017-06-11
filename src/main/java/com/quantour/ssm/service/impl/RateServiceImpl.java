@@ -31,6 +31,11 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public CapitalDTO getOneStockCapitalScore(String code, String date) {
+        CapitalDTO capitalDTO=new CapitalDTO();
+
+
+
+
         return null;
     }
 
