@@ -91,4 +91,10 @@ public interface RateMapper {
      */
     public List<InstitutionTrade> getAllInstitutionTrade();
 
+
+    public List<StockScore> getAllStockScore();
+
+    public StockScore getOneStockScore(String code);
+
+    public void insertStockScore(StockScore stockScore);
 }

@@ -80,6 +80,31 @@
         <result column="change_percent" jdbcType="VARCHAR" property="change_percent"/>
     </resultMap>
 
+    <resultMap id="StockScoreMap" type="com.quantour.ssm.model.StockScore">
+        <id column="stock_code" jdbcType="VARCHAR" property="code"/>
+        <result column="technical_score" jdbcType="DOUBLE" property="technicalScore"/>
+        <result column="capital_score" jdbcType="DOUBLE" property="capitalScore"/>
+        <result column="message_score" jdbcType="DOUBLE" property="messageScore"/>
+        <result column="industry_score" jdbcType="DOUBLE" property="industryScore"/>
+        <result column="basic_score" jdbcType="DOUBLE" property="basicScore"/>
+    </resultMap>
+
+    <select id="getAllStockScore" resultMap="StockScoreMap">
+        select *
+        from stock_score
+    </select>
+
+    <select id="getOneStockScore" parameterType="java.lang.String" resultMap="StockScoreMap">
+        select *
+        from stock_score
+        where stock_code = #{code}
+    </select>
+
+    <insert id="insertStockScore" parameterType="com.quantour.ssm.model.StockScore">
+        insert into stock_score(stock_code,technical_score,capital_score,message_score,industry_score,basic_score)
+        VALUES (#{code}, #{technicalScore}, #{capitalScore}, #{messageScore}, #{industryScore}, #{basicScore})
+    </insert>
+
     <select id="getSingleStockFundFlows" parameterType="java.util.HashMap" resultMap="SingleStockFundFlowsMap">
         select *
         from ability_stockEquFlow
