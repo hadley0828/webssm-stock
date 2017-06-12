@@ -488,6 +488,12 @@
         function add() {
             var stockSearch = document.getElementById("stockSearch");
             var stockName = stockSearch.value;
+
+            <%--$.ajax({--%>
+                <%--url: '<%=request.getContextPath()%>/stockinfo/checkStock',--%>
+                <%--data: {stock_code: stockName},--%>
+                <%--dataType:"json",--%>
+            <%--})--%>
 //            alert(stockName);
             window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName;
         }

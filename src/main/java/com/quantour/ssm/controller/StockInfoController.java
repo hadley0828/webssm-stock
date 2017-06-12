@@ -102,4 +102,6 @@ public class StockInfoController {
         String data = JsonConvert.upDownLineConvert(market.getChangePercentNumberList());
         return data;
     }
+
+
 }
