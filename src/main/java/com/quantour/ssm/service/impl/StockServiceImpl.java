@@ -852,7 +852,7 @@ public class StockServiceImpl implements StockService {
                 RankDTO rankDTO=new RankDTO();
                 String code=waveDTOArrayList.get(index).getStockCode();
                 rankDTO.setStockCode(code);
-                rankDTO.setChangePercent(waveDTOArrayList.get(index).getChangePercent());
+                rankDTO.setChangePercent(NumberConvert.doubleToPercentageString(waveDTOArrayList.get(index).getChangePercent()));
                 rankDTO.setStockName(codeToNameMap.get(code));
                 rankDTO.setNewestPrice(codeToPriceMap.get(code));
 

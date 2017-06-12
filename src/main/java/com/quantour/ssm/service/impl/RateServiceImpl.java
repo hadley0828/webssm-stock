@@ -150,7 +150,42 @@ public class RateServiceImpl implements RateService{
 
 
         technicalDTO.setTechnicalScore(10.0);
-        technicalDTO.setPartScore(80);
+
+        double averageDayChangePercent=0.0;     //平均每天的涨跌幅
+        double averageMinusChangePercent=0.0;   //平均每天和大盘差值的涨跌幅
+        double totalOne=0.0;
+        double totalTwo=0.0;
+        //指标一
+        double nowChangePercent=technicalMapDTOArrayList.get(technicalMapDTOArrayList.size()-1).getStockChangePercent();
+
+        for(int count=0;count<technicalMapDTOArrayList.size();count++){
+            double stockChangePercent=technicalMapDTOArrayList.get(count).getStockChangePercent();
+            double blockChangePercent=technicalMapDTOArrayList.get(count).getBlockChangePercent();
+
+            totalOne=totalOne+stockChangePercent;
+            totalTwo=totalTwo+stockChangePercent-blockChangePercent;
+
+        }
+        //指标二
+        averageDayChangePercent=totalOne/10.0;
+
+        //指标三
+        averageMinusChangePercent=totalTwo/10.0;
+
+
+        //指标四 指标五 指标六
+        double one=nowChangePercent;
+        double two=averageDayChangePercent;
+        double three=averageMinusChangePercent;
+        double four=oneDayVolume;
+        double five=fiveDayVolume/5.0;
+        double six=tenDayVolume/10.0;
+
+        double partScore=30*(one+0.1)+10*(two+0.1)+20*(three+0.1)+5*five/four+5*six/four;
+
+
+
+        technicalDTO.setPartScore(partScore);
         technicalDTO.setDefeatPercent(90);
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(technicalMapDTOArrayList);
@@ -174,6 +209,7 @@ public class RateServiceImpl implements RateService{
             allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
         }
         String realDate=DateConvert.getRealEndDate(date,allDateList);
+
 
 
         //下面获取行业和股票 股票和行业的对应关系
@@ -311,9 +347,13 @@ public class RateServiceImpl implements RateService{
 
         }
 
+        double partScore=0.0;
+
+
+
 
         capitalDTO.setCapitalScore(10.0);
-        capitalDTO.setPartScore(100);
+
         capitalDTO.setDefeatPercent(80);
 
         capitalDTO.setFlowMapList(allFlowMapList);
@@ -339,6 +379,18 @@ public class RateServiceImpl implements RateService{
             capitalDTO.setsCount(institutionTrade.getScount());
             capitalDTO.setNet(institutionTrade.getNet());
         }
+
+
+        //下面是指标
+        double one=singleOneFlow/(singleTwentyFlow/20.0);
+        double two=industryOneFlow/(singleTwentyFlow/20.0);
+        double three=-10;
+        if(institutionTrade!=null){
+            three=institutionTrade.getNet()/singleOneFlow;
+        }
+        double partscore=one*0.2+two*0.1+0.00005*three;
+
+        capitalDTO.setPartScore(partscore);
 
         return capitalDTO;
     }
@@ -400,9 +452,27 @@ public class RateServiceImpl implements RateService{
         }
         messageDTO.setMessageNewsDTOArrayList(messageNewsDTOArrayList);
 
+        //指标
+        double one=messageNewsDTOArrayList.size()+0.0;
+        double two=0.0;
+        if(achievementForecast!=null){
+            String type=achievementForecast.getType();
+            if(type.equals("减亏")){
+                two=-2.0;
+            }else if(type.equals("预亏")||type.equals("预降")||type.equals("预降")){
+                two=-1.0;
+            }else if(type.equals("预升")||type.equals("预增")||type.equals("预盈")){
+                two=1.0;
+            }
+        }
+
+        double partScore=1.0*one+10.0*two;
+
+
+
 
         messageDTO.setMessageScore(10.0);
-        messageDTO.setPartScore(80);
+        messageDTO.setPartScore(partScore);
         messageDTO.setDefeatPercent(90);
         messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
 
@@ -414,9 +484,7 @@ public class RateServiceImpl implements RateService{
     public IndustryDTO getOneStockIndustryScore(String code, String date) {
         IndustryDTO industryDTO=new IndustryDTO();
 
-        industryDTO.setIndustryScore(10.0);
-        industryDTO.setPartScore(80);
-        industryDTO.setDefeatPercent(80);
+
 
 
         ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayKLineMapper.getMarketDates();
@@ -503,6 +571,17 @@ public class RateServiceImpl implements RateService{
         industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
         industryDTO.setChangeList(resultList);
 
+        //指标
+        double one=tenDaysIndustryChange;
+        double two=tenDaysIndustryChange-tenDaysMarketChange;
+
+        double partScore=two*200.0+100.0*one;
+
+
+        industryDTO.setIndustryScore(10.0);
+        industryDTO.setPartScore(partScore);
+        industryDTO.setDefeatPercent(80);
+
 
         return industryDTO;
     }
@@ -510,9 +589,7 @@ public class RateServiceImpl implements RateService{
     @Override
     public BasicDTO getOneStockBasicScore(String code, String date) {
         BasicDTO basicDTO=new BasicDTO();
-        basicDTO.setBasicScore(10);
-        basicDTO.setPartScore(100);
-        basicDTO.setDefeatPercent(80);
+
 
         CashFlow cashFlow=rateMapper.getOneCashFlow(code);
         Basic_cashFlowDTO basicCashFlowDTO=new Basic_cashFlowDTO();
@@ -734,7 +811,37 @@ public class RateServiceImpl implements RateService{
         }
         basicDTO.setBasicProfitDTO(basicProfitDTO);
 
-        System.out.println(basicDTO);
+//        System.out.println(basicDTO);
+
+        //指标
+        double one=0.0;
+        double two=0.0;
+        double three=0.0;
+        double four=0.0;
+        double five=0.0;
+
+        if(!cashFlow.getCashflowratio().equals("nan")){
+            one=Double.valueOf(cashFlow.getCashflowratio());
+        }
+        if(!earningAbility.getCurrentasset_turnover().equals("nan")){
+            two=Double.valueOf(earningAbility.getCurrentasset_turnover());
+        }
+        if(!growAbility.getSeg().equals("nan")){
+            three=Double.valueOf(growAbility.getSeg());
+        }
+        if(!paymentAbility.getAdratio().equals("--")){
+            four=Double.valueOf(paymentAbility.getAdratio());
+        }
+        if(!profitAbility.getEsp().equals("nan")){
+            five=Double.valueOf(profitAbility.getBips());
+        }
+        double partScore=one*0.1+two*10+three*0.1+four*0.1+five*10;
+
+
+        basicDTO.setBasicScore(10);
+        basicDTO.setPartScore(partScore);
+        basicDTO.setDefeatPercent(80);
+
 
         return basicDTO;
     }
@@ -773,6 +880,9 @@ public class RateServiceImpl implements RateService{
             klineDTOArrayList.add(klineDTO);
 
         }
+
+
+
         return klineDTOArrayList;
     }
 
