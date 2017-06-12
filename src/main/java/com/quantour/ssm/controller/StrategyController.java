@@ -13,6 +13,7 @@ import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
+import com.quantour.ssm.util.JsonConvert;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,7 +111,7 @@ public class StrategyController {
         Iterator iter = datamap.entrySet().iterator();
         while(iter.hasNext()){
             Map.Entry entry = (Map.Entry) iter.next();
-            System.out.println(entry.getKey() + ":" + entry.getValue());
+//            System.out.println(entry.getKey() + ":" + entry.getValue());
         }
 
         String userId = (String) datamap.get("userId");
@@ -153,22 +154,36 @@ public class StrategyController {
 
         strategyResultDTO resultDTO = customizeService.getCustomizeStrategyResult(userId,sDate,lDate,blockCode,stockPondDTO,screenlist,tradeModelDTO);
 
+        result.put("straId",resultDTO.getStraId());
+        result.put("yearProfit",resultDTO.getYearProfit());
+        result.put("standardProfit",resultDTO.getStandardProfit());
+        result.put("alpha",resultDTO.getAlpha());
+        result.put("beta",resultDTO.getBeta());
+        result.put("sharpRate",resultDTO.getSharpRate());
+        result.put("profitWaveRate",resultDTO.getProfitWaveRate());
+        result.put("infoPercent",resultDTO.getInfoPercent());
+        result.put("maxBack",resultDTO.getMaxBack());
+        result.put("turnoverRate",resultDTO.getTurnoverRate());
+        result.put("currentStandardProfit",resultDTO.getCurrentStandardProfit());
+        result.put("currentStraProfit",resultDTO.getCurrentStraProfit());
+        result.put("daysProfitList", JsonConvert.Stra1LineConvert(resultDTO.getDaysProfitList()));
+        result.put("indexprofitvo",resultDTO.getIndexprofitvo());
 
-        System.out.println(resultDTO.getAlpha());
-        System.out.println(resultDTO.getBeta());
-        System.out.println(resultDTO.getCurrentStandardProfit());
-        System.out.println(resultDTO.getCurrentStraProfit());
-        System.out.println(resultDTO.getDaysProfitList());
-        System.out.println(resultDTO.getIndexprofitvo());
-        System.out.println(resultDTO.getInfoPercent());
-        System.out.println(resultDTO.getMaxBack());
-        System.out.println(resultDTO.getProfitWaveRate());
-        System.out.println(resultDTO.getSharpRate());
-        System.out.println(resultDTO.getStraId());
-        System.out.println(resultDTO.getTurnoverRate());
-        System.out.println(resultDTO.getYearProfit());
-        System.out.println(resultDTO.getStandardProfit());
+//        System.out.println(resultDTO.getAlpha());
+//        System.out.println(resultDTO.getBeta());
+//        System.out.println(resultDTO.getCurrentStandardProfit());
+//        System.out.println(resultDTO.getCurrentStraProfit());
+//        System.out.println(resultDTO.getDaysProfitList());
+//        System.out.println(resultDTO.getIndexprofitvo());
+//        System.out.println(resultDTO.getInfoPercent());
+//        System.out.println(resultDTO.getMaxBack());
+//        System.out.println(resultDTO.getProfitWaveRate());
+//        System.out.println(resultDTO.getSharpRate());
+//        System.out.println(resultDTO.getStraId());
+//        System.out.println(resultDTO.getTurnoverRate());
+//        System.out.println(resultDTO.getYearProfit());
+//        System.out.println(resultDTO.getStandardProfit());
 
-        return new Gson().toJson("{text:'!'}");
+        return new Gson().toJson(result);
     }
 }

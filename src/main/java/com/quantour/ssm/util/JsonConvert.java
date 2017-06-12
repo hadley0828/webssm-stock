@@ -3,6 +3,7 @@ package com.quantour.ssm.util;
 import com.google.gson.Gson;
 import com.quantour.ssm.dto.klineDTO;
 import com.quantour.ssm.dto.limitUpAndDownNumsDTO;
+import com.quantour.ssm.dto.oneDayProfitDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,18 @@ public class JsonConvert {
         Object[] obj = new Object[list.size()];
         for(int i = 0; i < list.size(); i++){
             obj[i] = list.get(i);
+        }
+
+        return new Gson().toJson(obj);
+    }
+
+    public static String Stra1LineConvert(List<oneDayProfitDTO> list){
+        Object[] obj = new Object[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            Object[] o = {
+                    dateConvert(list.get(i).getDate()),list.get(i).getStandardProfit(),list.get(i).getStraProfit()
+            };
+            obj[i] = o;
         }
 
         return new Gson().toJson(obj);

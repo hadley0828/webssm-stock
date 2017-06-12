@@ -47,7 +47,8 @@
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-    
+    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+
     <script>
 
 
@@ -279,7 +280,8 @@
                 data: {map:map},
                 dataType:"json",
                 success:function (result) {
-                    
+                    mydata = JSON.parse(result);
+                    alert(mydata);
                 }
             });
         }
@@ -1029,16 +1031,16 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>本策略</td>
-                                        <td>291.19%</td>
-                                        <td>14.7%</td>
-                                        <td>282.65%</td>
-                                        <td>0.42</td>
-                                        <td>7.27</td>
-                                        <td>39.51%</td>
-                                        <td>6.76</td>
-                                        <td>17.11%</td>
-                                        <td>--</td>
+                                        <td id="re1"></td>
+                                        <td id="re2"></td>
+                                        <td id="re3"></td>
+                                        <td id="re4"></td>
+                                        <td id="re5"></td>
+                                        <td id="re6"></td>
+                                        <td id="re7"></td>
+                                        <td id="re8"></td>
+                                        <td id="re9"></td>
+                                        <td id="re10"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -1057,8 +1059,16 @@
                         </div>
                         <div class="content">
                             <ul class="nav nav-pills">
-                                <li class="active"><a data-toggle="pill" href="#first">收益曲线</a> </li>
-                                <li><a data-toggle="pill" href="#second">收益周期统计</a> </li>
+                                <li class="active"><a data-toggle="pill" href="#first">收益曲线</a>
+                                    <div id="straLine1" style="width: 1100px; height: 400px;">
+
+                                    </div>
+                                </li>
+                                <li><a data-toggle="pill" href="#second">收益周期统计</a>
+                                    <div id="straLine2" style="width: 1100px; height: 400px;">
+
+                                    </div>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div id="first" class="tab-pane fade in active">1st</div>
@@ -1388,7 +1398,6 @@
 
         }
 
-        alert(map);
         $.ajax({
             type: "POST",
             url: '<%=request.getContextPath()%>/strategy/runStrategy',
@@ -1396,9 +1405,157 @@
             dataType:"json",
             success:function (result) {
                 mydata = JSON.parse(result);
-                alert(mydata);
+                fillStragetyInfo(mydata);
+                fillStragetyPic1(JSON.parse(mydata.daysProfitList));
+//                fillStragetyPic2(mydata);
             }
         });
+        
+
+        function fillStragetyInfo(rawdata) {
+            document.getElementById("re1").innerHTML = '本策略';
+            document.getElementById("re2").innerHTML = mydata.yearProfit;
+            document.getElementById("re3").innerHTML = mydata.standardProfit;
+            document.getElementById("re4").innerHTML = mydata.alpha;
+            document.getElementById("re5").innerHTML = mydata.beta;
+            document.getElementById("re6").innerHTML = mydata.sharpRate;
+            document.getElementById("re7").innerHTML = mydata.profitWaveRate;
+            document.getElementById("re8").innerHTML = mydata.infoPercent;
+            document.getElementById("re9").innerHTML = mydata.maxBack;
+            document.getElementById("re10").innerHTML = mydata.turnoverRate;
+        }
+
+        function splitStra1Data(rawdata) {
+            var categoryData = [];
+            var values1 = [];
+            var values2 = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                categoryData.push(rawdata[i][0]);
+                values1.push(rawdata[i][1]);
+                values2.push(rawdata[i][2]);
+            }
+            return{
+                categoryData: categoryData,
+                values1:values1,
+                values2:values2
+            };
+        }
+
+        function fillStragetyPic1(rawdata) {
+            var straLine1 = echarts.init(document.getElementById("straLine1"));
+
+            data0 = splitStra1Data(rawdata);
+
+            straLine1.setOption(option={
+                legend:{
+                    data:['基准收益率','策略收益率']
+                },
+                tooltip: {
+                    trigger: 'none',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                toolbox:{
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        saveAsImage: {}
+                    },
+                    right:20
+                },
+                xAxis:
+                    [
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: true,
+                                lineStyle: {
+                                    color: '#d14a61'
+                                }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return  '收益率:' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data:data0.categoryData
+
+                        },
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: true,
+                                lineStyle: {
+                                    color: '#5793f3'
+                                }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return  '收益率:' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data:data0.categoryData
+                        }
+                    ],
+                yAxis:{
+                    scale:true,
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    splitArea: {
+                        show: true
+                    }
+
+                },
+                dataZoom:[
+                    {
+                        xAxisIndex:[0,1],
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        xAxisIndex:[0,1],
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                series: [
+                    {
+                        name:'基准收益率',
+                        type:'line',
+                        data: data0.values1,
+                        smooth: true,
+                    },
+                    {
+                        name:'策略收益率',
+                        type:'line',
+                        data: data0.values2,
+                        smooth: true,
+                        xAxisIndex: 1,
+                    }
+                ]
+            });
+        }
 
         document.getElementById("dataList").setAttribute("style","display");
         document.getElementById("chart").setAttribute("style","display");
