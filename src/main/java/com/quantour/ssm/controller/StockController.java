@@ -7,10 +7,7 @@ import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
-import com.quantour.ssm.dto.stockRate.BasicDTO;
-import com.quantour.ssm.dto.stockRate.CapitalDTO;
-import com.quantour.ssm.dto.stockRate.IndustryDTO;
-import com.quantour.ssm.dto.stockRate.MessageDTO;
+import com.quantour.ssm.dto.stockRate.*;
 import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.*;
 import com.quantour.ssm.util.DateConvert;
@@ -261,6 +258,15 @@ public class StockController {
 
         return "serviceTest/optionalStock";
 
+
+    }
+
+    @RequestMapping("/getTechnicalScore")
+    public String showTechnicalScore(HttpServletRequest request,Model model){
+        TechnicalDTO technicalDTO=rateService.getOneStockTechnicalScore("000001","2017-06-02");
+
+        model.addAttribute("technicalDTO",technicalDTO);
+        return "serviceTest/technicalScore";
 
     }
 

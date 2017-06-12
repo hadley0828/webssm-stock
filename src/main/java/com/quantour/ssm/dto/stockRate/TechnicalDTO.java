@@ -12,14 +12,21 @@ public class TechnicalDTO {
     double technicalScore;  //技术面的分数
     double partScore;   //根据下面的指标算出来的分数用来排名
     double defeatPercent;   //击败了多少百分比的股票
-    //下面是一个平行于x轴的直线加上一段k线图
-    double averageCode; //平均成本
+
+    //K线图   市场表现    成交量
+    //下面是一个k线图
     ArrayList<klineDTO> klineDTOArrayList;  //近60天的k线图信息
-    //下面是两条折线图
-    ArrayList<Double> lastTenDaysStockChange;  //过去十个交易日的涨跌幅
-    ArrayList<Double> lastTenDaysMarketChange; //过去十个交易日所属大盘的涨跌幅
-    double pressurePrice;   //压力位价格
-    double supportPrice;    //支撑位价格
+
+    //下面是市场表现   近十个交易日的涨跌幅  近十个交易日所属大盘的涨跌幅
+    ArrayList<Technical_mapDTO> technicalMapDTOArrayList;
+
+    double oneDayVolume;    //今日的成交量
+    double fiveDayVolume;   //近五日的平均成交量
+    double tenDayVolume;    //近十日的平均成交量
+
+    public TechnicalDTO(){
+        super();
+    }
 
     @Override
     public String toString() {
@@ -27,12 +34,11 @@ public class TechnicalDTO {
                 "technicalScore=" + technicalScore +
                 ", partScore=" + partScore +
                 ", defeatPercent=" + defeatPercent +
-                ", averageCode=" + averageCode +
                 ", klineDTOArrayList=" + klineDTOArrayList +
-                ", lastTenDaysStockChange=" + lastTenDaysStockChange +
-                ", lastTenDaysMarketChange=" + lastTenDaysMarketChange +
-                ", pressurePrice=" + pressurePrice +
-                ", supportPrice=" + supportPrice +
+                ", technicalMapDTOArrayList=" + technicalMapDTOArrayList +
+                ", oneDayVolume=" + oneDayVolume +
+                ", fiveDayVolume=" + fiveDayVolume +
+                ", tenDayVolume=" + tenDayVolume +
                 '}';
     }
 
@@ -60,14 +66,6 @@ public class TechnicalDTO {
         this.defeatPercent = defeatPercent;
     }
 
-    public double getAverageCode() {
-        return averageCode;
-    }
-
-    public void setAverageCode(double averageCode) {
-        this.averageCode = averageCode;
-    }
-
     public ArrayList<klineDTO> getKlineDTOArrayList() {
         return klineDTOArrayList;
     }
@@ -76,41 +74,42 @@ public class TechnicalDTO {
         this.klineDTOArrayList = klineDTOArrayList;
     }
 
-    public ArrayList<Double> getLastTenDaysStockChange() {
-        return lastTenDaysStockChange;
+    public ArrayList<Technical_mapDTO> getTechnicalMapDTOArrayList() {
+        return technicalMapDTOArrayList;
     }
 
-    public void setLastTenDaysStockChange(ArrayList<Double> lastTenDaysStockChange) {
-        this.lastTenDaysStockChange = lastTenDaysStockChange;
+    public void setTechnicalMapDTOArrayList(ArrayList<Technical_mapDTO> technicalMapDTOArrayList) {
+        this.technicalMapDTOArrayList = technicalMapDTOArrayList;
     }
 
-    public ArrayList<Double> getLastTenDaysMarketChange() {
-        return lastTenDaysMarketChange;
+    public double getOneDayVolume() {
+        return oneDayVolume;
     }
 
-    public void setLastTenDaysMarketChange(ArrayList<Double> lastTenDaysMarketChange) {
-        this.lastTenDaysMarketChange = lastTenDaysMarketChange;
+    public void setOneDayVolume(double oneDayVolume) {
+        this.oneDayVolume = oneDayVolume;
     }
 
-    public double getPressurePrice() {
-        return pressurePrice;
+    public double getFiveDayVolume() {
+        return fiveDayVolume;
     }
 
-    public void setPressurePrice(double pressurePrice) {
-        this.pressurePrice = pressurePrice;
+    public void setFiveDayVolume(double fiveDayVolume) {
+        this.fiveDayVolume = fiveDayVolume;
     }
 
-    public double getSupportPrice() {
-        return supportPrice;
+    public double getTenDayVolume() {
+        return tenDayVolume;
     }
 
-    public void setSupportPrice(double supportPrice) {
-        this.supportPrice = supportPrice;
+    public void setTenDayVolume(double tenDayVolume) {
+        this.tenDayVolume = tenDayVolume;
     }
 
-    public TechnicalDTO(){
-        super();
-    }
+
+
+
+
 
 
 

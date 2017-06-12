@@ -2,6 +2,7 @@ package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.dao.RateMapper;
+import com.quantour.ssm.dto.klineDTO;
 import com.quantour.ssm.dto.stockRate.*;
 import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.RateService;
@@ -47,10 +48,119 @@ public class RateServiceImpl implements RateService{
     public TechnicalDTO getOneStockTechnicalScore(String code, String date) {
         TechnicalDTO technicalDTO=new TechnicalDTO();
 
+        //获取有意义的日期
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayKLineMapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+
+        HashMap<String,Object> map = new HashMap<String, Object>();
+        map.put("code",code);
+        map.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realDate,10)));
+        map.put("end",Date.valueOf(realDate));
+        ArrayList<DayKLine> timesStockList= (ArrayList<DayKLine>) dayKLineMapper.getTimesDayKLines(map);
+
+
+        HashMap<String,DayKLine> timeStockMap=new HashMap<String, DayKLine>();
+        for(int count=0;count<timesStockList.size();count++){
+            timeStockMap.put(DateConvert.dateToString(timesStockList.get(count).getStockDate()),timesStockList.get(count));
+        }
 
 
 
-        return null;
+        String blockCode="sh000001";
+        if(code.charAt(0)=='3'||code.charAt(0)=='0'){
+            blockCode="sz399001";
+        }
+
+        HashMap<String,Object> newMap = new HashMap<String, Object>();
+
+        newMap.put("block", blockCode);
+        newMap.put("start",Date.valueOf(DateConvert.getLastNDate(allDateList,realDate,10)));
+        newMap.put("end",Date.valueOf(realDate));
+
+        ArrayList<DayKLine> timesBlockList= (ArrayList<DayKLine>) dayKLineMapper.getTimesBlockInfo(newMap);
+
+        HashMap<String,DayKLine> timeBlockMap=new HashMap<String, DayKLine>();
+        for(int count=0;count<timesBlockList.size();count++){
+            timeBlockMap.put(DateConvert.dateToString(timesBlockList.get(count).getStockDate()),timesBlockList.get(count));
+        }
+
+        ArrayList<Technical_mapDTO> technicalMapDTOArrayList=new ArrayList<Technical_mapDTO>();
+
+
+        double oneDayVolume=0.0;
+        double fiveDayVolume=0.0;
+        double tenDayVolume=0.0;
+
+
+        //timeStockMap timeBlockMap
+        for(int count=9;count>=0;count--){
+            String currentDate=DateConvert.getLastNDate(allDateList,realDate,count);
+            String lastDate=DateConvert.getLastNDate(allDateList,realDate,count+1);
+
+            double blockChangePercent=0.0;
+            double stockChangePercent=0.0;
+
+            double oneVolume=0.0;
+            if(timeStockMap.containsKey(currentDate)){
+                oneVolume=timeStockMap.get(currentDate).getVolume();
+            }
+
+            if(count==0){
+                oneDayVolume=oneDayVolume+oneVolume;
+            }
+
+            if(0<=count&&count<=4){
+                fiveDayVolume=fiveDayVolume+oneVolume;
+            }
+
+            tenDayVolume=tenDayVolume+oneVolume;
+
+
+
+            if(timeBlockMap.containsKey(currentDate)&&timeBlockMap.containsKey(lastDate)){
+                double lastPrice=timeBlockMap.get(lastDate).getClosePrice();
+                double nowPrice=timeBlockMap.get(currentDate).getClosePrice();
+
+                blockChangePercent=StockCalculator.getIncrease(lastPrice,nowPrice);
+
+
+            }
+
+            if(timeStockMap.containsKey(currentDate)&&timeStockMap.containsKey(lastDate)){
+                double lastPrice=timeStockMap.get(lastDate).getClosePrice();
+                double nowPrice=timeStockMap.get(currentDate).getClosePrice();
+
+                stockChangePercent=StockCalculator.getIncrease(lastPrice,nowPrice);
+            }
+
+
+            Technical_mapDTO technicalMapDTO=new Technical_mapDTO();
+            technicalMapDTO.setDate(currentDate);
+            technicalMapDTO.setBlockChangePercent(blockChangePercent);
+            technicalMapDTO.setStockChangePercent(stockChangePercent);
+
+            technicalMapDTOArrayList.add(technicalMapDTO);
+
+        }
+
+
+        technicalDTO.setTechnicalScore(10.0);
+        technicalDTO.setPartScore(80);
+        technicalDTO.setDefeatPercent(90);
+        technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
+        technicalDTO.setTechnicalMapDTOArrayList(technicalMapDTOArrayList);
+        technicalDTO.setOneDayVolume(oneDayVolume);
+        technicalDTO.setFiveDayVolume(fiveDayVolume);
+        technicalDTO.setTenDayVolume(tenDayVolume);
+
+
+
+        return technicalDTO;
     }
 
     @Override
@@ -406,7 +516,7 @@ public class RateServiceImpl implements RateService{
 
         CashFlow cashFlow=rateMapper.getOneCashFlow(code);
         Basic_cashFlowDTO basicCashFlowDTO=new Basic_cashFlowDTO();
-        //TODO
+
         System.out.println(cashFlow.getCode());
 
         basicCashFlowDTO.setCode(cashFlow.getCode());
@@ -447,7 +557,7 @@ public class RateServiceImpl implements RateService{
         EarningAbility earningAbility=rateMapper.getOneEarningAbility(code);
         Basic_earningDTO basicEarningDTO=new Basic_earningDTO();
 
-        //TODO
+
         System.out.println(earningAbility.getCode());
 
         basicEarningDTO.setCode(earningAbility.getCode());
@@ -493,7 +603,7 @@ public class RateServiceImpl implements RateService{
         GrowAbility growAbility=rateMapper.getOneGrowAbility(code);
         Basic_growDTO basicGrowDTO=new Basic_growDTO();
 
-        //TODO
+
         System.out.println(growAbility.getCode());
 
 
@@ -539,7 +649,7 @@ public class RateServiceImpl implements RateService{
         PaymentAbility paymentAbility=rateMapper.getOnePaymentAbility(code);
         Basic_paymentDTO basicPaymentDTO=new Basic_paymentDTO();
 
-        //TODO
+
         System.out.println(paymentAbility.getCode());
 
         basicPaymentDTO.setCode(paymentAbility.getCode());
@@ -582,7 +692,7 @@ public class RateServiceImpl implements RateService{
         ProfitAbility profitAbility=rateMapper.getOneProfitAbility(code);
         Basic_profitDTO basicProfitDTO=new Basic_profitDTO();
 
-        //TODO
+
         System.out.println(profitAbility.getCode());
 
         basicProfitDTO.setCode(profitAbility.getCode());
@@ -628,4 +738,42 @@ public class RateServiceImpl implements RateService{
 
         return basicDTO;
     }
+
+
+    public ArrayList<klineDTO> getKline(String code, String sDate, String lDate) {
+        ArrayList<klineDTO> klineDTOArrayList=new ArrayList<klineDTO>();
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayKLineMapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        //allDateList是全部日期按照顺序排列
+        String realSDate=DateConvert.getRealStartDate(sDate,allDateList);
+        String realLDate=DateConvert.getRealEndDate(lDate,allDateList);
+
+        HashMap<String,Object> map = new HashMap<String, Object>();
+        map.put("code",code);
+        map.put("start",Date.valueOf(realSDate));
+        map.put("end",Date.valueOf(realLDate));
+        ArrayList<DayKLine> dayKLineArrayList= (ArrayList<DayKLine>) dayKLineMapper.getTimesDayKLines(map);
+
+        StockBasicInfo stockBasicInfo=dayKLineMapper.getOneStockInfo(code);
+
+        for(int count=0;count<dayKLineArrayList.size();count++){
+            klineDTO klineDTO=new klineDTO();
+            DayKLine dayKLine=dayKLineArrayList.get(count);
+            klineDTO.setId(code);
+            klineDTO.setOpenPrice(dayKLine.getOpenPrice());
+            klineDTO.setClosePrice(dayKLine.getClosePrice());
+            klineDTO.setHighPrice(dayKLine.getHighPrice());
+            klineDTO.setLowPrice(dayKLine.getLowPrice());
+            klineDTO.setDate(DateConvert.dateToString(dayKLine.getStockDate()));
+            klineDTO.setName(stockBasicInfo.getName());
+            klineDTOArrayList.add(klineDTO);
+
+        }
+        return klineDTOArrayList;
+    }
+
 }

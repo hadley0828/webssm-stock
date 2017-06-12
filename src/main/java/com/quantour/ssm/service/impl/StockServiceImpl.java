@@ -10,7 +10,6 @@ import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
