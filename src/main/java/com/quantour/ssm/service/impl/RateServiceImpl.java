@@ -155,8 +155,8 @@ public class RateServiceImpl implements RateService{
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(technicalMapDTOArrayList);
         technicalDTO.setOneDayVolume(oneDayVolume);
-        technicalDTO.setFiveDayVolume(fiveDayVolume);
-        technicalDTO.setTenDayVolume(tenDayVolume);
+        technicalDTO.setFiveDayVolume(fiveDayVolume/5.0);
+        technicalDTO.setTenDayVolume(tenDayVolume/10.0);
 
 
 
