@@ -67,6 +67,15 @@ public class StockController {
         return "serviceTest/stockkline";
     }
 
+    @RequestMapping("/nextStock")
+    public String showNextStock(HttpServletRequest request,Model model){
+        NextDateStockDTO nextDateStockDTO=stockService.getNextDayStockInfo("000001","2017-05-22");
+
+        model.addAttribute("nextDateStockDTO",nextDateStockDTO);
+        return "serviceTest/nextStock";
+
+    }
+
     @RequestMapping("/market")
     public String showMarket(HttpServletRequest request,Model model){
         marketDTO marketdto=stockService.getMarketInfo("2016-11-28");

@@ -1197,6 +1197,54 @@ public class StockServiceImpl implements StockService {
         return getSeveralStockInfo(resultList,realDate);
     }
 
+    @Override
+    public NextDateStockDTO getNextDayStockInfo(String code, String date) {
+
+        NextDateStockDTO nextDateStockDTO=new NextDateStockDTO();
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+        DayKLineKey dayKLineKey = new DayKLineKey();
+        dayKLineKey.setStockCode(code);
+        dayKLineKey.setStockDate(Date.valueOf(realDate));
+
+        DayKLine nowDayKLine=dayklinemapper.getOneDayKLine(dayKLineKey);
+
+        dayKLineKey.setStockCode(code);
+        dayKLineKey.setStockDate(Date.valueOf(DateConvert.getLastNDate(allDateList,realDate,-1)));
+        DayKLine nextDayKLine=dayklinemapper.getOneDayKLine(dayKLineKey);
+
+        double a=nowDayKLine.getHighPrice();
+        double b=nowDayKLine.getLowPrice();
+        double c=nowDayKLine.getOpenPrice();
+        double d=nowDayKLine.getClosePrice();
+        double e=(a+b+c+2*d)/5.0;
+        double f=nextDayKLine.getOpenPrice();
+
+        double one=e+(a-b);
+        double two=2*e-b;
+        double three=2*e-a;
+        double four=e-(a-b);
+        double five=(e+one+two+three+four)/5.0;
+        double six=(5+f)/2.0;
+
+        nextDateStockDTO.setStockCode(code);
+        nextDateStockDTO.setDate(realDate);
+        nextDateStockDTO.setRisingBreakthroughPrice(NumberConvert.saveNDouble(one,2));
+        nextDateStockDTO.setRisingResistancePrice(NumberConvert.saveNDouble(two,2));
+        nextDateStockDTO.setDeclineSupportPrice(NumberConvert.saveNDouble(three,2));
+        nextDateStockDTO.setDeclineReversePrice(NumberConvert.saveNDouble(four,2));
+        nextDateStockDTO.setTargetPrice(NumberConvert.saveNDouble(five,2));
+        nextDateStockDTO.setClosePrice(NumberConvert.saveNDouble(six,2));
+
+        return nextDateStockDTO;
+    }
+
     private static void ListSort(List<StockRecord> list) {
         Collections.sort(list, new Comparator<StockRecord>() {
             @Override

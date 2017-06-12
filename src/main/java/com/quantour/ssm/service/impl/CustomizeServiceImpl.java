@@ -600,7 +600,7 @@ public class CustomizeServiceImpl implements CustomizeService{
 
         indexprofitdto.setPlusCycles(plusCycles);
         indexprofitdto.setMinusCycles(minusCycles);
-        indexprofitdto.setWinRate(winRate);
+        indexprofitdto.setWinRate(NumberConvert.doubleToPercentageString(winRate));
         indexprofitdto.setCycleChangeMap(cycleChangeMap);
         strategyResultdto.setIndexprofitvo(indexprofitdto);
 
