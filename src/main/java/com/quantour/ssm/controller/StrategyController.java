@@ -4,6 +4,11 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/6/10.
  */
 
+import com.google.gson.Gson;
+import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
+import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
+import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.dto.strategyResultDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StockService;
@@ -88,5 +93,82 @@ public class StrategyController {
             System.out.println(entry.getKey() + ":" + entry.getValue());
         }
         return null;
+    }
+
+    @RequestMapping(value = "/runStrategy", method = RequestMethod.POST, produces = "charset=utf-8")
+    @ResponseBody
+    public String runStrategy(String map){
+        HashMap<String,Object> datamap = new HashMap<String, Object>();
+        HashMap<String,Object> result = new HashMap<String, Object>();
+
+        String[] data = map.split("&");
+        for(String s : data){
+            String[] items = s.split("=");
+            datamap.put(items[0],items[1]);
+        }
+
+        Iterator iter = datamap.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry entry = (Map.Entry) iter.next();
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
+
+        String userId = (String) datamap.get("userId");
+        String sDate = (String) datamap.get("sDate");
+        String lDate = (String) datamap.get("lDate");
+        String blockCode = (String) datamap.get("blockCode");
+
+
+        StockPondDTO stockPondDTO = new StockPondDTO();
+        stockPondDTO.setBlock((String) datamap.get("block"));
+        stockPondDTO.setConcept((String) datamap.get("concept"));
+        stockPondDTO.setExchange((String) datamap.get("exchange"));
+        stockPondDTO.setIndexIngredient((String) datamap.get("IndexIngredient"));
+        stockPondDTO.setIndustry((String) datamap.get("industry"));
+        stockPondDTO.setRegion((String) datamap.get("region"));
+        stockPondDTO.setStockPondChosen((String) datamap.get("stockPondChosen"));
+        stockPondDTO.setSTStock((String) datamap.get("STStock"));
+
+
+        ArrayList<ScreeningConditionDTO> screenlist = new ArrayList<ScreeningConditionDTO>();
+
+        for(int i = 1; i <= 13; i++){
+            if(datamap.containsKey("conditionName" + String.valueOf(i))){
+                ScreeningConditionDTO s = new ScreeningConditionDTO();
+                s.setConditionName((String) datamap.get("conditionName" + String.valueOf(i)));
+                s.setCompareSymbol((String) datamap.get("compareSymbol" + String.valueOf(i)));
+                s.setScope((String) datamap.get("scope" + String.valueOf(i)));
+                s.setFirstValue(Double.valueOf((String)datamap.get("firstValue"+ String.valueOf(i))));
+                if(datamap.containsKey("secondValue" + String.valueOf(i))){
+                    s.setSecondValue(Double.valueOf((String) datamap.get("secondValue" + String.valueOf(i))));
+                }
+                screenlist.add(s);
+            }
+        }
+
+
+        TradeModelDTO tradeModelDTO = new TradeModelDTO();
+        tradeModelDTO.setTransferCycle(Integer.valueOf((String) datamap.get("transferCycle")));
+        tradeModelDTO.setMaxHoldStockNumber(Integer.valueOf((String)datamap.get("max_num")));
+
+        strategyResultDTO resultDTO = customizeService.getCustomizeStrategyResult(userId,sDate,lDate,blockCode,stockPondDTO,screenlist,tradeModelDTO);
+
+
+        System.out.println(resultDTO.getAlpha());
+        System.out.println(resultDTO.getBeta());
+        System.out.println(resultDTO.getCurrentStandardProfit());
+        System.out.println(resultDTO.getCurrentStraProfit());
+        System.out.println(resultDTO.getDaysProfitList());
+        System.out.println(resultDTO.getIndexprofitvo());
+        System.out.println(resultDTO.getInfoPercent());
+        System.out.println(resultDTO.getMaxBack());
+        System.out.println(resultDTO.getProfitWaveRate());
+        System.out.println(resultDTO.getSharpRate());
+        System.out.println(resultDTO.getStraId());
+        System.out.println(resultDTO.getTurnoverRate());
+        System.out.println(resultDTO.getYearProfit());
+        System.out.println(resultDTO.getStandardProfit());
+
+        return new Gson().toJson("{text:'!'}");
     }
 }

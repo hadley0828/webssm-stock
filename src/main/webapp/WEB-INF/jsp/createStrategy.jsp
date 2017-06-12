@@ -273,7 +273,6 @@
 
             }
 
-            alert(map);
             $.ajax({
                 type:"POST",
                 url:'<%=request.getContextPath()%>/strategy/createCustomizeStrategy',
@@ -983,15 +982,15 @@
                             <div class="row">
                                 <div class="col-xs-2" style="padding-top: 10px">回测时间:</div>
                                 <div class="col-xs-2">
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="sdate">
                                 </div>
                                 <div class="col-xs-1" style="text-align: center;padding-top: 10px">-</div>
                                 <div class="col-xs-2">
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="ldate">
                                 </div>
                                 <div class="col-xs-2" style="text-align: right;padding-top: 10px">收益基准:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="blockCode">
                                         <option>上证50</option>
                                         <option>沪深300</option>
                                         <option>中证500</option>
@@ -1162,6 +1161,245 @@
     }
 
     function start() {
+
+        var userId = "${user.account.toString()}";
+        var sDate = document.getElementById("sdate").value;
+        var lDate = document.getElementById("ldate").value;
+        var blockCode = document.getElementById("blockCode").value;
+
+        if(blockCode == '上证50'){
+            blockCode = "sh000016";
+        }else if(blockCode == '沪深300'){
+            blockCode = "sh000300";
+        }else if(blockCode == '中证500'){
+            blockCode = "sh000905";
+        }
+
+
+        var stock_pool = document.getElementById('stock_pool').value;
+        var index_component = document.getElementById('index_component').value;
+        var block = document.getElementById('block').value;
+        var industry = document.getElementById('industry').value;
+        var st_stock = document.getElementById('st_stock').value;
+        var exchange = document.getElementById('exchange').value;
+        var concept = document.getElementById('concept').value;
+        var area = document.getElementById('area').value;
+
+        var cycle = document.getElementById('cycle').value;
+        var max_num = document.getElementById('max_num').value;
+
+        var screen1 = document.getElementById("open");
+        var list1 = screen1.getElementsByTagName('div');
+        var conditionName1 = list1[0].innerHTML;
+        var compareSymbol1 = list1[1].firstElementChild.value;
+        var scope1 = list1[2].firstElementChild.value;
+        var firstValue1 = list1[3].firstElementChild.value;
+        var secondValue1 = list1[5].firstElementChild.value;
+
+
+        var screen2 = document.getElementById("close");
+        var list2 = screen2.getElementsByTagName('div');
+        var conditionName2 = list2[0].innerHTML;
+        var compareSymbol2 = list2[1].firstElementChild.value;
+        var scope2 = list2[2].firstElementChild.value;
+        var firstValue2 = list2[3].firstElementChild.value;
+        var secondValue2 = list2[5].firstElementChild.value;
+        var check2 = list2[6].firstElementChild.value;
+
+        var screen3 = document.getElementById("high");
+        var list3 = screen3.getElementsByTagName('div');
+        var conditionName3 = list3[0].innerHTML;
+        var compareSymbol3 = list3[1].firstElementChild.value;
+        var scope3 = list3[2].firstElementChild.value;
+        var firstValue3 = list3[3].firstElementChild.value;
+        var secondValue3 = list3[5].firstElementChild.value;
+
+        var screen4 = document.getElementById("low");
+        var list4 = screen4.getElementsByTagName('div');
+        var conditionName4 = list4[0].innerHTML;
+        var compareSymbol4 = list4[1].firstElementChild.value;
+        var scope4 = list4[2].firstElementChild.value;
+        var firstValue4 = list4[3].firstElementChild.value;
+        var secondValue4 = list4[5].firstElementChild.value;
+
+        var screen5 = document.getElementById("last");
+        var list5 = screen5.getElementsByTagName('div');
+        var conditionName5 = list5[0].innerHTML;
+        var compareSymbol5 = list5[1].firstElementChild.value;
+        var scope5 = list5[2].firstElementChild.value;
+        var firstValue5 = list5[3].firstElementChild.value;
+        var secondValue5 = list5[5].firstElementChild.value;
+
+        var screen6 = document.getElementById("volume");
+        var list6 = screen6.getElementsByTagName('div');
+        var conditionName6 = list6[0].innerHTML;
+        var compareSymbol6 = list6[1].firstElementChild.value;
+        var scope6 = list6[2].firstElementChild.value;
+        var firstValue6 = list6[3].firstElementChild.value;
+        var secondValue6 = list6[5].firstElementChild.value;
+
+        var screen7 = document.getElementById("volume5");
+        var list7 = screen7.getElementsByTagName('div');
+        var conditionName7 = list7[0].innerHTML;
+        var compareSymbol7 = list7[1].firstElementChild.value;
+        var scope7 = list7[2].firstElementChild.value;
+        var firstValue7 = list7[3].firstElementChild.value;
+        var secondValue7 = list7[5].firstElementChild.value;
+
+        var screen8 = document.getElementById("volume20");
+        var list8 = screen8.getElementsByTagName('div');
+        var conditionName8 = list8[0].innerHTML;
+        var compareSymbol8 = list8[1].firstElementChild.value;
+        var scope8 = list8[2].firstElementChild.value;
+        var firstValue8 = list8[3].firstElementChild.value;
+        var secondValue8 = list8[5].firstElementChild.value;
+
+        var screen9 = document.getElementById("up");
+        var list9 = screen9.getElementsByTagName('div');
+        var conditionName9 = list9[0].innerHTML;
+        var compareSymbol9 = list9[1].firstElementChild.value;
+        var scope9 = list9[2].firstElementChild.value;
+        var firstValue9 = list9[3].firstElementChild.value;
+        var secondValue9 = list9[5].firstElementChild.value;
+
+        var screen10 = document.getElementById("up5");
+        var list10 = screen10.getElementsByTagName('div');
+        var conditionName10 = list10[0].innerHTML;
+        var compareSymbol10 = list10[1].firstElementChild.value;
+        var scope10 = list10[2].firstElementChild.value;
+        var firstValue10 = list10[3].firstElementChild.value;
+        var secondValue10 = list10[5].firstElementChild.value;
+
+        var screen11 = document.getElementById("up20");
+        var list11 = screen11.getElementsByTagName('div');
+        var conditionName11 = list11[0].innerHTML;
+        var compareSymbol11 = list11[1].firstElementChild.value;
+        var scope11 = list11[2].firstElementChild.value;
+        var firstValue11 = list11[3].firstElementChild.value;
+        var secondValue11 = list11[5].firstElementChild.value;
+
+        var screen12 = document.getElementById("list");
+        var list12 = screen12.getElementsByTagName('div');
+        var conditionName12 = list12[0].innerHTML;
+        var compareSymbol12 = list12[1].firstElementChild.value;
+        var scope12 = list12[2].firstElementChild.value;
+        var firstValue12 = list12[3].firstElementChild.value;
+        var secondValue12 = list12[5].firstElementChild.value;
+
+        var screen13 = document.getElementById("trade");
+        var list13 = screen13.getElementsByTagName('div');
+        var conditionName13 = list13[0].innerHTML;
+        var compareSymbol13 = list13[1].firstElementChild.value;
+        var scope13 = list13[2].firstElementChild.value;
+        var firstValue13 = list13[3].firstElementChild.value;
+        var secondValue13 = list13[5].firstElementChild.value;
+
+        var map = "userId="+userId+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode
+            + "&stockPondChosen="+stock_pool +"&IndexIngredient="+index_component+ "&block="+block + "&industry="+ industry + "&concept="+concept + "&STStock="+st_stock + "&exchange="+exchange+ "&region="+area
+            + "&transferCycle="+cycle + "&max_num="+ max_num
+        ;
+
+        if(document.getElementById("check1").checked){
+            if(compareSymbol1=='区间' || compareSymbol1=='排名%区间')
+                map = map + "&conditionName1="+conditionName1 + "&compareSymbol1="+compareSymbol1 + "&scope1="+scope1 + "&firstValue1="+firstValue1 + "&secondValue1="+secondValue1;
+            else
+                map = map + "&conditionName1="+conditionName1 + "&compareSymbol1="+compareSymbol1 + "&scope1="+scope1 + "&firstValue1="+firstValue1;
+        }
+        if(document.getElementById("check2").checked){
+            if(compareSymbol2=='区间' || compareSymbol2=='排名%区间')
+                map = map + "&conditionName2="+conditionName2 + "&compareSymbol2="+compareSymbol2 + "&scope2="+scope2 + "&firstValue2="+firstValue2 + "&secondValue2="+secondValue2;
+            else
+                map = map + "&conditionName2="+conditionName2 + "&compareSymbol2="+compareSymbol2 + "&scope2="+scope2 + "&firstValue2="+firstValue2;
+        }
+        if(document.getElementById("check3").checked){
+            if(compareSymbol3=='区间' || compareSymbol3=='排名%区间')
+                map = map + "&conditionName3="+conditionName3 + "&compareSymbol3="+compareSymbol3 + "&scope3="+scope3 + "&firstValue3="+firstValue3 + "&secondValue3="+secondValue3;
+            else
+                map = map + "&conditionName3="+conditionName3 + "&compareSymbol3="+compareSymbol3 + "&scope3="+scope3 + "&firstValue3="+firstValue3;
+
+        }
+        if(document.getElementById("check4").checked){
+            if(compareSymbol4=='区间' || compareSymbol4=='排名%区间')
+                map = map + "&conditionName4="+conditionName4 + "&compareSymbol4="+compareSymbol4 + "&scope4="+scope4 + "&firstValue4="+firstValue4 + "&secondValue4="+secondValue4;
+            else
+                map = map + "&conditionName4="+conditionName4 + "&compareSymbol4="+compareSymbol4 + "&scope4="+scope4 + "&firstValue4="+firstValue4;
+
+        }
+        if(document.getElementById("check5").checked){
+            if(compareSymbol5=='区间' || compareSymbol5=='排名%区间')
+                map = map + "&conditionName5="+conditionName5 + "&compareSymbol5="+compareSymbol5 + "&scope5="+scope5 + "&firstValue5="+firstValue5 + "&secondValue5="+secondValue5;
+            else
+                map = map + "&conditionName5="+conditionName5 + "&compareSymbol5="+compareSymbol5 + "&scope5="+scope5 + "&firstValue5="+firstValue5
+        }
+        if(document.getElementById("check6").checked){
+            if(compareSymbol6=='区间' || compareSymbol6=='排名%区间')
+                map = map + "&conditionName6="+conditionName6 + "&compareSymbol6="+compareSymbol6 + "&scope6="+scope6 + "&firstValue6="+firstValue6 + "&secondValue6="+secondValue6;
+            else
+                map = map + "&conditionName6="+conditionName6 + "&compareSymbol6="+compareSymbol6 + "&scope6="+scope6 + "&firstValue6="+firstValue6
+
+        }
+        if(document.getElementById("check7").checked){
+            if(compareSymbol7=='区间' || compareSymbol7=='排名%区间')
+                map = map + "&conditionName7="+conditionName7 + "&compareSymbol7="+compareSymbol7 + "&scope7="+scope7 + "&firstValue7="+firstValue7 + "&secondValue7="+secondValue7;
+            else
+                map = map + "&conditionName7="+conditionName7 + "&compareSymbol7="+compareSymbol7 + "&scope7="+scope7 + "&firstValue7="+firstValue7;
+
+        }
+        if(document.getElementById("check8").checked){
+            if(compareSymbol8=='区间' || compareSymbol8=='排名%区间')
+                map = map + "&conditionName8="+conditionName8 + "&compareSymbol8="+compareSymbol8 + "&scope8="+scope8 + "&firstValue8="+firstValue8 + "&secondValue8="+secondValue8;
+            else
+                map = map + "&conditionName8="+conditionName8 + "&compareSymbol8="+compareSymbol8 + "&scope8="+scope8 + "&firstValue8="+firstValue8;
+
+        }
+        if(document.getElementById("check9").checked){
+            if(compareSymbol9=='区间' || compareSymbol9=='排名%区间')
+                map = map + "&conditionName9="+conditionName9 + "&compareSymbol9="+compareSymbol9 + "&scope9="+scope9 + "&firstValue9="+firstValue9 + "&secondValue9="+secondValue9;
+            else
+                map = map + "&conditionName9="+conditionName9 + "&compareSymbol9="+compareSymbol9 + "&scope9="+scope9 + "&firstValue9="+firstValue9;
+
+        }
+        if(document.getElementById("check10").checked){
+            if(compareSymbol10=='区间' || compareSymbol10=='排名%区间')
+                map = map + "&conditionName10="+conditionName10 + "&compareSymbol10="+compareSymbol10 + "&scope10="+scope10 + "&firstValue10="+firstValue10 + "&secondValue10="+secondValue10;
+            else
+                map = map + "&conditionName10="+conditionName10 + "&compareSymbol10="+compareSymbol10 + "&scope10="+scope10 + "&firstValue10="+firstValue10;
+
+        }
+        if(document.getElementById("check11").checked){
+            if(compareSymbol11=='区间' || compareSymbol11=='排名%区间')
+                map = map + "&conditionName11="+conditionName11 + "&compareSymbol11="+compareSymbol11 + "&scope11="+scope11 + "&firstValue11="+firstValue11 + "&secondValue11="+secondValue11;
+            else
+                map = map + "&conditionName11="+conditionName11 + "&compareSymbol11="+compareSymbol11 + "&scope11="+scope11 + "&firstValue11="+firstValue11;
+
+        }
+        if(document.getElementById("check12").checked){
+            if(compareSymbol12=='区间' || compareSymbol12=='排名%区间')
+                map = map + "&conditionName12="+conditionName12 + "&compareSymbol12="+compareSymbol12 + "&scope12="+scope12 + "&firstValue12="+firstValue12 + "&secondValue12="+secondValue12;
+            else
+                map = map + "&conditionName12="+conditionName12 + "&compareSymbol12="+compareSymbol12 + "&scope12="+scope12 + "&firstValue12="+firstValue12;
+
+        }
+        if(document.getElementById("check13").checked){
+            if(compareSymbol13=='区间' || compareSymbol13=='排名%区间')
+                map = map + "&conditionName13="+conditionName13 + "&compareSymbol13="+compareSymbol13 + "&scope13="+scope13 + "&firstValue13="+firstValue13 + "&secondValue13="+secondValue13;
+            else
+                map = map + "&conditionName13="+conditionName13 + "&compareSymbol13="+compareSymbol13 + "&scope13="+scope13 + "&firstValue13="+firstValue13;
+
+        }
+
+        alert(map);
+        $.ajax({
+            type: "POST",
+            url: '<%=request.getContextPath()%>/strategy/runStrategy',
+            data:{map:map},
+            dataType:"json",
+            success:function (result) {
+                mydata = JSON.parse(result);
+                alert(mydata);
+            }
+        });
+
         document.getElementById("dataList").setAttribute("style","display");
         document.getElementById("chart").setAttribute("style","display");
     }
