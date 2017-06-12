@@ -787,12 +787,12 @@
                                     <th>涨幅</th>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="hot_stock" items="${one_day_list}">
+                                <c:forEach items="${one_day_list}"  var="hot_stock">
                                     <tr>
-                                        <td id="hot_name_${one_day_list.stockCode}">${one_day_list.stockName}</td>
-                                        <td>${one_day_list.stockCode}</td>
-                                        <td>${one_day_list.newestPrice}</td>
-                                        <th><a  onclick="addUl(document.getElementById('hot_name_${one_day_list.stockCode}').innerHTML)">对比</a> </th>
+                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
+                                        <td>${hot_stock.stockCode}</td>
+                                        <td>${hot_stock.newestPrice}</td>
+                                        <td>${hot_stock.changePercent}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
