@@ -8,6 +8,7 @@ import com.quantour.ssm.service.RateService;
 import com.quantour.ssm.util.CodeIndustryMap;
 import com.quantour.ssm.util.DateConvert;
 import com.quantour.ssm.util.StockCalculator;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,11 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public TechnicalDTO getOneStockTechnicalScore(String code, String date) {
+        TechnicalDTO technicalDTO=new TechnicalDTO();
+
+
+
+
         return null;
     }
 
@@ -393,6 +399,233 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public BasicDTO getOneStockBasicScore(String code, String date) {
-        return null;
+        BasicDTO basicDTO=new BasicDTO();
+        basicDTO.setBasicScore(10);
+        basicDTO.setPartScore(100);
+        basicDTO.setDefeatPercent(80);
+
+        CashFlow cashFlow=rateMapper.getOneCashFlow(code);
+        Basic_cashFlowDTO basicCashFlowDTO=new Basic_cashFlowDTO();
+        //TODO
+        System.out.println(cashFlow.getCode());
+
+        basicCashFlowDTO.setCode(cashFlow.getCode());
+        basicCashFlowDTO.setName(cashFlow.getName());
+        if(cashFlow.getCf_sales().equals("nan")){
+            basicCashFlowDTO.setCfSales("--");
+        }else{
+            basicCashFlowDTO.setCfSales(cashFlow.getCf_sales());
+        }
+
+        if(cashFlow.getRateofreturn().equals("nan")){
+            basicCashFlowDTO.setRateOfReturn("--");
+        }else{
+            basicCashFlowDTO.setRateOfReturn(cashFlow.getCashflowratio());
+        }
+
+        if(cashFlow.getCf_nm().equals("nan")){
+            basicCashFlowDTO.setCfNm("--");
+        }else{
+            basicCashFlowDTO.setCfNm(cashFlow.getCf_nm());
+        }
+
+        if(cashFlow.getCf_liabilities().equals("nan")){
+            basicCashFlowDTO.setCfLiAbilities("--");
+        }else{
+            basicCashFlowDTO.setCfLiAbilities(cashFlow.getCf_liabilities());
+        }
+
+        if(cashFlow.getCashflowratio().equals("nan")){
+            basicCashFlowDTO.setCashFlowRatio("--");
+        }else{
+            basicCashFlowDTO.setCashFlowRatio(cashFlow.getCashflowratio());
+        }
+
+        basicDTO.setBasicCashFlowDTO(basicCashFlowDTO);
+
+
+        EarningAbility earningAbility=rateMapper.getOneEarningAbility(code);
+        Basic_earningDTO basicEarningDTO=new Basic_earningDTO();
+
+        //TODO
+        System.out.println(earningAbility.getCode());
+
+        basicEarningDTO.setCode(earningAbility.getCode());
+        basicEarningDTO.setName(earningAbility.getName());
+        if(earningAbility.getArturnover().equals("nan")){
+            basicEarningDTO.setArTurnOver("--");
+        }else{
+            basicEarningDTO.setArTurnOver(earningAbility.getArturnover());
+        }
+
+        if(earningAbility.getArturndays().equals("nan")){
+            basicEarningDTO.setArTurnDays("--");
+        }else{
+            basicEarningDTO.setArTurnDays(earningAbility.getArturndays());
+        }
+
+        if(earningAbility.getInventory_turnover().equals("nan")){
+            basicEarningDTO.setInventoryTurnOver("--");
+        }else{
+            basicEarningDTO.setInventoryTurnOver(earningAbility.getInventory_turnover());
+        }
+
+        if(earningAbility.getInventory_days().equals("nan")){
+            basicEarningDTO.setInventoryDays("--");
+        }else{
+            basicEarningDTO.setInventoryDays(earningAbility.getInventory_days());
+        }
+
+        if(earningAbility.getCurrentasset_turnover().equals("nan")){
+            basicEarningDTO.setCurrentAssetTurnOver("--");
+        }else{
+            basicEarningDTO.setCurrentAssetTurnOver(earningAbility.getCurrentasset_turnover());
+        }
+
+        if(earningAbility.getCurrentasset_days().equals("nan")){
+            basicEarningDTO.setCurrentAssetDays("--");
+        }else{
+            basicEarningDTO.setCurrentAssetDays(earningAbility.getCurrentasset_days());
+        }
+
+        basicDTO.setBasicEarningDTO(basicEarningDTO);
+
+        GrowAbility growAbility=rateMapper.getOneGrowAbility(code);
+        Basic_growDTO basicGrowDTO=new Basic_growDTO();
+
+        //TODO
+        System.out.println(growAbility.getCode());
+
+
+        basicGrowDTO.setCode(growAbility.getCode());
+        basicGrowDTO.setName(growAbility.getName());
+        if(growAbility.getMbrg().equals("nan")){
+            basicGrowDTO.setMbrg("--");
+        }else{
+            basicGrowDTO.setMbrg(growAbility.getMbrg());
+        }
+
+        if(growAbility.getNprg().equals("nan")){
+            basicGrowDTO.setNprg("--");
+        }else{
+            basicGrowDTO.setNprg(growAbility.getNprg());
+        }
+
+        if(growAbility.getNav().equals("nan")){
+            basicGrowDTO.setNav("--");
+        }else{
+            basicGrowDTO.setNav(growAbility.getNav());
+        }
+
+        if(growAbility.getTarg().equals("nan")){
+            basicGrowDTO.setTarg("--");
+        }else{
+            basicGrowDTO.setTarg(growAbility.getTarg());
+        }
+
+        if(growAbility.getEpsg().equals("nan")){
+            basicGrowDTO.setEpsg("--");
+        }else{
+            basicGrowDTO.setEpsg(growAbility.getEpsg());
+        }
+
+        if(growAbility.getSeg().equals("nan")){
+            basicGrowDTO.setSeg("--");
+        }else{
+            basicGrowDTO.setSeg(growAbility.getSeg());
+        }
+        basicDTO.setBasicGrowDTO(basicGrowDTO);
+
+        PaymentAbility paymentAbility=rateMapper.getOnePaymentAbility(code);
+        Basic_paymentDTO basicPaymentDTO=new Basic_paymentDTO();
+
+        //TODO
+        System.out.println(paymentAbility.getCode());
+
+        basicPaymentDTO.setCode(paymentAbility.getCode());
+        basicPaymentDTO.setName(paymentAbility.getName());
+        if(paymentAbility.getCurrentratio().equals("nan")){
+            basicPaymentDTO.setCurrentRatio("--");
+        }else{
+            basicPaymentDTO.setCurrentRatio(paymentAbility.getCurrentratio());
+        }
+        if(paymentAbility.getQuickratio().equals("nan")){
+            basicPaymentDTO.setQuickRatio("--");
+        }else{
+            basicPaymentDTO.setQuickRatio(paymentAbility.getQuickratio());
+        }
+        if(paymentAbility.getCashratio().equals("nan")){
+            basicPaymentDTO.setCashRatio("--");
+        }else{
+            basicPaymentDTO.setCashRatio(paymentAbility.getCashratio());
+        }
+        if(paymentAbility.getIcratio().equals("nan")){
+            basicPaymentDTO.setIcRatio("--");
+        }else{
+            basicPaymentDTO.setIcRatio(paymentAbility.getIcratio());
+        }
+
+        if(paymentAbility.getSheqratio().equals("nan")){
+            basicPaymentDTO.setSheqRatio("--");
+        }else{
+            basicPaymentDTO.setSheqRatio(paymentAbility.getSheqratio());
+        }
+
+        if(paymentAbility.getAdratio().equals("nan")){
+            basicPaymentDTO.setAdRatio("--");
+        }else{
+            basicPaymentDTO.setAdRatio(paymentAbility.getAdratio());
+        }
+
+        basicDTO.setBasicPaymentDTO(basicPaymentDTO);
+
+        ProfitAbility profitAbility=rateMapper.getOneProfitAbility(code);
+        Basic_profitDTO basicProfitDTO=new Basic_profitDTO();
+
+        //TODO
+        System.out.println(profitAbility.getCode());
+
+        basicProfitDTO.setCode(profitAbility.getCode());
+        basicProfitDTO.setName(profitAbility.getName());
+        if(profitAbility.getRoe().equals("nan")){
+            basicProfitDTO.setRoe("--");
+        }else{
+            basicProfitDTO.setRoe(profitAbility.getRoe());
+        }
+        if(profitAbility.getNet_profit_ratio().equals("nan")){
+            basicProfitDTO.setNetProfitRatio("--");
+        }else{
+            basicProfitDTO.setNetProfitRatio(profitAbility.getNet_profit_ratio());
+        }
+        if(profitAbility.getGross_profit_rate().equals("nan")){
+            basicProfitDTO.setGrossProfitRate("--");
+        }else{
+            basicProfitDTO.setGrossProfitRate(profitAbility.getGross_profit_rate());
+        }
+        if(profitAbility.getNet_profits().equals("nan")){
+            basicProfitDTO.setNetProfits("--");
+        }else{
+            basicProfitDTO.setNetProfits(profitAbility.getNet_profits());
+        }
+        if(profitAbility.getEsp().equals("nan")){
+            basicProfitDTO.setEsp("--");
+        }else{
+            basicProfitDTO.setEsp(profitAbility.getEsp());
+        }
+        if(profitAbility.getBusiness_income().equals("nan")){
+            basicProfitDTO.setBussinessIncome("--");
+        }else{
+            basicProfitDTO.setBussinessIncome(profitAbility.getBusiness_income());
+        }
+        if(profitAbility.getBips().equals("nan")){
+            basicProfitDTO.setBips("--");
+        }else{
+            basicProfitDTO.setBips(profitAbility.getBips());
+        }
+        basicDTO.setBasicProfitDTO(basicProfitDTO);
+
+        System.out.println(basicDTO);
+
+        return basicDTO;
     }
 }

@@ -39,7 +39,8 @@ public class RateTest {
 //        System.out.println(oneCode.substring(0,3));
 
 //        test.printAllIndustryFund();
-        test.printAllDate();
+//        test.printAllDate();
+        test.printOneCashFlow();
     }
 
     public void testGetOne(){
@@ -229,5 +230,10 @@ public class RateTest {
         }
 
         System.out.println(allSqlDateList.size());
+    }
+
+    public void printOneCashFlow(){
+        CashFlow cashFlow=rateMapper.getOneCashFlow("000001");
+        System.out.println(cashFlow.getCf_nm()+" "+cashFlow.getCf_sales());
     }
 }

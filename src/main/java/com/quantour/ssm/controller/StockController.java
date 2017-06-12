@@ -7,6 +7,7 @@ import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
+import com.quantour.ssm.dto.stockRate.BasicDTO;
 import com.quantour.ssm.dto.stockRate.CapitalDTO;
 import com.quantour.ssm.dto.stockRate.IndustryDTO;
 import com.quantour.ssm.dto.stockRate.MessageDTO;
@@ -288,6 +289,14 @@ public class StockController {
         model.addAttribute("industryDTO",industryDTO);
         return "serviceTest/industryScore";
 
+    }
+
+    @RequestMapping("/getBasicScore")
+    public String showBasicScore(HttpServletRequest request,Model model){
+        BasicDTO basicDTO=rateService.getOneStockBasicScore("000001","2017-06-02");
+
+        model.addAttribute("basicDTO",basicDTO);
+        return "serviceTest/basicScore";
     }
 
 
