@@ -59,4 +59,9 @@ public interface RateService {
      */
     public BasicDTO getOneStockBasicScore(String code,String date);
 
+    /**
+     * 向数据库中写入全部的分数信息
+     */
+    public boolean addAllScoreDate();
+
 }

@@ -8,7 +8,6 @@ public class GeneralScoreDTO {
     String stockCode;   //股票编号
     String stockName;   //股票名称
     double totalScore;  //最终得分
-    double defeatPercent;   //击败了多少百分比的股票
     String suggestion;  //卖出 减持 中性 增持 买入
     double technicalScore;  //技术面得分
     double capitalScore;    //资金面得分
@@ -21,17 +20,12 @@ public class GeneralScoreDTO {
     IndustryDTO industryDTO;
     BasicDTO basicDTO;
 
-    public GeneralScoreDTO(){
-        super();
-    }
-
     @Override
     public String toString() {
         return "GeneralScoreDTO{" +
                 "stockCode='" + stockCode + '\'' +
                 ", stockName='" + stockName + '\'' +
                 ", totalScore=" + totalScore +
-                ", defeatPercent=" + defeatPercent +
                 ", suggestion='" + suggestion + '\'' +
                 ", technicalScore=" + technicalScore +
                 ", capitalScore=" + capitalScore +
@@ -45,6 +39,11 @@ public class GeneralScoreDTO {
                 ", basicDTO=" + basicDTO +
                 '}';
     }
+
+    public GeneralScoreDTO(){
+        super();
+    }
+
 
     public String getStockCode() {
         return stockCode;
@@ -68,14 +67,6 @@ public class GeneralScoreDTO {
 
     public void setTotalScore(double totalScore) {
         this.totalScore = totalScore;
-    }
-
-    public double getDefeatPercent() {
-        return defeatPercent;
-    }
-
-    public void setDefeatPercent(double defeatPercent) {
-        this.defeatPercent = defeatPercent;
     }
 
     public String getSuggestion() {

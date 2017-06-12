@@ -272,6 +272,15 @@ public class StockController {
         return "serviceTest/intelligentStock";
     }
 
+    @RequestMapping("/addAllScore")
+    public String showAllScore(HttpServletRequest request,Model model){
+        boolean result=rateService.addAllScoreDate();
+
+        model.addAttribute("result",result);
+        return "serviceTest/addData";
+    }
+
+
     @RequestMapping("/getTechnicalScore")
     public String showTechnicalScore(HttpServletRequest request,Model model){
         TechnicalDTO technicalDTO=rateService.getOneStockTechnicalScore("000001","2017-06-02");
@@ -283,7 +292,7 @@ public class StockController {
 
     @RequestMapping("/getCapitalScore")
     public String showCapitalScore(HttpServletRequest request,Model model){
-        CapitalDTO capitalDTO=rateService.getOneStockCapitalScore("000001","2017-06-02");
+        CapitalDTO capitalDTO=rateService.getOneStockCapitalScore("000511","2017-06-02");
 
         model.addAttribute("capitalDTO",capitalDTO);
 
@@ -310,10 +319,18 @@ public class StockController {
 
     @RequestMapping("/getBasicScore")
     public String showBasicScore(HttpServletRequest request,Model model){
-        BasicDTO basicDTO=rateService.getOneStockBasicScore("000001","2017-06-02");
+        BasicDTO basicDTO=rateService.getOneStockBasicScore("000511","2017-06-02");
 
         model.addAttribute("basicDTO",basicDTO);
         return "serviceTest/basicScore";
+    }
+
+    @RequestMapping("/getGeneralScore")
+    public String showGeneralScore(HttpServletRequest request,Model model){
+        GeneralScoreDTO generalScoreDTO=rateService.getOneStockGeneralScore("000001","2017-06-02");
+
+        model.addAttribute("generalScoreDTO",generalScoreDTO);
+        return "serviceTest/generalScore";
     }
 
 

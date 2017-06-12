@@ -8,6 +8,7 @@ import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.RateService;
 import com.quantour.ssm.util.CodeIndustryMap;
 import com.quantour.ssm.util.DateConvert;
+import com.quantour.ssm.util.NumberConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zhangzy on 2017/6/3.
@@ -36,7 +34,54 @@ public class RateServiceImpl implements RateService{
 
     @Override
     public GeneralScoreDTO getOneStockGeneralScore(String code,String date) {
-        return null;
+        GeneralScoreDTO generalScoreDTO=new GeneralScoreDTO();
+
+
+        ArrayList<StockBasicInfo> allStockInfoList= (ArrayList<StockBasicInfo>) dayKLineMapper.getAllStockInfos();
+        HashMap<String,String> codeToNameMap=new HashMap<String, String>();
+        for(int count=0;count<allStockInfoList.size();count++){
+            codeToNameMap.put(allStockInfoList.get(count).getCode(),allStockInfoList.get(count).getName());
+        }
+
+
+        TechnicalDTO technicalDTO=getOneStockTechnicalScore(code,date);
+        CapitalDTO capitalDTO=getOneStockCapitalScore(code,date);
+        MessageDTO messageDTO=getOneStockMessageScore(code,date);
+        IndustryDTO industryDTO=getOneStockIndustryScore(code,date);
+        BasicDTO basicDTO=getOneStockBasicScore(code,date);
+
+        generalScoreDTO.setStockCode(code);
+        generalScoreDTO.setStockName(codeToNameMap.get(code));
+        generalScoreDTO.setTotalScore(0.3*technicalDTO.getTechnicalScore()+0.3*capitalDTO.getCapitalScore()+0.1*messageDTO.getMessageScore()+0.15*industryDTO.getIndustryScore()+0.15*basicDTO.getBasicScore());
+
+        double totalScore=generalScoreDTO.getTotalScore();
+        if(0<=totalScore&&totalScore<2){
+            generalScoreDTO.setSuggestion("卖出");
+        }else if(2<=totalScore&&totalScore<4){
+            generalScoreDTO.setSuggestion("减持");
+        }else if(4<=totalScore&&totalScore<6){
+            generalScoreDTO.setSuggestion("中性");
+        }else if(6<=totalScore&&totalScore<8){
+            generalScoreDTO.setSuggestion("增持");
+        }else if(8<=totalScore&&totalScore<=10){
+            generalScoreDTO.setSuggestion("买入");
+        }
+
+        generalScoreDTO.setTechnicalScore(technicalDTO.getTechnicalScore());
+        generalScoreDTO.setCapitalScore(capitalDTO.getCapitalScore());
+        generalScoreDTO.setMessageScore(messageDTO.getMessageScore());
+        generalScoreDTO.setIndustryScore(industryDTO.getIndustryScore());
+        generalScoreDTO.setBasicScore(basicDTO.getBasicScore());
+
+        generalScoreDTO.setTechnicalDTO(technicalDTO);
+        generalScoreDTO.setCapitalDTO(capitalDTO);
+        generalScoreDTO.setMessageDTO(messageDTO);
+        generalScoreDTO.setIndustryDTO(industryDTO);
+        generalScoreDTO.setBasicDTO(basicDTO);
+
+
+
+        return generalScoreDTO;
     }
 
     @Override
@@ -149,7 +194,7 @@ public class RateServiceImpl implements RateService{
         }
 
 
-        technicalDTO.setTechnicalScore(10.0);
+
 
         double averageDayChangePercent=0.0;     //平均每天的涨跌幅
         double averageMinusChangePercent=0.0;   //平均每天和大盘差值的涨跌幅
@@ -183,10 +228,23 @@ public class RateServiceImpl implements RateService{
 
         double partScore=30*(one+0.1)+10*(two+0.1)+20*(three+0.1)+5*five/four+5*six/four;
 
+        StockScore stockScore=rateMapper.getOneStockScore(code);
+        double thisScore=stockScore.getTechnicalScore();
+
+        ArrayList<StockScore> allStockScore= (ArrayList<StockScore>) rateMapper.getAllStockScore();
+        ArrayList<Double> oneScoreList=new ArrayList<Double>();
+
+        for(int count=0;count<allStockScore.size();count++){
+            oneScoreList.add(allStockScore.get(count).getTechnicalScore());
+        }
+
+        //0-10分中给分
+        double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
+        technicalDTO.setTechnicalScore(technicalScore);
         technicalDTO.setPartScore(partScore);
-        technicalDTO.setDefeatPercent(90);
+        technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(technicalMapDTOArrayList);
         technicalDTO.setOneDayVolume(oneDayVolume);
@@ -196,6 +254,20 @@ public class RateServiceImpl implements RateService{
 
 
         return technicalDTO;
+    }
+
+    private double getOneScore(double thisScore, ArrayList<Double> oneScoreList) {
+        int totalNumber=oneScoreList.size();
+        int defeatNumber=0;
+
+        for(int count=0;count<oneScoreList.size();count++){
+            if(thisScore>=oneScoreList.get(count)){
+                defeatNumber++;
+            }
+        }
+
+
+        return 10.0*defeatNumber/totalNumber;
     }
 
     @Override
@@ -295,7 +367,14 @@ public class RateServiceImpl implements RateService{
 
 
         HashMap<String,Double> oneStockSingleMap=allSingleFlowMap.get(code);
+        if(oneStockSingleMap==null){
+            oneStockSingleMap=new HashMap<String, Double>();
+        }
         HashMap<String,Double> oneIndustryMap=allProfessionFlowMap.get(thisStockIndustry);
+        if(oneIndustryMap==null){
+            oneIndustryMap=new HashMap<String, Double>();
+        }
+
 
         for(int count=19;count>=0;count--){
             String currentDate=DateConvert.getLastNDate(allDateList,realDate,count);
@@ -305,56 +384,120 @@ public class RateServiceImpl implements RateService{
 
             double oneDayIndustryTotalFlow=0.0;
 
-            if(count==0){
-                //单日的个股资金流向和行业资金流向
-                singleOneFlow=singleOneFlow+oneStockSingleMap.get(currentDate);
-                industryOneFlow=industryOneFlow+oneIndustryMap.get(currentDate);
+//            System.out.println(oneStockSingleMap);
+//            System.out.println(oneStockSingleMap.size());
+//            System.out.println(oneIndustryMap);
+//            System.out.println(oneIndustryMap.size());
+
+            if(oneStockSingleMap.containsKey(currentDate)){
+                if(count==0){
+                    //单日的个股资金流向和行业资金流向
+                    singleOneFlow=singleOneFlow+oneStockSingleMap.get(currentDate);
+                }
+
+                if(0<=count&&count<=4){
+                    //近五日的个股资金流向和行业资金流向
+                    singleFiveFlow=singleFiveFlow+oneStockSingleMap.get(currentDate);
+                }
+
+                if(0<=count&&count<=9){
+                    //近十日的个股资金流向和行业资金流向
+                    singleTenFlow=singleTenFlow+oneStockSingleMap.get(currentDate);
+                }
+
+                //近二十日的个股资金流向和行业资金流向
+                singleTwentyFlow=singleTwentyFlow+oneStockSingleMap.get(currentDate);
             }
 
-            if(0<=count&&count<=4){
-                //近五日的个股资金流向和行业资金流向
-                singleFiveFlow=singleFiveFlow+oneStockSingleMap.get(currentDate);
-                industryFiveFlow=industryFiveFlow+oneIndustryMap.get(currentDate);
+            if(oneIndustryMap.containsKey(currentDate)){
+                if(count==0){
+                    //单日的个股资金流向和行业资金流向
+                    industryOneFlow=industryOneFlow+oneIndustryMap.get(currentDate);
+                }
+
+                if(0<=count&&count<=4){
+                    //近五日的个股资金流向和行业资金流向
+                    industryFiveFlow=industryFiveFlow+oneIndustryMap.get(currentDate);
+                }
+
+                if(0<=count&&count<=9){
+                    //近十日的个股资金流向和行业资金流向
+                    industryTenFlow=industryTenFlow+oneIndustryMap.get(currentDate);
+                }
+
+                //近二十日的个股资金流向和行业资金流向
+                industryTwentyFlow=industryTwentyFlow+oneIndustryMap.get(currentDate);
+
+
+
             }
 
-            if(0<=count&&count<=9){
-                //近十日的个股资金流向和行业资金流向
-                singleTenFlow=singleTenFlow+oneStockSingleMap.get(currentDate);
-                industryTenFlow=industryTenFlow+oneIndustryMap.get(currentDate);
-            }
 
-            //近二十日的个股资金流向和行业资金流向
-            singleTwentyFlow=singleTwentyFlow+oneStockSingleMap.get(currentDate);
-            industryTwentyFlow=industryTwentyFlow+oneIndustryMap.get(currentDate);
+
 
 //            System.out.println(oneStockSameKindSet.size());
 
-            for (String str : oneStockSameKindSet) {
+//            System.out.println(oneStockSameKindSet);
 
-                if(allSingleFlowMap.containsKey(str)){
-                    if(allSingleFlowMap.get(str).containsKey(currentDate)){
-                        oneDayIndustryTotalFlow=oneDayIndustryTotalFlow+allSingleFlowMap.get(str).get(currentDate);
+            if(oneStockSameKindSet==null){
+                oneDayIndustryTotalFlow=oneDayIndustryTotalFlow+0.0;
+            }else{
+                for (String str : oneStockSameKindSet) {
+
+                    if(allSingleFlowMap.containsKey(str)){
+                        if(allSingleFlowMap.get(str).containsKey(currentDate)){
+                            oneDayIndustryTotalFlow=oneDayIndustryTotalFlow+allSingleFlowMap.get(str).get(currentDate);
+                        }
                     }
                 }
             }
 
-            double oneDayIndustryAverageFlow=oneDayIndustryTotalFlow/oneStockSameKindSet.size();
+            double oneDayIndustryAverageFlow=0.0;
+
+            if(oneStockSameKindSet==null){
+                oneDayIndustryAverageFlow=0.0;
+            }else{
+                oneDayIndustryAverageFlow=oneDayIndustryTotalFlow/oneStockSameKindSet.size();
+            }
+
+
             fundFlowMapDTO.setDate(currentDate);
-            fundFlowMapDTO.setSingleFlow(oneStockSingleMap.get(currentDate));
+
+            if(oneStockSingleMap.containsKey(currentDate)){
+                fundFlowMapDTO.setSingleFlow(oneStockSingleMap.get(currentDate));
+            }else{
+                fundFlowMapDTO.setSingleFlow(0.0);
+            }
             fundFlowMapDTO.setIndustryAverageFlow(oneDayIndustryAverageFlow);
 
             allFlowMapList.add(fundFlowMapDTO);
 
         }
 
-        double partScore=0.0;
+
+
+
+        StockScore stockScore=rateMapper.getOneStockScore(code);
+        double thisScore=stockScore.getCapitalScore();
+
+        ArrayList<StockScore> allStockScore= (ArrayList<StockScore>) rateMapper.getAllStockScore();
+        ArrayList<Double> oneScoreList=new ArrayList<Double>();
+
+        for(int count=0;count<allStockScore.size();count++){
+            oneScoreList.add(allStockScore.get(count).getCapitalScore());
+        }
+
+        //0-10分中给分
+        double CapitalScore=getOneScore(thisScore,oneScoreList);
 
 
 
 
-        capitalDTO.setCapitalScore(10.0);
 
-        capitalDTO.setDefeatPercent(80);
+
+        capitalDTO.setCapitalScore(CapitalScore);
+
+        capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore/10.0));
 
         capitalDTO.setFlowMapList(allFlowMapList);
 
@@ -388,9 +531,9 @@ public class RateServiceImpl implements RateService{
         if(institutionTrade!=null){
             three=institutionTrade.getNet()/singleOneFlow;
         }
-        double partscore=one*0.2+two*0.1+0.00005*three;
+        double partScore=one*0.2+two*0.1+0.00005*three;
 
-        capitalDTO.setPartScore(partscore);
+        capitalDTO.setPartScore(partScore);
 
         return capitalDTO;
     }
@@ -468,12 +611,23 @@ public class RateServiceImpl implements RateService{
 
         double partScore=1.0*one+10.0*two;
 
+        StockScore stockScore=rateMapper.getOneStockScore(code);
+        double thisScore=stockScore.getMessageScore();
+
+        ArrayList<StockScore> allStockScore= (ArrayList<StockScore>) rateMapper.getAllStockScore();
+        ArrayList<Double> oneScoreList=new ArrayList<Double>();
+
+        for(int count=0;count<allStockScore.size();count++){
+            oneScoreList.add(allStockScore.get(count).getMessageScore());
+        }
+
+        //0-10分中给分
+        double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
-
-        messageDTO.setMessageScore(10.0);
+        messageDTO.setMessageScore(technicalScore);
         messageDTO.setPartScore(partScore);
-        messageDTO.setDefeatPercent(90);
+        messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
         messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
 
 
@@ -514,6 +668,10 @@ public class RateServiceImpl implements RateService{
 
         }
 
+        if(oneIndustryFlowMap==null){
+            oneIndustryFlowMap=new HashMap<String, ProfessionFundFlows>();
+        }
+
         String lastDate=DateConvert.getLastNDate(allDateList,realDate,10);
 
         HashMap<String,Object> map = new HashMap<String, Object>();
@@ -548,11 +706,21 @@ public class RateServiceImpl implements RateService{
 
             dateAndChange.setDate(currentDate);
             dateAndChange.setBlockChangePercent(StockCalculator.getIncrease(lastPrice,nowPrice));
-            dateAndChange.setIndustryChangePercent(oneIndustryFlowMap.get(currentDate).getChange_percent());
+
+            if(oneIndustryFlowMap.containsKey(currentDate)){
+                dateAndChange.setIndustryChangePercent(oneIndustryFlowMap.get(currentDate).getChange_percent());
+            }else{
+                dateAndChange.setIndustryChangePercent(0.0);
+            }
+
 
             resultList.add(dateAndChange);
 
-            double changePercent=oneIndustryFlowMap.get(currentDate).getChange_percent();
+            double changePercent=0.0;
+            if(oneIndustryFlowMap.containsKey(currentDate)){
+                changePercent=oneIndustryFlowMap.get(currentDate).getChange_percent();
+            }
+
             tenDaysIndustryChange=tenDaysIndustryChange*(1+changePercent);
 
 
@@ -577,10 +745,23 @@ public class RateServiceImpl implements RateService{
 
         double partScore=two*200.0+100.0*one;
 
+        StockScore stockScore=rateMapper.getOneStockScore(code);
+        double thisScore=stockScore.getIndustryScore();
 
-        industryDTO.setIndustryScore(10.0);
+        ArrayList<StockScore> allStockScore= (ArrayList<StockScore>) rateMapper.getAllStockScore();
+        ArrayList<Double> oneScoreList=new ArrayList<Double>();
+
+        for(int count=0;count<allStockScore.size();count++){
+            oneScoreList.add(allStockScore.get(count).getIndustryScore());
+        }
+
+        //0-10分中给分
+        double technicalScore=getOneScore(thisScore,oneScoreList);
+
+
+        industryDTO.setIndustryScore(technicalScore);
         industryDTO.setPartScore(partScore);
-        industryDTO.setDefeatPercent(80);
+        industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
 
 
         return industryDTO;
@@ -594,39 +775,42 @@ public class RateServiceImpl implements RateService{
         CashFlow cashFlow=rateMapper.getOneCashFlow(code);
         Basic_cashFlowDTO basicCashFlowDTO=new Basic_cashFlowDTO();
 
-        System.out.println(cashFlow.getCode());
+//        System.out.println(cashFlow.getCode());
 
-        basicCashFlowDTO.setCode(cashFlow.getCode());
-        basicCashFlowDTO.setName(cashFlow.getName());
-        if(cashFlow.getCf_sales().equals("nan")){
-            basicCashFlowDTO.setCfSales("--");
-        }else{
-            basicCashFlowDTO.setCfSales(cashFlow.getCf_sales());
+        basicCashFlowDTO.setCode(code);
+        if(cashFlow!=null){
+            basicCashFlowDTO.setName(cashFlow.getName());
+            if(cashFlow.getCf_sales().equals("nan")){
+                basicCashFlowDTO.setCfSales("--");
+            }else{
+                basicCashFlowDTO.setCfSales(cashFlow.getCf_sales());
+            }
+
+            if(cashFlow.getRateofreturn().equals("nan")){
+                basicCashFlowDTO.setRateOfReturn("--");
+            }else{
+                basicCashFlowDTO.setRateOfReturn(cashFlow.getCashflowratio());
+            }
+
+            if(cashFlow.getCf_nm().equals("nan")){
+                basicCashFlowDTO.setCfNm("--");
+            }else{
+                basicCashFlowDTO.setCfNm(cashFlow.getCf_nm());
+            }
+
+            if(cashFlow.getCf_liabilities().equals("nan")){
+                basicCashFlowDTO.setCfLiAbilities("--");
+            }else{
+                basicCashFlowDTO.setCfLiAbilities(cashFlow.getCf_liabilities());
+            }
+
+            if(cashFlow.getCashflowratio().equals("nan")){
+                basicCashFlowDTO.setCashFlowRatio("--");
+            }else{
+                basicCashFlowDTO.setCashFlowRatio(cashFlow.getCashflowratio());
+            }
         }
 
-        if(cashFlow.getRateofreturn().equals("nan")){
-            basicCashFlowDTO.setRateOfReturn("--");
-        }else{
-            basicCashFlowDTO.setRateOfReturn(cashFlow.getCashflowratio());
-        }
-
-        if(cashFlow.getCf_nm().equals("nan")){
-            basicCashFlowDTO.setCfNm("--");
-        }else{
-            basicCashFlowDTO.setCfNm(cashFlow.getCf_nm());
-        }
-
-        if(cashFlow.getCf_liabilities().equals("nan")){
-            basicCashFlowDTO.setCfLiAbilities("--");
-        }else{
-            basicCashFlowDTO.setCfLiAbilities(cashFlow.getCf_liabilities());
-        }
-
-        if(cashFlow.getCashflowratio().equals("nan")){
-            basicCashFlowDTO.setCashFlowRatio("--");
-        }else{
-            basicCashFlowDTO.setCashFlowRatio(cashFlow.getCashflowratio());
-        }
 
         basicDTO.setBasicCashFlowDTO(basicCashFlowDTO);
 
@@ -635,45 +819,52 @@ public class RateServiceImpl implements RateService{
         Basic_earningDTO basicEarningDTO=new Basic_earningDTO();
 
 
-        System.out.println(earningAbility.getCode());
+//        System.out.println(earningAbility.getCode());
 
-        basicEarningDTO.setCode(earningAbility.getCode());
-        basicEarningDTO.setName(earningAbility.getName());
-        if(earningAbility.getArturnover().equals("nan")){
-            basicEarningDTO.setArTurnOver("--");
-        }else{
-            basicEarningDTO.setArTurnOver(earningAbility.getArturnover());
+
+
+        basicEarningDTO.setCode(code);
+
+        if(earningAbility!=null){
+            basicEarningDTO.setName(earningAbility.getName());
+            if(earningAbility.getArturnover().equals("nan")){
+                basicEarningDTO.setArTurnOver("--");
+            }else{
+                basicEarningDTO.setArTurnOver(earningAbility.getArturnover());
+            }
+
+            if(earningAbility.getArturndays().equals("nan")){
+                basicEarningDTO.setArTurnDays("--");
+            }else{
+                basicEarningDTO.setArTurnDays(earningAbility.getArturndays());
+            }
+
+            if(earningAbility.getInventory_turnover().equals("nan")){
+                basicEarningDTO.setInventoryTurnOver("--");
+            }else{
+                basicEarningDTO.setInventoryTurnOver(earningAbility.getInventory_turnover());
+            }
+
+            if(earningAbility.getInventory_days().equals("nan")){
+                basicEarningDTO.setInventoryDays("--");
+            }else{
+                basicEarningDTO.setInventoryDays(earningAbility.getInventory_days());
+            }
+
+            if(earningAbility.getCurrentasset_turnover().equals("nan")){
+                basicEarningDTO.setCurrentAssetTurnOver("--");
+            }else{
+                basicEarningDTO.setCurrentAssetTurnOver(earningAbility.getCurrentasset_turnover());
+            }
+
+            if(earningAbility.getCurrentasset_days().equals("nan")){
+                basicEarningDTO.setCurrentAssetDays("--");
+            }else{
+                basicEarningDTO.setCurrentAssetDays(earningAbility.getCurrentasset_days());
+            }
         }
 
-        if(earningAbility.getArturndays().equals("nan")){
-            basicEarningDTO.setArTurnDays("--");
-        }else{
-            basicEarningDTO.setArTurnDays(earningAbility.getArturndays());
-        }
 
-        if(earningAbility.getInventory_turnover().equals("nan")){
-            basicEarningDTO.setInventoryTurnOver("--");
-        }else{
-            basicEarningDTO.setInventoryTurnOver(earningAbility.getInventory_turnover());
-        }
-
-        if(earningAbility.getInventory_days().equals("nan")){
-            basicEarningDTO.setInventoryDays("--");
-        }else{
-            basicEarningDTO.setInventoryDays(earningAbility.getInventory_days());
-        }
-
-        if(earningAbility.getCurrentasset_turnover().equals("nan")){
-            basicEarningDTO.setCurrentAssetTurnOver("--");
-        }else{
-            basicEarningDTO.setCurrentAssetTurnOver(earningAbility.getCurrentasset_turnover());
-        }
-
-        if(earningAbility.getCurrentasset_days().equals("nan")){
-            basicEarningDTO.setCurrentAssetDays("--");
-        }else{
-            basicEarningDTO.setCurrentAssetDays(earningAbility.getCurrentasset_days());
-        }
 
         basicDTO.setBasicEarningDTO(basicEarningDTO);
 
@@ -681,134 +872,144 @@ public class RateServiceImpl implements RateService{
         Basic_growDTO basicGrowDTO=new Basic_growDTO();
 
 
-        System.out.println(growAbility.getCode());
+//        System.out.println(growAbility.getCode());
 
 
-        basicGrowDTO.setCode(growAbility.getCode());
-        basicGrowDTO.setName(growAbility.getName());
-        if(growAbility.getMbrg().equals("nan")){
-            basicGrowDTO.setMbrg("--");
-        }else{
-            basicGrowDTO.setMbrg(growAbility.getMbrg());
+        basicGrowDTO.setCode(code);
+
+        if(growAbility!=null){
+            basicGrowDTO.setName(growAbility.getName());
+            if(growAbility.getMbrg().equals("nan")){
+                basicGrowDTO.setMbrg("--");
+            }else{
+                basicGrowDTO.setMbrg(growAbility.getMbrg());
+            }
+
+            if(growAbility.getNprg().equals("nan")){
+                basicGrowDTO.setNprg("--");
+            }else{
+                basicGrowDTO.setNprg(growAbility.getNprg());
+            }
+
+            if(growAbility.getNav().equals("nan")){
+                basicGrowDTO.setNav("--");
+            }else{
+                basicGrowDTO.setNav(growAbility.getNav());
+            }
+
+            if(growAbility.getTarg().equals("nan")){
+                basicGrowDTO.setTarg("--");
+            }else{
+                basicGrowDTO.setTarg(growAbility.getTarg());
+            }
+
+            if(growAbility.getEpsg().equals("nan")){
+                basicGrowDTO.setEpsg("--");
+            }else{
+                basicGrowDTO.setEpsg(growAbility.getEpsg());
+            }
+
+            if(growAbility.getSeg().equals("nan")){
+                basicGrowDTO.setSeg("--");
+            }else{
+                basicGrowDTO.setSeg(growAbility.getSeg());
+            }
         }
 
-        if(growAbility.getNprg().equals("nan")){
-            basicGrowDTO.setNprg("--");
-        }else{
-            basicGrowDTO.setNprg(growAbility.getNprg());
-        }
-
-        if(growAbility.getNav().equals("nan")){
-            basicGrowDTO.setNav("--");
-        }else{
-            basicGrowDTO.setNav(growAbility.getNav());
-        }
-
-        if(growAbility.getTarg().equals("nan")){
-            basicGrowDTO.setTarg("--");
-        }else{
-            basicGrowDTO.setTarg(growAbility.getTarg());
-        }
-
-        if(growAbility.getEpsg().equals("nan")){
-            basicGrowDTO.setEpsg("--");
-        }else{
-            basicGrowDTO.setEpsg(growAbility.getEpsg());
-        }
-
-        if(growAbility.getSeg().equals("nan")){
-            basicGrowDTO.setSeg("--");
-        }else{
-            basicGrowDTO.setSeg(growAbility.getSeg());
-        }
         basicDTO.setBasicGrowDTO(basicGrowDTO);
 
         PaymentAbility paymentAbility=rateMapper.getOnePaymentAbility(code);
         Basic_paymentDTO basicPaymentDTO=new Basic_paymentDTO();
 
 
-        System.out.println(paymentAbility.getCode());
+//        System.out.println(paymentAbility.getCode());
 
-        basicPaymentDTO.setCode(paymentAbility.getCode());
-        basicPaymentDTO.setName(paymentAbility.getName());
-        if(paymentAbility.getCurrentratio().equals("nan")){
-            basicPaymentDTO.setCurrentRatio("--");
-        }else{
-            basicPaymentDTO.setCurrentRatio(paymentAbility.getCurrentratio());
-        }
-        if(paymentAbility.getQuickratio().equals("nan")){
-            basicPaymentDTO.setQuickRatio("--");
-        }else{
-            basicPaymentDTO.setQuickRatio(paymentAbility.getQuickratio());
-        }
-        if(paymentAbility.getCashratio().equals("nan")){
-            basicPaymentDTO.setCashRatio("--");
-        }else{
-            basicPaymentDTO.setCashRatio(paymentAbility.getCashratio());
-        }
-        if(paymentAbility.getIcratio().equals("nan")){
-            basicPaymentDTO.setIcRatio("--");
-        }else{
-            basicPaymentDTO.setIcRatio(paymentAbility.getIcratio());
-        }
+        basicPaymentDTO.setCode(code);
+        if(paymentAbility!=null){
+            basicPaymentDTO.setName(paymentAbility.getName());
+            if(paymentAbility.getCurrentratio().equals("nan")){
+                basicPaymentDTO.setCurrentRatio("--");
+            }else{
+                basicPaymentDTO.setCurrentRatio(paymentAbility.getCurrentratio());
+            }
+            if(paymentAbility.getQuickratio().equals("nan")){
+                basicPaymentDTO.setQuickRatio("--");
+            }else{
+                basicPaymentDTO.setQuickRatio(paymentAbility.getQuickratio());
+            }
+            if(paymentAbility.getCashratio().equals("nan")){
+                basicPaymentDTO.setCashRatio("--");
+            }else{
+                basicPaymentDTO.setCashRatio(paymentAbility.getCashratio());
+            }
+            if(paymentAbility.getIcratio().equals("nan")){
+                basicPaymentDTO.setIcRatio("--");
+            }else{
+                basicPaymentDTO.setIcRatio(paymentAbility.getIcratio());
+            }
 
-        if(paymentAbility.getSheqratio().equals("nan")){
-            basicPaymentDTO.setSheqRatio("--");
-        }else{
-            basicPaymentDTO.setSheqRatio(paymentAbility.getSheqratio());
-        }
+            if(paymentAbility.getSheqratio().equals("nan")){
+                basicPaymentDTO.setSheqRatio("--");
+            }else{
+                basicPaymentDTO.setSheqRatio(paymentAbility.getSheqratio());
+            }
 
-        if(paymentAbility.getAdratio().equals("nan")){
-            basicPaymentDTO.setAdRatio("--");
-        }else{
-            basicPaymentDTO.setAdRatio(paymentAbility.getAdratio());
-        }
+            if(paymentAbility.getAdratio().equals("nan")){
+                basicPaymentDTO.setAdRatio("--");
+            }else{
+                basicPaymentDTO.setAdRatio(paymentAbility.getAdratio());
+            }
 
+        }
         basicDTO.setBasicPaymentDTO(basicPaymentDTO);
 
         ProfitAbility profitAbility=rateMapper.getOneProfitAbility(code);
         Basic_profitDTO basicProfitDTO=new Basic_profitDTO();
 
 
-        System.out.println(profitAbility.getCode());
+//        System.out.println(profitAbility.getCode());
 
-        basicProfitDTO.setCode(profitAbility.getCode());
-        basicProfitDTO.setName(profitAbility.getName());
-        if(profitAbility.getRoe().equals("nan")){
-            basicProfitDTO.setRoe("--");
-        }else{
-            basicProfitDTO.setRoe(profitAbility.getRoe());
+        basicProfitDTO.setCode(code);
+
+        if(profitAbility!=null){
+            basicProfitDTO.setName(profitAbility.getName());
+            if(profitAbility.getRoe().equals("nan")){
+                basicProfitDTO.setRoe("--");
+            }else{
+                basicProfitDTO.setRoe(profitAbility.getRoe());
+            }
+            if(profitAbility.getNet_profit_ratio().equals("nan")){
+                basicProfitDTO.setNetProfitRatio("--");
+            }else{
+                basicProfitDTO.setNetProfitRatio(profitAbility.getNet_profit_ratio());
+            }
+            if(profitAbility.getGross_profit_rate().equals("nan")){
+                basicProfitDTO.setGrossProfitRate("--");
+            }else{
+                basicProfitDTO.setGrossProfitRate(profitAbility.getGross_profit_rate());
+            }
+            if(profitAbility.getNet_profits().equals("nan")){
+                basicProfitDTO.setNetProfits("--");
+            }else{
+                basicProfitDTO.setNetProfits(profitAbility.getNet_profits());
+            }
+            if(profitAbility.getEsp().equals("nan")){
+                basicProfitDTO.setEsp("--");
+            }else{
+                basicProfitDTO.setEsp(profitAbility.getEsp());
+            }
+            if(profitAbility.getBusiness_income().equals("nan")){
+                basicProfitDTO.setBussinessIncome("--");
+            }else{
+                basicProfitDTO.setBussinessIncome(profitAbility.getBusiness_income());
+            }
+            if(profitAbility.getBips().equals("nan")){
+                basicProfitDTO.setBips("--");
+            }else{
+                basicProfitDTO.setBips(profitAbility.getBips());
+            }
         }
-        if(profitAbility.getNet_profit_ratio().equals("nan")){
-            basicProfitDTO.setNetProfitRatio("--");
-        }else{
-            basicProfitDTO.setNetProfitRatio(profitAbility.getNet_profit_ratio());
-        }
-        if(profitAbility.getGross_profit_rate().equals("nan")){
-            basicProfitDTO.setGrossProfitRate("--");
-        }else{
-            basicProfitDTO.setGrossProfitRate(profitAbility.getGross_profit_rate());
-        }
-        if(profitAbility.getNet_profits().equals("nan")){
-            basicProfitDTO.setNetProfits("--");
-        }else{
-            basicProfitDTO.setNetProfits(profitAbility.getNet_profits());
-        }
-        if(profitAbility.getEsp().equals("nan")){
-            basicProfitDTO.setEsp("--");
-        }else{
-            basicProfitDTO.setEsp(profitAbility.getEsp());
-        }
-        if(profitAbility.getBusiness_income().equals("nan")){
-            basicProfitDTO.setBussinessIncome("--");
-        }else{
-            basicProfitDTO.setBussinessIncome(profitAbility.getBusiness_income());
-        }
-        if(profitAbility.getBips().equals("nan")){
-            basicProfitDTO.setBips("--");
-        }else{
-            basicProfitDTO.setBips(profitAbility.getBips());
-        }
+
         basicDTO.setBasicProfitDTO(basicProfitDTO);
 
 //        System.out.println(basicDTO);
@@ -820,30 +1021,131 @@ public class RateServiceImpl implements RateService{
         double four=0.0;
         double five=0.0;
 
-        if(!cashFlow.getCashflowratio().equals("nan")){
-            one=Double.valueOf(cashFlow.getCashflowratio());
+        if(cashFlow!=null){
+            if(!cashFlow.getCashflowratio().equals("nan")){
+                one=Double.valueOf(cashFlow.getCashflowratio());
+            }
         }
-        if(!earningAbility.getCurrentasset_turnover().equals("nan")){
-            two=Double.valueOf(earningAbility.getCurrentasset_turnover());
+
+        if(earningAbility!=null){
+            if(!earningAbility.getCurrentasset_turnover().equals("nan")){
+                two=Double.valueOf(earningAbility.getCurrentasset_turnover());
+            }
         }
-        if(!growAbility.getSeg().equals("nan")){
-            three=Double.valueOf(growAbility.getSeg());
+
+        if(growAbility!=null){
+            if(!growAbility.getSeg().equals("nan")){
+                three=Double.valueOf(growAbility.getSeg());
+            }
         }
-        if(!paymentAbility.getAdratio().equals("--")){
-            four=Double.valueOf(paymentAbility.getAdratio());
+
+        if(paymentAbility!=null){
+            if(!paymentAbility.getAdratio().equals("--")){
+                four=Double.valueOf(paymentAbility.getAdratio());
+            }
         }
-        if(!profitAbility.getEsp().equals("nan")){
-            five=Double.valueOf(profitAbility.getBips());
+
+        if(profitAbility!=null){
+            if(!profitAbility.getEsp().equals("nan")){
+                five=Double.valueOf(profitAbility.getBips());
+            }
         }
+
         double partScore=one*0.1+two*10+three*0.1+four*0.1+five*10;
 
+        StockScore stockScore=rateMapper.getOneStockScore(code);
+        double thisScore=stockScore.getBasicScore();
 
-        basicDTO.setBasicScore(10);
+        ArrayList<StockScore> allStockScore= (ArrayList<StockScore>) rateMapper.getAllStockScore();
+        ArrayList<Double> oneScoreList=new ArrayList<Double>();
+
+        for(int count=0;count<allStockScore.size();count++){
+            oneScoreList.add(allStockScore.get(count).getBasicScore());
+        }
+
+        //0-10分中给分
+        double technicalScore=getOneScore(thisScore,oneScoreList);
+
+
+        basicDTO.setBasicScore(technicalScore);
         basicDTO.setPartScore(partScore);
-        basicDTO.setDefeatPercent(80);
+        basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
 
 
         return basicDTO;
+    }
+
+    @Override
+    public boolean addAllScoreDate() {
+        List<StockBasicInfo> allStockInfoList=dayKLineMapper.getAllStockInfos();
+        ArrayList<String> codeList=new ArrayList<String>();
+
+        for(int count=0;count<allStockInfoList.size();count++){
+            codeList.add(allStockInfoList.get(count).getCode());
+        }
+
+        for(int count=0;count<codeList.size();count++){
+
+
+            String stockCode=codeList.get(count);
+
+            TechnicalDTO technicalDTO=getOneStockTechnicalScore(stockCode,"2017-06-02");
+            CapitalDTO capitalDTO=getOneStockCapitalScore(stockCode,"2017-06-02");
+            MessageDTO messageDTO=getOneStockMessageScore(stockCode,"2017-06-02");
+            IndustryDTO industryDTO=getOneStockIndustryScore(stockCode,"2017-06-02");
+            BasicDTO basicDTO=getOneStockBasicScore(stockCode,"2017-06-02");
+
+            if(technicalDTO!=null&&capitalDTO!=null&&messageDTO!=null&&industryDTO!=null&&basicDTO!=null){
+                StockScore stockScore=new StockScore();
+                stockScore.setCode(stockCode);
+
+                if(String.valueOf(technicalDTO.getPartScore()).equals("NaN")||String.valueOf(technicalDTO.getPartScore()).equals("Infinity")||String.valueOf(technicalDTO.getPartScore()).equals("-Infinity")){
+                    stockScore.setTechnicalScore(0.0);
+                }else{
+                    stockScore.setTechnicalScore(technicalDTO.getPartScore());
+                }
+
+                if(String.valueOf(capitalDTO.getPartScore()).equals("NaN")||String.valueOf(capitalDTO.getPartScore()).equals("Infinity")||String.valueOf(capitalDTO.getPartScore()).equals("-Infinity")){
+                    stockScore.setCapitalScore(0.0);
+                }else{
+                    stockScore.setCapitalScore(capitalDTO.getPartScore());
+                }
+
+                if(String.valueOf(messageDTO.getPartScore()).equals("NaN")||String.valueOf(messageDTO.getPartScore()).equals("Infinity")||String.valueOf(messageDTO.getPartScore()).equals("-Infinity")){
+                    stockScore.setMessageScore(0.0);
+                }else{
+                    stockScore.setMessageScore(messageDTO.getPartScore());
+                }
+
+                if(String.valueOf(industryDTO.getPartScore()).equals("NaN")||String.valueOf(industryDTO.getPartScore()).equals("Infinity")||String.valueOf(industryDTO.getPartScore()).equals("-Infinity")){
+                    stockScore.setIndustryScore(0.0);
+                }else{
+                    stockScore.setIndustryScore(industryDTO.getPartScore());
+                }
+
+                if(String.valueOf(basicDTO.getPartScore()).equals("NaN")||String.valueOf(basicDTO.getPartScore()).equals("Infinity")||String.valueOf(basicDTO.getPartScore()).equals("-Infinity")){
+                    stockScore.setBasicScore(0.0);
+                }else{
+                    stockScore.setBasicScore(basicDTO.getPartScore());
+                }
+
+
+
+
+                System.out.println(technicalDTO.getPartScore()+" "+capitalDTO.getPartScore()+" "+messageDTO.getPartScore()+" "+industryDTO.getPartScore()+" "+basicDTO.getPartScore());
+
+                System.out.println(String.valueOf(technicalDTO.getPartScore()));
+
+                rateMapper.insertStockScore(stockScore);
+
+                System.out.println(stockCode);
+            }
+
+
+        }
+        return true;
+
+
     }
 
 
@@ -885,5 +1187,8 @@ public class RateServiceImpl implements RateService{
 
         return klineDTOArrayList;
     }
+
+
+
 
 }
