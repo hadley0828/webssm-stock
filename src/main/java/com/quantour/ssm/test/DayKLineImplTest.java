@@ -41,7 +41,7 @@ public class DayKLineImplTest {
 //        test.testGetOneBlockInfo();
 
 //        test.testGetYesterdayDayKline();
-        test.testGetTimesBlockInfo();
+//        test.testGetTimesBlockInfo();
 //        test.testGetAllConceptBlock();
 //        test.testGetAllAreaBlock();
 //        test.testGetAllIndustryBlock();
@@ -67,7 +67,11 @@ public class DayKLineImplTest {
 //        test.testGetAllCodeByBlock();
 //        test.testGetBlockByStock();
 //        test.testGetOneStockInfo();
-//        test.testGetStocksByTimes();
+            long startTime = System.currentTimeMillis();
+         test.testGetStocksByTimes();
+            long endTime = System.currentTimeMillis();
+            System.out.println((endTime - startTime) + "ms");
+
     }
 
     /**
@@ -349,8 +353,8 @@ public class DayKLineImplTest {
 
     public void testGetStocksByTimes(){
         HashMap<String,Date> map = new HashMap<String, Date>();
-        map.put("start",Date.valueOf("2014-01-01"));
-        map.put("end",Date.valueOf("2017-02-01"));
+        map.put("start",Date.valueOf("2016-01-01"));
+        map.put("end",Date.valueOf("2017-01-01"));
         List<DayKLine> dayKLines = dayKLineMapper.getStocksByTimes(map);
 //        for(DayKLine dayKLine : dayKLines){
 //            printDayKLine(dayKLine);

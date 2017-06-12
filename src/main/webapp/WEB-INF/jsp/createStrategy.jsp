@@ -1,3 +1,5 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -45,6 +47,50 @@
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+    
+    <script>
+
+
+        function createStrategy() {
+            var strategyID = "1";
+            var createrID = "2";
+            var strategyName = "3";
+            var strategyInfo = document.getElementById('s_intro').value;
+            var now = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
+
+            var stock_pool = document.getElementById('stock_pool').value;
+            var index_component = document.getElementById('index_component').value;
+            var block = document.getElementById('block').value;
+            var industry = document.getElementById('industry').value;
+            var st_stock = document.getElementById('st_stock').value;
+            var exchange = document.getElementById('exchange').value;
+            var concept = document.getElementById('concept').value;
+            var area = document.getElementById('area').value;
+
+            var cycle = document.getElementById('cycle').value;
+            var max_num = document.getElementById('max_num').value;
+
+
+
+            var map = "strategyID="+strategyID+"&createrID="+createrID+"&strategyName="+strategyName+ "&strategyExplanation="+(escape(strategyInfo)) +"&createTime="+now
+                        + "&stockPondChosen="+stock_pool +"&IndexIngredient="+index_component+ "&block="+block + "&industry="+ industry + "&concept="+concept + "&STStock="+st_stock + "&exchange="+exchange+ "&region="+area
+                        + "&transferCycle="+cycle + "&max_num="+ max_num
+                        ;
+
+
+            $.ajax({
+                type:"POST",
+                url:'<%=request.getContextPath()%>/strategy/createCustomizeStrategy',
+                data: {map:map},
+                dataType:"json",
+                success:function (result) {
+                    
+                }
+            });
+        }
+        
+
+    </script>
 </head>
 <body>
 
@@ -176,10 +222,10 @@
                             <div class="row">
                                 <div class="col-sm-4"><blockquote>制定策略</blockquote></div>
                                 <div class="col-xs-offset-11">
-                                    <button class="btn btn-success">创建</button>
+                                    <button class="btn btn-success" onclick="createStrategy()">创建</button>
                                 </div>
                             </div>
-                            <textarea class="form-control" placeholder="请输入策略说明" rows="3"></textarea>
+                            <textarea class="form-control" id="s_intro" placeholder="请输入策略说明" rows="3"></textarea>
                             <hr>
                         </div>
                     </div>
@@ -197,7 +243,7 @@
                             <div class="row">
                                 <div class="col-xs-2" style="padding-top: 10px">选择股票池:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="stock_pool">
                                         <option>全部股票</option>
                                         <option>自选池股票</option>
                                     </select>
@@ -206,7 +252,7 @@
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-2" style="padding-top: 10px">指数成份:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="index_component">
                                         <option>全选</option>
                                         <option>sh000016</option>
                                         <option>sh000300</option>
@@ -215,7 +261,7 @@
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px">板块:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="block">
                                         <option>全选</option>
                                         <option>主板</option>
                                         <option>创业板</option>
@@ -224,15 +270,17 @@
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px">行业:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
-                                        <option>全选</option>
+                                    <select class="form-control" id="industry">
+                                        <c:forEach items="${industryBlock}" var="industry">
+                                            <option>${industry}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-2" style="padding-top: 10px">ST股票:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="st_stock">
                                         <option>包含ST</option>
                                         <option>排除ST</option>
                                         <option>仅有ST</option>
@@ -240,7 +288,7 @@
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px">交易所:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
+                                    <select class="form-control" id="exchange">
                                         <option>全选</option>
                                         <option>上海</option>
                                         <option>深圳</option>
@@ -248,25 +296,29 @@
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px">概念:</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
-                                        <option>全选</option>
+                                    <select class="form-control" id="concept">
+                                        <c:forEach items="${conceptBlock}" var="concept">
+                                            <option>${concept}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-2" style="padding-top: 10px;">地域板块</div>
                                 <div class="col-xs-2">
-                                    <select class="form-control">
-                                        <option>全选</option>
+                                    <select class="form-control" id="area">
+                                        <c:forEach items="${areaBlock}" var="area">
+                                            <option>${area}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-xs-2" style="padding-top: 10px">调仓周期:</div>
                                 <div class="col-xs-1">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="cycle">
                                 </div>
                                 <div class="col-xs-2" style="padding-top: 10px">最大持仓股票数:</div>
                                 <div class="col-xs-1">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="max_num">
                                 </div>
                             </div>
                         </div>
