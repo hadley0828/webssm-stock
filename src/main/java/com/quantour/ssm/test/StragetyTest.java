@@ -60,8 +60,8 @@ public class StragetyTest {
         c.setTransferCycle(12);
         c.setMaxHoldStockNumber(124);
         c.setStraId("1241");
-        c.setYearProfit(12312.2);
-        c.setStandardProfit(123.2);
+        c.setYearProfit("12312.2");
+        c.setStandardProfit("123.2");
         c.setAlpha(213.2);
         c.setBeta(21.2);
         c.setSharpRate(12.3);

@@ -434,8 +434,8 @@ public class StockController {
 
         strategyResultDTO resultDTO=new strategyResultDTO();
         resultDTO.setStraId(userId+" "+time);
-        resultDTO.setYearProfit(1.0);
-        resultDTO.setStandardProfit(1.0);
+        resultDTO.setYearProfit("1.0");
+        resultDTO.setStandardProfit("1.0");
         resultDTO.setAlpha(1.0);
         resultDTO.setBeta(1.0);
         resultDTO.setSharpRate(1.0);

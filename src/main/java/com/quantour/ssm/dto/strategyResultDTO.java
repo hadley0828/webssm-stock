@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class strategyResultDTO {
     String straId;         //该次回测使用的策略名称
-    double yearProfit;     //年化收益率
-    double standardProfit; //基准年化收益率
+    String yearProfit;     //年化收益率
+    String standardProfit; //基准年化收益率
     double alpha;          //阿尔法值
     double beta;           //贝塔值
     double sharpRate;      //夏普比率
@@ -18,6 +18,7 @@ public class strategyResultDTO {
     double turnoverRate;   //换手率
     double currentStandardProfit;
     double currentStraProfit;
+
 
     @Override
     public String toString() {
@@ -50,21 +51,22 @@ public class strategyResultDTO {
         this.straId = straId;
     }
 
-    public double getYearProfit() {
+    public String getYearProfit() {
         return yearProfit;
     }
 
-    public void setYearProfit(double yearProfit) {
+    public void setYearProfit(String yearProfit) {
         this.yearProfit = yearProfit;
     }
 
-    public double getStandardProfit() {
+    public String getStandardProfit() {
         return standardProfit;
     }
 
-    public void setStandardProfit(double standardProfit) {
+    public void setStandardProfit(String standardProfit) {
         this.standardProfit = standardProfit;
     }
+
 
     public double getAlpha() {
         return alpha;

@@ -1,5 +1,6 @@
 package com.quantour.ssm.util;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +30,12 @@ public class NumberConvert {
         return String.valueOf(num.format(d));
     }
 
+    //保留n位小数
+    public static double saveNDouble(double d,int n){
+        BigDecimal b = new BigDecimal(d);
+        return b.setScale(n, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
 
     public static void main(String[] args) {
 //        System.out.println(doubleToBiggerInt(1.5));
@@ -38,7 +45,9 @@ public class NumberConvert {
 //        Date now=new Date();
 //        String rq=myFmt1.format(now);
 //        System.out.println(rq);
-        System.out.println(doubleToPercentageString(0.12345667));
+//        System.out.println(doubleToPercentageString(0.12345667));
+
+        System.out.println(saveNDouble(1.234567,2));
     }
 
 }

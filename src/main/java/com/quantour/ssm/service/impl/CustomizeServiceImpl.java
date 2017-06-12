@@ -588,14 +588,14 @@ public class CustomizeServiceImpl implements CustomizeService{
 
         maxBack= Collections.max(allBackList);
 
-        strategyResultdto.setYearProfit(straYearlyBenifit);
-        strategyResultdto.setStandardProfit(standardYearlyBenifit);
-        strategyResultdto.setAlpha(alpha);
-        strategyResultdto.setBeta(beta);
-        strategyResultdto.setSharpRate(sharpRate);
-        strategyResultdto.setProfitWaveRate(profitWaveRate);
-        strategyResultdto.setInfoPercent(infoRate);
-        strategyResultdto.setMaxBack(maxBack);
+        strategyResultdto.setYearProfit(NumberConvert.doubleToPercentageString(straYearlyBenifit));
+        strategyResultdto.setStandardProfit(NumberConvert.doubleToPercentageString(standardYearlyBenifit));
+        strategyResultdto.setAlpha(NumberConvert.saveNDouble(alpha,3));
+        strategyResultdto.setBeta(NumberConvert.saveNDouble(beta,3));
+        strategyResultdto.setSharpRate(NumberConvert.saveNDouble(sharpRate,3));
+        strategyResultdto.setProfitWaveRate(NumberConvert.saveNDouble(profitWaveRate,3));
+        strategyResultdto.setInfoPercent(NumberConvert.saveNDouble(infoRate,3));
+        strategyResultdto.setMaxBack(NumberConvert.saveNDouble(maxBack,3));
         strategyResultdto.setDaysProfitList(oneDayProfitList);
 
         indexprofitdto.setPlusCycles(plusCycles);

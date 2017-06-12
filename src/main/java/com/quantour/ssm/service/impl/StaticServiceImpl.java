@@ -6,6 +6,7 @@ import com.quantour.ssm.model.StockBasicInfo;
 import com.quantour.ssm.service.StaticService;
 import com.quantour.ssm.dao.DayKLineMapper;
 import com.quantour.ssm.util.DateConvert;
+import com.quantour.ssm.util.NumberConvert;
 import com.quantour.ssm.util.StockCalculator;
 import com.quantour.ssm.util.StockChangeHelper;
 import org.springframework.stereotype.Service;
@@ -374,8 +375,8 @@ public class StaticServiceImpl implements StaticService {
 
         maxBack= Collections.max(allBackList);
 
-        strategyResultdto.setYearProfit(straYearlyBenifit);
-        strategyResultdto.setStandardProfit(standardYearlyBenifit);
+        strategyResultdto.setYearProfit(NumberConvert.doubleToPercentageString(straYearlyBenifit));
+        strategyResultdto.setStandardProfit(NumberConvert.doubleToPercentageString(standardYearlyBenifit));
         strategyResultdto.setAlpha(alpha);
         strategyResultdto.setBeta(beta);
         strategyResultdto.setSharpRate(sharpRate);
@@ -408,8 +409,8 @@ public class StaticServiceImpl implements StaticService {
 
                 strategyResultDTO straresultvo=getStraOneResult(formDays,holdDays,sDate,lDate,stockType,codeList,blockCode);
                 double straProfit=straresultvo.getCurrentStraProfit();
-                double standardProfit=straresultvo.getStandardProfit();
-                double excessProfit=straProfit-standardProfit;
+                String standardProfit=straresultvo.getStandardProfit();
+                double excessProfit=straProfit-Double.valueOf(standardProfit);
                 double winRate=straresultvo.getIndexprofitvo().getWinRate();
 
                 oneExtraProfitDTO oneextraprofitvo=new oneExtraProfitDTO();
@@ -429,8 +430,8 @@ public class StaticServiceImpl implements StaticService {
 
                 strategyResultDTO straresultvo=getStraOneResult(formDays,holdDays,sDate,lDate,stockType,codeList,blockCode);
                 double straProfit=straresultvo.getCurrentStraProfit();
-                double standardProfit=straresultvo.getStandardProfit();
-                double excessProfit=straProfit-standardProfit;
+                String standardProfit=straresultvo.getStandardProfit();
+                double excessProfit=straProfit-Double.valueOf(standardProfit);
                 double winRate=straresultvo.getIndexprofitvo().getWinRate();
 
                 oneExtraProfitDTO oneextraprofitvo=new oneExtraProfitDTO();
@@ -841,8 +842,8 @@ public class StaticServiceImpl implements StaticService {
 
 
 
-        straresultvo.setYearProfit(straYearlyBenifit);
-        straresultvo.setStandardProfit(standardYearlyBenifit);
+        straresultvo.setYearProfit(NumberConvert.doubleToPercentageString(straYearlyBenifit));
+        straresultvo.setStandardProfit(NumberConvert.doubleToPercentageString(standardYearlyBenifit));
         straresultvo.setAlpha(alpha);
         straresultvo.setBeta(beta);
         straresultvo.setSharpRate(sharpRate);
@@ -882,8 +883,8 @@ public class StaticServiceImpl implements StaticService {
 
             strategyResultDTO straresultvo=getStraTwoResult(averageDays,holdDays,stockNumbers,sDate,lDate,stockType,codeList,blockCode);
             double straProfit=straresultvo.getCurrentStraProfit();
-            double standardProfit=straresultvo.getStandardProfit();
-            double excessProfit=straProfit-standardProfit;
+            String standardProfit=straresultvo.getStandardProfit();
+            double excessProfit=straProfit-Double.valueOf(standardProfit);
 
             double winRate=straresultvo.getIndexprofitvo().getWinRate();
 

@@ -28,8 +28,8 @@ public class CustomizeStrategy {
     private Integer transferCycle;
     private Integer maxHoldStockNumber;
     private String straId;
-    private Double yearProfit;
-    private Double standardProfit;
+    private String yearProfit;
+    private String standardProfit;
     private Double alpha;
     private Double beta;
     private Double sharpRate;
@@ -120,6 +120,16 @@ public class CustomizeStrategy {
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
+
+
+    public void setYearProfit(String yearProfit) {
+        this.yearProfit = yearProfit;
+    }
+
+    public void setStandardProfit(String standardProfit) {
+        this.standardProfit = standardProfit;
+    }
+
 
     public String getStrategyName() {
         return strategyName;
@@ -233,22 +243,6 @@ public class CustomizeStrategy {
         this.straId = straId;
     }
 
-    public Double getYearProfit() {
-        return yearProfit;
-    }
-
-    public void setYearProfit(Double yearProfit) {
-        this.yearProfit = yearProfit;
-    }
-
-    public Double getStandardProfit() {
-        return standardProfit;
-    }
-
-    public void setStandardProfit(Double standardProfit) {
-        this.standardProfit = standardProfit;
-    }
-
     public Double getAlpha() {
         return alpha;
     }
@@ -311,6 +305,14 @@ public class CustomizeStrategy {
 
     public void setCurrentStandardProfit(Double currentStandardProfit) {
         this.currentStandardProfit = currentStandardProfit;
+    }
+
+    public String getYearProfit() {
+        return yearProfit;
+    }
+
+    public String getStandardProfit() {
+        return standardProfit;
     }
 
     public Double getCurrentStraProfit() {
