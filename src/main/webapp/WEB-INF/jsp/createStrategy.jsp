@@ -1407,7 +1407,7 @@
                 mydata = JSON.parse(result);
                 fillStragetyInfo(mydata);
                 fillStragetyPic1(JSON.parse(mydata.daysProfitList));
-//                fillStragetyPic2(mydata);
+                fillStragetyPic2(JSON.parse(mydata.indexprofitvo));
             }
         });
         
@@ -1423,6 +1423,17 @@
             document.getElementById("re8").innerHTML = mydata.infoPercent;
             document.getElementById("re9").innerHTML = mydata.maxBack;
             document.getElementById("re10").innerHTML = mydata.turnoverRate;
+        }
+
+
+        function splitStra2Data(rawdata) {
+
+        }
+        function fillStragetyPic2(rawdata) {
+            var straLine2 = echarts.init(document.getElementById("straLine2"));
+
+            data0 = splitStra2Data(rawdata);
+
         }
 
         function splitStra1Data(rawdata) {

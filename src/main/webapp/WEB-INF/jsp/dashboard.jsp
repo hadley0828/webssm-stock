@@ -62,6 +62,7 @@
                 url: '<%=request.getContextPath()%>/stockinfo/getShDayKLine',
                 data: {codeid: code, sdate:sdate, ldate:ldate},
                 dataType:"json",
+                async:false,
                 success: function (result) {
                     mydata = JSON.parse(result);
                     fillCharts(mydata);
@@ -286,6 +287,7 @@
                 url:'<%=request.getContextPath()%>/stockinfo/getUpDown',
                 data:{date:date},
                 dataType:"json",
+                async:false,
                 success:function (result) {
                     myUpDownData = JSON.parse(result);
                     fillUpDownCharts(myUpDownData);
@@ -365,6 +367,7 @@
                 url:'<%=request.getContextPath()%>/stockinfo/getLimit',
                 data:{date:date},
                 dataType:"json",
+                async:false,
                 success:function (result) {
                     myLimitData = JSON.parse(result);
                     fillLimitCharts(myLimitData);

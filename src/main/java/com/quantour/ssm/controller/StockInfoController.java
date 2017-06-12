@@ -34,7 +34,7 @@ public class StockInfoController {
 
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
-    public ModelAndView showStock(
+    public ModelAndView  showStock(
             @RequestParam(value = "id",required = false) String user_id,
             @RequestParam(value = "stockCode",required = false) String stock_code,
             HttpServletRequest request,
