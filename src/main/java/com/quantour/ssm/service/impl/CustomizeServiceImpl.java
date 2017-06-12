@@ -533,8 +533,8 @@ public class CustomizeServiceImpl implements CustomizeService{
 
             oneDayProfitDTO onedayprofitvo=new oneDayProfitDTO();
             onedayprofitvo.setDate(currentDate);
-            onedayprofitvo.setStraProfit(currentStraProfit-1.0);
-            onedayprofitvo.setStandardProfit(currentStandardProfit-1.0);
+            onedayprofitvo.setStraProfit(NumberConvert.saveNDouble(currentStraProfit-1.0,5));
+            onedayprofitvo.setStandardProfit(NumberConvert.saveNDouble(currentStandardProfit-1.0,5));
 
             oneDayProfitList.add(onedayprofitvo);
 
