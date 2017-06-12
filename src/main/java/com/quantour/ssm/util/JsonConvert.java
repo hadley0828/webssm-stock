@@ -1,12 +1,15 @@
 package com.quantour.ssm.util;
 
 import com.google.gson.Gson;
+import com.quantour.ssm.dto.indexProfitDTO;
 import com.quantour.ssm.dto.klineDTO;
 import com.quantour.ssm.dto.limitUpAndDownNumsDTO;
 import com.quantour.ssm.dto.oneDayProfitDTO;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by loohaze on 2017/6/7.
@@ -80,6 +83,27 @@ public class JsonConvert {
             };
             obj[i] = o;
         }
+
+        return new Gson().toJson(obj);
+    }
+
+    public static String Stra2LineConvert(indexProfitDTO dto){
+        Object[] obj = new Object[dto.getCycleChangeMap().size()+3];
+
+        obj[0] = dto.getPlusCycles();
+        obj[1] = dto.getMinusCycles();
+        obj[2] = dto.getWinRate();
+        int i = 3;
+        Iterator iter = dto.getCycleChangeMap().entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry entry = (Map.Entry) iter.next();
+            Object[] o = {
+              entry.getKey(),entry.getValue()
+            };
+            obj[i] = o;
+            i++;
+        }
+        System.out.println(new Gson().toJson(obj));
 
         return new Gson().toJson(obj);
     }

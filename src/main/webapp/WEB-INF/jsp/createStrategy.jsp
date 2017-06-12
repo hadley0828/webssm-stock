@@ -1425,14 +1425,77 @@
             document.getElementById("re10").innerHTML = mydata.turnoverRate;
         }
 
+        function my_sort(arr){
+            var len=arr.length, tmp;
+            for(var i=0;i<len-1;i++){
+                for(var j=0;j<len-1-i;j++){
+                    if(arr[j]>arr[j+1]){
+                        tmp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = tmp;
+                    }
+                }
+            }
+            return arr;
+        }
 
         function splitStra2Data(rawdata) {
+            var categoryData = [];
+            var values = [];
+            var plusCyc = rawdata[0];
+            var minusCyc = rawdata[1];
+            var winRate = rawdata[2];
 
+            for(var i = 3; i < rawdata.length; i++){
+                categoryData.push(rawdata[i][0]);
+                values.push(rawdata[i][1]);
+            }
+
+
+            return{
+                catagoryData:my_sort(categoryData),
+                values: values,
+                plus:plusCyc,
+                minus:minusCyc,
+                winRate:winRate
+            };
         }
         function fillStragetyPic2(rawdata) {
             var straLine2 = echarts.init(document.getElementById("straLine2"));
 
             data0 = splitStra2Data(rawdata);
+
+            straLine2.setOption(option={
+                title:{
+                    text:'正收益周期数:' + data0.plus + ' 负收益周期数:'+ data0.minus + ' 赢率:' + data0.winRate,
+                    left:'center',
+                    right:'center'
+                },
+                toolbox: {
+                    // y: 'bottom',
+                    feature: {
+                        saveAsImage: {
+                            pixelRatio: 2
+                        }
+                    }
+                },
+                tooltip: {},
+                xAxis: {
+                    data: data0.catagoryData,
+                    silent: false,
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                },
+                series: [{
+                    name: 'bar',
+                    type: 'bar',
+                    data: data0.values,
+
+                }],
+            });
 
         }
 

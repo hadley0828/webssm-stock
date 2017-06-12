@@ -167,7 +167,7 @@ public class StrategyController {
         result.put("currentStandardProfit",resultDTO.getCurrentStandardProfit());
         result.put("currentStraProfit",resultDTO.getCurrentStraProfit());
         result.put("daysProfitList", JsonConvert.Stra1LineConvert(resultDTO.getDaysProfitList()));
-        result.put("indexprofitvo",resultDTO.getIndexprofitvo());
+        result.put("indexprofitvo",JsonConvert.Stra2LineConvert(resultDTO.getIndexprofitvo()));
 
 //        System.out.println(resultDTO.getAlpha());
 //        System.out.println(resultDTO.getBeta());
