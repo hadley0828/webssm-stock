@@ -209,5 +209,11 @@ public interface StockService {
     public ArrayList<String> getStockCodesByNames(ArrayList<String> stockNameList);
 
 
+    /**
+     * 根据客户的浏览记录进行智能选股功能
+     * @param userId
+     * @return
+     */
+    public ArrayList<stockDTO> getIntelligentStock(String userId,String date);
 
 }

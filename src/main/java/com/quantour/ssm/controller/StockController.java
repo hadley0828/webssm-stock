@@ -1,5 +1,6 @@
 package com.quantour.ssm.controller;
 
+import com.quantour.ssm.dao.HistoryMapper;
 import com.quantour.ssm.dto.*;
 import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
 import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
@@ -47,7 +48,7 @@ public class StockController {
     @RequestMapping("/test")
     public String showDateByCode(HttpServletRequest request, Model model){
 //        List<String> data = stockService.getAllDateByCode("000001");
-        stockDTO stockdto = stockService.getStockInfo("000004","2017-05-23");
+        stockDTO stockdto = stockService.getStockInfo("000004","2017-02-23");
         model.addAttribute("stockdto",stockdto);
         return "serviceTest/test";
     }
@@ -259,6 +260,16 @@ public class StockController {
         return "serviceTest/optionalStock";
 
 
+    }
+
+    @RequestMapping("/getIntelligentStock")
+    public String showIntelligentStock(HttpServletRequest request,Model model){
+
+        ArrayList<stockDTO> stockList=stockService.getIntelligentStock("po","2017-05-08");
+
+        model.addAttribute("stockList",stockList);
+
+        return "serviceTest/intelligentStock";
     }
 
     @RequestMapping("/getTechnicalScore")

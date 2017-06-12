@@ -1,20 +1,18 @@
 package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
+import com.quantour.ssm.dao.HistoryMapper;
 import com.quantour.ssm.dto.*;
-import com.quantour.ssm.model.DayKLine;
-import com.quantour.ssm.model.DayKLineKey;
-import com.quantour.ssm.model.StockBasicInfo;
-import com.quantour.ssm.model.StockNews;
+import com.quantour.ssm.model.*;
+import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.service.StockService;
-import com.quantour.ssm.util.DateConvert;
-import com.quantour.ssm.util.StockCalculator;
-import com.quantour.ssm.util.StockChangeHelper;
+import com.quantour.ssm.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -26,6 +24,8 @@ public class StockServiceImpl implements StockService {
 
     @Resource
     private DayKLineMapper dayklinemapper;
+    @Resource
+    private HistoryMapper historyMapper;
 
 
     //数据层传来的格式为dayKline
@@ -1124,6 +1124,103 @@ public class StockServiceImpl implements StockService {
         }
         return codeList;
     }
+
+    //TODO
+    @Override
+    public ArrayList<stockDTO> getIntelligentStock(String userId,String date) {
+        ArrayList<String> resultList=new ArrayList<String>();
+
+
+        ArrayList<Date> allSqlDateList= (ArrayList<Date>) dayklinemapper.getMarketDates();
+        ArrayList<String> allDateList=new ArrayList<String>();
+        for(int count=0;count<allSqlDateList.size();count++){
+            allDateList.add(DateConvert.dateToString(allSqlDateList.get(count)));
+        }
+        String realDate=DateConvert.getRealEndDate(date,allDateList);
+
+        //下面获取行业和股票 股票和行业的对应关系
+        //      股票编号 行业名称
+        HashMap<String,String> codeToIndustryMap=dayklinemapper.getAllIndustryAndCode(new CodeIndustryMap("code","industry"));
+        //      行业名称 股票编号的set
+        HashMap<String,HashSet<String>> industryToCodeMap=new HashMap<String, HashSet<String>>();
+
+        for (Map.Entry<String, String> entry : codeToIndustryMap.entrySet()) {
+            String oneCode=entry.getKey();
+            String oneIndustry=entry.getValue();
+
+            if(industryToCodeMap.containsKey(oneIndustry)){
+                industryToCodeMap.get(oneIndustry).add(oneCode);
+            }else {
+                HashSet<String> newSet=new HashSet<String>();
+                industryToCodeMap.put(oneIndustry,newSet);
+                industryToCodeMap.get(oneIndustry).add(oneCode);
+            }
+        }
+
+
+
+
+
+
+        List<StockRecord> stockRecordArrayList=historyMapper.getUserAllStockRecord(userId);
+
+        if(stockRecordArrayList.size()==0){
+            ArrayList<waveDTO> waveDTOArrayList=getTopNCodesByDays(10,realDate,1);
+            for(int count=0;count<waveDTOArrayList.size();count++){
+                resultList.add(waveDTOArrayList.get(count).getStockCode());
+            }
+
+
+        }else{
+            ListSort(stockRecordArrayList);
+
+            String latestStockCode=stockRecordArrayList.get(0).getCode_id();
+
+            HashSet<String> allStockInIndustry=industryToCodeMap.get(codeToIndustryMap.get(latestStockCode));
+
+            ArrayList<String> allStockList=new ArrayList<String>();
+
+            for(String str:allStockInIndustry){
+                allStockList.add(str);
+            }
+
+            if(allStockList.size()<11){
+                resultList=allStockList;
+            }else{
+                for(int count=0;count<10;count++){
+                    resultList.add(allStockList.get(count));
+                }
+            }
+
+        }
+
+        return getSeveralStockInfo(resultList,realDate);
+    }
+
+    private static void ListSort(List<StockRecord> list) {
+        Collections.sort(list, new Comparator<StockRecord>() {
+            @Override
+            public int compare(StockRecord o1, StockRecord o2) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    java.util.Date dt1 = format.parse(o1.getDate_time());
+                    java.util.Date dt2 = format.parse(o2.getDate_time());
+                    if (dt1.getTime() > dt2.getTime()) {
+                        return -1;
+                    } else if (dt1.getTime() < dt2.getTime()) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+    }
+
+
 
 
 }
