@@ -216,4 +216,12 @@ public interface StockService {
      */
     public ArrayList<stockDTO> getIntelligentStock(String userId,String date);
 
+    /**
+     * 根据股票编号和日期进行下一天股价的预测
+     * @param code
+     * @param date
+     * @return
+     */
+    public NextDateStockDTO getNextDayStockInfo(String code,String date);
+
 }
