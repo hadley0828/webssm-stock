@@ -52,7 +52,7 @@ public class RateServiceImpl implements RateService{
 
         generalScoreDTO.setStockCode(code);
         generalScoreDTO.setStockName(codeToNameMap.get(code));
-        generalScoreDTO.setTotalScore(0.3*technicalDTO.getTechnicalScore()+0.3*capitalDTO.getCapitalScore()+0.1*messageDTO.getMessageScore()+0.15*industryDTO.getIndustryScore()+0.15*basicDTO.getBasicScore());
+        generalScoreDTO.setTotalScore(NumberConvert.saveNDouble(0.3*technicalDTO.getTechnicalScore()+0.3*capitalDTO.getCapitalScore()+0.1*messageDTO.getMessageScore()+0.15*industryDTO.getIndustryScore()+0.15*basicDTO.getBasicScore(),2));
 
         double totalScore=generalScoreDTO.getTotalScore();
         if(0<=totalScore&&totalScore<2){
@@ -242,7 +242,7 @@ public class RateServiceImpl implements RateService{
         double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
-        technicalDTO.setTechnicalScore(technicalScore);
+        technicalDTO.setTechnicalScore(NumberConvert.saveNDouble(technicalScore,2));
         technicalDTO.setPartScore(partScore);
         technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
@@ -495,7 +495,7 @@ public class RateServiceImpl implements RateService{
 
 
 
-        capitalDTO.setCapitalScore(CapitalScore);
+        capitalDTO.setCapitalScore(NumberConvert.saveNDouble(CapitalScore,2));
 
         capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore/10.0));
 
@@ -625,7 +625,7 @@ public class RateServiceImpl implements RateService{
         double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
-        messageDTO.setMessageScore(technicalScore);
+        messageDTO.setMessageScore(NumberConvert.saveNDouble(technicalScore,2));
         messageDTO.setPartScore(partScore);
         messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
         messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
@@ -759,7 +759,7 @@ public class RateServiceImpl implements RateService{
         double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
-        industryDTO.setIndustryScore(technicalScore);
+        industryDTO.setIndustryScore(NumberConvert.saveNDouble(technicalScore,2));
         industryDTO.setPartScore(partScore);
         industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
 
@@ -1067,7 +1067,7 @@ public class RateServiceImpl implements RateService{
         double technicalScore=getOneScore(thisScore,oneScoreList);
 
 
-        basicDTO.setBasicScore(technicalScore);
+        basicDTO.setBasicScore(NumberConvert.saveNDouble(technicalScore,2));
         basicDTO.setPartScore(partScore);
         basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
 
@@ -1132,13 +1132,13 @@ public class RateServiceImpl implements RateService{
 
 
 
-                System.out.println(technicalDTO.getPartScore()+" "+capitalDTO.getPartScore()+" "+messageDTO.getPartScore()+" "+industryDTO.getPartScore()+" "+basicDTO.getPartScore());
-
-                System.out.println(String.valueOf(technicalDTO.getPartScore()));
+//                System.out.println(technicalDTO.getPartScore()+" "+capitalDTO.getPartScore()+" "+messageDTO.getPartScore()+" "+industryDTO.getPartScore()+" "+basicDTO.getPartScore());
+//
+//                System.out.println(String.valueOf(technicalDTO.getPartScore()));
 
                 rateMapper.insertStockScore(stockScore);
 
-                System.out.println(stockCode);
+//                System.out.println(stockCode);
             }
 
 
