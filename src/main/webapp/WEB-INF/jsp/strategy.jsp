@@ -210,7 +210,7 @@
                         </div>
                         <div class="content">
                             <div class="col-xs-5"></div>
-                            <a href="<%=contextPath%>/strategy/createStrategy">
+                            <a href="<%=contextPath%>/strategy/createStrategy/?id=${user.account}">
                                 <p style="font-size: 100px">+</p>
                             </a>
                         </div>

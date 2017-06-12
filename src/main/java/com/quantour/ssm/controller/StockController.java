@@ -283,7 +283,7 @@ public class StockController {
 
     @RequestMapping("/getCapitalScore")
     public String showCapitalScore(HttpServletRequest request,Model model){
-        CapitalDTO capitalDTO=rateService.getOneStockCapitalScore("000011","2017-06-02");
+        CapitalDTO capitalDTO=rateService.getOneStockCapitalScore("000001","2017-06-02");
 
         model.addAttribute("capitalDTO",capitalDTO);
 

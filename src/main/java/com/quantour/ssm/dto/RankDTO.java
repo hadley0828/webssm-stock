@@ -6,15 +6,19 @@ package com.quantour.ssm.dto;
 public class RankDTO {
     String stockCode;
     String stockName;
-    double changePercent;
+    String changePercent;
     double newestPrice;
+
+    public RankDTO(){
+        super();
+    }
 
     @Override
     public String toString() {
         return "RankDTO{" +
                 "stockCode='" + stockCode + '\'' +
                 ", stockName='" + stockName + '\'' +
-                ", changePercent=" + changePercent +
+                ", changePercent='" + changePercent + '\'' +
                 ", newestPrice=" + newestPrice +
                 '}';
     }
@@ -35,11 +39,11 @@ public class RankDTO {
         this.stockName = stockName;
     }
 
-    public double getChangePercent() {
+    public String getChangePercent() {
         return changePercent;
     }
 
-    public void setChangePercent(double changePercent) {
+    public void setChangePercent(String changePercent) {
         this.changePercent = changePercent;
     }
 
@@ -51,9 +55,7 @@ public class RankDTO {
         this.newestPrice = newestPrice;
     }
 
-    public RankDTO(){
-        super();
-    }
+
 
 
 
