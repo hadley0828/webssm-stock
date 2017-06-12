@@ -49,12 +49,19 @@ public class StrategyController {
         return "strategy";
     }
 
-    @RequestMapping("/createStrategy")
-    public ModelAndView createStrategy(HttpServletRequest request, ModelAndView mav){
+    @RequestMapping(value="/createStrategy")
+    public ModelAndView createStrategy(@RequestParam(value = "id",required = false) String id, HttpServletRequest request, ModelAndView mav){
 
+        try {
+            userDTO user = userService.getOneUserByAccount(id);
+            mav.addObject("user",user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         ArrayList<String> conceptBlock = customizeService.getAllConceptBlock();
         ArrayList<String> industryBlock = customizeService.getAllIndustryBlock();
         ArrayList<String> areaBlock = customizeService.getAllAreaBlock();
+
 
         mav.addObject("conceptBlock",conceptBlock);
         mav.addObject("industryBlock",industryBlock);

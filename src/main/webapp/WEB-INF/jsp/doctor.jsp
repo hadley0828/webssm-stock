@@ -228,6 +228,7 @@
                             <div class="content">
                                 <div class="row">
                                     <p>TODO</p>
+
                                 </div>
                             </div>
 
@@ -242,7 +243,46 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <p>TODO</p>
+                                <div class="row">
+                                    <p style="padding-left: 50px;font-size: xx-large"><strong>诊断结果：</strong><strong class="text-danger">6.2</strong></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style=" color: #ff9500;font-size: large">k线图</strong></p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style=" color: #ff9500;font-size: large">市场表现</strong></p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style=" color: #ff9500;font-size: large">成交量数据</strong></p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -255,7 +295,102 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <p>TODO</p>
+                                <div class="row">
+                                    <p style="padding-left: 50px;font-size: xx-large"><strong>诊断结果：</strong><strong class="text-danger">6.2</strong></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style=" color: #ff9500;font-size: large">资金流向</strong></p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="card" style="">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style=" color: #ff9500;font-size: large">行业资金</strong></p>
+                                                <hr>
+                                            </div>
+                                            <div class="content  table-responsive">
+                                                <table class="table table-bordered" style="padding-left: 2%;padding-right: 2%">
+                                                    <caption style="padding-left: 15px;font-size: large">个股</caption>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>个股今日流向(万元)</td>
+                                                        <td style="color: crimson">1000</td>
+                                                        <td>个股五日流向(万元)</td>
+                                                        <td style="color: crimson">10000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>个股十日流向(万元)</td>
+                                                        <td style="color: crimson">10</td>
+                                                        <td>个股二十日流向(万元)</td>
+                                                        <td style="color: crimson">100000</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br>
+                                                <table class="table table-bordered" style="padding-left: 2%;padding-right: 2%">
+                                                    <caption style="padding-left: 15px;font-size: large">行业</caption>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>行业今日流向(万元)</td>
+                                                        <td style="color: crimson">1000</td>
+                                                        <td>行业五日流向(万元)</td>
+                                                        <td style="color: crimson">10000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>行业十日流向(万元)</td>
+                                                        <td style="color: crimson">10</td>
+                                                        <td>行业二十日流向(万元)</td>
+                                                        <td style="color: crimson">100000</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-left: 2%;padding-right: 2%">
+                                    <div class="card" >
+                                        <div class="header" style="background-color: #c1edfb">
+                                            <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">机构交易</strong> </p>
+                                            <hr>
+                                        </div>
+                                        <div class="content  table-responsive">
+                                            <table class="table table-bordered" style="padding-left: 2%;padding-right: 2%">
+                                                <caption style="padding-left: 15px;font-size: large">机构交易</caption>
+                                                <thead class="text-center">
+                                                <tr>
+                                                    <th>股票编号</th>
+                                                    <th>股票名称</th>
+                                                    <th>累计购买额</th>
+                                                    <th>买入席位数</th>
+                                                    <th>累计卖出额</th>
+                                                    <th>卖出席位数</th>
+                                                    <th>净额</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td style="color: crimson">1000</td>
+                                                    <td style="color: crimson">1000</td>
+                                                    <td style="color: crimson">1000</td>
+                                                    <td style="color: crimson">10000</td>
+                                                    <td style="color: crimson">1000</td>
+                                                    <td style="color: crimson">1000</td>
+                                                    <td style="color: crimson">1000</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -268,7 +403,54 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <p>TODO</p>
+                                <div class="row">
+                                    <p style="padding-left: 50px;font-size: xx-large"><strong>诊断结果：</strong><strong class="text-danger">6.2</strong></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header" style="background-color: #c1edfb">
+                                                        <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">分配预案</strong> </p>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="content table-responsive">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header" style="background-color: #c1edfb">
+                                                        <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">业绩预测</strong> </p>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="content table-responsive">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header" style="background-color: #c1edfb">
+                                                        <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">个股新闻</strong> </p>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="content table-responsive">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,7 +463,33 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <p>TODO</p>
+                                <div class="row">
+                                    <p style="padding-left: 50px;font-size: xx-large"><strong>诊断结果：</strong><strong class="text-danger">6.2</strong></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">行业走势</strong> </p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">十日涨跌幅</strong> </p>
+                                                <hr>
+                                            </div>
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -294,8 +502,55 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <p>TODO</p>
-
+                                <div class="row">
+                                    <p style="padding-left: 50px;font-size: xx-large"><strong>诊断结果：</strong><strong class="text-danger">6.2</strong></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">现金流量</strong> </p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">营收能力</strong> </p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">成长能力</strong> </p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">偿债能力</strong> </p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header" style="background-color: #c1edfb">
+                                                <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">盈利能力</strong> </p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

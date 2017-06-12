@@ -887,7 +887,7 @@
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
-<script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
+<%--<script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>--%>
 
 <!--  Charts Plugin -->
 <%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
