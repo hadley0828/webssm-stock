@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,24 +33,25 @@ public class DashBoardController {
     private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showBoard(@RequestParam(value = "id",required=false ) String user_id, HttpServletRequest request, Model model){
+    public ModelAndView showBoard(@RequestParam(value = "id",required=false ) String user_id, HttpServletRequest request, ModelAndView model){
 
+        model.setViewName("dashboard");
         try{
             System.out.println(":"+user_id);
             userDTO user = userService.getOneUserByAccount(user_id);
             System.out.println(user.getAccount());
 
-            model.addAttribute("user",user);
+            model.addObject("user",user);
         }catch (Exception e){
             e.printStackTrace();
         }
 
         try{
             ArrayList<String> codeAndName = stockService.getAllCodeAndName();
-            //ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2017-05-08",1);
+            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2017-05-08",1);
 
-            model.addAttribute("codeAndName",codeAndName);
-            //model.addAttribute("one_day_list",one_day_list);
+            model.addObject("codeAndName",codeAndName);
+            model.addObject("one_day_list",one_day_list);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -58,7 +60,7 @@ public class DashBoardController {
 //
 //        model.addAttribute("one_day_list",one_day_list);
 //        model.addAttribute("five_day_list",five_day_list);
-        return "dashboard";
+        return model;
     }
 
 
