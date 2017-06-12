@@ -387,7 +387,7 @@ public class StaticServiceImpl implements StaticService {
 
         indexprofitdto.setPlusCycles(plusCycles);
         indexprofitdto.setMinusCycles(minusCycles);
-        indexprofitdto.setWinRate(winRate);
+        indexprofitdto.setWinRate(NumberConvert.doubleToPercentageString(winRate));
         indexprofitdto.setCycleChangeMap(cycleChangeMap);
         strategyResultdto.setIndexprofitvo(indexprofitdto);
 
@@ -411,12 +411,12 @@ public class StaticServiceImpl implements StaticService {
                 double straProfit=straresultvo.getCurrentStraProfit();
                 String standardProfit=straresultvo.getStandardProfit();
                 double excessProfit=straProfit-Double.valueOf(standardProfit);
-                double winRate=straresultvo.getIndexprofitvo().getWinRate();
+                String winRate=straresultvo.getIndexprofitvo().getWinRate();
 
                 oneExtraProfitDTO oneextraprofitvo=new oneExtraProfitDTO();
                 oneextraprofitvo.setCycle(count);
                 oneextraprofitvo.setExtraProfit(excessProfit);
-                oneextraprofitvo.setWinRate(winRate);
+                oneextraprofitvo.setWinRate(Double.valueOf(winRate));
 
                 extraProfitList.add(oneextraprofitvo);
             }
@@ -432,12 +432,12 @@ public class StaticServiceImpl implements StaticService {
                 double straProfit=straresultvo.getCurrentStraProfit();
                 String standardProfit=straresultvo.getStandardProfit();
                 double excessProfit=straProfit-Double.valueOf(standardProfit);
-                double winRate=straresultvo.getIndexprofitvo().getWinRate();
+                String winRate=straresultvo.getIndexprofitvo().getWinRate();
 
                 oneExtraProfitDTO oneextraprofitvo=new oneExtraProfitDTO();
                 oneextraprofitvo.setCycle(count);
                 oneextraprofitvo.setExtraProfit(excessProfit);
-                oneextraprofitvo.setWinRate(winRate);
+                oneextraprofitvo.setWinRate(Double.valueOf(winRate));
 
                 extraProfitList.add(oneextraprofitvo);
 
@@ -856,7 +856,7 @@ public class StaticServiceImpl implements StaticService {
 
         indexprofitvo.setPlusCycles(plusCycles);
         indexprofitvo.setMinusCycles(minusCycles);
-        indexprofitvo.setWinRate(winRate);
+        indexprofitvo.setWinRate(NumberConvert.doubleToPercentageString(winRate));
         indexprofitvo.setCycleChangeMap(cycleChangeMap);
         straresultvo.setIndexprofitvo(indexprofitvo);
 
@@ -886,12 +886,12 @@ public class StaticServiceImpl implements StaticService {
             String standardProfit=straresultvo.getStandardProfit();
             double excessProfit=straProfit-Double.valueOf(standardProfit);
 
-            double winRate=straresultvo.getIndexprofitvo().getWinRate();
+            String winRate=straresultvo.getIndexprofitvo().getWinRate();
 
             oneExtraProfitDTO oneextraprofitvo=new oneExtraProfitDTO();
             oneextraprofitvo.setCycle(count);
             oneextraprofitvo.setExtraProfit(excessProfit);
-            oneextraprofitvo.setWinRate(winRate);
+            oneextraprofitvo.setWinRate(Double.valueOf(winRate));
 
             extraProfitList.add(oneextraprofitvo);
 

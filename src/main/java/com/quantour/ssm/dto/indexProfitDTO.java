@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class indexProfitDTO {
     int plusCycles;         //正收益周期数;
     int minusCycles;        //负收益周期数;
-    double winRate;         //赢率;
+    String winRate;         //赢率;
+
     HashMap<Double,Integer> cycleChangeMap;   //double是靠近的那个变化率  integer是数量
 
     @Override
@@ -37,13 +38,15 @@ public class indexProfitDTO {
         this.minusCycles = minusCycles;
     }
 
-    public double getWinRate() {
+
+    public String getWinRate() {
         return winRate;
     }
 
-    public void setWinRate(double winRate) {
+    public void setWinRate(String winRate) {
         this.winRate = winRate;
     }
+
 
     public HashMap<Double, Integer> getCycleChangeMap() {
         return cycleChangeMap;
