@@ -44,18 +44,19 @@ public class DoctorController {
         }
 
         try{
-//            BasicDTO basicDTO = rateService.getOneStockBasicScore("000001","2017-06-02");
-//            CapitalDTO capitalDTO = rateService.getOneStockCapitalScore("000001","2017-06-02");
-//            IndustryDTO industryDTO = rateService.getOneStockIndustryScore("000001","2017-06-02");
-//            MessageDTO messageDTO = rateService.getOneStockMessageScore("000001","2017-06-02");
-//            TechnicalDTO technicalDTO = rateService.getOneStockTechnicalScore("000001","2017-06-02");
             GeneralScoreDTO generalScoreDTO = rateService.getOneStockGeneralScore("000001","2017-06-02");
+            BasicDTO basicDTO = generalScoreDTO.getBasicDTO();
+            CapitalDTO capitalDTO = generalScoreDTO.getCapitalDTO();
+            IndustryDTO industryDTO = generalScoreDTO.getIndustryDTO();
+            MessageDTO messageDTO = generalScoreDTO.getMessageDTO();
+            TechnicalDTO technicalDTO = generalScoreDTO.getTechnicalDTO();
 
-//            model.addAttribute("basic",basicDTO);
-//            model.addAttribute("capital",capitalDTO);
-//            model.addAttribute("industry",industryDTO);
-//            model.addAttribute("message",messageDTO);
-//            model.addAttribute("technical",technicalDTO);
+
+            model.addAttribute("basic",basicDTO);
+            model.addAttribute("capital",capitalDTO);
+            model.addAttribute("industry",industryDTO);
+            model.addAttribute("message",messageDTO);
+            model.addAttribute("technical",technicalDTO);
             model.addAttribute("generalScore",generalScoreDTO);
         }catch(Exception e){
             e.printStackTrace();
