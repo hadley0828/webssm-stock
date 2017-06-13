@@ -461,7 +461,7 @@ public class RateServiceImpl implements RateService{
             fundFlowMapDTO.setDate(currentDate);
 
             if(oneStockSingleMap.containsKey(currentDate)){
-                fundFlowMapDTO.setSingleFlow(NumberConvert.saveNDouble(oneStockSingleMap.get(currentDate),1));
+                fundFlowMapDTO.setSingleFlow(NumberConvert.saveNDouble(oneStockSingleMap.get(currentDate)/10000.0,1));
             }else{
                 fundFlowMapDTO.setSingleFlow(0.0);
             }
