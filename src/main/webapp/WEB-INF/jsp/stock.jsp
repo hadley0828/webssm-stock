@@ -52,6 +52,10 @@
 
     <script type="text/javascript">
 
+//        function showNews() {
+//            window.location.href = "http://www.baidu.com";
+//        }
+
         function getKLineInfo(){
 
             var sdate = "2007-01-01";
@@ -419,17 +423,30 @@
 
                         <div class="row">
                             <div class="header">
-                                <blockquote style="font-size: 25px">
-                                    ${stock.name} (${stock.id})
-                                </blockquote>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <blockquote style="font-size: 25px">
+                                            ${stock.name} (${stock.id})
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-md-2" style="padding-top: 13px">
+                                        <p style="font-size: 20px">当前价格 ${stock.closePrice}</p>
+                                    </div>
+                                    <div class="col-md-2" style="padding-top: 13px">
+                                        <p style="font-size: 20px">涨跌幅 ${stock.uplift}</p>
+                                    </div>
+                                    <div class="col-md-2 col-md-offset-3" style="padding-top: 10px">
+                                        <button class="btn btn-default">添加至自选</button>
+                                    </div>
+                                </div>
                                 <hr>
                             </div>
                         </div>
-
+                        <p style="padding-left: 30px;font-size: 20px;color: #e98200">今日数据</p>
                         <div class="row" style="padding-left: 30px">
                             <div class="col-xs-1">
                                 <dt>开盘</dt>
-                                <dd class="text-danger">${stock.openPrice}</dd>
+                                <dd>${stock.openPrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>收盘</dt>
@@ -437,11 +454,11 @@
                             </div>
                             <div class="col-xs-1">
                                 <dt>最高</dt>
-                                <dd class="text-danger">${stock.highPrice}</dd>
+                                <dd style="color: red">${stock.highPrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>最低</dt>
-                                <dd class="text-success">${stock.closePrice}</dd>
+                                <dd style="color: green">${stock.closePrice}</dd>
                             </div>
                             <div class="col-xs-1">
                                 <dt>成交量</dt>
@@ -449,15 +466,43 @@
                             </div>
                             <div class="col-xs-1">
                                 <dt>涨跌</dt>
-                                <dd class="text-danger">${stock.uplift}</dd>
+                                <dd>${stock.uplift}</dd>
                             </div>
                             <div class="col-xs-1">
-                                <dt>industry</dt>
-                                <dd class="text-danger">${stock.stockIndustry}</dd>
+                                <dt>所属行业</dt>
+                                <dd>${stock.stockIndustry}</dd>
                             </div>
                             <div class="col-xs-1">
-                                <dt>area</dt>
-                                <dd class="text-danger">${stock.stockArea}</dd>
+                                <dt>所在区域</dt>
+                                <dd>${stock.stockArea}</dd>
+                            </div>
+                        </div>
+                        <br>
+                        <p style="padding-left: 30px;font-size: 20px;color: #e98200">明日预测数据</p>
+                        <div class="row" style="padding-left: 30px">
+                            <div class="col-xs-1">
+                                <dt>上升突破价位</dt>
+                                <dd>${nextDay.risingBreakthroughPrice}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>上升阻力价位</dt>
+                                <dd>${nextDay.risingResistancePrice}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>下跌支撑价位</dt>
+                                <dd>${nextDay.declineSupportPrice}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>下跌反转点价位</dt>
+                                <dd>${nextDay.declineReversePrice}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>心理价位</dt>
+                                <dd>${nextDay.targetPrice}</dd>
+                            </div>
+                            <div class="col-xs-1">
+                                <dt>收盘价位</dt>
+                                <dd>${nextDay.closePrice}</dd>
                             </div>
 
                         </div>
@@ -492,9 +537,26 @@
                             <blockquote>相关新闻</blockquote>
                         </div>
                         <hr>
-                        <c:forEach var="one_news" items="${stock.newsDTOArrayList}">
-                            <p>${one_news.title}</p>
-                        </c:forEach>
+                        <div class="content table-responsive">
+                            <table class="table table-striped" style="padding-left: 2%;padding-right: 2%">
+                                <thead class="text-center">
+                                <tr>
+                                    <th>标题</th>
+                                    <th>类型</th>
+                                    <th>时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="one_news" items="${stock.newsDTOArrayList}">
+                                        <tr>
+                                            <td><a href="${one_news.url}" target="_blank">${one_news.title}</a></td>
+                                            <td>${one_news.type}</td>
+                                            <td>${one_news.date}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -512,17 +574,21 @@
                             <div id="hot" class="tab-pane fade in active">
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>股票名称</th>
+                                            <th>股票代码</th>
+                                            <th>当前价格</th>
+                                        </tr>
+                                        </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>中国石油</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>中国石化</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
+                                        <c:forEach var="hot_stock" items="${hot_list}">
+                                            <tr>
+                                                <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
+                                                <td>${hot_stock.stockCode}</td>
+                                                <td>${hot_stock.newestPrice}</td>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -530,17 +596,21 @@
                             <div id="collect" class="tab-pane fade">
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>股票名称</th>
+                                            <th>股票代码</th>
+                                            <th>当前价格</th>
+                                        </tr>
+                                        </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>工商银行</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>农业银行</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
+                                        <c:forEach var="hot_stock" items="${hot_list}">
+                                            <tr>
+                                                <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
+                                                <td>${hot_stock.stockCode}</td>
+                                                <td>${hot_stock.newestPrice}</td>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -548,17 +618,21 @@
                             <div id="history" class="tab-pane fade">
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>股票名称</th>
+                                            <th>股票代码</th>
+                                            <th>当前价格</th>
+                                        </tr>
+                                        </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>万科A</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>百度</td>
-                                            <td>0.00</td>
-                                            <td>0.0%</td>
-                                        </tr>
+                                        <c:forEach var="hot_stock" items="${hot_list}">
+                                            <tr>
+                                                <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
+                                                <td>${hot_stock.stockCode}</td>
+                                                <td>${hot_stock.newestPrice}</td>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

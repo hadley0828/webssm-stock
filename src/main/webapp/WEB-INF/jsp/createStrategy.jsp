@@ -436,6 +436,10 @@
                                     <button class="btn btn-success" onclick="createStrategy()">创建</button>
                                 </div>
                             </div>
+                            <label for="strategyName">策略名称</label>
+                            <input type="text" class="form-control" id="strategyName" style="width: 30%">
+                            <br>
+                            <label for="s_intro">策略说明</label>
                             <textarea class="form-control" id="s_intro" placeholder="请输入策略说明" rows="3"></textarea>
                             <hr>
                         </div>

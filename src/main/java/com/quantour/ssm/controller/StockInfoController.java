@@ -42,15 +42,19 @@ public class StockInfoController {
         stock_code = stock_code.substring(0,6);
 
         stockDTO s = stockService.getStockInfo(stock_code,"2017-05-23");
+        NextDateStockDTO ns = stockService.getNextDayStockInfo(stock_code,"2017-05-23");
+        List<RankDTO> hot_list = stockService.getTopNStockByDays(5,"2017-06-02",1);
 
         model.setViewName("stock");
         System.out.println(s.getId());
         model.addObject("stock",s);
+        model.addObject("nextDay",ns);
+        model.addObject("hot_list",hot_list);
         try{
             System.out.println(";"+user_id);
             userDTO user = userService.getOneUserByAccount(user_id);
 
-            model.setViewName("user");
+//            model.setViewName("user");
             model.addObject("user",user);
         }catch (Exception e){
             e.printStackTrace();
