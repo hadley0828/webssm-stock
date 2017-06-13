@@ -5,6 +5,9 @@ import com.quantour.ssm.dto.indexProfitDTO;
 import com.quantour.ssm.dto.klineDTO;
 import com.quantour.ssm.dto.limitUpAndDownNumsDTO;
 import com.quantour.ssm.dto.oneDayProfitDTO;
+import com.quantour.ssm.dto.stockRate.DateAndChange;
+import com.quantour.ssm.dto.stockRate.FundFlowMapDTO;
+import com.quantour.ssm.dto.stockRate.Technical_mapDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -87,6 +90,40 @@ public class JsonConvert {
         return new Gson().toJson(obj);
     }
 
+    public static String markerlineConvert(ArrayList<Technical_mapDTO> list){
+        Object[] obj = new Object[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            Object[] o = {
+                    dateConvert(list.get(i).getDate()),list.get(i).getBlockChangePercent(),list.get(i).getStockChangePercent()
+            };
+            obj[i] = o;
+        }
+        return new Gson().toJson(obj);
+    }
+
+    public static String capitalLineConvert(ArrayList<FundFlowMapDTO> list){
+        Object[] obj = new Object[list.size()];
+
+        for(int i = 0; i < list.size(); i++){
+            Object[] o = {
+                   dateConvert(list.get(i).getDate()),list.get(i).getSingleFlow(),list.get(i).getIndustryAverageFlow()
+            };
+            obj[i] = o;
+        }
+        return new Gson().toJson(obj);
+    }
+
+    public static String ChangeListConvert(ArrayList<DateAndChange> list){
+        Object[] obj = new Object[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            Object[] o = {
+                    dateConvert(list.get(i).getDate()),list.get(i).getIndustryChangePercent(),list.get(i).getBlockChangePercent()
+            };
+            obj[i] = o;
+        }
+        return new Gson().toJson(obj);
+    }
+
     public static String Stra2LineConvert(indexProfitDTO dto){
         Object[] obj = new Object[dto.getCycleChangeMap().size()+3];
 
@@ -132,6 +169,8 @@ public class JsonConvert {
         return new Gson().toJson(obj);
     }
 
+
+
     private static String[] kLineConvert(klineDTO dto){
         String[] data = new String[5];
         data[0] = dateConvert(dto.getDate());
@@ -141,6 +180,7 @@ public class JsonConvert {
         data[4] = String.valueOf(dto.getHighPrice());
         return data;
     }
+
 
     private static String dateConvert(String date){
 

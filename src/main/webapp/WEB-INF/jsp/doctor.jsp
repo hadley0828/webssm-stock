@@ -45,6 +45,311 @@
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+
+    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+
+    <script type="text/javascript">
+        function getKLineInfo() {
+
+            var sdate = "2016-06-02";
+            var ldate = "2017-06-02";
+            var code = String(${generalScore.stockCode});
+
+            while(code.length < 6){
+                code = "0" + code;
+            }
+
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/getDayKLineInfo',
+                data: {codeid:code, sdate:sdate, ldate:ldate},
+                dataType: "json",
+                async:false,
+                success: function (result) {
+                    mydata = JSON.parse(result);
+                    fillKline(mydata);
+                },
+                error:function () {
+                    alert("!");
+                }
+            });
+        }
+
+        function calculateMA(dayCount) {
+            var result = [];
+            for (var i = 0, len = data0.values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += data0.values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+        function splitKlineData(rawdata){
+            var categoryData = [];
+            var values = [];
+            for (var i = 0; i < rawdata.length; i++) {
+                categoryData.push(rawdata[i].splice(0,1)[0]);
+                values.push(rawdata[i]);
+            }
+            return {
+                categoryData: categoryData,
+                values: values
+            };
+        }
+
+        function fillKline(rawdata) {
+            var daykline = echarts.init(document.getElementById("kline"));
+
+            data0 = splitKlineData(rawdata);
+
+            daykline.setOption(my_option ={
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                legend: {
+                    data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+                },
+                grid: {
+                    left: '10%',
+                    right: '10%',
+                    bottom: '15%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data0.categoryData,
+                    scale: true,
+                    boundaryGap : false,
+                    axisLine: {onZero: false},
+                    splitLine: {show: false},
+                    splitNumber: 20,
+                    min: 'dataMin',
+                },
+                yAxis: {
+                    scale: true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 50,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        type: 'slider',
+                        y: '90%',
+                        start: 50,
+                        end: 100
+                    }
+                ],
+                series: [
+                    {
+                        name: '日K',
+                        type: 'candlestick',
+                        data: data0.values,
+                        markPoint: {
+                            label: {
+                                normal: {
+                                    formatter: function (param) {
+                                        return param != null ? Math.round(param.value) : '';
+                                    }
+                                }
+                            },
+                            data: [
+                                {
+                                    name: 'XX标点',
+                                    coord: ['2013/5/31', 2300],
+                                    value: 2300,
+                                    itemStyle: {
+                                        normal: {color: 'rgb(41,60,85)'}
+                                    }
+                                },
+                                {
+                                    name: 'highest value',
+                                    type: 'max',
+                                    valueDim: 'highest'
+                                },
+                                {
+                                    name: 'lowest value',
+                                    type: 'min',
+                                    valueDim: 'lowest'
+                                },
+                                {
+                                    name: 'average value on close',
+                                    type: 'average',
+                                    valueDim: 'close'
+                                }
+                            ],
+                            tooltip: {
+                                formatter: function (param) {
+                                    return param.name + '<br>' + (param.data.coord || '');
+                                }
+                            }
+                        },
+                        markLine: {
+                            symbol: ['none', 'none'],
+                            data: [
+                                [
+                                    {
+                                        name: 'from lowest to highest',
+                                        type: 'min',
+                                        valueDim: 'lowest',
+                                        symbol: 'circle',
+                                        symbolSize: 10,
+                                        label: {
+                                            normal: {show: false},
+                                            emphasis: {show: false}
+                                        }
+                                    },
+                                    {
+                                        type: 'max',
+                                        valueDim: 'highest',
+                                        symbol: 'circle',
+                                        symbolSize: 10,
+                                        label: {
+                                            normal: {show: false},
+                                            emphasis: {show: false}
+                                        }
+                                    }
+                                ],
+                                {
+                                    name: 'min line on close',
+                                    type: 'min',
+                                    valueDim: 'close'
+                                },
+                                {
+                                    name: 'max line on close',
+                                    type: 'max',
+                                    valueDim: 'close'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        name: 'MA5',
+                        type: 'line',
+                        data: calculateMA(5),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA10',
+                        type: 'line',
+                        data: calculateMA(10),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA20',
+                        type: 'line',
+                        data: calculateMA(20),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+                    {
+                        name: 'MA30',
+                        type: 'line',
+                        data: calculateMA(30),
+                        smooth: true,
+                        lineStyle: {
+                            normal: {opacity: 0.5}
+                        }
+                    },
+
+                ]
+            });
+
+        }
+        
+        function splitMarketData(rawdata) {
+            var categoryData = [];
+            var values1 = [];
+            var values2 = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                categoryData.push(rawdata[i][0]);
+                values1.push(rawdata[i][1]);
+                values2.push(rawdata[i][2]);
+            }
+            return{
+                categoryMarketData:categoryData,
+                values1:values1,
+                values2:values2
+            };
+        }
+        
+        function fillMarketLine(rawdata) {
+            var marketline = echarts.init(document.getElementById("marketline"));
+            
+            data0 = splitMarketData(rawdata);
+
+            marketline.setOption(option={
+                legend:{
+                  data:['大盘10日涨跌幅','股票10日涨跌幅']
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: data0.categoryMarketData
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                series:[
+                    {
+                        name:'大盘10日涨跌幅',
+                        type:'line',
+                        data: data0.values1,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                    },
+                    {
+                        name:'股票10日涨跌幅',
+                        type:'line',
+                        data: data0.values2,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                    }
+                ]
+
+
+            });
+        }
+        
+        function getMarketLine() {
+           var datalist = ${technical.technicalMapDTOArrayList};
+
+           fillMarketLine(datalist);
+        }
+    </script>
 </head>
 <body>
 
@@ -171,7 +476,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-3 col-xs-offset-1">
+                    <div class="col-xs-4">
                         <div class="card">
                             <div class="header text-center">
                                 <h2><b>${generalScore.stockName}</b><small>(${generalScore.stockCode})</small></h2>
@@ -219,7 +524,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-7">
+                    <div class="col-xs-8">
                         <div class="card">
                             <div class="header text-center">
                                 <h3><b>分数预览</b></h3>
@@ -236,7 +541,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="header text-center">
                                 <h3><b>技术面诊股</b></h3>
@@ -253,8 +558,10 @@
                                                 <p style="padding-left: 20px"><strong style=" color: #e98200;font-size: large">k线图</strong></p>
                                                 <hr>
                                             </div>
-                                            <div class="content">
-
+                                            <div class="content" id="kline" style="width:550px;height:400px;">
+                                                <script>
+                                                    getKLineInfo();
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -264,8 +571,10 @@
                                                 <p style="padding-left: 20px"><strong style=" color: #e98200;font-size: large">市场表现</strong></p>
                                                 <hr>
                                             </div>
-                                            <div class="content">
-
+                                            <div class="content" id="marketline" style="width:550px;height:400px;">
+                                                <script>
+                                                    getMarketLine();
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -304,10 +613,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="header text-center">
-                                <h3><b>资金面面诊股</b></h3>
+                                <h3><b>资金面诊股</b></h3>
                                 <hr/>
                             </div>
                             <div class="content">
@@ -321,7 +630,7 @@
                                                 <p style="padding-left: 20px"><strong style=" color: #e98200;font-size: large">资金流向</strong></p>
                                                 <hr>
                                             </div>
-                                            <div class="content">
+                                            <div class="content" id="">
 
                                             </div>
                                         </div>
@@ -412,7 +721,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="header text-center">
                                 <h3><b>消息面诊股</b></h3>
@@ -531,7 +840,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="header text-center">
                                 <h3><b>行业面诊股</b></h3>
@@ -583,7 +892,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 ">
                         <div class="card">
                             <div class="header text-center">
                                 <h3><b>基本面诊股</b></h3>
@@ -817,15 +1126,5 @@
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="<%=contextPath%>/assets/js/demo.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        demo.initChartist();
-
-
-    });
-</script>
 </html>

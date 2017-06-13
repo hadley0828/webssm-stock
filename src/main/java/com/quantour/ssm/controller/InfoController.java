@@ -4,18 +4,22 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/6/8.
  */
 
+import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 
 @Controller
@@ -26,18 +30,38 @@ public class InfoController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private StockService stockService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public String showUserInfo(@RequestParam(value = "id",required = false) String user_id,HttpServletRequest request,Model model){
-        try{
-            System.out.println(";"+user_id);
-            userDTO user = userService.getOneUserByAccount(user_id);
+    public ModelAndView showUserInfo(@RequestParam(value = "id",required = false) String user_id,HttpServletRequest request){
 
-            model.addAttribute("user",user);
+        ModelAndView model = new ModelAndView();
+        model.setViewName("userInfo");
+
+
+
+
+        try{
+
+            userDTO user = userService.getOneUserByAccount(user_id);
+            model.addObject("user",user);
+
+            ArrayList<String> stockCodeList=stockService.getUserAllOptionalStock(user_id);
+            ArrayList<stockDTO> stockInfoList= new ArrayList<stockDTO>();
+
+            if(stockCodeList.size()!=0){
+                stockInfoList=stockService.getSeveralStockInfo(stockCodeList,"2017-06-02");
+
+            }
+            model.addObject("optionalStockList",stockInfoList);
+
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return "userInfo";
+        return model;
     }
 }
