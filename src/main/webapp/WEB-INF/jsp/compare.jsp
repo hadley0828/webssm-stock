@@ -662,6 +662,9 @@
                     },
                     left: 40
                 },
+                tooltip:{
+                    trigger: 'axis'
+                },
                 toolbox: {
                     show: true,
                     feature: {
@@ -732,6 +735,9 @@
                         fontSize: 16
                     },
                     left: 40
+                },
+                tooltip:{
+                    trigger: 'axis'
                 },
                 toolbox: {
                     show: true,
