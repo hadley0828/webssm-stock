@@ -4,8 +4,10 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/6/8.
  */
 
+import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.userDTO;
+import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
@@ -32,6 +34,9 @@ public class InfoController {
     private UserService userService;
     @Resource
     private StockService stockService;
+    @Resource
+    private CustomizeService customizeService;
+
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView showUserInfo(@RequestParam(value = "id",required = false) String user_id,HttpServletRequest request){
@@ -56,6 +61,9 @@ public class InfoController {
             }
             model.addObject("optionalStockList",stockInfoList);
 
+
+            ArrayList<CustomizeStrategyDTO> customizeStrategyDTOArrayList=customizeService.getOneUserAllStrategy(user_id);
+            model.addObject("strategyList",customizeStrategyDTOArrayList);
 
 
         }catch (Exception e){
