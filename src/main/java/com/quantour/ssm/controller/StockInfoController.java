@@ -171,15 +171,11 @@ public class StockInfoController {
 
     @RequestMapping(value = "/addStock")
     @ResponseBody
-    public String addMineStock(String user_id,String code_id,String date_time){
-        StockRecordDTO dto = new StockRecordDTO();
-        dto.setUser_id(user_id);
-        dto.setCode_id(code_id);
-        dto.setDate_time(date_time);
+    public String addMineStock(String user_id,String code_id){
 
         boolean bool = false;
         try{
-            bool = historyService.createNewStockRecord(dto);
+            bool = stockService.addOneNewOptionalStock(user_id,code_id);
         }catch (Exception e){
             e.printStackTrace();
         }
