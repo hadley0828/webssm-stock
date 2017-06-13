@@ -314,7 +314,7 @@
             upDownCharts.setOption(
                 option = {
                     title : {
-                        text: '涨跌分布',
+                        text: '当日涨跌分布',
                         x:'center'
                     },
                     tooltip : {
@@ -400,7 +400,7 @@
 
             limitCharts.setOption(option={
                 title:{
-                    text: "涨跌停",
+                    text: "近三十日每天的涨跌停数",
                     textStyle:{
                         fontSize: 16
                     },
