@@ -417,6 +417,9 @@
                     },
                     right:20
                 },
+                tooltip : {
+                    trigger: 'axis'
+                },
                 legend: {
                     data:['涨停','跌停']
                 },
