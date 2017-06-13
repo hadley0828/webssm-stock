@@ -47,18 +47,20 @@ public class DashBoardController {
             e.printStackTrace();
         }
 
+        String date="2017-06-01";
+
         try{
             ArrayList<String> codeAndName = stockService.getAllCodeAndName();
-            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(10,"2017-06-02",1);
+            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(10,date,1);
 
             model.addObject("codeAndName",codeAndName);
             model.addObject("one_day_list",one_day_list);
 
-            ArrayList<stockDTO> commendList=stockService.getIntelligentStock(user_id,"2017-06-02");
+            ArrayList<stockDTO> commendList=stockService.getIntelligentStock(user_id,date);
 
             model.addObject("commendList",commendList);
 
-            marketDTO marketDTO=stockService.getMarketInfo("2017-06-02");
+            marketDTO marketDTO=stockService.getMarketInfo(date);
             model.addObject("marketDTO",marketDTO);
 
         }catch (Exception e){

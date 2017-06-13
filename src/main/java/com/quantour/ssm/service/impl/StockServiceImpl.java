@@ -1230,7 +1230,7 @@ public class StockServiceImpl implements StockService {
         double three=2*e-a;
         double four=e-(a-b);
         double five=(e+one+two+three+four)/5.0;
-        double six=(5+f)/2.0;
+        double six=(five+f)/2.0;
 
         nextDateStockDTO.setStockCode(code);
         nextDateStockDTO.setDate(realDate);
