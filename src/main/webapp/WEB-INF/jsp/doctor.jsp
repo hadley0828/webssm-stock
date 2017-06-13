@@ -63,6 +63,7 @@
                 url: '<%=request.getContextPath()%>/stockinfo/getDayKLineInfo',
                 data: {codeid:code, sdate:sdate, ldate:ldate},
                 dataType: "json",
+                async:false,
                 success: function (result) {
                     mydata = JSON.parse(result);
                     fillKline(mydata);
@@ -276,13 +277,77 @@
             });
 
         }
+        
+        function splitMarketData(rawdata) {
+            var categoryData = [];
+            var values1 = [];
+            var values2 = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                categoryData.push(rawdata[i][0]);
+                values1.push(rawdata[i][1]);
+                values2.push(rawdata[i][2]);
+            }
+            return{
+                categoryMarketData:categoryData,
+                values1:values1,
+                values2:values2
+            };
+        }
+        
+        function fillMarketLine(rawdata) {
+            var marketline = echarts.init(document.getElementById("marketline"));
+            
+            data0 = splitMarketData(rawdata);
+
+            marketline.setOption(option={
+                legend:{
+                  data:['大盘10日涨跌幅','股票10日涨跌幅']
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: data0.categoryMarketData
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                series:[
+                    {
+                        name:'大盘10日涨跌幅',
+                        type:'line',
+                        data: data0.values1,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                    },
+                    {
+                        name:'股票10日涨跌幅',
+                        type:'line',
+                        data: data0.values2,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                    }
+                ]
 
 
+            });
+        }
+        
         function getMarketLine() {
-           var datalist = [];
-           datalist = "${technical.technicalMapDTOArrayList}";
+           var datalist = ${technical.technicalMapDTOArrayList};
 
-           alert(datalist[1]);
+           fillMarketLine(datalist);
         }
     </script>
 </head>
@@ -565,7 +630,7 @@
                                                 <p style="padding-left: 20px"><strong style=" color: #e98200;font-size: large">资金流向</strong></p>
                                                 <hr>
                                             </div>
-                                            <div class="content">
+                                            <div class="content" id="">
 
                                             </div>
                                         </div>
