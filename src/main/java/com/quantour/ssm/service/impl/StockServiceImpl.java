@@ -1125,7 +1125,6 @@ public class StockServiceImpl implements StockService {
         return codeList;
     }
 
-    //TODO
     @Override
     public ArrayList<stockDTO> getIntelligentStock(String userId,String date) {
         ArrayList<String> resultList=new ArrayList<String>();
