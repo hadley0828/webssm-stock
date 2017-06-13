@@ -26,10 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/strategy")
@@ -53,17 +50,38 @@ public class StrategyController {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        try{
+            List<CustomizeStrategyDTO> customizeStrategy_list = customizeService.getAllCustomizeStrategy();
+            model.addAttribute("Strategy_list",customizeStrategy_list);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return "strategy";
     }
 
     @RequestMapping(value="/createStrategy")
-    public ModelAndView createStrategy(@RequestParam(value = "id",required = false) String id, HttpServletRequest request, ModelAndView mav){
+    public ModelAndView createStrategy(@RequestParam(value = "id",required = false) String id,
+                                       @RequestParam(value = "strategyid",required = false) String strategy_id,
+                                       HttpServletRequest request,
+                                       ModelAndView mav){
 
         try {
+            System.out.println("st"+id);
             userDTO user = userService.getOneUserByAccount(id);
             mav.addObject("user",user);
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        try{
+            System.out.println("st"+strategy_id);
+            CustomizeStrategyDTO customizeStrategyDTO = customizeService.getOneStrategy(strategy_id);
+//            HashMap<>
+            mav.addObject("strategy",customizeStrategyDTO);
+        }catch (Exception e){
+            e.printStackTrace();;
         }
         ArrayList<String> conceptBlock = customizeService.getAllConceptBlock();
         ArrayList<String> industryBlock = customizeService.getAllIndustryBlock();
