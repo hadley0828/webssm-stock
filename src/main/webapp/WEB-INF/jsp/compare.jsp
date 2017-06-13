@@ -830,14 +830,21 @@
             board1.style.display="none";
             board2.style.display="";
         }
-        
-        $(function () {
-            var available = new Array();
-            for(var i=0;i<${codeAndName.size()};i++){
-                available[i] = ${codeAndName[i]};
-            }
-            $("#tags").autocomplete({source:available});
-        })
+
+
+
+        <%--$(function () {--%>
+            <%--var available = [];--%>
+            <%--var data = "${codeAndName}";--%>
+
+            <%--data = data.substr(0,data.length-1);--%>
+            <%--var datalist = data.split(",");--%>
+
+            <%--for(var i = 0; i < datalist.length; i++){--%>
+                <%--available.push(datalist[i]);--%>
+            <%--}--%>
+            <%--$("#tags").autocomplete({source:available});--%>
+        <%--})--%>
 
     </script>
 
@@ -973,6 +980,7 @@
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8">
                                     <input type="text" placeholder="代码/名称" class="form-control" id="tags">
+
                                 </div>
                             </div>
                             <ul class="list-inline" style="padding-top: 20px" id="choosed_list">

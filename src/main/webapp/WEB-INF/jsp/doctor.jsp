@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
@@ -1002,11 +1003,12 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <c:forEach var="one_new" items="${generalScore.messageDTO.messageNewsDTOArrayList}">
+                                                                <c:set var="startIndex" value="${fn:length(generalScore.messageDTO.messageNewsDTOArrayList)-1 }"></c:set>
+                                                                <c:forEach var="one_new" items="${generalScore.messageDTO.messageNewsDTOArrayList}" varStatus="status">
                                                                     <tr>
-                                                                        <td><a>${one_new.title}</a></td>
-                                                                        <td>${one_new.type}</td>
-                                                                        <td>${one_new.date}</td>
+                                                                        <td><a href="${generalScore.messageDTO.messageNewsDTOArrayList[startIndex-status.index].url}" target="_blank">${generalScore.messageDTO.messageNewsDTOArrayList[startIndex-status.index].title}</a></td>
+                                                                        <td>${generalScore.messageDTO.messageNewsDTOArrayList[startIndex-status.index].type}</td>
+                                                                        <td>${generalScore.messageDTO.messageNewsDTOArrayList[startIndex-status.index].date}</td>
                                                                     </tr>
                                                                 </c:forEach>
                                                             </tbody>

@@ -46,6 +46,7 @@
 
     <%--Bootstrap select--%>
     <link href="<%=contextPath%>/assets/css/bootstrap-select.min.css" rel="stylesheet" >
+    <script src="<%=contextPath%>/assets/js/bootstrap-select.js"></script>
 
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
@@ -751,7 +752,7 @@
                 </div>
             </div>
 
-            <div class="row" style="z-index: 0">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="content">
@@ -760,10 +761,7 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <script>
-
-                                    </script>
-                                    <select name="stock" id="stockSearch" class="form-control selectpicker show-tick "  data-live-search="true" data-dropup-auto="false">
+                                    <select class="selectpicker"  id="stockSearch" data-live-search="true" data-size="3">
                                         <c:forEach var="oneStock" items="${codeAndName}">
                                             <option value="${oneStock}">${oneStock}</option>
                                         </c:forEach>
@@ -878,7 +876,7 @@
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
 <%--Bootstrap select--%>
-<script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
+<script src="<%=contextPath%>/assets/js/bootstrap-select.js"></script>
 <script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
 
 
