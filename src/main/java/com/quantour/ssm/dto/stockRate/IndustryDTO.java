@@ -10,8 +10,8 @@ public class IndustryDTO {
     double industryScore;   //行业面得分
     double partScore;   //根据下面的指标获得的分数用来排名
     double defeatPercent;   //击败了多少百分比的股票
-    double tenDaysIndustryChange;   //近十天该行业的涨跌幅
-    double tenDaysMarketChange;     //近十天大盘的涨跌幅
+    String tenDaysIndustryChange;   //近十天该行业的涨跌幅
+    String tenDaysMarketChange;     //近十天大盘的涨跌幅
     //下面画一张两条折线图
     String ChangeList;   //近十个交易日每天市场的涨跌幅
 
@@ -51,21 +51,23 @@ public class IndustryDTO {
         this.defeatPercent = defeatPercent;
     }
 
-    public double getTenDaysIndustryChange() {
+
+    public String getTenDaysIndustryChange() {
         return tenDaysIndustryChange;
     }
 
-    public void setTenDaysIndustryChange(double tenDaysIndustryChange) {
+    public void setTenDaysIndustryChange(String tenDaysIndustryChange) {
         this.tenDaysIndustryChange = tenDaysIndustryChange;
     }
 
-    public double getTenDaysMarketChange() {
+    public String getTenDaysMarketChange() {
         return tenDaysMarketChange;
     }
 
-    public void setTenDaysMarketChange(double tenDaysMarketChange) {
+    public void setTenDaysMarketChange(String tenDaysMarketChange) {
         this.tenDaysMarketChange = tenDaysMarketChange;
     }
+
 
 
     public String getChangeList() {

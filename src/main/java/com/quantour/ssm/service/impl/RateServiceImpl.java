@@ -730,8 +730,8 @@ public class RateServiceImpl implements RateService{
 
         double tenDaysMarketChange=StockCalculator.getIncrease(beforePrice,nowPrice);
 
-        industryDTO.setTenDaysIndustryChange(tenDaysIndustryChange);
-        industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
+        industryDTO.setTenDaysIndustryChange(NumberConvert.doubleToPercentageString(tenDaysIndustryChange));
+        industryDTO.setTenDaysMarketChange(NumberConvert.doubleToPercentageString(tenDaysMarketChange));
 
         System.out.println(resultList.get(0));
         industryDTO.setChangeList(JsonConvert.ChangeListConvert(resultList));
