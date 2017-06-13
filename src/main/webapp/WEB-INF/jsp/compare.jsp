@@ -833,11 +833,9 @@
         
         $(function () {
             var available = new Array();
-            var i = 0;
-            <c:forEach var="each" items="${codeAndName}">
-                available[i] = each;
-                i++;
-            </c:forEach>
+            for(var i=0;i<${codeAndName.size()};i++){
+                available[i] = ${codeAndName[i]};
+            }
             $("#tags").autocomplete({source:available});
         })
 
