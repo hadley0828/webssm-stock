@@ -44,17 +44,45 @@ public class CustomizeServiceImpl implements CustomizeService{
 
     @Override
     public ArrayList<String> getAllIndustryBlock() {
-        return (ArrayList<String>) dayKLineMapper.getAllIndustryBlock();
+        ArrayList<String> resultList=new ArrayList<String>();
+
+        resultList.add("全选");
+
+        ArrayList<String> allIndustryList= (ArrayList<String>) dayKLineMapper.getAllIndustryBlock();
+        for(int count=0;count<allIndustryList.size();count++){
+            resultList.add(allIndustryList.get(count));
+        }
+        return resultList;
     }
 
     @Override
     public ArrayList<String> getAllConceptBlock() {
-        return (ArrayList<String>) dayKLineMapper.getAllConceptBlock();
+        ArrayList<String> resultList=new ArrayList<String>();
+
+        resultList.add("全选");
+
+        ArrayList<String> allConceptList= (ArrayList<String>) dayKLineMapper.getAllConceptBlock();
+        for(int count=0;count<allConceptList.size();count++){
+            resultList.add(allConceptList.get(count));
+        }
+
+        return resultList;
     }
 
     @Override
     public ArrayList<String> getAllAreaBlock() {
-        return (ArrayList<String>) dayKLineMapper.getAllAreaBlock();
+        ArrayList<String> resultList=new ArrayList<String>();
+
+        resultList.add("全选");
+
+        ArrayList<String> allAreaList= (ArrayList<String>) dayKLineMapper.getAllAreaBlock();
+
+        for(int count=0;count<allAreaList.size();count++){
+            resultList.add(allAreaList.get(count));
+        }
+
+
+        return resultList;
     }
 
     @Override

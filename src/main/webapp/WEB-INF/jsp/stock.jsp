@@ -532,7 +532,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="header">
                             <blockquote>相关新闻</blockquote>
@@ -543,7 +543,7 @@
                                 <thead class="text-center">
                                 <tr>
                                     <th>标题</th>
-                                    <th>类型</th>
+                                    <th style="width: 96px">类型</th>
                                     <th>时间</th>
                                 </tr>
                                 </thead>
@@ -561,7 +561,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="header">
                             <blockquote>其他股票</blockquote>
