@@ -181,7 +181,7 @@
                                 <div class="row">
                                     <div class="col-xs-6 col-xs-offset-3">
                                         <div class="text-center">
-                                            <h1 style="color: #FF9500">6.5<small>分</small></h1>
+                                            <h1 style="color: #FF9500">${generalScore.totalScore}<small>分</small></h1>
                                             <br>
                                         </div>
                                     </div>
@@ -204,17 +204,17 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <div class="row" style="margin: auto">
-                                    <dl >
-                                        <dt>短期</dt>
-                                        <dd style="color: #3091B2">短期的强势行情可能结束，投资者及时短线卖出、离场观望为宜。</dd>
-                                        <dt>中期</dt>
-                                        <dd style="color: #3091B2">上涨趋势有所减缓，可适量高抛低吸。</dd>
-                                        <dt>长期</dt>
-                                        <dd style="color: #3091B2">迄今为止，共74家主力机构，持仓量总计50.87亿股，占流通A股52.40%</dd>
+                                <%--<div class="row" style="margin: auto">--%>
+                                    <%--<dl >--%>
+                                        <%--<dt>短期</dt>--%>
+                                        <%--<dd style="color: #3091B2">短期的强势行情可能结束，投资者及时短线卖出、离场观望为宜。</dd>--%>
+                                        <%--<dt>中期</dt>--%>
+                                        <%--<dd style="color: #3091B2">上涨趋势有所减缓，可适量高抛低吸。</dd>--%>
+                                        <%--<dt>长期</dt>--%>
+                                        <%--<dd style="color: #3091B2">迄今为止，共74家主力机构，持仓量总计50.87亿股，占流通A股52.40%</dd>--%>
 
-                                    </dl>
-                                </div>
+                                    <%--</dl>--%>
+                                <%--</div>--%>
 
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                             </div>
                             <div class="content">
                                 <div class="row">
-                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${technical.technicalScore}</strong> 击败了${technical.defeatPercent}%的股票</h4>
+                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${generalScore.technicalDTO.technicalScore}</strong> 击败了${generalScore.technicalDTO.defeatPercent}%的股票</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -289,9 +289,9 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td style="color: crimson">${technical.oneDayVolume}</td>
-                                                        <td style="color: crimson">${technical.fiveDayVolume}</td>
-                                                        <td style="color: crimson">${technical.tenDayVolume}</td>
+                                                        <td style="color: crimson">${generalScore.technicalDTO.oneDayVolume}</td>
+                                                        <td style="color: crimson">${generalScore.technicalDTO.fiveDayVolume}</td>
+                                                        <td style="color: crimson">${generalScore.technicalDTO.tenDayVolume}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -312,7 +312,7 @@
                             </div>
                             <div class="content">
                                 <div class="row">
-                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${capital.capitalScore}</strong> 击败了${capital.defeatPercent}%的股票</h4>
+                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${generalScore.capitalDTO.capitalScore}</strong> 击败了${generalScore.capitalDTO.defeatPercent}%的股票</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-7">
@@ -338,15 +338,15 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>个股今日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.todayStockFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.todayStockFlow}</td>
                                                         <td>个股五日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.fiveStockFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.fiveStockFlow}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>个股十日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.tenStockFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.tenStockFlow}</td>
                                                         <td>个股二十日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.twentyStockFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.twentyStockFlow}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -356,15 +356,15 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>行业今日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.todayIndustryFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.todayIndustryFlow}</td>
                                                         <td>行业五日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.fiveIndustryFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.fiveIndustryFlow}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>行业十日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.tenIndustryFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.tenIndustryFlow}</td>
                                                         <td>行业二十日流向(万元)</td>
-                                                        <td style="color: crimson">${capital.twentyIndustryFlow}</td>
+                                                        <td style="color: crimson">${generalScore.capitalDTO.twentyIndustryFlow}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -383,8 +383,8 @@
                                                 <caption style="padding-left: 15px;font-size: large">机构交易</caption>
                                                 <thead class="text-center">
                                                 <tr>
-                                                    <th>股票编号</th>
-                                                    <th>股票名称</th>
+                                                    <%--<th>股票编号</th>--%>
+                                                    <%--<th>股票名称</th>--%>
                                                     <th>累计购买额</th>
                                                     <th>买入席位数</th>
                                                     <th>累计卖出额</th>
@@ -394,13 +394,13 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td style="color: crimson">${capital.stockCode}</td>
-                                                    <td style="color: crimson">${capital.stockName}</td>
-                                                    <td style="color: crimson">${capital.bAmount}</td>
-                                                    <td style="color: crimson">${capital.bCount}</td>
-                                                    <td style="color: crimson">${capital.sAmount}</td>
-                                                    <td style="color: crimson">${capital.sCount}</td>
-                                                    <td style="color: crimson">${capital.net}</td>
+                                                    <%--<td style="color: crimson">${generalScore.capitalDTO.stockCode}</td>--%>
+                                                    <%--<td style="color: crimson">${generalScore.capitalDTO.stockName}</td>--%>
+                                                    <td style="color: crimson">${generalScore.capitalDTO.bAmount}</td>
+                                                    <td style="color: crimson">${generalScore.capitalDTO.bCount}</td>
+                                                    <td style="color: crimson">${generalScore.capitalDTO.sAmount}</td>
+                                                    <td style="color: crimson">${generalScore.capitalDTO.sCount}</td>
+                                                    <td style="color: crimson">${generalScore.capitalDTO.net}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -420,7 +420,7 @@
                             </div>
                             <div class="content">
                                 <div class="row">
-                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${message.messageScore}</strong> 击败了${message.defeatPercent}%的股票</h4>
+                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${generalScore.messageDTO.messageScore}</strong> 击败了${generalScore.messageDTO.defeatPercent}%的股票</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5">
@@ -436,21 +436,21 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td>股票代码</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.code}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.code}</td>
                                                                 <td>股票名称</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.name}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.name}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>分配年份</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.year}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.year}</td>
                                                                 <td>公布日期</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.report_date}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.report_date}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>分红金额（每10股）</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.divi}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.divi}</td>
                                                                 <td>转增和送股数（每10股）</td>
-                                                                <td style="color: crimson">${message.message_allocationDTO.shares}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_allocationDTO.shares}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -470,21 +470,21 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td>股票代码</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.code}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.code}</td>
                                                                 <td>股票名称</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.name}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.name}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>业绩变动类型</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.type}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.type}</td>
                                                                 <td>发布日期</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.report_date}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.report_date}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>上年同期每股收益</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.pre_eps}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.pre_eps}</td>
                                                                 <td>业绩变动范围</td>
-                                                                <td style="color: crimson">${message.message_forecastDTO.out_range}</td>
+                                                                <td style="color: crimson">${generalScore.messageDTO.message_forecastDTO.out_range}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -511,7 +511,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <c:forEach var="one_new" items="${message.messageNewsDTOArrayList}">
+                                                                <c:forEach var="one_new" items="${generalScore.messageDTO.messageNewsDTOArrayList}">
                                                                     <tr>
                                                                         <td><a>${one_new.title}</a></td>
                                                                         <td>${one_new.type}</td>
@@ -539,7 +539,7 @@
                             </div>
                             <div class="content">
                                 <div class="row">
-                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${industry.industryScore}</strong> 击败了${industry.defeatPercent}%的股票</h4>
+                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${generalScore.industryDTO.industryScore}</strong> 击败了${generalScore.industryDTO.defeatPercent}%的股票</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
@@ -569,8 +569,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>${industry.tenDaysIndustryChange}</td>
-                                                            <td>${industry.tenDaysMarketChange}</td>
+                                                            <td>${generalScore.industryDTO.tenDaysIndustryChange}</td>
+                                                            <td>${generalScore.industryDTO.tenDaysMarketChange}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -591,7 +591,7 @@
                             </div>
                             <div class="content">
                                 <div class="row">
-                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${basic.basicScore}</strong> 击败了${basic.defeatPercent}%的股票</h4>
+                                    <h4><strong style="padding-left: 50px;font-size: xx-large">诊断结果：</strong><strong class="text-danger" style="font-size: xx-large">${generalScore.basicDTO.basicScore}</strong> 击败了${generalScore.basicDTO.defeatPercent}%的股票</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -605,23 +605,23 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>经营现金净流量对销售收入比率</td>
-                                                            <td>${basic.basicCashFlowDTO.cfSales}</td>
+                                                            <td>${generalScore.basicDTO.basicCashFlowDTO.cfSales}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>资产的经营现金流量回报率</td>
-                                                            <td>${basic.basicCashFlowDTO.rateOfReturn}</td>
+                                                            <td>${generalScore.basicDTO.basicCashFlowDTO.rateOfReturn}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>经营现金净流量与净利润的比率</td>
-                                                            <td>${basic.basicCashFlowDTO.cfNm}</td>
+                                                            <td>${generalScore.basicDTO.basicCashFlowDTO.cfNm}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>经营现金净流量对负债比率</td>
-                                                            <td>${basic.basicCashFlowDTO.cfLiAbilities}</td>
+                                                            <td>${generalScore.basicDTO.basicCashFlowDTO.cfLiAbilities}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>现金净流量比率</td>
-                                                            <td>${basic.basicCashFlowDTO.cashFlowRatio}</td>
+                                                            <td>${generalScore.basicDTO.basicCashFlowDTO.cashFlowRatio}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -640,27 +640,27 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>应收账款周转率</td>
-                                                        <td>${basic.basicEarningDTO.arTurnOver}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.arTurnOver}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>应收账款周转天数</td>
-                                                        <td>${basic.basicEarningDTO.arTurnDays}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.arTurnDays}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>存货周转率</td>
-                                                        <td>${basic.basicEarningDTO.inventoryTurnOver}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.inventoryTurnOver}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>存货周转天数</td>
-                                                        <td>${basic.basicEarningDTO.inventoryDays}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.inventoryDays}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>流动资产周转率</td>
-                                                        <td>${basic.basicEarningDTO.currentAssetTurnOver}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.currentAssetTurnOver}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>流动资产周转天数</td>
-                                                        <td>${basic.basicEarningDTO.currentAssetDays}</td>
+                                                        <td>${generalScore.basicDTO.basicEarningDTO.currentAssetDays}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -681,27 +681,27 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>主营业务收入增长率</td>
-                                                        <td>${basic.basicGrowDTO.mbrg}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.mbrg}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>净利润增长率</td>
-                                                        <td>${basic.basicGrowDTO.nprg}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.nprg}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>净资产增长率</td>
-                                                        <td>${basic.basicGrowDTO.nav}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.nav}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>总资产增长率</td>
-                                                        <td>${basic.basicGrowDTO.targ}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.targ}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>每股收益增长率</td>
-                                                        <td>${basic.basicGrowDTO.epsg}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.epsg}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>股东收益增长率</td>
-                                                        <td>${basic.basicGrowDTO.seg}</td>
+                                                        <td>${generalScore.basicDTO.basicGrowDTO.seg}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -720,27 +720,27 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>流动比率</td>
-                                                        <td>${basic.basicPaymentDTO.currentRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.currentRatio}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>速动比率</td>
-                                                        <td>${basic.basicPaymentDTO.quickRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.quickRatio}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>现金比率</td>
-                                                        <td>${basic.basicPaymentDTO.cashRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.cashRatio}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>利息支付倍数</td>
-                                                        <td>${basic.basicPaymentDTO.icRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.icRatio}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>股东权益比率</td>
-                                                        <td>${basic.basicPaymentDTO.sheqRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.sheqRatio}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>股东权益增长率</td>
-                                                        <td>${basic.basicPaymentDTO.adRatio}</td>
+                                                        <td>${generalScore.basicDTO.basicPaymentDTO.adRatio}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -771,13 +771,13 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>${basic.basicProfitDTO.roe}</td>
-                                                            <td>${basic.basicProfitDTO.netProfitRatio}</td>
-                                                            <td>${basic.basicProfitDTO.grossProfitRate}</td>
-                                                            <td>${basic.basicProfitDTO.netProfits}</td>
-                                                            <td>${basic.basicProfitDTO.esp}</td>
-                                                            <td>${basic.basicProfitDTO.bussinessIncome}</td>
-                                                            <td>${basic.basicProfitDTO.bips}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.roe}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.netProfitRatio}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.grossProfitRate}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.netProfits}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.esp}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.bussinessIncome}</td>
+                                                            <td>${generalScore.basicDTO.basicProfitDTO.bips}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
