@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -82,6 +84,21 @@ public class StockInfoController {
             e.printStackTrace();
         }
 
+        StockRecordDTO dto = new StockRecordDTO();
+
+        SimpleDateFormat myFmt1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date now=new java.util.Date();
+        String rq=myFmt1.format(now);
+
+        dto.setDate_time(rq);
+        dto.setCode_id(stock_code);
+        dto.setUser_id(user_id);
+
+        try{
+            historyService.createNewStockRecord(dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         try{
             ArrayList<StockRecordDTO> allRecordStock=historyService.getUserAllStockRecord(user_id,date);
@@ -150,5 +167,30 @@ public class StockInfoController {
         }else{
             return new Gson().toJson("pass");
         }
+    }
+
+    @RequestMapping(value = "/addStock")
+    @ResponseBody
+    public String addMineStock(String user_id,String code_id,String date_time){
+        StockRecordDTO dto = new StockRecordDTO();
+        dto.setUser_id(user_id);
+        dto.setCode_id(code_id);
+        dto.setDate_time(date_time);
+
+        boolean bool = false;
+        try{
+            bool = historyService.createNewStockRecord(dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        HashMap<String,String> map = new HashMap<String, String>();
+        if(bool){
+            map.put("result","success");
+        }else{
+            map.put("result","false");
+        }
+
+        return new Gson().toJson(map);
     }
 }

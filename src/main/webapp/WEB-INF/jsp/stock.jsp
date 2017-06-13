@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.quantour.ssm.dto.stockDTO" %><%--
   Created by IntelliJ IDEA.
@@ -672,7 +673,20 @@
 
 <script>
     function addMine() {
+        var user_id = "${user.account}";
+        var code_id = "${stock.id}";
+        var date_time = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
 
+        $.ajax({
+            type: 'POST',
+            url:'<%=request.getContextPath()%>/stockinfo/addStock',
+            data:{user_id:user_id, code_id:code_id, date_time:date_time},
+            dataType:'json',
+            success:function (result) {
+                mydata = JSON.parse(result);
+                alert(mydata.result);
+            }
+        });
     }
 </script>
 
