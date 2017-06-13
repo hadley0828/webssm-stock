@@ -241,8 +241,7 @@ public class RateServiceImpl implements RateService{
 
         technicalDTO.setTechnicalScore(NumberConvert.saveNDouble(technicalScore,2));
         technicalDTO.setPartScore(partScore);
-        //TODO
-        technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(JsonConvert.markerlineConvert(technicalMapDTOArrayList));
         technicalDTO.setOneDayVolume(oneDayVolume);
@@ -495,7 +494,7 @@ public class RateServiceImpl implements RateService{
 
         capitalDTO.setCapitalScore(NumberConvert.saveNDouble(CapitalScore,2));
 
-        capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore/10.0));
+        capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore*10.0));
 
         capitalDTO.setFlowMapList(JsonConvert.capitalLineConvert(allFlowMapList));
 
@@ -625,7 +624,7 @@ public class RateServiceImpl implements RateService{
 
         messageDTO.setMessageScore(NumberConvert.saveNDouble(technicalScore,2));
         messageDTO.setPartScore(partScore);
-        messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
         messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
 
 
@@ -759,7 +758,7 @@ public class RateServiceImpl implements RateService{
 
         industryDTO.setIndustryScore(NumberConvert.saveNDouble(technicalScore,2));
         industryDTO.setPartScore(partScore);
-        industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
 
 
         return industryDTO;
@@ -1067,7 +1066,7 @@ public class RateServiceImpl implements RateService{
 
         basicDTO.setBasicScore(NumberConvert.saveNDouble(technicalScore,2));
         basicDTO.setPartScore(partScore);
-        basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
 
 
         return basicDTO;
