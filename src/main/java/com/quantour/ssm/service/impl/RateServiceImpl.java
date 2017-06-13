@@ -734,6 +734,8 @@ public class RateServiceImpl implements RateService{
 
         industryDTO.setTenDaysIndustryChange(tenDaysIndustryChange);
         industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
+
+        System.out.println(resultList.get(0));
         industryDTO.setChangeList(JsonConvert.ChangeListConvert(resultList));
 
         //指标

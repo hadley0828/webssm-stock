@@ -281,7 +281,7 @@
         }
 
         function getUpDownInfo() {
-            var date = "2017-06-01";
+            var date = "2017-06-02";
 
             $.ajax({
                 url:'<%=request.getContextPath()%>/stockinfo/getUpDown',
@@ -361,7 +361,7 @@
 
 
         function getLimitInfo() {
-            var date = "2017-06-01";
+            var date = "2017-06-02";
 
             $.ajax({
                 url:'<%=request.getContextPath()%>/stockinfo/getLimit',
@@ -680,8 +680,8 @@
                                                 <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px">涨跌分布</a>
                                                 <div class="row">
 
-                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:1000</div>
-                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:1000</div>
+                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:${marketDTO.riseStockNumber}</div>
+                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:${marketDTO.declineStockNumber}</div>
                                                 </div>
                                             </blockquote>
 
@@ -691,8 +691,8 @@
                                                 <span class="ti-exchange-vertical"></span>
                                                 <a href="#limit" role="tab" data-toggle="tab" style="font-size: 25px">涨跌停</a>
                                                 <div class="row">
-                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:1000</div>
-                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:1000</div>
+                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:${marketDTO.limitup}</div>
+                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:${marketDTO.limitdown}</div>
                                                 </div>
                                             </blockquote>
                                         </li>
@@ -777,7 +777,7 @@
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
                         <div class="header" style="z-index: inherit">
-                            <h4 class="title">单日股票涨幅前5</h4>
+                            <h4 class="title">单日股票涨幅前10</h4>
 
                             <hr>
                         </div>
@@ -808,11 +808,37 @@
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
                         <div class="header" style="z-index: inherit">
-                            <h4 class="title">全部股票</h4>
-                            <p class="category">Here is a subtitle for this table</p>
+                            <h4 class="title">猜你喜欢</h4>
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width" style="z-index: inherit">
+                            <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
+                                <thead>
+                                    <th>股票编号</th>
+                                    <th>股票名称</th>
+                                    <th>当前价格</th>
+                                    <th>涨跌幅</th>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${commendList}" var="oneStock">
+                                    <tr>
+                                        <td>${oneStock.id}</td>
+                                        <td>${oneStock.name}</td>
+                                        <td>${oneStock.closePrice}</td>
+                                        <td>${oneStock.uplift}</td>
+                                    </tr>
+
+
+                                </c:forEach>
+                                </tbody>
+
+
+
+
+
+
+                            </table>
 
 
 
