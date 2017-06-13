@@ -1,7 +1,6 @@
 package com.quantour.ssm.service.impl;
 
 import com.quantour.ssm.dao.DayKLineMapper;
-import com.quantour.ssm.dao.RateMapper;
 import com.quantour.ssm.dao.StrategyMapper;
 import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -930,7 +928,7 @@ public class CustomizeServiceImpl implements CustomizeService{
                 }
             }
 
-        }else if(screeningConditionDTO.getCompareSymbol().equals("排名最大")){
+        }else if(screeningConditionDTO.getCompareSymbol().equals("最大排名")){
             //firstValue是double类型的前N名
             firstValue=screeningConditionDTO.getFirstValue();
 
@@ -998,7 +996,7 @@ public class CustomizeServiceImpl implements CustomizeService{
 
 
 
-        }else if(screeningConditionDTO.getCompareSymbol().equals("排名最小")){
+        }else if(screeningConditionDTO.getCompareSymbol().equals("最小排名")){
 
 
             firstValue=screeningConditionDTO.getFirstValue();
@@ -1141,7 +1139,7 @@ public class CustomizeServiceImpl implements CustomizeService{
 
 
 
-        }else if(screeningConditionDTO.getCompareSymbol().equals("排名%最大")){
+        }else if(screeningConditionDTO.getCompareSymbol().equals("最大%排名")){
             //这里的firstValue是90.1代表是90.1%也就是0.901
             firstValue=screeningConditionDTO.getFirstValue();
 
@@ -1207,7 +1205,7 @@ public class CustomizeServiceImpl implements CustomizeService{
             }
 
 
-        }else if(screeningConditionDTO.getCompareSymbol().equals("排名%最小")){
+        }else if(screeningConditionDTO.getCompareSymbol().equals("最小%排名")){
 
             //这里的firstValue是90.1代表是90.1%也就是0.901
             firstValue=screeningConditionDTO.getFirstValue();
