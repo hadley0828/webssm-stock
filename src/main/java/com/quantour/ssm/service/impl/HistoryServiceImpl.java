@@ -183,15 +183,27 @@ public class HistoryServiceImpl implements HistoryService{
     public boolean createNewStockRecord(StockRecordDTO stockRecordDTO) {
 
         String userId=stockRecordDTO.getUser_id();
-        ArrayList<StockRecordDTO> userAllStock=getUserAllStockRecord(userId,"2017-05-04");
+        ArrayList<StockRecordDTO> userAllStock=getUserAllStockRecord(userId,"2017-06-01");
 
-        HashSet<String> userAllStockSet=new HashSet<String>();
+//        HashSet<String> userAllStockSet=new HashSet<String>();
+//        for(int count=0;count<userAllStock.size();count++){
+//            userAllStockSet.add(userAllStock.get(count).getCode_id());
+//        }
+
+        HashMap<String,StockRecordDTO> userAllStockMap=new HashMap<String, StockRecordDTO>();
         for(int count=0;count<userAllStock.size();count++){
-            userAllStockSet.add(userAllStock.get(count).getCode_id());
+            userAllStockMap.put(userAllStock.get(count).getCode_id(),userAllStock.get(count));
         }
 
-        if(userAllStockSet.contains(stockRecordDTO.getCode_id())){
-            return false;
+        if(userAllStockMap.containsKey(stockRecordDTO.getCode_id())){
+            historyMapper.deleteOneStockRecord(userId,userAllStockMap.get(userId).getDate_time());
+            StockRecord stockRecord=new StockRecord();
+            stockRecord.setUser_id(stockRecordDTO.getUser_id());
+            stockRecord.setCode_id(stockRecordDTO.getCode_id());
+            stockRecord.setDate_time(stockRecordDTO.getDate_time());
+
+            historyMapper.insertOneStockRecord(stockRecord);
+
         }else {
             StockRecord stockRecord=new StockRecord();
             stockRecord.setUser_id(stockRecordDTO.getUser_id());
@@ -200,11 +212,12 @@ public class HistoryServiceImpl implements HistoryService{
 
             historyMapper.insertOneStockRecord(stockRecord);
 
-            return true;
+
         }
 
-
+        return true;
     }
+
 
     @Override
     public boolean deleteOneStockRecord(String userId, String dateTime) {

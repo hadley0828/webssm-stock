@@ -178,8 +178,8 @@ public class StockController {
 
         ArrayList<ScreeningConditionDTO> screeningConditionDTOArrayList=new ArrayList<ScreeningConditionDTO>();
         ScreeningConditionDTO screeningConditionDTO=new ScreeningConditionDTO();
-        screeningConditionDTO.setConditionName("开盘价");
-        screeningConditionDTO.setCompareSymbol("排名最大");
+        screeningConditionDTO.setConditionName("1日涨幅");
+        screeningConditionDTO.setCompareSymbol("最大%排名");
         screeningConditionDTO.setScope("全部");
         screeningConditionDTO.setFirstValue(10.0);
         screeningConditionDTOArrayList.add(screeningConditionDTO);
@@ -401,7 +401,7 @@ public class StockController {
         CustomizeStrategyDTO oneStrategy=customizeService.getOneStrategy("po 2017-06-10 14:04:19");
 
         CustomizeStrategyDTO twoStrategy=new CustomizeStrategyDTO();
-        String userId="123";
+        String userId="po";
         String time=customizeService.getCurrentTime();
 
         twoStrategy.setStrategyID(userId+" "+time);
@@ -424,10 +424,10 @@ public class StockController {
         ArrayList<ScreeningConditionDTO> conditionList=new ArrayList<ScreeningConditionDTO>();
         ScreeningConditionDTO oneCondition=new ScreeningConditionDTO();
         oneCondition.setStrategyId(userId+" "+time);
-        oneCondition.setConditionName("当日成交量");
-        oneCondition.setCompareSymbol("大于");
+        oneCondition.setConditionName("1日涨幅");
+        oneCondition.setCompareSymbol("最大%排名");
         oneCondition.setScope("全部");
-        oneCondition.setFirstValue(10);
+        oneCondition.setFirstValue(30);
         oneCondition.setSecondValue(20);
 
         conditionList.add(oneCondition);
