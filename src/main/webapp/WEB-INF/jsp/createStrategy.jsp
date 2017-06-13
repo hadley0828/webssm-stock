@@ -78,8 +78,11 @@
                 var data = "${strategy.screeningConditionDTOArrayList}";
                 data = data.substring(1,data.length-1);
 //                alert(data);
-                data = ","+data;
-                var datalist = data.split(",ScreeningConditionDTO");
+                data = ", "+data;
+                var datalist = data.split(", ScreeningConditionDTO");
+//                alert(datalist[0]);
+//                alert(datalist[1]);
+//                alert(datalist[2]);
                 for(var i=1;i<datalist.length;i++){
                     var oneScreen = datalist[i].substring(1,datalist[i].length-1);
                     var conList = oneScreen.split(",");
@@ -186,7 +189,7 @@
                 blockCode = "sh000905";
             }
 
-            var strategyName = "3";
+            var strategyName = document.getElementById('strategyName').value;
             var strategyInfo = document.getElementById('s_intro').value;
             var now = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
             var strategyID = createrID+ " " +now;
@@ -312,7 +315,7 @@
 
 
 
-            var map = "strategyID="+strategyID+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode+"&createrID="+createrID+"&strategyName="+strategyName+ "&strategyExplanation="+(escape(strategyInfo)) +"&createTime="+now
+            var map = "strategyID="+strategyID+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode+"&createrID="+createrID+"&strategyName="+strategyName+ "&strategyExplanation="+strategyInfo +"&createTime="+now
                         + "&stockPondChosen="+stock_pool +"&IndexIngredient="+index_component+ "&block="+block + "&industry="+ industry + "&concept="+concept + "&STStock="+st_stock + "&exchange="+exchange+ "&region="+area
                         + "&transferCycle="+cycle + "&max_num="+ max_num
                         ;
