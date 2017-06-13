@@ -4,24 +4,25 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/6/8.
  */
 
+import com.google.gson.Gson;
 import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.CustomizeService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @Controller
@@ -71,5 +72,38 @@ public class InfoController {
         }
 
         return model;
+    }
+
+
+    @RequestMapping(value = "/update" ,method = RequestMethod.POST)
+    @ResponseBody
+    public String update(String id,String sex,String age,String address,String phone,String mail,String intro){
+
+        HashMap<String,String> map = new HashMap<String, String>();
+        boolean result = false;
+
+        try{
+            userDTO user = userService.getOneUserByAccount(id);
+
+            user.setSex(sex);
+            user.setAge(Integer.valueOf(age));
+            user.setAddress(address);
+            user.setHandsetNumber(phone);
+            user.setMail(mail);
+            user.setIntroduction(intro);
+
+            result = userService.updateUser(id,user);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(result){
+            map.put("result","success");
+        }else{
+            map.put("result","false");
+        }
+
+        return new Gson().toJson(map);
     }
 }

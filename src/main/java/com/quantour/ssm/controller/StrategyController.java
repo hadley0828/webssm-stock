@@ -5,6 +5,7 @@ package com.quantour.ssm.controller;
  */
 
 import com.google.gson.Gson;
+import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
 import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
@@ -12,6 +13,7 @@ import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
 import com.quantour.ssm.dto.strategyResultDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.CustomizeService;
+import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
 import com.quantour.ssm.util.JsonConvert;
@@ -39,6 +41,8 @@ public class StrategyController {
     private UserService userService;
     @Resource
     private CustomizeService customizeService;
+    @Resource
+    private HistoryService historyService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     public String showStrategy(@RequestParam(value = "id",required = false) String user_id, HttpServletRequest request, Model model){
@@ -205,7 +209,9 @@ public class StrategyController {
         String sDate = (String) datamap.get("sDate");
         String lDate = (String) datamap.get("lDate");
         String blockCode = (String) datamap.get("blockCode");
-
+        String straName = (String) datamap.get("straName");
+        String straIntro = (String) datamap.get("straIntro");
+        String now = (String) datamap.get("time");
 
         StockPondDTO stockPondDTO = new StockPondDTO();
         stockPondDTO.setBlock((String) datamap.get("block"));
@@ -255,6 +261,32 @@ public class StrategyController {
         result.put("currentStraProfit",resultDTO.getCurrentStraProfit());
         result.put("daysProfitList", JsonConvert.Stra1LineConvert(resultDTO.getDaysProfitList()));
         result.put("indexprofitvo",JsonConvert.Stra2LineConvert(resultDTO.getIndexprofitvo()));
+
+
+        StrategyResultRecordDTO record = new StrategyResultRecordDTO();
+        record.setUser_id(userId);
+        record.setResult_time(now);
+        record.setStrategy_name(straName);
+        record.setStrategy_intro(straIntro);
+        record.setStart_time(java.sql.Date.valueOf(sDate));
+        record.setEnd_time(java.sql.Date.valueOf(lDate));
+        record.setBase_block(blockCode);
+        record.setYear_profit(resultDTO.getYearProfit());
+        record.setStandard_profit(resultDTO.getStandardProfit());
+        record.setAlpha(resultDTO.getAlpha());
+        record.setBeta(resultDTO.getBeta());
+        record.setSharp_rate(resultDTO.getSharpRate());
+        record.setProfit_waverate(resultDTO.getProfitWaveRate());
+        record.setInfo_percent(resultDTO.getInfoPercent());
+        record.setMax_back(resultDTO.getMaxBack());
+        record.setTurnover_rate(resultDTO.getTurnoverRate());
+
+        try{
+            historyService.createNewStrategyRecord(record);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
 
 //        System.out.println(resultDTO.getAlpha());
 //        System.out.println(resultDTO.getBeta());

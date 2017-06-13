@@ -1325,6 +1325,10 @@
         }
 
 
+        var strategyName = document.getElementById('strategyName').value;
+        var strategyInfo = document.getElementById('s_intro').value;
+        var now = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
+
         var stock_pool = document.getElementById('stock_pool').value;
         var index_component = document.getElementById('index_component').value;
         var block = document.getElementById('block').value;
@@ -1443,7 +1447,7 @@
         var firstValue13 = list13[3].firstElementChild.value;
         var secondValue13 = list13[5].firstElementChild.value;
 
-        var map = "userId="+userId+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode
+        var map = "userId="+userId+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode +"&straName="+ strategyName + "&straIntro="+strategyInfo+ "&time="+now
             + "&stockPondChosen="+stock_pool +"&IndexIngredient="+index_component+ "&block="+block + "&industry="+ industry + "&concept="+concept + "&STStock="+st_stock + "&exchange="+exchange+ "&region="+area
             + "&transferCycle="+cycle + "&max_num="+ max_num
         ;
