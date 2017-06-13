@@ -114,6 +114,13 @@ public class JsonConvert {
     }
 
     public static String ChangeListConvert(ArrayList<DateAndChange> list){
+//        for(DateAndChange s : list){
+//            System.out.println(s.getDate());
+//            System.out.println(s.getIndustryChangePercent());
+//            System.out.println(s.getBlockChangePercent());
+//        }
+
+
         Object[] obj = new Object[list.size()];
         for(int i = 0; i < list.size(); i++){
             Object[] o = {

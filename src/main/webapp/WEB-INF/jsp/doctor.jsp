@@ -304,6 +304,9 @@
                 legend:{
                   data:['大盘10日涨跌幅','股票10日涨跌幅']
                 },
+                tooltip:{
+                    trigger: 'axis'
+                },
                 xAxis:  {
                     type: 'category',
                     boundaryGap: false,
@@ -320,35 +323,210 @@
                         name:'大盘10日涨跌幅',
                         type:'line',
                         data: data0.values1,
-                        markPoint: {
-                            data: [
-                                {type: 'max', name: '最大值'},
-                                {type: 'min', name: '最小值'}
-                            ]
-                        },
+
                     },
                     {
                         name:'股票10日涨跌幅',
                         type:'line',
                         data: data0.values2,
-                        markPoint: {
-                            data: [
-                                {type: 'max', name: '最大值'},
-                                {type: 'min', name: '最小值'}
-                            ]
-                        },
                     }
                 ]
 
 
             });
         }
-        
-        function getMarketLine() {
-           var datalist = ${technical.technicalMapDTOArrayList};
 
-           fillMarketLine(datalist);
+        function getMarketLine() {
+            var datalist = ${technical.technicalMapDTOArrayList};
+
+            fillMarketLine(datalist);
         }
+
+
+
+
+        function splitCapitalData(rawdata) {
+            var category = [];
+            var values1 = [];
+            var valueAve = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                category.push(rawdata[i][0]);
+                values1.push(rawdata[i][1]);
+                valueAve.push(rawdata[i][2]);
+            }
+            return{
+                category:category,
+                valueSin:values1,
+                valueAve:valueAve
+            };
+        }
+
+
+        function fillCapitalBar(rawdata) {
+            var capitalBar = echarts.init(document.getElementById("capitalBar"));
+
+            data0 = splitCapitalData(rawdata);
+
+            capitalBar.setOption(option={
+                legend:{
+                  data:['行业平均线','资金净流向']
+                },
+                tooltip:{
+                    trigger: 'axis'
+                },
+                xAxis:  {
+                    type: 'category',
+//                    boundaryGap: false,
+                    data: data0.category
+                },
+                yAxis: {
+                    scale:true,
+                    splitArea: {
+                        show: true
+                    },
+                    name:'万元',
+                    nameLocation:'end'
+                },
+                series:[
+                    {
+                        name:'行业平均线',
+                        type:'line',
+                        data: data0.valueAve,
+                    },
+                    {
+                        name:'资金净流向',
+                        type:'bar',
+                        data: data0.valueSin,
+                        barWidth:10
+                    }
+
+                ]
+
+            });
+        }
+
+        function getCapitalBar() {
+            var datalist = ${capital.flowMapList};
+
+            fillCapitalBar(datalist);
+
+        }
+
+        function splitIndustry(rawdata) {
+            var category = [];
+            var value1 = [];
+            var value2 = [];
+
+            for(var i = 0; i < rawdata.length; i++){
+                category.push(rawdata[i][0]);
+                value1.push(rawdata[i][1]);
+                value2.push(rawdata[i][2]);
+            }
+            return{
+                categoryData:category,
+                valuesin:value1,
+                valueindus:value2
+            };
+
+        }
+
+        function fillIndustry(rawdata) {
+            var industryline = echarts.init(document.getElementById("industryFlow"));
+
+            data0 = splitIndustry(rawdata);
+
+            industryline.setOption(option={
+                tooltip:{
+                    trigger: 'axis'
+                },
+                legend:{
+                    data:['行业指数','上证指数']
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data0.categoryData
+                },
+                yAxis: {
+                    type:'value'
+                },
+                series: [{
+                    name: '行业指数',
+                    type: 'line',
+                    data: data0.valuesin,
+
+                }
+                    ,{
+                        name: '上证指数',
+                        type: 'line',
+                        data: data0.valueindus,
+                    }
+                ],
+            });
+        }
+
+        function getIndustryFlow() {
+            var datalist = ${industry.changeList};
+
+            fillIndustry(datalist);
+        }
+
+
+        function fillScoreBar(rawdata) {
+            var scoreBar = echarts.init(document.getElementById("scoreView"));
+
+            scoreBar.setOption(option={
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient:'vertical',
+                    x : 'left',
+                    y : 'center',
+                    data:['技术面得分','资金面得分','消息面得分','行业面得分','基本面得分']
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'得分',
+                        type:'pie',
+                        radius : [20, 80],
+                        roseType : 'area',
+                        x: '50%',               // for funnel
+                        max: 40,                // for funnel
+                        sort : 'ascending',     // for funnel
+                        data:[
+                            {value:rawdata[0], name:'技术面得分:'+rawdata[0]},
+                            {value:rawdata[1], name:'资金面得分:'+rawdata[1]},
+                            {value:rawdata[2], name:'消息面得分:'+rawdata[2]},
+                            {value:rawdata[3], name:'行业面得分:'+rawdata[3]},
+                            {value:rawdata[4], name:'基本面得分:'+rawdata[4]},
+                        ]
+                    }
+                ]
+            });
+        }
+
+        function getScoreBar() {
+            var score1 = ${generalScore.technicalScore};
+            var score2 = ${generalScore.capitalScore};
+            var score3 = ${generalScore.messageScore};
+            var score4 = ${generalScore.industryScore};
+            var score5 = ${generalScore.basicScore};
+
+            var datalist = [];
+            datalist.push(score1);
+            datalist.push(score2);
+            datalist.push(score3);
+            datalist.push(score4);
+            datalist.push(score5);
+
+
+            fillScoreBar(datalist);
+        }
+
+
     </script>
 </head>
 <body>
@@ -531,8 +709,10 @@
                                 <hr/>
                             </div>
                             <div class="content">
-                                <div class="row">
-                                    <p>TODO</p>
+                                <div class="row" id="scoreView" style="width:750px;height:190px;">
+                                    <script>
+                                        getScoreBar();
+                                    </script>
 
                                 </div>
                             </div>
@@ -592,7 +772,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>今日成交量</th>
-                                                            <th>近五日成交量</th>
+                                                            <th>近五日平均成交量</th>
                                                             <th>近十日成交量</th>
                                                         </tr>
                                                     </thead>
@@ -630,8 +810,10 @@
                                                 <p style="padding-left: 20px"><strong style=" color: #e98200;font-size: large">资金流向</strong></p>
                                                 <hr>
                                             </div>
-                                            <div class="content" id="">
-
+                                            <div class="content" id="capitalBar" style="width:650px;height:650px;">
+                                                <script>
+                                                    getCapitalBar();
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -857,8 +1039,10 @@
                                                 <p style="padding-left: 20px"><strong style="color: #e98200;font-size:larger">行业走势</strong> </p>
                                                 <hr>
                                             </div>
-                                            <div class="content">
-
+                                            <div class="content" id="industryFlow" style="width:700px;height:400px;">
+                                                <script>
+                                                    getIndustryFlow();
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
