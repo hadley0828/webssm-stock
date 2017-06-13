@@ -214,7 +214,7 @@
                                             <div class="form-group">
                                                 <label>性别</label>
                                                 <%--<input type="text" id="sex" class="form-control border-input" placeholder="请输入性别" value="${user.sex}">--%>
-                                                <select class="form-control" id="sex">
+                                                <select class="form-control border-input" id="sex">
                                                     <option value="保密" <c:if test="${user.sex=='保密'}">selected="true"</c:if>>保密</option>
                                                     <option value="男" <c:if test="${user.sex=='男'}">selected="true"</c:if>>男</option>
                                                     <option value="女" <c:if test="${user.sex=='女'}">selected="true"</c:if>>女</option>

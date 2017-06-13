@@ -47,6 +47,7 @@ public class CustomizeStrategyDTO {
 
     public CustomizeStrategyDTO(CustomizeStrategy cs, ArrayList<ScreenCondition> screenConditionArrayList){
         this.strategyID=cs.getStrategyId();
+
         if(cs.getCreatorId()!=null){
             this.createrID=cs.getCreatorId();
         }
