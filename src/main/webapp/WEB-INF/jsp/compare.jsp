@@ -46,6 +46,8 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+    <script src="<%=contextPath%>/assets/js/jquery-ui.js"></script>
+    <link href="<%=contextPath%>/assets/css/jquery-ui.css" rel="stylesheet">
 
     <script type="text/javascript">
 
