@@ -46,6 +46,21 @@
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 
+    <script>
+        function update() {
+            var sex=document.getElementById("sex").value;
+            var age=document.getElementById("age").value;
+            var address=document.getElementById("address").value;
+            var phoneNumber=document.getElementById("phoneNumber").value;
+            var mail=document.getElementById("mail").value;
+            var introduction=document.getElementById("introduction").value;
+            //TODO
+
+
+            
+        }
+    </script>
+
 </head>
 <body>
 
@@ -173,7 +188,7 @@
                 <div class="row">
 
 
-                    <div class="col-md-8 ">
+                    <div class="col-md-6 ">
                         <div class="card">
                             <div class="header">
                                 <h3 class="title" style="color: #FF9500;">账户信息</h3>
@@ -185,7 +200,7 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label >用户名</label>
-                                                <input type="text" class="form-control border-input" disabled value="test">
+                                                <input type="text" class="form-control border-input" disabled value="${user.account}">
                                             </div>
                                         </div>
 
@@ -198,13 +213,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>性别</label>
-                                                <input type="text" class="form-control border-input" placeholder="请输入性别" value="男">
+                                                <input type="text" id="sex" class="form-control border-input" placeholder="请输入性别" value="${user.sex}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>年龄</label>
-                                                <input type="text" class="form-control border-input" placeholder="请输入年龄" value="21">
+                                                <input type="text" id="age" class="form-control border-input" placeholder="请输入年龄" value="${user.age}">
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +230,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>地址</label>
-                                                <input type="text" class="form-control border-input" placeholder="请填写联系地址" value="nju">
+                                                <input type="text" id="address" class="form-control border-input" placeholder="请填写联系地址" value="${user.address}">
                                             </div>
                                         </div>
                                     </div>
@@ -224,19 +239,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>电话号码</label>
-                                                <input type="number" class="form-control border-input" placeholder="请输入电话号码" value="7890">
+                                                <input type="number" id="phoneNumber" class="form-control border-input" placeholder="请输入电话号码" value="${user.handsetNumber}">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>固定电话</label>
-                                                <input type="number" class="form-control border-input" placeholder="请输入固话号码" value="9982">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>邮箱地址</label>
-                                                <input type="email" class="form-control border-input" placeholder="请输入邮箱地址">
+                                                <input type="email" id="mail" class="form-control border-input" placeholder="请输入邮箱地址" value="${user.mail}">
                                             </div>
                                         </div>
                                     </div>
@@ -247,52 +257,48 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-You doubt I'll bother, reading into it
-I'll probably won't, left to my own devices
-But that's the difference in our opinions.</textarea>
+                                                <textarea rows="5" id="introduction" class="form-control border-input" placeholder="Here can be your description" value="${user.account}">${user.introduction}</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd">更新</button>
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd" onclick=update()>更新</button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="header">
-                                        <h3 class="title" style="color: #FF9500;">收藏股票</h3>
+                                        <h3 class="title" style="color: #FF9500;">自选股票</h3>
                                     </div>
                                     <hr/>
                                     <div class="content table-responsive">
                                         <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
+                                            <thead>
+                                                <th>股票编号</th>
+                                                <th>股票名称</th>
+                                                <th>当前价格</th>
+                                                <th>涨跌幅</th>
+                                            </thead>
+
+
                                             <tbody>
-                                            <tr>
-                                                <td>000001</td>
-                                                <td>平安银行</td>
-                                            </tr>
-                                            <tr>
-                                                <td>000001</td>
-                                                <td>平安银行</td>
-                                            </tr>
-                                            <tr>
-                                                <td>000001</td>
-                                                <td>平安银行</td>
-                                            </tr>
-                                            <tr>
-                                                <td>000001</td>
-                                                <td>平安银行</td>
-                                            </tr>
-                                            <tr>
-                                                <td>000001</td>
-                                                <td>平安银行</td>
-                                            </tr>
+                                            <c:forEach items="${optionalStockList}" var="oneStock">
+                                                <tr>
+                                                    <td>${oneStock.id}</td>
+                                                    <td>${oneStock.name}</td>
+                                                    <td>${oneStock.closePrice}</td>
+                                                    <td>${oneStock.uplift}</td>
+
+                                                </tr>
+                                            </c:forEach>
+
+
                                             </tbody>
                                         </table>
                                     </div>

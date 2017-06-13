@@ -18,8 +18,7 @@ public class TechnicalDTO {
     ArrayList<klineDTO> klineDTOArrayList;  //近60天的k线图信息
 
     //下面是市场表现   近十个交易日的涨跌幅  近十个交易日所属大盘的涨跌幅
-    ArrayList<Technical_mapDTO> technicalMapDTOArrayList;
-
+    String technicalMapDTOArrayList;
     double oneDayVolume;    //今日的成交量
     double fiveDayVolume;   //近五日的平均成交量
     double tenDayVolume;    //近十日的平均成交量
@@ -74,11 +73,11 @@ public class TechnicalDTO {
         this.klineDTOArrayList = klineDTOArrayList;
     }
 
-    public ArrayList<Technical_mapDTO> getTechnicalMapDTOArrayList() {
+    public String getTechnicalMapDTOArrayList() {
         return technicalMapDTOArrayList;
     }
 
-    public void setTechnicalMapDTOArrayList(ArrayList<Technical_mapDTO> technicalMapDTOArrayList) {
+    public void setTechnicalMapDTOArrayList(String technicalMapDTOArrayList) {
         this.technicalMapDTOArrayList = technicalMapDTOArrayList;
     }
 
