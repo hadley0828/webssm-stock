@@ -108,8 +108,8 @@ public class HistoryTest {
         s.setStart_time(java.sql.Date.valueOf("2017-06-01"));
         s.setEnd_time(java.sql.Date.valueOf("2017-06-02"));
         s.setBase_block("000300");
-        s.setYear_profit(100.0);
-        s.setStandard_profit(100.0);
+        s.setYear_profit("100.0");
+        s.setStandard_profit("100.0");
         s.setAlpha(1.0);
         s.setBeta(2.0);
         s.setSharp_rate(3.0);

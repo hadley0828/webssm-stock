@@ -5,6 +5,7 @@ package com.quantour.ssm.controller;
  */
 
 import com.google.gson.Gson;
+import com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO;
 import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
@@ -91,9 +92,77 @@ public class StrategyController {
         Iterator iter = datamap.entrySet().iterator();
         while(iter.hasNext()){
             Map.Entry entry = (Map.Entry) iter.next();
-            System.out.println(entry.getKey() + ":" + entry.getValue());
         }
-        return null;
+
+        String strategyID = (String) datamap.get("strategyID");
+        String createrID = (String) datamap.get("createrID");
+        String strategyName = (String) datamap.get("strategyName");
+        String strategyExplanation = (String) datamap.get("strategyExplanation");
+        String createTime = (String) datamap.get("createTime");
+        String sDate = (String) datamap.get("sDate");
+        String lDate = (String) datamap.get("lDate");
+        String blockCode = (String) datamap.get("blockCode");
+
+        StockPondDTO stockPondDTO = new StockPondDTO();
+        stockPondDTO.setBlock((String) datamap.get("block"));
+        stockPondDTO.setConcept((String) datamap.get("concept"));
+        stockPondDTO.setExchange((String) datamap.get("exchange"));
+        stockPondDTO.setIndexIngredient((String) datamap.get("IndexIngredient"));
+        stockPondDTO.setIndustry((String) datamap.get("industry"));
+        stockPondDTO.setRegion((String) datamap.get("region"));
+        stockPondDTO.setStockPondChosen((String) datamap.get("stockPondChosen"));
+        stockPondDTO.setSTStock((String) datamap.get("STStock"));
+
+
+        ArrayList<ScreeningConditionDTO> screenlist = new ArrayList<ScreeningConditionDTO>();
+
+        for(int i = 1; i <= 13; i++){
+            if(datamap.containsKey("conditionName" + String.valueOf(i))){
+                ScreeningConditionDTO s = new ScreeningConditionDTO();
+                s.setStrategyId((String) datamap.get("strategyID"));
+                s.setConditionName((String) datamap.get("conditionName" + String.valueOf(i)));
+                s.setCompareSymbol((String) datamap.get("compareSymbol" + String.valueOf(i)));
+                s.setScope((String) datamap.get("scope" + String.valueOf(i)));
+                s.setFirstValue(Double.valueOf((String)datamap.get("firstValue"+ String.valueOf(i))));
+                if(datamap.containsKey("secondValue" + String.valueOf(i))){
+                    s.setSecondValue(Double.valueOf((String) datamap.get("secondValue" + String.valueOf(i))));
+                }
+                screenlist.add(s);
+            }
+        }
+
+        TradeModelDTO tradeModelDTO = new TradeModelDTO();
+        tradeModelDTO.setTransferCycle(Integer.valueOf((String) datamap.get("transferCycle")));
+        tradeModelDTO.setMaxHoldStockNumber(Integer.valueOf((String)datamap.get("max_num")));
+
+
+        strategyResultDTO resultDTO = customizeService.getCustomizeStrategyResult(createrID,sDate,lDate,blockCode,stockPondDTO,screenlist,tradeModelDTO);
+
+        resultDTO.setStraId((String) datamap.get("strategyID"));
+        CustomizeStrategyDTO dto = new CustomizeStrategyDTO();
+        dto.setStrategyID(strategyID);
+        dto.setCreaterID(createrID);
+        dto.setStrategyName(strategyName);
+        dto.setStrategyExplanation(strategyExplanation);
+        dto.setCreateTime(createTime);
+        dto.setStockPondDTO(stockPondDTO);
+        dto.setScreeningConditionDTOArrayList(screenlist);
+        dto.setTradeModelDTO(tradeModelDTO);
+        dto.setResultDTO(resultDTO);
+
+        boolean bool = customizeService.insertOneStrategy(dto);
+
+        HashMap<String,String> resultmap = new HashMap<String, String>();
+
+        if(bool){
+            resultmap.put("result","success");
+            System.out.println("success");
+        }else{
+            resultmap.put("result","wrong");
+            System.out.println("wrong");
+        }
+
+        return new Gson().toJson(resultmap);
     }
 
     @RequestMapping(value = "/runStrategy", method = RequestMethod.POST, produces = "charset=utf-8")

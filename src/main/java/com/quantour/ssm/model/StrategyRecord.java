@@ -15,8 +15,8 @@ public class StrategyRecord {
     private Date start_time;
     private Date end_time;
     private String base_block;
-    private Double year_profit;
-    private Double standard_profit;
+    private String year_profit;
+    private String standard_profit;
     private Double alpha;
     private Double beta;
     private Double sharp_rate;
@@ -104,19 +104,19 @@ public class StrategyRecord {
         this.base_block = base_block;
     }
 
-    public Double getYear_profit() {
+    public String getYear_profit() {
         return year_profit;
     }
 
-    public void setYear_profit(Double year_profit) {
+    public void setYear_profit(String year_profit) {
         this.year_profit = year_profit;
     }
 
-    public Double getStandard_profit() {
+    public String getStandard_profit() {
         return standard_profit;
     }
 
-    public void setStandard_profit(Double standard_profit) {
+    public void setStandard_profit(String standard_profit) {
         this.standard_profit = standard_profit;
     }
 

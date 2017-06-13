@@ -1,6 +1,5 @@
 package com.quantour.ssm.controller;
 
-import com.quantour.ssm.dao.HistoryMapper;
 import com.quantour.ssm.dto.*;
 import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
 import com.quantour.ssm.dto.UserHistory.StrategyResultRecordDTO;
@@ -9,7 +8,6 @@ import com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO;
 import com.quantour.ssm.dto.customizeStrategy.StockPondDTO;
 import com.quantour.ssm.dto.customizeStrategy.TradeModelDTO;
 import com.quantour.ssm.dto.stockRate.*;
-import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.*;
 import com.quantour.ssm.util.DateConvert;
 import org.apache.log4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -370,8 +367,8 @@ public class StockController {
         srrd.setStart_time(DateConvert.stringToDate("2010-09-11"));
         srrd.setEnd_time(DateConvert.stringToDate("2011-09-11"));
         srrd.setBase_block("sh000300");
-        srrd.setYear_profit(0.0);
-        srrd.setStandard_profit(0.0);
+        srrd.setYear_profit("0.0");
+        srrd.setStandard_profit("0.0");
         srrd.setAlpha(0.0);
         srrd.setBeta(0.0);
         srrd.setSharp_rate(0.0);

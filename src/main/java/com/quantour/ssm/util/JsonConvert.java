@@ -90,19 +90,43 @@ public class JsonConvert {
     public static String Stra2LineConvert(indexProfitDTO dto){
         Object[] obj = new Object[dto.getCycleChangeMap().size()+3];
 
+        List<Double> keylist = new ArrayList<Double>();
+        List<Integer> valuelist = new ArrayList<Integer>();
+
         obj[0] = dto.getPlusCycles();
         obj[1] = dto.getMinusCycles();
         obj[2] = dto.getWinRate();
-        int i = 3;
         Iterator iter = dto.getCycleChangeMap().entrySet().iterator();
         while(iter.hasNext()){
             Map.Entry entry = (Map.Entry) iter.next();
+            keylist.add(Double.valueOf(entry.getKey().toString()));
+            valuelist.add(Integer.valueOf(entry.getValue().toString()) );
+//            Object[] o = {
+//              entry.getKey(),entry.getValue()
+//            };
+//            obj[i] = o;
+        }
+        for(int i = 0; i < keylist.size() -1; i++){
+            for(int j = 0; j < keylist.size() - 1- i; j++){
+                if(keylist.get(j) > keylist.get(j+1)){
+                    double temp = keylist.get(j);
+                    keylist.set(j,keylist.get(j+1));
+                    keylist.set(j+1,temp);
+
+                    int temp1 = valuelist.get(j);
+                    valuelist.set(j,valuelist.get(j+1));
+                    valuelist.set(j+1,temp1);
+                }
+            }
+        }
+
+        for(int i = 3; i < obj.length; i++){
             Object[] o = {
-              entry.getKey(),entry.getValue()
+              keylist.get(i-3),valuelist.get(i-3)
             };
             obj[i] = o;
-            i++;
         }
+
         System.out.println(new Gson().toJson(obj));
 
         return new Gson().toJson(obj);
@@ -137,33 +161,6 @@ public class JsonConvert {
     public static void main(String[] args) {
         JsonConvert test = new JsonConvert();
 
-        List<klineDTO> list = new ArrayList<klineDTO>();
 
-        klineDTO k = new klineDTO();
-        k.setId("000001");
-        k.setName("平安银行");
-        k.setDate("2007-11-22");
-        k.setOpenPrice(9.667);
-        k.setClosePrice(9.435);
-        k.setHighPrice(9.995);
-        k.setLowPrice(9.425);
-
-        klineDTO k2 = new klineDTO();
-        k2.setId("000001");
-        k2.setName("平安银行");
-        k2.setDate("2007-11-23");
-        k2.setOpenPrice(9.425);
-        k2.setClosePrice(9.717);
-        k2.setHighPrice(9.798);
-        k2.setLowPrice(9.404);
-
-        list.add(k);
-        list.add(k2);
-
-
-        String result = JsonConvert.kLineConvert(list);
-        System.out.println(result);
-
-//        System.out.println(test.dateConvert("2018-01-01"));
     }
 }

@@ -53,11 +53,24 @@
 
 
         function createStrategy() {
-            var strategyID = "1";
-            var createrID = "2";
+            var createrID = "${user.account.toString()}";
+
+            var sDate = document.getElementById("sdate").value;
+            var lDate = document.getElementById("ldate").value;
+            var blockCode = document.getElementById("blockCode").value;
+
+            if(blockCode == '上证50'){
+                blockCode = "sh000016";
+            }else if(blockCode == '沪深300'){
+                blockCode = "sh000300";
+            }else if(blockCode == '中证500'){
+                blockCode = "sh000905";
+            }
+
             var strategyName = "3";
             var strategyInfo = document.getElementById('s_intro').value;
             var now = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
+            var strategyID = createrID+ " " +now;
 
             var stock_pool = document.getElementById('stock_pool').value;
             var index_component = document.getElementById('index_component').value;
@@ -180,7 +193,7 @@
 
 
 
-            var map = "strategyID="+strategyID+"&createrID="+createrID+"&strategyName="+strategyName+ "&strategyExplanation="+(escape(strategyInfo)) +"&createTime="+now
+            var map = "strategyID="+strategyID+"&sDate="+sDate+"&lDate="+lDate+ "&blockCode="+blockCode+"&createrID="+createrID+"&strategyName="+strategyName+ "&strategyExplanation="+(escape(strategyInfo)) +"&createTime="+now
                         + "&stockPondChosen="+stock_pool +"&IndexIngredient="+index_component+ "&block="+block + "&industry="+ industry + "&concept="+concept + "&STStock="+st_stock + "&exchange="+exchange+ "&region="+area
                         + "&transferCycle="+cycle + "&max_num="+ max_num
                         ;
@@ -279,9 +292,10 @@
                 url:'<%=request.getContextPath()%>/strategy/createCustomizeStrategy',
                 data: {map:map},
                 dataType:"json",
+                async:false,
                 success:function (result) {
                     mydata = JSON.parse(result);
-                    alert(mydata);
+                    alert(mydata.result);
                 }
             });
         }
@@ -1403,6 +1417,7 @@
             url: '<%=request.getContextPath()%>/strategy/runStrategy',
             data:{map:map},
             dataType:"json",
+            async:false,
             success:function (result) {
                 mydata = JSON.parse(result);
                 fillStragetyInfo(mydata);
@@ -1425,36 +1440,36 @@
             document.getElementById("re10").innerHTML = mydata.turnoverRate;
         }
 
-        function my_sort(arr){
-            var len=arr.length, tmp;
-            for(var i=0;i<len-1;i++){
-                for(var j=0;j<len-1-i;j++){
-                    if(arr[j]>arr[j+1]){
-                        tmp = arr[j];
-                        arr[j] = arr[j+1];
-                        arr[j+1] = tmp;
-                    }
-                }
-            }
-            return arr;
-        }
-
         function splitStra2Data(rawdata) {
             var categoryData = [];
-            var values = [];
+            var values1 = [];
+            var values2 = [];
             var plusCyc = rawdata[0];
             var minusCyc = rawdata[1];
             var winRate = rawdata[2];
 
+
             for(var i = 3; i < rawdata.length; i++){
                 categoryData.push(rawdata[i][0]);
-                values.push(rawdata[i][1]);
+                if(rawdata[i][0] > 0){
+                    values2.push(rawdata[i][1]);
+                    values1.push(0);
+                }else if(rawdata[i][0] < 0){
+                    values2.push(0);
+                    values1.push(rawdata[i][1]);
+                }else if(rawdata[i][0] == (String)("-0.0")){
+                    values2.push(0);
+                    values1.push(rawdata[i][1]);
+                }else if(rawdata[i][0] == (String)("0.0")){
+                    values1.push(0);
+                    values2.push(rawdata[i][1]);
+                }
             }
 
-
             return{
-                catagoryData:my_sort(categoryData),
-                values: values,
+                catagoryData:categoryData,
+                values1: values1,
+                values2: values2,
                 plus:plusCyc,
                 minus:minusCyc,
                 winRate:winRate
@@ -1471,6 +1486,10 @@
                     left:'center',
                     right:'center'
                 },
+                legend:{
+                    right:25,
+                    data:['负收益周期数','正收益周期数']
+                },
                 toolbox: {
                     // y: 'bottom',
                     feature: {
@@ -1481,20 +1500,24 @@
                 },
                 tooltip: {},
                 xAxis: {
+                    type: 'category',
                     data: data0.catagoryData,
-                    silent: false,
-                    splitLine: {
-                        show: false
-                    }
                 },
                 yAxis: {
+                    type:'value'
                 },
                 series: [{
-                    name: 'bar',
+                    name: '负收益周期数',
                     type: 'bar',
-                    data: data0.values,
+                    data: data0.values1,
 
-                }],
+                }
+                ,{
+                    name: '正收益周期数',
+                    type: 'bar',
+                    data: data0.values2,
+                }
+                ],
             });
 
         }

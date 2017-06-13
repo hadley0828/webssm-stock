@@ -19,8 +19,8 @@
         <result column="transfer_cycle" jdbcType="INTEGER" property="transferCycle"/>
         <result column="max_hold_stock_name" jdbcType="INTEGER" property="maxHoldStockNumber"/>
         <result column="stra_id" jdbcType="VARCHAR" property="straId"/>
-        <result column="year_profit" jdbcType="DOUBLE" property="yearProfit"/>
-        <result column="standard_profit" jdbcType="DOUBLE" property="standardProfit"/>
+        <result column="year_profit" jdbcType="VARCHAR" property="yearProfit"/>
+        <result column="standard_profit" jdbcType="VARCHAR" property="standardProfit"/>
         <result column="alpha" jdbcType="DOUBLE" property="alpha"/>
         <result column="beta" jdbcType="DOUBLE" property="beta"/>
         <result column="sharp_rate" jdbcType="DOUBLE" property="sharpRate"/>
