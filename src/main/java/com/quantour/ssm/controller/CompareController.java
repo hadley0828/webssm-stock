@@ -94,6 +94,7 @@ public class CompareController {
         String result1 = JsonConvert.logLineConvert(data1,date1);
         String result2 = JsonConvert.logLineConvert(data2,date2);
 
+
         map.put("code1",result1);
         map.put("code2",result2);
 //        map.put("code1",)

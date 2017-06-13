@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,8 +42,8 @@ public class StockInfoController {
             ModelAndView model){
         stock_code = stock_code.substring(0,6);
 
-        stockDTO s = stockService.getStockInfo(stock_code,"2017-05-23");
-        NextDateStockDTO ns = stockService.getNextDayStockInfo(stock_code,"2017-05-23");
+        stockDTO s = stockService.getStockInfo(stock_code,"2017-06-02");
+        NextDateStockDTO ns = stockService.getNextDayStockInfo(stock_code,"2017-06-02");
         List<RankDTO> hot_list = stockService.getTopNStockByDays(5,"2017-06-02",1);
 
         model.setViewName("stock");
@@ -51,7 +52,7 @@ public class StockInfoController {
         model.addObject("nextDay",ns);
         model.addObject("hot_list",hot_list);
         try{
-            System.out.println(";"+user_id);
+//            System.out.println(";"+user_id);
             userDTO user = userService.getOneUserByAccount(user_id);
 
 //            model.setViewName("user");
@@ -59,6 +60,21 @@ public class StockInfoController {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        try{
+            ArrayList<String> allOptionalStock=stockService.getUserAllOptionalStock(user_id);
+            ArrayList<stockDTO> optionalStockList=new ArrayList<stockDTO>();
+            if(allOptionalStock.size()!=0){
+                optionalStockList=stockService.getSeveralStockInfo(allOptionalStock,"2017-06-02");
+                //TODO
+
+            }
+
+
+        }catch (Exception e){
+
+        }
+
 
         return model;
     }

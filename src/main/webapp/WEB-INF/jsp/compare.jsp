@@ -972,11 +972,11 @@
                             <br>
                             <hr>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="sDate">开始时间</label>
                                     <input id="sDate" type="date" class="form-control">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="lDate">结束时间</label>
                                     <input id="lDate" type="date" class="form-control">
                                 </div>
@@ -1141,7 +1141,8 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td id="name_1">工商银行</td>
+
+                                        <td id="name_1"></td>
                                         <td>0.00</td>
                                         <td>0.00</td>
                                         <td>0.0%</td>

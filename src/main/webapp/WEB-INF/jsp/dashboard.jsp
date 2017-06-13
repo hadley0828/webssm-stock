@@ -336,7 +336,7 @@
                     calculable : true,
                     series :
                         {
-                            name:'面积模式',
+                            name:'股票数量',
                             type:'pie',
                             radius : [30, 110],
                             center : ['50%', '50%'],
@@ -784,16 +784,16 @@
                         <div class="content table-responsive table-full-width" style="z-index: inherit">
                             <table class="table table-striped">
                                 <thead>
+                                    <th>股票编号</th>
                                     <th>股票名称</th>
-                                    <th>股票代码</th>
                                     <th>当前价格</th>
-                                    <th>涨幅</th>
+                                    <th>涨跌幅</th>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${one_day_list}"  var="hot_stock">
                                     <tr>
-                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
-                                        <td>${hot_stock.stockCode}</td>
+                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
+                                        <td>${hot_stock.stockName}</td>
                                         <td>${hot_stock.newestPrice}</td>
                                         <td>${hot_stock.changePercent}</td>
                                     </tr>
@@ -812,7 +812,7 @@
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width" style="z-index: inherit">
-                            <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
+                            <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
                                 <thead>
                                     <th>股票编号</th>
                                     <th>股票名称</th>

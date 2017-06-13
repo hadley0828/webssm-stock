@@ -59,7 +59,7 @@
         function getKLineInfo(){
 
             var sdate = "2007-01-01";
-            var ldate = "2017-06-01";
+            var ldate = "2017-06-02";
             var code = String(${stock.id});
 
             while(code.length < 6){
@@ -567,12 +567,12 @@
                         <hr>
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#hot">热门股票</a></li>
-                            <li><a data-toggle="pill" href="#collect">收藏股票</a> </li>
+                            <li><a data-toggle="pill" href="#collect">自选股票</a> </li>
                             <li><a data-toggle="pill" href="#history">历史浏览</a> </li>
                         </ul>
                         <div class="tab-content">
                             <div id="hot" class="tab-pane fade in active">
-                                <div class="content table-responsive table-full-width">
+                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -594,7 +594,7 @@
                                 </div>
                             </div>
                             <div id="collect" class="tab-pane fade">
-                                <div class="content table-responsive table-full-width">
+                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -616,7 +616,7 @@
                                 </div>
                             </div>
                             <div id="history" class="tab-pane fade">
-                                <div class="content table-responsive table-full-width">
+                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
