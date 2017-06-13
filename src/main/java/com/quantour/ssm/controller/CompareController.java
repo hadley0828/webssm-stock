@@ -47,6 +47,13 @@ public class CompareController {
             e.printStackTrace();
         }
 
+        try {
+            ArrayList<String> codeAndName = stockService.getAllCodeAndName();
+            model.addAttribute("codeAndName",codeAndName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         try{
             System.out.println(";"+user_id);
             userDTO user =userService.getOneUserByAccount(user_id);

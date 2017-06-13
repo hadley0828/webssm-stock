@@ -828,6 +828,16 @@
             board1.style.display="none";
             board2.style.display="";
         }
+        
+        $(function () {
+            var available = new Array();
+            var i = 0;
+            <c:forEach var="each" items="${codeAndName}">
+                available[i] = each;
+                i++;
+            </c:forEach>
+            $("#tags").autocomplete({source:available});
+        })
 
     </script>
 
@@ -962,7 +972,7 @@
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8">
-                                    <input type="text" placeholder="代码/名称" class="form-control">
+                                    <input type="text" placeholder="代码/名称" class="form-control" id="tags">
                                 </div>
                             </div>
                             <ul class="list-inline" style="padding-top: 20px" id="choosed_list">
