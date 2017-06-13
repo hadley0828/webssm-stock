@@ -437,7 +437,7 @@
                                         <p style="font-size: 20px">涨跌幅 ${stock.uplift}</p>
                                     </div>
                                     <div class="col-md-2 col-md-offset-3" style="padding-top: 10px">
-                                        <button class="btn btn-default">添加至自选</button>
+                                        <button class="btn btn-default" onclick="addMine()">添加至自选</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -669,6 +669,12 @@
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
+
+<script>
+    function addMine() {
+
+    }
+</script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>

@@ -502,7 +502,7 @@
                 <%--dataType:"json",--%>
             <%--})--%>
 //            alert(stockName);
-            window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName;
+            window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName+"&id="+ "${user.account}";
         }
 
 
