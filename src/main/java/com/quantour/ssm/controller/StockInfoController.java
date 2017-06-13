@@ -1,6 +1,7 @@
 package com.quantour.ssm.controller;
 
 
+import com.google.gson.Gson;
 import com.quantour.ssm.dto.*;
 import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
 import com.quantour.ssm.service.HistoryService;
@@ -139,5 +140,15 @@ public class StockInfoController {
         return data;
     }
 
-
+    @RequestMapping(value = "/checkStock")
+    @ResponseBody
+    public String checkStock(String stock_code){
+        String date = "2017-06-01";
+        stock_code = stock_code.substring(0,6);
+        if(!stockService.isDateValid(stock_code,date)){
+            return new Gson().toJson("2017-06-01");
+        }else{
+            return new Gson().toJson("pass");
+        }
+    }
 }

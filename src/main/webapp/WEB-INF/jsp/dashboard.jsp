@@ -486,9 +486,7 @@
         }
     </script>
     <script type="text/javascript">
-        $(document).ready(function(){
 
-        });
 
 
 
@@ -496,13 +494,22 @@
             var stockSearch = document.getElementById("stockSearch");
             var stockName = stockSearch.value;
 
-            <%--$.ajax({--%>
-                <%--url: '<%=request.getContextPath()%>/stockinfo/checkStock',--%>
-                <%--data: {stock_code: stockName},--%>
-                <%--dataType:"json",--%>
-            <%--})--%>
-//            alert(stockName);
-            window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName;
+            var data = "";
+            $.ajax({
+                url: '<%=request.getContextPath()%>/stockinfo/checkStock',
+                data: {stock_code: stockName},
+                dataType:"json",
+                async:false,
+                success:function (result) {
+                    data = JSON.parse(result);
+                    if(data === "pass"){
+
+                        window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName+"&id=${user.account}";
+                    }else{
+                        alert(stockName+"在"+data+"停牌，请换一只股票");
+                    }
+                }
+            })
         }
 
 
