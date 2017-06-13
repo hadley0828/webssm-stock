@@ -170,38 +170,38 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="card" style="height: 360px">
-                        <div class="header">
-                            <blockquote>动量回归</blockquote>
-                            <hr>
-                        </div>
-                        <div class="content">
-                            <div class="footer" style="padding-top: 180px">
-                                <hr>
-                                <div class="col-xs-offset-9">
-                                    <button class="btn btn-danger btn-sm">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card" style="height: 360px">
-                        <div class="header">
-                            <blockquote>均值回归</blockquote>
-                            <hr>
-                        </div>
-                        <div class="content">
-                            <div class="footer" style="padding-top: 180px">
-                                <hr>
-                                <div class="col-xs-offset-9">
-                                    <button class="btn btn-danger btn-sm">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%--<div class="col-sm-4">--%>
+                    <%--&lt;%&ndash;<div class="card" style="height: 360px">&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<div class="header">&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<blockquote>动量回归</blockquote>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<hr>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<div class="content">&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<div class="footer" style="padding-top: 180px">&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<hr>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<div class="col-xs-offset-9">&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<button class="btn btn-danger btn-sm">查看详情</button>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                <%--</div>--%>
+                <%--<div class="col-sm-4">--%>
+                    <%--<div class="card" style="height: 360px">--%>
+                        <%--<div class="header">--%>
+                            <%--<blockquote>均值回归</blockquote>--%>
+                            <%--<hr>--%>
+                        <%--</div>--%>
+                        <%--<div class="content">--%>
+                            <%--<div class="footer" style="padding-top: 180px">--%>
+                                <%--<hr>--%>
+                                <%--<div class="col-xs-offset-9">--%>
+                                    <%--<button class="btn btn-danger btn-sm">查看详情</button>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
                 <div class="col-sm-4">
                     <div class="card" style="height: 360px">
                         <div class="header">
@@ -216,6 +216,24 @@
                         </div>
                     </div>
                 </div>
+                <c:forEach var="one_strategy" items="${Strategy_list}">
+                    <div class="col-sm-4">
+                        <div class="card" style="height:360px">
+                            <div class="header">
+                                <blockquote>${one_strategy.strategyName}</blockquote>
+                                <hr>
+                            </div>
+                            <div class="content">
+                                <div class="footer" style="padding-top: 180px">
+                                    <hr>
+                                    <div class="col-xs-offset-9">
+                                        <button class="btn btn-danger btn-sm" onclick="gotoInfo('${one_strategy.strategyID}')">查看详情</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
 
@@ -248,11 +266,8 @@
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <script type="text/javascript">
-//    $(document).ready(function(){
-//
-//        demo.initChartist();
-//
-//
-//    });
+    function gotoInfo(s_id) {
+        window.location.href= "<%=contextPath%>/strategy/createStrategy/?id=${user.account}&strategyid="+s_id;
+    }
 </script>
 </html>

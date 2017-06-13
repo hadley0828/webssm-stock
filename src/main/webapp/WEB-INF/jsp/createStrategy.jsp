@@ -1,5 +1,9 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO"%>
+<%@ page import="com.quantour.ssm.model.CustomizeStrategy" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.quantour.ssm.dto.customizeStrategy.CustomizeStrategyDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -50,6 +54,121 @@
     <script src="<%=contextPath%>/assets/js/echarts.js"></script>
 
     <script>
+        
+        $(function () {
+            if(${strategy != null}){
+//                名称和描述
+                document.getElementById("strategyName").value="${strategy.strategyName}";
+                document.getElementById("s_intro").value="${strategy.strategyExplanation}";
+
+//                择股设置
+                document.getElementById("stock_pool").value="${strategy.stockPondDTO.stockPondChosen}";
+                document.getElementById('index_component').value="${strategy.stockPondDTO.indexIngredient}";
+                document.getElementById('block').value="${strategy.stockPondDTO.block}";
+                document.getElementById('industry').value="${strategy.stockPondDTO.industry}";
+                document.getElementById('st_stock').value="${strategy.stockPondDTO.STStock}";
+                document.getElementById('exchange').value="${strategy.stockPondDTO.exchange}"
+                document.getElementById('concept').value="${strategy.stockPondDTO.concept}";
+                document.getElementById('area').value="${strategy.stockPondDTO.region}";
+
+                document.getElementById("cycle").value="${strategy.tradeModelDTO.transferCycle}";
+                document.getElementById("max_num").value="${strategy.tradeModelDTO.maxHoldStockNumber}";
+
+//                选股指标
+                var data = "${strategy.screeningConditionDTOArrayList}";
+                data = data.substring(1,data.length-1);
+//                alert(data);
+                data = ","+data;
+                var datalist = data.split(",ScreeningConditionDTO");
+                for(var i=1;i<datalist.length;i++){
+                    var oneScreen = datalist[i].substring(1,datalist[i].length-1);
+                    var conList = oneScreen.split(",");
+
+                    conList[1] = conList[1].split("=");
+                    conList[2] = conList[2].split("=");
+                    conList[2][1] = conList[2][1].substring(1,conList[2][1].length-1)
+                    conList[3] = conList[3].split("=");
+                    conList[4] = conList[4].split("=");
+                    conList[5] = conList[5].split("=");
+//                    alert(conList[1][1]);
+//                    alert(conList[2][1]);
+//                    alert(conList[3][1]);
+//                    alert(conList[4][1]);
+//                    alert(conList[5][1]);
+
+                    var screen =  document.getElementById("open");
+                    var selectname = conList[1][1];
+//                    alert(selectname);
+                    switch(selectname){
+                        case "'开盘价'":
+                            screen = document.getElementById("open");
+                            selectname = "open";
+                            break;
+                        case "'收盘价'":
+                            screen = document.getElementById("close");
+                            selectname = "close";
+                            break;
+                        case "'最高价'":
+                            screen = document.getElementById("high");
+                            selectname = "high";
+                            break;
+                        case "'最低价'":
+                            screen = document.getElementById("low");
+                            selectname = "low";
+                            break;
+                        case "'前日收盘价'":
+                            screen = document.getElementById("last");
+                            selectname = "last";
+                            break;
+                        case "'当日成交量'":
+                            screen = document.getElementById("volume");
+                            selectname = "volume";
+                            break;
+                        case "'5日平均成交量'":
+                            screen = document.getElementById("volume5");
+                            selectname = "volume5";
+                            break;
+                        case "'20日平均成交量'":
+                            screen = document.getElementById("volume20");
+                            selectname = "volume20";
+                            break;
+                        case "'1日涨幅'":
+                            screen = document.getElementById("up");
+                            selectname = "up";
+                            break;
+                        case "'5日涨幅'":
+                            screen = document.getElementById("up5");
+                            selectname = "up5";
+                            break;
+                        case "'20日涨幅'":
+                            screen = document.getElementById("up20");
+                            selectname = "up20";
+                            break;
+                        case "'上市天数'":
+                            screen = document.getElementById("list");
+                            selectname = "list";
+                            break;
+                        case "'交易天数'":
+                            screen = document.getElementById("trade");
+                            selectname = "trade";
+                            break;
+                        default:
+                            screen = document.getElementById("open");
+                            alert(selectname)
+                            break;
+                    }
+
+                    var divlist = screen.getElementsByTagName('div');
+                    divlist[1].firstElementChild.value= conList[2][1];
+                    show(selectname);
+                    divlist[2].firstElementChild.value=conList[3][1];
+                    divlist[3].firstElementChild.value=conList[4][1];
+                    divlist[5].firstElementChild.value=conList[5][1];
+                    divlist[6].firstElementChild.checked=true;
+//                    alert(divlist[6].firstElementChild.checked);
+                }
+        }
+        });
 
 
         function createStrategy() {
