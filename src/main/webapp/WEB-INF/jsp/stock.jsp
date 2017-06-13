@@ -680,7 +680,7 @@
         $.ajax({
             type: 'POST',
             url:'<%=request.getContextPath()%>/stockinfo/addStock',
-            data:{user_id:user_id, code_id:code_id, date_time:date_time},
+            data:{user_id:user_id, code_id:code_id},
             dataType:'json',
             success:function (result) {
                 mydata = JSON.parse(result);
