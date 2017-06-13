@@ -224,7 +224,13 @@
                                 <hr>
                             </div>
                             <div class="content">
-                                <div class="footer" style="padding-top: 180px">
+                                <div class="row">
+                                    <p style="padding-left:5%"><strong>创建者：</strong>${one_strategy.createrID}</p>
+                                </div>
+                                <div class="row">
+                                    <p style="padding-left: 5%"><strong>创建时间：</strong>${one_strategy.createTime}</p>
+                                </div>
+                                <div class="footer" style="padding-top: 120px">
                                     <hr>
                                     <div class="col-xs-offset-9">
                                         <button class="btn btn-danger btn-sm" onclick="gotoInfo('${one_strategy.strategyID}')">查看详情</button>
