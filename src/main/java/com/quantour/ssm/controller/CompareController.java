@@ -47,6 +47,13 @@ public class CompareController {
             e.printStackTrace();
         }
 
+        try {
+            ArrayList<String> codeAndName = stockService.getAllCodeAndName();
+            model.addAttribute("codeAndName",codeAndName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         try{
             System.out.println(";"+user_id);
             userDTO user =userService.getOneUserByAccount(user_id);
@@ -93,6 +100,7 @@ public class CompareController {
 
         String result1 = JsonConvert.logLineConvert(data1,date1);
         String result2 = JsonConvert.logLineConvert(data2,date2);
+
 
         map.put("code1",result1);
         map.put("code2",result2);

@@ -46,6 +46,7 @@
 
     <%--Bootstrap select--%>
     <link href="<%=contextPath%>/assets/css/bootstrap-select.min.css" rel="stylesheet" >
+    <script src="<%=contextPath%>/assets/js/bootstrap-select.js"></script>
 
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
@@ -336,7 +337,7 @@
                     calculable : true,
                     series :
                         {
-                            name:'面积模式',
+                            name:'股票数量',
                             type:'pie',
                             radius : [30, 110],
                             center : ['50%', '50%'],
@@ -416,6 +417,9 @@
                         saveAsImage: {}
                     },
                     right:20
+                },
+                tooltip : {
+                    trigger: 'axis'
                 },
                 legend: {
                     data:['涨停','跌停']
@@ -680,8 +684,8 @@
                                                 <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px">涨跌分布</a>
                                                 <div class="row">
 
-                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:1000</div>
-                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:1000</div>
+                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:${marketDTO.riseStockNumber}</div>
+                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:${marketDTO.declineStockNumber}</div>
                                                 </div>
                                             </blockquote>
 
@@ -691,8 +695,8 @@
                                                 <span class="ti-exchange-vertical"></span>
                                                 <a href="#limit" role="tab" data-toggle="tab" style="font-size: 25px">涨跌停</a>
                                                 <div class="row">
-                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:1000</div>
-                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:1000</div>
+                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:${marketDTO.limitup}</div>
+                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:${marketDTO.limitdown}</div>
                                                 </div>
                                             </blockquote>
                                         </li>
@@ -748,7 +752,7 @@
                 </div>
             </div>
 
-            <div class="row" style="z-index: 0">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="content">
@@ -757,10 +761,7 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <script>
-
-                                    </script>
-                                    <select name="stock" id="stockSearch" class="form-control selectpicker show-tick "  data-live-search="true" data-dropup-auto="false">
+                                    <select class="selectpicker"  id="stockSearch" data-live-search="true" data-size="3">
                                         <c:forEach var="oneStock" items="${codeAndName}">
                                             <option value="${oneStock}">${oneStock}</option>
                                         </c:forEach>
@@ -777,23 +778,23 @@
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
                         <div class="header" style="z-index: inherit">
-                            <h4 class="title">单日股票涨幅前5</h4>
+                            <h4 class="title">单日股票涨幅前10</h4>
 
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width" style="z-index: inherit">
                             <table class="table table-striped">
                                 <thead>
+                                    <th>股票编号</th>
                                     <th>股票名称</th>
-                                    <th>股票代码</th>
                                     <th>当前价格</th>
-                                    <th>涨幅</th>
+                                    <th>涨跌幅</th>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${one_day_list}"  var="hot_stock">
                                     <tr>
-                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
-                                        <td>${hot_stock.stockCode}</td>
+                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
+                                        <td>${hot_stock.stockName}</td>
                                         <td>${hot_stock.newestPrice}</td>
                                         <td>${hot_stock.changePercent}</td>
                                     </tr>
@@ -808,11 +809,37 @@
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
                         <div class="header" style="z-index: inherit">
-                            <h4 class="title">全部股票</h4>
-                            <p class="category">Here is a subtitle for this table</p>
+                            <h4 class="title">猜你喜欢</h4>
                             <hr>
                         </div>
                         <div class="content table-responsive table-full-width" style="z-index: inherit">
+                            <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
+                                <thead>
+                                    <th>股票编号</th>
+                                    <th>股票名称</th>
+                                    <th>当前价格</th>
+                                    <th>涨跌幅</th>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${commendList}" var="oneStock">
+                                    <tr>
+                                        <td>${oneStock.id}</td>
+                                        <td>${oneStock.name}</td>
+                                        <td>${oneStock.closePrice}</td>
+                                        <td>${oneStock.uplift}</td>
+                                    </tr>
+
+
+                                </c:forEach>
+                                </tbody>
+
+
+
+
+
+
+                            </table>
 
 
 
@@ -849,7 +876,7 @@
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
 <%--Bootstrap select--%>
-<script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
+<script src="<%=contextPath%>/assets/js/bootstrap-select.js"></script>
 <script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
 
 

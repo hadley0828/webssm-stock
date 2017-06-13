@@ -5,6 +5,7 @@ package com.quantour.ssm.controller;
  */
 
 import com.quantour.ssm.dto.RankDTO;
+import com.quantour.ssm.dto.marketDTO;
 import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.StockService;
@@ -46,12 +47,22 @@ public class DashBoardController {
             e.printStackTrace();
         }
 
+        String date="2017-06-01";
+
         try{
             ArrayList<String> codeAndName = stockService.getAllCodeAndName();
-            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(5,"2017-05-08",1);
+            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(10,date,1);
 
             model.addObject("codeAndName",codeAndName);
             model.addObject("one_day_list",one_day_list);
+
+            ArrayList<stockDTO> commendList=stockService.getIntelligentStock(user_id,date);
+
+            model.addObject("commendList",commendList);
+
+            marketDTO marketDTO=stockService.getMarketInfo(date);
+            model.addObject("marketDTO",marketDTO);
+
         }catch (Exception e){
             e.printStackTrace();
         }

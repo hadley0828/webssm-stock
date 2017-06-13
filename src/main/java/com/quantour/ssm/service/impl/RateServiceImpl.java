@@ -7,12 +7,10 @@ import com.quantour.ssm.dto.stockRate.*;
 import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.RateService;
 import com.quantour.ssm.util.*;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.*;
 
@@ -183,8 +181,8 @@ public class RateServiceImpl implements RateService{
 
             Technical_mapDTO technicalMapDTO=new Technical_mapDTO();
             technicalMapDTO.setDate(currentDate);
-            technicalMapDTO.setBlockChangePercent(blockChangePercent);
-            technicalMapDTO.setStockChangePercent(stockChangePercent);
+            technicalMapDTO.setBlockChangePercent(NumberConvert.saveNDouble(blockChangePercent,5));
+            technicalMapDTO.setStockChangePercent(NumberConvert.saveNDouble(stockChangePercent,5));
 
             technicalMapDTOArrayList.add(technicalMapDTO);
 
@@ -241,7 +239,7 @@ public class RateServiceImpl implements RateService{
 
         technicalDTO.setTechnicalScore(NumberConvert.saveNDouble(technicalScore,2));
         technicalDTO.setPartScore(partScore);
-        technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(JsonConvert.markerlineConvert(technicalMapDTOArrayList));
         technicalDTO.setOneDayVolume(oneDayVolume);
@@ -461,11 +459,11 @@ public class RateServiceImpl implements RateService{
             fundFlowMapDTO.setDate(currentDate);
 
             if(oneStockSingleMap.containsKey(currentDate)){
-                fundFlowMapDTO.setSingleFlow(oneStockSingleMap.get(currentDate));
+                fundFlowMapDTO.setSingleFlow(NumberConvert.saveNDouble(oneStockSingleMap.get(currentDate)/10000.0,1));
             }else{
                 fundFlowMapDTO.setSingleFlow(0.0);
             }
-            fundFlowMapDTO.setIndustryAverageFlow(oneDayIndustryAverageFlow);
+            fundFlowMapDTO.setIndustryAverageFlow(NumberConvert.saveNDouble(oneDayIndustryAverageFlow/10000.0,1));
 
             allFlowMapList.add(fundFlowMapDTO);
 
@@ -494,19 +492,19 @@ public class RateServiceImpl implements RateService{
 
         capitalDTO.setCapitalScore(NumberConvert.saveNDouble(CapitalScore,2));
 
-        capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore/10.0));
+        capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore*10.0));
 
-        capitalDTO.setFlowMapList(allFlowMapList);
+        capitalDTO.setFlowMapList(JsonConvert.capitalLineConvert(allFlowMapList));
 
-        capitalDTO.setTodayStockFlow(singleOneFlow);
-        capitalDTO.setFiveStockFlow(singleFiveFlow);
-        capitalDTO.setTenStockFlow(singleTenFlow);
-        capitalDTO.setTwentyStockFlow(singleTwentyFlow);
+        capitalDTO.setTodayStockFlow(NumberConvert.saveNDouble(singleOneFlow/10000.0,1));
+        capitalDTO.setFiveStockFlow(NumberConvert.saveNDouble(singleFiveFlow/10000.0,1));
+        capitalDTO.setTenStockFlow(NumberConvert.saveNDouble(singleTenFlow/10000.0,1));
+        capitalDTO.setTwentyStockFlow(NumberConvert.saveNDouble(singleTwentyFlow/10000.0,1));
 
-        capitalDTO.setTodayIndustryFlow(industryOneFlow);
-        capitalDTO.setFiveIndustryFlow(industryFiveFlow);
-        capitalDTO.setTenIndustryFlow(industryTenFlow);
-        capitalDTO.setTwentyIndustryFlow(industryTwentyFlow);
+        capitalDTO.setTodayIndustryFlow(NumberConvert.saveNDouble(industryOneFlow/10000.0,1));
+        capitalDTO.setFiveIndustryFlow(NumberConvert.saveNDouble(industryFiveFlow/10000.0,1));
+        capitalDTO.setTenIndustryFlow(NumberConvert.saveNDouble(industryTenFlow/10000.0,1));
+        capitalDTO.setTwentyIndustryFlow(NumberConvert.saveNDouble(industryTwentyFlow/10000.0,1));
 
 
         InstitutionTrade institutionTrade=rateMapper.getOneInstitutionTrade(code);
@@ -624,7 +622,7 @@ public class RateServiceImpl implements RateService{
 
         messageDTO.setMessageScore(NumberConvert.saveNDouble(technicalScore,2));
         messageDTO.setPartScore(partScore);
-        messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        messageDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
         messageDTO.setNumberOfMessage(messageNewsDTOArrayList.size());
 
 
@@ -732,9 +730,11 @@ public class RateServiceImpl implements RateService{
 
         double tenDaysMarketChange=StockCalculator.getIncrease(beforePrice,nowPrice);
 
-        industryDTO.setTenDaysIndustryChange(tenDaysIndustryChange);
-        industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
-        industryDTO.setChangeList(resultList);
+        industryDTO.setTenDaysIndustryChange(NumberConvert.doubleToPercentageString(tenDaysIndustryChange));
+        industryDTO.setTenDaysMarketChange(NumberConvert.doubleToPercentageString(tenDaysMarketChange));
+
+        System.out.println(resultList.get(0));
+        industryDTO.setChangeList(JsonConvert.ChangeListConvert(resultList));
 
         //指标
         double one=tenDaysIndustryChange;
@@ -758,7 +758,7 @@ public class RateServiceImpl implements RateService{
 
         industryDTO.setIndustryScore(NumberConvert.saveNDouble(technicalScore,2));
         industryDTO.setPartScore(partScore);
-        industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        industryDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
 
 
         return industryDTO;
@@ -1066,7 +1066,7 @@ public class RateServiceImpl implements RateService{
 
         basicDTO.setBasicScore(NumberConvert.saveNDouble(technicalScore,2));
         basicDTO.setPartScore(partScore);
-        basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
+        basicDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore*10.0));
 
 
         return basicDTO;

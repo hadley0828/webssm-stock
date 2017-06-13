@@ -78,7 +78,7 @@ public class StockServiceImpl implements StockService {
         stockdto.setHighPrice(dayKLine.getHighPrice());
         stockdto.setLowPrice(dayKLine.getLowPrice());
 
-        stockdto.setUplift(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+        stockdto.setUplift(NumberConvert.doubleToPercentageString(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice())));
         stockdto.setAdjClose(dayKLine.getClosePrice());
         stockdto.setVolume(Math.round(dayKLine.getVolume()));
         stockdto.setLogYield(StockCalculator.getLogYield(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
@@ -169,7 +169,7 @@ public class StockServiceImpl implements StockService {
                     stockdto.setHighPrice(0.0);
                     stockdto.setLowPrice(0.0);
 
-                    stockdto.setUplift(0.0);
+                    stockdto.setUplift("0.0%");
                     stockdto.setAdjClose(0.0);
                     stockdto.setVolume(0);
                     stockdto.setLogYield(0.0);
@@ -210,7 +210,7 @@ public class StockServiceImpl implements StockService {
                 stockdto.setHighPrice(dayKLine.getHighPrice());
                 stockdto.setLowPrice(dayKLine.getLowPrice());
 
-                stockdto.setUplift(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+                stockdto.setUplift(NumberConvert.doubleToPercentageString(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice())));
                 stockdto.setAdjClose(dayKLine.getClosePrice());
                 stockdto.setVolume(Math.round(dayKLine.getVolume()));
                 stockdto.setLogYield(StockCalculator.getLogYield(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
@@ -1125,7 +1125,6 @@ public class StockServiceImpl implements StockService {
         return codeList;
     }
 
-    //TODO
     @Override
     public ArrayList<stockDTO> getIntelligentStock(String userId,String date) {
         ArrayList<String> resultList=new ArrayList<String>();
@@ -1231,7 +1230,7 @@ public class StockServiceImpl implements StockService {
         double three=2*e-a;
         double four=e-(a-b);
         double five=(e+one+two+three+four)/5.0;
-        double six=(5+f)/2.0;
+        double six=(five+f)/2.0;
 
         nextDateStockDTO.setStockCode(code);
         nextDateStockDTO.setDate(realDate);

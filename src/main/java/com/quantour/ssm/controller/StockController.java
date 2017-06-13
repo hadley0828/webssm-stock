@@ -333,7 +333,7 @@ public class StockController {
 
     @RequestMapping("/getGeneralScore")
     public String showGeneralScore(HttpServletRequest request,Model model){
-        GeneralScoreDTO generalScoreDTO=rateService.getOneStockGeneralScore("000001","2017-06-02");
+        GeneralScoreDTO generalScoreDTO=rateService.getOneStockGeneralScore("000004","2017-06-02");
 
         model.addAttribute("generalScoreDTO",generalScoreDTO);
         return "serviceTest/generalScore";

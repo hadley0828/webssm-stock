@@ -277,13 +277,14 @@
                                         <h3 class="title" style="color: #FF9500;">自选股票</h3>
                                     </div>
                                     <hr/>
-                                    <div class="content table-responsive">
-                                        <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
+                                    <div style="height:325px; overflow-y:auto"class="content table-responsive">
+                                        <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
                                             <thead>
                                                 <th>股票编号</th>
                                                 <th>股票名称</th>
                                                 <th>当前价格</th>
                                                 <th>涨跌幅</th>
+                                                <th>操作</th>
                                             </thead>
 
 
@@ -294,7 +295,7 @@
                                                     <td>${oneStock.name}</td>
                                                     <td>${oneStock.closePrice}</td>
                                                     <td>${oneStock.uplift}</td>
-
+                                                    <td><a onclick=""></a></td>
                                                 </tr>
                                             </c:forEach>
 
@@ -312,30 +313,32 @@
                                         <h3 class="title" style="color: #FF9500;">自定策略</h3>
                                     </div>
                                     <hr/>
-                                    <div class="content table-responsive">
-                                        <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
-                                            <tbody>
-                                            <tr>
-                                                <td>名字</td>
-                                                <td>时间</td>
-                                            </tr>
-                                            <tr>
-                                                <td>名字</td>
-                                                <td>时间</td>
-                                            </tr>
-                                            <tr>
-                                                <td>名字</td>
-                                                <td>时间</td>
-                                            </tr>
-                                            <tr>
-                                                <td>名字</td>
-                                                <td>时间</td>
-                                            </tr>
-                                            <tr>
-                                                <td>名字</td>
-                                                <td>时间</td>
-                                            </tr>
-                                            </tbody>
+                                    <div style="height:325px; overflow-y:auto"class="content table-responsive">
+                                        <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
+                                           <thead>
+                                                <th>策略名称</th>
+                                                <th>创建时间</th>
+                                                <th>详情</th>
+                                                <th>删除</th>
+                                           </thead>
+                                           <tbody>
+                                           <c:forEach items="${strategyList}" var="oneStrategy">
+                                               <tr>
+                                                   <td>${oneStrategy.strategyName}</td>
+                                                   <td>${oneStrategy.createTime}</td>
+                                                   <td>详情按钮</td>
+                                                   <td>删除按钮</td>
+                                               </tr>
+
+
+                                           </c:forEach>
+
+
+                                           </tbody>
+
+
+
+
                                         </table>
                                     </div>
                                 </div>

@@ -46,6 +46,8 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="<%=contextPath%>/assets/js/echarts.js"></script>
+    <script src="<%=contextPath%>/assets/js/jquery-ui.js"></script>
+    <link href="<%=contextPath%>/assets/css/jquery-ui.css" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -662,6 +664,9 @@
                     },
                     left: 40
                 },
+                tooltip:{
+                    trigger: 'axis'
+                },
                 toolbox: {
                     show: true,
                     feature: {
@@ -732,6 +737,9 @@
                         fontSize: 16
                     },
                     left: 40
+                },
+                tooltip:{
+                    trigger: 'axis'
                 },
                 toolbox: {
                     show: true,
@@ -822,6 +830,21 @@
             board1.style.display="none";
             board2.style.display="";
         }
+
+
+
+        <%--$(function () {--%>
+            <%--var available = [];--%>
+            <%--var data = "${codeAndName}";--%>
+
+            <%--data = data.substr(0,data.length-1);--%>
+            <%--var datalist = data.split(",");--%>
+
+            <%--for(var i = 0; i < datalist.length; i++){--%>
+                <%--available.push(datalist[i]);--%>
+            <%--}--%>
+            <%--$("#tags").autocomplete({source:available});--%>
+        <%--})--%>
 
     </script>
 
@@ -956,7 +979,8 @@
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8">
-                                    <input type="text" placeholder="代码/名称" class="form-control">
+                                    <input type="text" placeholder="代码/名称" class="form-control" id="tags">
+
                                 </div>
                             </div>
                             <ul class="list-inline" style="padding-top: 20px" id="choosed_list">
@@ -972,11 +996,11 @@
                             <br>
                             <hr>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="sDate">开始时间</label>
                                     <input id="sDate" type="date" class="form-control">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <label for="lDate">结束时间</label>
                                     <input id="lDate" type="date" class="form-control">
                                 </div>
@@ -1141,7 +1165,8 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td id="name_1">工商银行</td>
+
+                                        <td id="name_1"></td>
                                         <td>0.00</td>
                                         <td>0.00</td>
                                         <td>0.0%</td>

@@ -98,3 +98,6 @@ src/main/webapp/WEB-INF/jsp/serviceTest/echarts.js
 !/src/main/java/com/quantour/ssm/dto/stockRate/MessageDTO.java
 !/src/main/webapp/WEB-INF/jsp/strategy.jsp
 !/src/main/java/com/quantour/ssm/service/impl/CustomizeServiceImpl.java
+!/src/main/java/com/quantour/ssm/dto/stockRate/FundFlowMapDTO.java
+!/src/main/webapp/WEB-INF/jsp/
+!/src/main/java/com/quantour/ssm/controller/
