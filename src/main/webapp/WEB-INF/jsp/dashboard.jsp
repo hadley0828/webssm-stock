@@ -493,7 +493,6 @@
         function add() {
             var stockSearch = document.getElementById("stockSearch");
             var stockName = stockSearch.value;
-
             var data = "";
             $.ajax({
                 url: '<%=request.getContextPath()%>/stockinfo/checkStock',
