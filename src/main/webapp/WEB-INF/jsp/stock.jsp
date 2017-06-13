@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.quantour.ssm.dto.stockDTO" %><%--
   Created by IntelliJ IDEA.
   User: wangty
@@ -59,7 +60,7 @@
         function getKLineInfo(){
 
             var sdate = "2007-01-01";
-            var ldate = "2017-06-02";
+            var ldate = "2017-06-01";
             var code = String(${stock.id});
 
             while(code.length < 6){
@@ -547,11 +548,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="one_news" items="${stock.newsDTOArrayList}">
+                                    <c:set  var="startIndex" value="${fn:length(stock.newsDTOArrayList)-1 }"></c:set>
+                                    <c:forEach var="one_news" items="${stock.newsDTOArrayList}" varStatus="status">
                                         <tr>
-                                            <td><a href="${one_news.url}" target="_blank">${one_news.title}</a></td>
-                                            <td>${one_news.type}</td>
-                                            <td>${one_news.date}</td>
+                                            <td><a href="${stock.newsDTOArrayList[startIndex-status.index].url}" target="_blank">${stock.newsDTOArrayList[startIndex-status.index].title}</a></td>
+                                            <td>${stock.newsDTOArrayList[startIndex-status.index].type}</td>
+                                            <td>${stock.newsDTOArrayList[startIndex-status.index].date}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -572,7 +574,7 @@
                         </ul>
                         <div class="tab-content">
                             <div id="hot" class="tab-pane fade in active">
-                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
+                                <div style="height:340px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -594,7 +596,7 @@
                                 </div>
                             </div>
                             <div id="collect" class="tab-pane fade">
-                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
+                                <div style="height:340px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -604,11 +606,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach var="hot_stock" items="${hot_list}">
+                                        <c:forEach var="oneStock" items="${optionalStockList}">
                                             <tr>
-                                                <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
-                                                <td>${hot_stock.stockCode}</td>
-                                                <td>${hot_stock.newestPrice}</td>
+                                                <td>${oneStock.name}</td>
+                                                <td>${oneStock.id}</td>
+                                                <td>${oneStock.closePrice}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>
@@ -616,7 +618,7 @@
                                 </div>
                             </div>
                             <div id="history" class="tab-pane fade">
-                                <div style="height:325px; overflow-y:auto" class="content table-responsive table-full-width">
+                                <div style="height:340px; overflow-y:auto" class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -626,11 +628,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach var="hot_stock" items="${hot_list}">
+                                        <c:forEach var="oneStock" items="${allRecordStock}">
                                             <tr>
-                                                <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockName}</td>
-                                                <td>${hot_stock.stockCode}</td>
-                                                <td>${hot_stock.newestPrice}</td>
+                                                <td>${oneStock.stock_name}</td>
+                                                <td>${oneStock.code_id}</td>
+                                                <td>${oneStock.closePrice}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

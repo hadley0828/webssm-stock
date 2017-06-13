@@ -2,6 +2,8 @@ package com.quantour.ssm.controller;
 
 
 import com.quantour.ssm.dto.*;
+import com.quantour.ssm.dto.UserHistory.StockRecordDTO;
+import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.service.StockService;
 import com.quantour.ssm.service.UserService;
 import com.quantour.ssm.util.JsonConvert;
@@ -32,6 +34,8 @@ public class StockInfoController {
     private StockService stockService;
     @Resource
     private UserService userService;
+    @Resource
+    private HistoryService historyService;
 
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
@@ -42,9 +46,11 @@ public class StockInfoController {
             ModelAndView model){
         stock_code = stock_code.substring(0,6);
 
-        stockDTO s = stockService.getStockInfo(stock_code,"2017-06-02");
-        NextDateStockDTO ns = stockService.getNextDayStockInfo(stock_code,"2017-06-02");
-        List<RankDTO> hot_list = stockService.getTopNStockByDays(5,"2017-06-02",1);
+        String date="2017-06-01";
+
+        stockDTO s = stockService.getStockInfo(stock_code,date);
+        NextDateStockDTO ns = stockService.getNextDayStockInfo(stock_code,date);
+        List<RankDTO> hot_list = stockService.getTopNStockByDays(5,date,1);
 
         model.setViewName("stock");
         System.out.println(s.getId());
@@ -65,16 +71,26 @@ public class StockInfoController {
             ArrayList<String> allOptionalStock=stockService.getUserAllOptionalStock(user_id);
             ArrayList<stockDTO> optionalStockList=new ArrayList<stockDTO>();
             if(allOptionalStock.size()!=0){
-                optionalStockList=stockService.getSeveralStockInfo(allOptionalStock,"2017-06-02");
-                //TODO
+                optionalStockList=stockService.getSeveralStockInfo(allOptionalStock,date);
 
             }
+            model.addObject("optionalStockList",optionalStockList);
 
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
+
+        try{
+            ArrayList<StockRecordDTO> allRecordStock=historyService.getUserAllStockRecord(user_id,date);
+
+            model.addObject("allRecordStock",allRecordStock);
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         return model;
     }
