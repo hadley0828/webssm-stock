@@ -50,14 +50,24 @@
         function update() {
             var sex=document.getElementById("sex").value;
             var age=document.getElementById("age").value;
-            var name=document.getElementById("name").value;
-            var birthday=document.getElementById("birthday").value;
             var address=document.getElementById("address").value;
             var phoneNumber=document.getElementById("phoneNumber").value;
             var mail=document.getElementById("mail").value;
             var introduction=document.getElementById("introduction").value;
             //TODO
 
+
+            $.ajax({
+                type:"POST",
+                url:'<%=request.getContextPath()%>/userInfo/update',
+                data:{id:id,sex:sex, age:age,address:address, phone:phoneNumber,mail:mail,intro:introduction},
+                dataType:'json',
+                async:false,
+                success:function (result) {
+                    mydata = JSON.parse(result);
+                    alert(mydata.result);
+                }
+            });
         }
     </script>
 
@@ -213,7 +223,6 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>性别</label>
-                                                <%--<input type="text" id="sex" class="form-control border-input" placeholder="请输入性别" value="${user.sex}">--%>
                                                 <select class="form-control" id="sex">
                                                     <option value="保密" <c:if test="${user.sex=='保密'}">selected="true"</c:if>>保密</option>
                                                     <option value="男" <c:if test="${user.sex=='男'}">selected="true"</c:if>>男</option>
@@ -228,6 +237,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -242,7 +252,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <h4 class="title" style="margin: auto;color: #68B3C8">联系方式</h4>
 
                                     <div class="row">

@@ -89,8 +89,9 @@
 
                     conList[1] = conList[1].split("=");
                     conList[2] = conList[2].split("=");
-                    conList[2][1] = conList[2][1].substring(1,conList[2][1].length-1)
+                    conList[2][1] = conList[2][1].substring(1,conList[2][1].length-1);
                     conList[3] = conList[3].split("=");
+                    conList[3][1] = conList[3][1].substring(1,conList[3][1].length-1);
                     conList[4] = conList[4].split("=");
                     conList[5] = conList[5].split("=");
 //                    alert(conList[1][1]);
@@ -414,7 +415,7 @@
                 url:'<%=request.getContextPath()%>/strategy/createCustomizeStrategy',
                 data: {map:map},
                 dataType:"json",
-                async:false,
+                async:true,
                 success:function (result) {
                     mydata = JSON.parse(result);
                     alert(mydata.result);
@@ -1546,7 +1547,7 @@
             url: '<%=request.getContextPath()%>/strategy/runStrategy',
             data:{map:map},
             dataType:"json",
-            async:false,
+            async:true,
             success:function (result) {
                 mydata = JSON.parse(result);
                 fillStragetyInfo(mydata);
