@@ -461,11 +461,11 @@ public class RateServiceImpl implements RateService{
             fundFlowMapDTO.setDate(currentDate);
 
             if(oneStockSingleMap.containsKey(currentDate)){
-                fundFlowMapDTO.setSingleFlow(oneStockSingleMap.get(currentDate));
+                fundFlowMapDTO.setSingleFlow(NumberConvert.saveNDouble(oneStockSingleMap.get(currentDate),1));
             }else{
                 fundFlowMapDTO.setSingleFlow(0.0);
             }
-            fundFlowMapDTO.setIndustryAverageFlow(oneDayIndustryAverageFlow);
+            fundFlowMapDTO.setIndustryAverageFlow(NumberConvert.saveNDouble(oneDayIndustryAverageFlow/10000.0,1));
 
             allFlowMapList.add(fundFlowMapDTO);
 
@@ -498,15 +498,15 @@ public class RateServiceImpl implements RateService{
 
         capitalDTO.setFlowMapList(JsonConvert.capitalLineConvert(allFlowMapList));
 
-        capitalDTO.setTodayStockFlow(singleOneFlow);
-        capitalDTO.setFiveStockFlow(singleFiveFlow);
-        capitalDTO.setTenStockFlow(singleTenFlow);
-        capitalDTO.setTwentyStockFlow(singleTwentyFlow);
+        capitalDTO.setTodayStockFlow(NumberConvert.saveNDouble(singleOneFlow/10000.0,1));
+        capitalDTO.setFiveStockFlow(NumberConvert.saveNDouble(singleFiveFlow/10000.0,1));
+        capitalDTO.setTenStockFlow(NumberConvert.saveNDouble(singleTenFlow/10000.0,1));
+        capitalDTO.setTwentyStockFlow(NumberConvert.saveNDouble(singleTwentyFlow/10000.0,1));
 
-        capitalDTO.setTodayIndustryFlow(industryOneFlow);
-        capitalDTO.setFiveIndustryFlow(industryFiveFlow);
-        capitalDTO.setTenIndustryFlow(industryTenFlow);
-        capitalDTO.setTwentyIndustryFlow(industryTwentyFlow);
+        capitalDTO.setTodayIndustryFlow(NumberConvert.saveNDouble(industryOneFlow/10000.0,1));
+        capitalDTO.setFiveIndustryFlow(NumberConvert.saveNDouble(industryFiveFlow/10000.0,1));
+        capitalDTO.setTenIndustryFlow(NumberConvert.saveNDouble(industryTenFlow/10000.0,1));
+        capitalDTO.setTwentyIndustryFlow(NumberConvert.saveNDouble(industryTwentyFlow/10000.0,1));
 
 
         InstitutionTrade institutionTrade=rateMapper.getOneInstitutionTrade(code);
