@@ -1088,10 +1088,6 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div class="tab-content">
-                                <div id="first" class="tab-pane fade in active">1st</div>
-                                <div id="second" class="tab-pane fade">2nd</div>
-                            </div>
                             <hr>
                         </div>
                     </div>

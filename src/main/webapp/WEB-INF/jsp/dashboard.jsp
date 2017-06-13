@@ -282,7 +282,7 @@
         }
 
         function getUpDownInfo() {
-            var date = "2017-06-02";
+            var date = "2017-06-01";
 
             $.ajax({
                 url:'<%=request.getContextPath()%>/stockinfo/getUpDown',
@@ -362,7 +362,7 @@
 
 
         function getLimitInfo() {
-            var date = "2017-06-02";
+            var date = "2017-06-01";
 
             $.ajax({
                 url:'<%=request.getContextPath()%>/stockinfo/getLimit',
