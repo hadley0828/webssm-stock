@@ -126,10 +126,10 @@ public class UserServiceImpl implements UserService {
             user.setId(userdto.getAccount());
             user.setUserAddress(userdto.getAddress());
             user.setUserAge(userdto.getAge());
-//            user.setUserBirthday(DateConvert.stringToDate(userdto.getBirthday()));  //userdto中的birthday形式要和date相同
+            user.setUserBirthday(DateConvert.stringToDate(userdto.getBirthday()));  //userdto中的birthday形式要和date相同
             user.setUserEmail(userdto.getMail());
             user.setUserIntro(userdto.getIntroduction());
-//            user.setUserName(userdto.getName());
+            user.setUserName(userdto.getName());
             user.setUserPhone(userdto.getHandsetNumber());
 
             String sexString=userdto.getSex();

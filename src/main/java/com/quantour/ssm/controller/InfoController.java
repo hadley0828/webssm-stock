@@ -77,7 +77,7 @@ public class InfoController {
 
     @RequestMapping(value = "/update" ,method = RequestMethod.POST)
     @ResponseBody
-    public String update(String id,String sex,String age,String address,String phone,String mail,String intro){
+    public String update(String id,String sex,String age,String address,String phone,String mail,String intro,String name,String birthday){
 
         HashMap<String,String> map = new HashMap<String, String>();
         boolean result = false;
@@ -91,6 +91,9 @@ public class InfoController {
             user.setHandsetNumber(phone);
             user.setMail(mail);
             user.setIntroduction(intro);
+            user.setName(name);
+            user.setBirthday(birthday);
+
 
             result = userService.updateUser(id,user);
 

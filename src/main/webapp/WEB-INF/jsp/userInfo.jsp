@@ -48,24 +48,28 @@
 
     <script>
         function update() {
+            var id = document.getElementById("id").value;
             var sex=document.getElementById("sex").value;
             var age=document.getElementById("age").value;
             var address=document.getElementById("address").value;
             var phoneNumber=document.getElementById("phoneNumber").value;
             var mail=document.getElementById("mail").value;
             var introduction=document.getElementById("introduction").value;
-            //TODO
-
+            var name = document.getElementById("name").value;
+            var birthday = document.getElementById("birthday").value;
 
             $.ajax({
                 type:"POST",
                 url:'<%=request.getContextPath()%>/userInfo/update',
-                data:{id:id,sex:sex, age:age,address:address, phone:phoneNumber,mail:mail,intro:introduction},
+                data:{id:id,sex:sex, age:age,address:address, phone:phoneNumber,mail:mail,intro:introduction,name:name,birthday:birthday},
                 dataType:'json',
+                cache:false,
                 async:false,
                 success:function (result) {
                     mydata = JSON.parse(result);
-                    alert(mydata.result);
+                    if(mydata.result == "success"){
+                        window.location.href = "<%=request.getContextPath()%>/userInfo/?id=" + id;
+                    }
                 }
             });
         }
@@ -210,7 +214,7 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label >用户名</label>
-                                                <input type="text" class="form-control border-input" disabled value="${user.account}">
+                                                <input type="text" id="id" class="form-control border-input" disabled value="${user.account}">
                                             </div>
                                         </div>
 

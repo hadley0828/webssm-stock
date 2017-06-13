@@ -102,7 +102,13 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String register(String id, String password,String password2){
-        userDTO user = userService.getOneUserByAccount(id);
+
+        userDTO user = new userDTO();
+        try{
+            user = userService.getOneUserByAccount(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         if(!password.equals(password2) ){
             responseObj = new ResponseObj();
@@ -110,7 +116,7 @@ public class UserController {
             responseObj.setMessage("请输入相同密码！");
             return new Gson().toJson(responseObj);
         }else{
-            if(user != null){
+            if(user.getAccount() != null){
                 responseObj = new ResponseObj();
                 responseObj.setCode("0");
                 responseObj.setMessage("this account alreay exist!");
