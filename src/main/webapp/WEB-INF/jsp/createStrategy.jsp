@@ -1122,15 +1122,17 @@
                         </div>
                         <div class="content">
                             <div class="row">
-                                <div class="col-xs-2" style="padding-top: 10px">回测时间:</div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-2" style="text-align:center;padding-top: 10px">回测时间:</div>
+                                <div class="col-xs-3">
                                     <input type="date" class="form-control" id="sdate">
                                 </div>
                                 <div class="col-xs-1" style="text-align: center;padding-top: 10px">-</div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
                                     <input type="date" class="form-control" id="ldate">
                                 </div>
-                                <div class="col-xs-2" style="text-align: right;padding-top: 10px">收益基准:</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2" style="text-align: center;padding-top: 10px">收益基准:</div>
                                 <div class="col-xs-2">
                                     <select class="form-control" id="blockCode">
                                         <option>上证50</option>
@@ -1139,7 +1141,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-success" onclick="start()">开始回测</button>
+                            <br>
+                            <button class="btn btn-success" style="padding-left: 15px" onclick="start()">开始回测</button>
                         </div>
                     </div>
                 </div>
