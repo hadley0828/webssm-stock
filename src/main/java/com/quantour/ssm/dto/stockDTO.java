@@ -13,7 +13,7 @@ public class stockDTO {
     double closePrice;
     double highPrice;
     double lowPrice;
-    double uplift;		//涨跌幅;
+    String uplift;		//涨跌幅;
     double adjClose;	//复权股价;
 
     long Volume;		//成交量;
@@ -106,14 +106,6 @@ public class stockDTO {
         this.lowPrice = lowPrice;
     }
 
-    public double getUplift() {
-        return uplift;
-    }
-
-    public void setUplift(double uplift) {
-        this.uplift = uplift;
-    }
-
     public double getAdjClose() {
         return adjClose;
     }
@@ -168,6 +160,15 @@ public class stockDTO {
 
     public void setNewsDTOArrayList(ArrayList<NewsDTO> newsDTOArrayList) {
         this.newsDTOArrayList = newsDTOArrayList;
+    }
+
+
+    public String getUplift() {
+        return uplift;
+    }
+
+    public void setUplift(String uplift) {
+        this.uplift = uplift;
     }
 
 

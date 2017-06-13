@@ -11,7 +11,7 @@ public class CapitalDTO {
     double partScore;   //根据指标得到的分数 用来排名
     double defeatPercent;   //击败的多少百分比的股票
 
-    ArrayList<FundFlowMapDTO> flowMapList;  //绘制资金流向图的数据
+    String flowMapList;  //绘制资金流向图的数据
 
     double todayStockFlow;  //今日股票流向
     double fiveStockFlow;   //五日股票流向
@@ -81,13 +81,6 @@ public class CapitalDTO {
         this.defeatPercent = defeatPercent;
     }
 
-    public ArrayList<FundFlowMapDTO> getFlowMapList() {
-        return flowMapList;
-    }
-
-    public void setFlowMapList(ArrayList<FundFlowMapDTO> flowMapList) {
-        this.flowMapList = flowMapList;
-    }
 
     public double getTodayStockFlow() {
         return todayStockFlow;
@@ -212,6 +205,16 @@ public class CapitalDTO {
     public CapitalDTO(){
         super();
     }
+
+
+    public String getFlowMapList() {
+        return flowMapList;
+    }
+
+    public void setFlowMapList(String flowMapList) {
+        this.flowMapList = flowMapList;
+    }
+
 
 
 

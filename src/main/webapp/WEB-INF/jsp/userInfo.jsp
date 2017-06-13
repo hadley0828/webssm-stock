@@ -277,13 +277,14 @@
                                         <h3 class="title" style="color: #FF9500;">自选股票</h3>
                                     </div>
                                     <hr/>
-                                    <div class="content table-responsive">
+                                    <div style="height:325px; overflow-y:auto"class="content table-responsive">
                                         <table class="table table-striped text-center" style="padding-right: 2%;padding-left: 2%">
                                             <thead>
                                                 <th>股票编号</th>
                                                 <th>股票名称</th>
                                                 <th>当前价格</th>
                                                 <th>涨跌幅</th>
+                                                <th>操作</th>
                                             </thead>
 
 
@@ -294,7 +295,7 @@
                                                     <td>${oneStock.name}</td>
                                                     <td>${oneStock.closePrice}</td>
                                                     <td>${oneStock.uplift}</td>
-
+                                                    <td><a onclick=""></a></td>
                                                 </tr>
                                             </c:forEach>
 

@@ -13,7 +13,7 @@ public class IndustryDTO {
     double tenDaysIndustryChange;   //近十天该行业的涨跌幅
     double tenDaysMarketChange;     //近十天大盘的涨跌幅
     //下面画一张两条折线图
-    List<DateAndChange> ChangeList;   //近十个交易日每天市场的涨跌幅
+    String ChangeList;   //近十个交易日每天市场的涨跌幅
 
     @Override
     public String toString() {
@@ -68,11 +68,11 @@ public class IndustryDTO {
     }
 
 
-    public List<DateAndChange> getChangeList() {
+    public String getChangeList() {
         return ChangeList;
     }
 
-    public void setChangeList(List<DateAndChange> changeList) {
+    public void setChangeList(String changeList) {
         ChangeList = changeList;
     }
 

@@ -8,6 +8,7 @@ import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.model.*;
 import com.quantour.ssm.service.HistoryService;
 import com.quantour.ssm.util.DateConvert;
+import com.quantour.ssm.util.NumberConvert;
 import com.quantour.ssm.util.StockCalculator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,7 +107,7 @@ public class HistoryServiceImpl implements HistoryService{
                 stockdto.setHighPrice(0.0);
                 stockdto.setLowPrice(0.0);
 
-                stockdto.setUplift(0.0);
+                stockdto.setUplift("0.0%");
                 stockdto.setAdjClose(0.0);
                 stockdto.setVolume(0);
                 stockdto.setLogYield(0.0);
@@ -147,7 +148,7 @@ public class HistoryServiceImpl implements HistoryService{
                 stockdto.setHighPrice(dayKLine.getHighPrice());
                 stockdto.setLowPrice(dayKLine.getLowPrice());
 
-                stockdto.setUplift(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));
+                stockdto.setUplift(NumberConvert.doubleToPercentageString(StockCalculator.getUplift(lastDayKLine.getClosePrice(),dayKLine.getClosePrice())));
                 stockdto.setAdjClose(dayKLine.getClosePrice());
                 stockdto.setVolume(Math.round(dayKLine.getVolume()));
                 stockdto.setLogYield(StockCalculator.getLogYield(lastDayKLine.getClosePrice(),dayKLine.getClosePrice()));

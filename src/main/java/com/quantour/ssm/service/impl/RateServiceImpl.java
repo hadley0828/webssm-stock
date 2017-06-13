@@ -183,8 +183,8 @@ public class RateServiceImpl implements RateService{
 
             Technical_mapDTO technicalMapDTO=new Technical_mapDTO();
             technicalMapDTO.setDate(currentDate);
-            technicalMapDTO.setBlockChangePercent(blockChangePercent);
-            technicalMapDTO.setStockChangePercent(stockChangePercent);
+            technicalMapDTO.setBlockChangePercent(NumberConvert.saveNDouble(blockChangePercent,5));
+            technicalMapDTO.setStockChangePercent(NumberConvert.saveNDouble(stockChangePercent,5));
 
             technicalMapDTOArrayList.add(technicalMapDTO);
 
@@ -241,6 +241,7 @@ public class RateServiceImpl implements RateService{
 
         technicalDTO.setTechnicalScore(NumberConvert.saveNDouble(technicalScore,2));
         technicalDTO.setPartScore(partScore);
+        //TODO
         technicalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(technicalScore/10.0));
         technicalDTO.setKlineDTOArrayList(getKline(code,DateConvert.getLastNDate(allDateList,realDate,200),realDate));
         technicalDTO.setTechnicalMapDTOArrayList(JsonConvert.markerlineConvert(technicalMapDTOArrayList));
@@ -496,7 +497,7 @@ public class RateServiceImpl implements RateService{
 
         capitalDTO.setDefeatPercent(NumberConvert.doubleToBiggerInt(CapitalScore/10.0));
 
-        capitalDTO.setFlowMapList(allFlowMapList);
+        capitalDTO.setFlowMapList(JsonConvert.capitalLineConvert(allFlowMapList));
 
         capitalDTO.setTodayStockFlow(singleOneFlow);
         capitalDTO.setFiveStockFlow(singleFiveFlow);
@@ -734,7 +735,7 @@ public class RateServiceImpl implements RateService{
 
         industryDTO.setTenDaysIndustryChange(tenDaysIndustryChange);
         industryDTO.setTenDaysMarketChange(tenDaysMarketChange);
-        industryDTO.setChangeList(resultList);
+        industryDTO.setChangeList(JsonConvert.ChangeListConvert(resultList));
 
         //指标
         double one=tenDaysIndustryChange;
