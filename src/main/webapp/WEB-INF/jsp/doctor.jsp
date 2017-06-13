@@ -1091,7 +1091,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="card">
-                                            <div class="header" style="background-color: #c1edfb">
+                                            <div class="header" style="background-color: #d7d7d7">
                                                 <p style="padding-left: 20px"><strong style="color: #ff9500;font-size:larger">现金流量</strong> </p>
                                                 <hr>
                                             </div>

@@ -31,7 +31,20 @@ public class DoctorController {
     @Resource
     private RateService rateService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    public String showMain(@RequestParam(value = "id",required = false) String id,HttpServletRequest request,Model model){
+        try{
+            userDTO user = userService.getOneUserByAccount(id);
+
+            model.addAttribute("user",user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "mainDoctor";
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String showDotor(@RequestParam(value = "id",required=false ) String user_id, HttpServletRequest request, Model model){
 
         try{

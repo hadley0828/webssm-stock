@@ -55,7 +55,7 @@
 
 
         function add() {
-
+            window.location.href = "<%=contextPath%>/doctor/info/?id=${user.account}"
         }
 
         function changeColor() {
