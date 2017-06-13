@@ -561,7 +561,10 @@
 
         }
 
-        function doCompare() {                  //对比功能
+        function doCompare() {
+            //对比功能
+
+            a();
             var codename1 = "";
             var codename2 = "";
             var ul = document.getElementById("choosed_list");
@@ -1015,7 +1018,7 @@
                             <hr>
                             <ul class="nav nav-pills">
                                 <li class="active"><a data-toggle="pill" href="#hot">热门股票</a></li>
-                                <li><a data-toggle="pill" href="#collect">收藏股票</a> </li>
+                                <li><a data-toggle="pill" href="#collect">自选股票</a> </li>
                                 <li><a data-toggle="pill" href="#history">历史浏览</a> </li>
                             </ul>
                             <div class="tab-content">
@@ -1023,9 +1026,9 @@
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
                                             <thead>
-                                                <th>股票名称</th>
-                                                <th>股票代码</th>
-                                                <th>当前价格</th>
+                                                <th>名称</th>
+                                                <th>代码</th>
+                                                <th>最新价</th>
                                                 <th>添加对比</th>
                                             </thead>
                                             <tbody>
@@ -1044,17 +1047,23 @@
                                 <div id="collect" class="tab-pane fade">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
+                                            <thead>
+                                            <th>名称</th>
+                                            <th>代码</th>
+                                            <th>最新价</th>
+                                            <th>添加对比</th>
+                                            </thead>
                                             <tbody>
-                                            <tr>
-                                                <td id="collect_name_1">工商银行</td>
-                                                <td>0.00</td>
-                                                <th><a href="#" onclick="addUl(document.getElementById('collect_name_1').innerHTML)">对比</a></th>
-                                            </tr>
-                                            <tr>
-                                                <td id="collect_name_2">农业银行</td>
-                                                <td>0.00</td>
-                                                <th><a href="#" onclick="addUl(document.getElementById('collect_name_2').innerHTML)">对比</a> </th>
-                                            </tr>
+                                            <c:forEach var="oneStock" items="${optionalStockList}">
+                                                <tr>
+                                                    <td id="hot_name_${oneStock.id}">${oneStock.name}</td>
+                                                    <td>${oneStock.id}</td>
+                                                    <td>${oneStock.closePrice}</td>
+                                                    <th><a href="#" onclick="addUl(document.getElementById('hot_name_${oneStock.id}').innerHTML)">对比</a> </th>
+                                                </tr>
+                                            </c:forEach>
+
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -1062,17 +1071,23 @@
                                 <div id="history" class="tab-pane fade">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
+                                            <thead>
+                                            <th>名称</th>
+                                            <th>代码</th>
+                                            <th>最新价</th>
+                                            <th>添加对比</th>
+                                            </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>万科A</td>
-                                                <td>0.00</td>
-                                                <th><a href="#">对比</a></th>
-                                            </tr>
-                                            <tr>
-                                                <td>百度</td>
-                                                <td>0.00</td>
-                                                <th><a href="#">对比</a> </th>
-                                            </tr>
+                                            <c:forEach var="oneStock" items="${historyStockList}">
+                                                <tr>
+                                                    <td id="hot_name_${oneStock.id}">${oneStock.name}</td>
+                                                    <td>${oneStock.id}</td>
+                                                    <td>${oneStock.closePrice}</td>
+                                                    <th><a href="#" onclick="addUl(document.getElementById('hot_name_${oneStock.id}').innerHTML)">对比</a> </th>
+                                                </tr>
+                                            </c:forEach>
+
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -1135,6 +1150,9 @@
                             <blockquote>基本指标对比</blockquote>
                             <div class="content table-responsive table-full-width">
                                 <script>
+
+                                    var one=0;
+
                                     function getStock1BasicInfo(code) {
 //
 //                                        $.ajax({
@@ -1146,13 +1164,19 @@
 //
 //                                            }
 //                                        });
+
                                     }
 
                                     function getStock2BasicInfo(code){
 
                                     }
+
+                                    function getTwoStockInfo(data) {
+                                        one=data;
+                                    }
                                 </script>
-                                
+
+
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -1160,24 +1184,24 @@
                                         <th>最高价格</th>
                                         <th>最低价格</th>
                                         <th>涨跌幅</th>
-                                        <th>成交量</th>
+                                        <th>对数受益方差</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
 
-                                        <td id="name_1"></td>
-                                        <td>0.00</td>
-                                        <td>0.00</td>
-                                        <td>0.0%</td>
-                                        <th>1000000</th>
+                                        <td id="name1"></td>
+                                        <td id="high1"> </td>
+                                        <td id="low1"></td>
+                                        <td id="change1"></td>
+                                        <td id="logVar1"></td>
                                     </tr>
                                     <tr>
-                                        <td>农业银行</td>
-                                        <td>0.00</td>
-                                        <td>0.00</td>
-                                        <td>0.0%</td>
-                                        <th>1000000</th>
+                                        <td id="name2"></td>
+                                        <td id="high2"></td>
+                                        <td id="low2"></td>
+                                        <td id="change2"></td>
+                                        <td id="logVar2"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -1216,7 +1240,38 @@
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <script>
+    function a() {
 
+        var sdate = document.getElementById("sDate").value;
+        var ldate = document.getElementById("lDate").value;
+        var ul =document.getElementById("choosed_list");
+        var lis= ul.getElementsByTagName('li');
+
+        var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
+        var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
+
+        $.ajax({
+            type:'POST',
+            url:'<%=request.getContextPath()%>/compare/getInitialInfo',
+            data:{sdate:sdate, ldate:ldate, codename1:codename1, codename2:codename2},
+            dataType:"json",
+            asnyc:false,
+            success:function (result) {
+                newdata = JSON.parse(result);
+                document.getElementById('name1').innerHTML =newdata.name1;
+                document.getElementById('high1').innerHTML =newdata.high1;
+                document.getElementById('low1').innerHTML =newdata.low1;
+                document.getElementById('change1').innerHTML =newdata.change1;
+                document.getElementById('logVar1').innerHTML =newdata.logVar1;
+                document.getElementById('name2').innerHTML =newdata.name2;
+                document.getElementById('high2').innerHTML =newdata.high2;
+                document.getElementById('low2').innerHTML =newdata.low2;
+                document.getElementById('change2').innerHTML =newdata.change2;
+                document.getElementById('logVar2').innerHTML =newdata.logVar2;
+
+            }
+        });
+    }
 </script>
 <%--<script type="text/javascript">--%>
     <%--$(document).ready(function(){--%>
