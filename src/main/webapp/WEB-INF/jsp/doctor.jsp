@@ -527,7 +527,32 @@
             fillScoreBar(datalist);
         }
 
-
+        $(function () {
+            switch ("${generalScore.suggestion}"){
+                case "卖出":
+                    var sp1 = document.getElementById("sold");
+                    sp1.setAttribute("class","label label-danger");
+                    break;
+                case "减持":
+                    var sp2 = document.getElementById("minus");
+                    sp2.setAttribute("class","label label-danger");
+                    break;
+                case "中性":
+                    var sp3 = document.getElementById("wait");
+                    sp3.setAttribute("class","label label-danger");
+                    break;
+                case "增持":
+                    var sp4 = document.getElementById("plus");
+                    sp4.setAttribute("class","label label-danger");
+                    break;
+                case "买入":
+                    var sp5 = document.getElementById("sold");
+                    sp5.setAttribute("class","label label-danger");
+                    break;
+                default:
+                    alert("wrong suggestion");
+            }
+        })
     </script>
 </head>
 <body>
@@ -672,19 +697,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-10 col-xs-offset-1 text-center">
-                                        <span class="label label-default">卖出</span>
+                                        <span id="sold" class="label label-default">卖出</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
-                                        <span class="label label-default">减持</span>
+                                        <span id="minus" class="label label-default">减持</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
-                                        <span class="label label-default">观望</span>
+                                        <span id="wait" class="label label-default">观望</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
-                                        <span class="label label-danger">增持</span>
+                                        <span id="plus" class="label label-default">增持</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
-                                        <span class="label label-default">买入</span>
+                                        <span id="buy" class="label label-default">买入</span>
                                     </div>
                                 </div>
                                 <hr/>
@@ -993,7 +1018,7 @@
                                                         <p style="padding-left: 20px"><strong style="color: #e98200;font-size:larger">个股新闻</strong> </p>
                                                         <hr>
                                                     </div>
-                                                    <div style="height:525px; overflow-y:auto" class="content table-responsive">
+                                                    <div class="content table-responsive" style="height: 525px;overflow-y: auto">
                                                         <table class="table table-striped" style="padding-left: 2%;padding-right: 2%">
                                                             <thead class="text-center">
                                                                 <tr>
