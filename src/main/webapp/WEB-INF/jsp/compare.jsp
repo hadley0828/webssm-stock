@@ -74,7 +74,7 @@
                     fillCharts1(klinedata,code);
                 },
                 error:function () {
-                    alert("!");
+                    alert("请检查输入!");
                 }
             });
 
@@ -99,7 +99,7 @@
                     fillCharts2(klinedata,code);
                 },
                 error:function () {
-                    alert("!");
+                    alert("请检查输入!");
                 }
             });
 
@@ -850,7 +850,7 @@
         function searchAdd(){
             var stockSearch = document.getElementById("stockSearch");
             var stockName = stockSearch.value;
-            stockName = stockName.substring(6);
+            stockName = stockName.substring(7);
             addUl(stockName);
         }
 
