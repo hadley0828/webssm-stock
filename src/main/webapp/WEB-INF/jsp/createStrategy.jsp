@@ -1587,10 +1587,10 @@
                 }else if(rawdata[i][0] < 0){
                     values2.push(0);
                     values1.push(rawdata[i][1]);
-                }else if(rawdata[i][0] == (String)("-0.0")){
+                }else if(String.valueOf(rawdata[i][0]) == (String)("-0.0")){
                     values2.push(0);
                     values1.push(rawdata[i][1]);
-                }else if(rawdata[i][0] == (String)("0.0")){
+                }else if(String.valueOf(rawdata[i][0]) == (String)("0.0")){
                     values1.push(0);
                     values2.push(rawdata[i][1]);
                 }
@@ -1671,6 +1671,7 @@
 
         function fillStragetyPic1(rawdata) {
             var straLine1 = echarts.init(document.getElementById("straLine1"));
+
 
             data0 = splitStra1Data(rawdata);
 

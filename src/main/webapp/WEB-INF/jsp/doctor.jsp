@@ -993,7 +993,7 @@
                                                         <p style="padding-left: 20px"><strong style="color: #e98200;font-size:larger">个股新闻</strong> </p>
                                                         <hr>
                                                     </div>
-                                                    <div class="content table-responsive">
+                                                    <div style="height:525px; overflow-y:auto" class="content table-responsive">
                                                         <table class="table table-striped" style="padding-left: 2%;padding-right: 2%">
                                                             <thead class="text-center">
                                                                 <tr>

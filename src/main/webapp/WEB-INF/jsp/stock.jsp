@@ -539,7 +539,7 @@
                             <blockquote>相关新闻</blockquote>
                         </div>
                         <hr>
-                        <div class="content table-responsive">
+                        <div style="height:380px; overflow-y:auto" class="content table-responsive">
                             <table class="table table-striped" style="padding-left: 2%;padding-right: 2%">
                                 <thead class="text-center">
                                 <tr>
