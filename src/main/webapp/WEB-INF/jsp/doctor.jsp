@@ -706,7 +706,7 @@
                                         <span id="wait" class="label label-default">观望</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
-                                        <span id="plue" class="label label-default">增持</span>
+                                        <span id="plus" class="label label-default">增持</span>
                                         <!--</div>-->
                                         <!--<div class="col-xs-2">-->
                                         <span id="buy" class="label label-default">买入</span>
@@ -1018,7 +1018,7 @@
                                                         <p style="padding-left: 20px"><strong style="color: #e98200;font-size:larger">个股新闻</strong> </p>
                                                         <hr>
                                                     </div>
-                                                    <div class="content table-responsive">
+                                                    <div class="content table-responsive" style="height: 525px;overflow-y: auto">
                                                         <table class="table table-striped" style="padding-left: 2%;padding-right: 2%">
                                                             <thead class="text-center">
                                                                 <tr>
