@@ -137,7 +137,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">策略首页</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -170,38 +170,7 @@
 
         <div class="content">
             <div class="row">
-                <%--<div class="col-sm-4">--%>
-                    <%--&lt;%&ndash;<div class="card" style="height: 360px">&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;<div class="header">&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<blockquote>动量回归</blockquote>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<hr>&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;<div class="content">&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<div class="footer" style="padding-top: 180px">&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<hr>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<div class="col-xs-offset-9">&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<button class="btn btn-danger btn-sm">查看详情</button>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--<div class="col-sm-4">--%>
-                    <%--<div class="card" style="height: 360px">--%>
-                        <%--<div class="header">--%>
-                            <%--<blockquote>均值回归</blockquote>--%>
-                            <%--<hr>--%>
-                        <%--</div>--%>
-                        <%--<div class="content">--%>
-                            <%--<div class="footer" style="padding-top: 180px">--%>
-                                <%--<hr>--%>
-                                <%--<div class="col-xs-offset-9">--%>
-                                    <%--<button class="btn btn-danger btn-sm">查看详情</button>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
+
                 <div class="col-sm-4">
                     <div class="card" style="height: 360px">
                         <div class="header">

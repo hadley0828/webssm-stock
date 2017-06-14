@@ -4,6 +4,8 @@ package com.quantour.ssm.controller;
  * Created by lenovo on 2017/6/6.
  */
 
+import com.quantour.ssm.dto.RankDTO;
+import com.quantour.ssm.dto.stockDTO;
 import com.quantour.ssm.dto.stockRate.*;
 import com.quantour.ssm.dto.userDTO;
 import com.quantour.ssm.service.RateService;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,6 +37,8 @@ public class DoctorController {
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     public String showMain(@RequestParam(value = "id",required = false) String id,HttpServletRequest request,Model model){
+        String date = "2017-06-01";
+
         try{
             userDTO user = userService.getOneUserByAccount(id);
 
@@ -45,6 +50,14 @@ public class DoctorController {
         try{
             List<String> codeAndName = stockService.getAllCodeAndName();
             model.addAttribute("codeAndName",codeAndName);
+
+            ArrayList<RankDTO> one_day_list = stockService.getTopNStockByDays(10,date,1);
+
+            model.addAttribute("one_day_list",one_day_list);
+
+            ArrayList<stockDTO> commendList=stockService.getIntelligentStock(id,date);
+
+            model.addAttribute("commendList",commendList);
         }catch (Exception e){
             e.printStackTrace();
         }

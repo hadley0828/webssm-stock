@@ -69,7 +69,13 @@
                     fillCharts(mydata);
                 },
                 error:function () {
-                    alert("查找上证指数失败！");
+                    //alert("查找上证指数失败！");
+                    $.notify({
+                        message: "查找上证指数失败！"
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
         }
@@ -505,7 +511,13 @@
 
                         window.location.href = "<%=contextPath%>/stockinfo/?stockCode="+stockName+"&id=${user.account}";
                     }else{
-                        alert(stockName+"在"+data+"停牌，请换一只股票");
+                        //alert(stockName+"在"+data+"停牌，请换一只股票");
+                        $.notify({
+                            message: "该股票今日停牌，请重新选择"
+                        },{
+                            type:'warning',
+                            timer:400
+                        })
                     }
                 }
             })

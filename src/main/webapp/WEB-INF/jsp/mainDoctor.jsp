@@ -160,7 +160,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">主页</a>
+                    <a class="navbar-brand" href="#">诊断导航</a>
                 </div>
 
                 <div class="collapse navbar-collapse">
@@ -216,179 +216,52 @@
                         <div class="content" style="z-index: inherit">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <blockquote>某排行</blockquote>
+                                    <blockquote>单日涨幅前10</blockquote>
                                     <hr>
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
                                             <thead>
-                                            <th style="width: 72px;">序号</th>
-                                            <th style="width: 108px;">编号</th>
-                                            <th style="width: 108px">名称</th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    现价
-                                                    <i></i>
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    涨跌幅(%)
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    涨跌
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">成交量</th>
-                                            <th style="width: 72px;">加自选</th>
+                                            <th>股票编号</th>
+                                            <th>股票名称</th>
+                                            <th>当前价格</th>
+                                            <th>涨跌幅</th>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>000001</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>000002</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>000003</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>000004</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <c:forEach items="${one_day_list}"  var="hot_stock">
+                                                <tr>
+                                                    <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
+                                                    <td>${hot_stock.stockName}</td>
+                                                    <td>${hot_stock.newestPrice}</td>
+                                                    <td>${hot_stock.changePercent}</td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <blockquote>某排行</blockquote>
+                                    <blockquote>猜你喜欢</blockquote>
                                     <hr>
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-striped">
                                             <thead>
-                                            <th style="width: 72px;">序号</th>
-                                            <th style="width: 108px;">编号</th>
-                                            <th style="width: 108px">名称</th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    现价
-                                                    <i></i>
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    涨跌幅(%)
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">
-                                                <a href="#">
-                                                    涨跌
-                                                </a>
-                                            </th>
-                                            <th style="width: 108px;">成交量</th>
-                                            <th style="width: 72px;">加自选</th>
+                                            <th>股票编号</th>
+                                            <th>股票名称</th>
+                                            <th>当前价格</th>
+                                            <th>涨跌幅</th>
                                             </thead>
+
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>000001</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>000002</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>000003</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>000004</td>
-                                                <td>xx股票</td>
-                                                <td>0.0</td>
-                                                <td>0.0%</td>
-                                                <td>0.0</td>
-                                                <td>1000000</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <i class="ti-plus"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <c:forEach items="${commendList}" var="oneStock">
+                                                <tr>
+                                                    <td>${oneStock.id}</td>
+                                                    <td>${oneStock.name}</td>
+                                                    <td>${oneStock.closePrice}</td>
+                                                    <td>${oneStock.uplift}</td>
+                                                </tr>
+
+
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>

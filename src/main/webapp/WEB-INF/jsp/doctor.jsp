@@ -70,7 +70,13 @@
                     fillKline(mydata);
                 },
                 error:function () {
-                    alert("!");
+                    //alert("!");
+                    $.notify({
+                        message: "读取k线图数据失败"
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
         }
@@ -546,7 +552,7 @@
                     sp4.setAttribute("class","label label-danger");
                     break;
                 case "买入":
-                    var sp5 = document.getElementById("sold");
+                    var sp5 = document.getElementById("buy");
                     sp5.setAttribute("class","label label-danger");
                     break;
                 default:

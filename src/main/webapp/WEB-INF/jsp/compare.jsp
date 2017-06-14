@@ -74,7 +74,13 @@
                     fillCharts1(klinedata,code);
                 },
                 error:function () {
-                    alert("请检查输入!");
+                    //alert("请检查输入!");
+                    $.notify({
+                        message: "请检查输入！"
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
 
@@ -99,7 +105,13 @@
                     fillCharts2(klinedata,code);
                 },
                 error:function () {
-                    alert("请检查输入!");
+                    //alert("请检查输入!");
+                    $.notify({
+                        message: "请检查输入！"
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
 
@@ -560,7 +572,13 @@
 
                 ul.appendChild(li);
             }else{
-                alert("该股已选中或已达到选择上限2只股票");
+                //alert("该股已选中或已达到选择上限2只股票");
+                $.notify({
+                    message: "该股已选中或已达到选择上限2只股票！"
+                },{
+                    type:'warning',
+                    timer:400
+                })
             }
 
 

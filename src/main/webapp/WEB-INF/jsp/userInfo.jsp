@@ -68,6 +68,12 @@
                 success:function (result) {
                     mydata = JSON.parse(result);
                     if(mydata.result == "success"){
+                        $.notify({
+                            message: "更新成功！"
+                        },{
+                            type:'success',
+                            timer:400
+                        })
                         window.location.href = "<%=request.getContextPath()%>/userInfo/?id=" + id;
                     }
                 }
@@ -218,7 +224,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">个人信息</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">

@@ -56,11 +56,25 @@
 //            alert( $("#u").val());
 
             if(loginname == ""){
-                alert("用户名不得为空!");
+                //alert("用户名不得为空!");
+                $.notify({
+                    message: "用户名不得为空"
+                },{
+                    type:'warning',
+                    timer:400
+                })
+                return;
             }
 
             if(password == ""){
-                alert("密码不得为空!");
+                //alert("密码不得为空!");
+                $.notify({
+                    message: "密码不得为空！"
+                },{
+                    type:'warning',
+                    timer:400
+                })
+                return;
             }
 
 
@@ -75,9 +89,21 @@
                 success: function (data) {
                     mydata = JSON.parse(data);
                     if(mydata.code == "0"){
-                        alert(mydata.ms);
+                        //alert(mydata.ms);
+                        $.notify({
+                            message: mydata.ms
+                        },{
+                            type:'warning',
+                            timer:400
+                        })
                     }else if(mydata.code == "1"){
-                        alert(mydata.ms);
+                        //alert(mydata.ms);
+                        $.notify({
+                            message: mydata.ms
+                        },{
+                            type:'warning',
+                            timer:400
+                        })
                         window.location.href = "<%=contextPath%>/dashboard/?id=" + mydata.data.account;
                     }
 //                    alert(mydata.data[0].account);
@@ -126,8 +152,8 @@
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <p>
-                            click here to
-                            <a href="<%=contextPath%>/dashboard/regist">register</a>
+                            点击这里来
+                            <a href="<%=contextPath%>/dashboard/regist">注册</a>
                         </p>
 
                     </div>
@@ -150,4 +176,23 @@
     </div>
 </div>
 </body>
+
+<!--   Core JS Files   -->
+
+<script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
+
+<!--  Notifications Plugin    -->
+<script src="<%=contextPath%>/assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 </html>

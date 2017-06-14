@@ -418,7 +418,13 @@
                 async:true,
                 success:function (result) {
                     mydata = JSON.parse(result);
-                    alert(mydata.result);
+                    //alert(mydata.result);
+                    $.notify({
+                        message: mydata.result
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
         }
@@ -517,7 +523,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">策略生成</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">

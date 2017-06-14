@@ -35,7 +35,7 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />
+    <%--<link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />--%>
 
 
     <!--  Fonts and icons     -->
@@ -55,12 +55,26 @@
 //            alert("loginname:" + loginname);
 //            alert( $("#u").val());
 
-            if(loginname == ""){
-                alert("用户名不得为空!");
+            if(loginname === ""){
+                //alert("用户名不得为空!");
+                $.notify({
+                    message: "用户名不得为空"
+                },{
+                    type:'warning',
+                    timer:400
+                })
+                return;
             }
 
-            if(password == ""){
-                alert("密码不得为空!");
+            if(password === ""){
+                //alert("密码不得为空!");
+                $.notify({
+                    message: "密码不得为空！"
+                },{
+                    type:'warning',
+                    timer:400
+                })
+                return;
             }
 
 
@@ -76,9 +90,22 @@
                     var mydata = JSON.parse(data);
 
                     if(mydata.code == "0"){
-                        alert(mydata.ms);
+                        //alert(mydata.ms);
+                        $.notify({
+                            message: mydata.ms
+                        },{
+                            type:'warning',
+                            timer:400
+                        })
                     }else if(mydata.code == "1"){
-                        alert(mydata.ms);
+                        //alert(mydata.ms);
+                        $.notify({
+                            message: mydata.ms
+                        },{
+                            type:'success',
+                            timer:400
+                        })
+//                        var t=setTimeout(window.location.href="login",2000);
                         window.location.href="login";
                     }
                 }
@@ -91,7 +118,7 @@
     <div class="col-xs-4 col-xs-offset-4">
         <div class="card">
             <div class="header" style="background-color: #f4f3ef">
-                <h4 class="title" style="color:#FF9500">Register</h4>
+                <h4 class="title" style="color:#FF9500">注册</h4>
                 <hr/>
             </div>
             <div class="content">
@@ -135,4 +162,23 @@
 </div>
 </div>
 </body>
+
+<!--   Core JS Files   -->
+
+<script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
+
+<!--  Notifications Plugin    -->
+<script src="<%=contextPath%>/assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 </html>

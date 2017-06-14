@@ -78,7 +78,12 @@
                     fillCharts(mydata);
                 },
                 error:function () {
-                    alert("!");
+                    $.notify({
+                        message: "获取K线图数据失败！"
+                    },{
+                        type:'warning',
+                        timer:400
+                    })
                 }
             });
 
