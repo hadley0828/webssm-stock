@@ -164,9 +164,10 @@ public class JsonConvert {
             }
         }
 
+
         for(int i = 3; i < obj.length; i++){
             Object[] o = {
-              keylist.get(i-3),valuelist.get(i-3)
+              keylist.get(i-3).toString(),valuelist.get(i-3)
             };
             obj[i] = o;
         }

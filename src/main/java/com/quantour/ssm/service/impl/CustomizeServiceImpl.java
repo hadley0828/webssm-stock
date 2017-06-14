@@ -112,7 +112,7 @@ public class CustomizeServiceImpl implements CustomizeService{
             }
 
 
-        }else if(stockPondDTO.getStockPondChosen().equals("自选股票池")){
+        }else if(stockPondDTO.getStockPondChosen().equals("自选池股票")){
             //initialCodeList=getOneUserOptionalStocks(String id)
             initialCodeList=dayKLineMapper.getUserAllStock(userId);
 

@@ -1,5 +1,6 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.lang.Double" %>
 <%@ page import="com.quantour.ssm.dto.customizeStrategy.ScreeningConditionDTO"%>
 <%@ page import="com.quantour.ssm.model.CustomizeStrategy" %>
 <%@ page import="java.util.List" %>
@@ -1587,16 +1588,16 @@
 
             for(var i = 3; i < rawdata.length; i++){
                 categoryData.push(rawdata[i][0]);
-                if(rawdata[i][0] > 0){
+                if(parseFloat(rawdata[i][0])> 0){
                     values2.push(rawdata[i][1]);
                     values1.push(0);
-                }else if(rawdata[i][0] < 0){
+                }else if(parseFloat(rawdata[i][0]) < 0){
                     values2.push(0);
                     values1.push(rawdata[i][1]);
-                }else if(String.valueOf(rawdata[i][0]) == (String)("-0.0")){
+                }else if(rawdata[i][0] == "-0.0"){
                     values2.push(0);
                     values1.push(rawdata[i][1]);
-                }else if(String.valueOf(rawdata[i][0]) == (String)("0.0")){
+                }else if(rawdata[i][0] == "0.0"){
                     values1.push(0);
                     values2.push(rawdata[i][1]);
                 }
