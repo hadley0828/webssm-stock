@@ -46,7 +46,7 @@
 
     <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 
-    <script>
+    <script type="text/javascript">
         function update() {
             var id = document.getElementById("id").value;
             var sex=document.getElementById("sex").value;
@@ -70,6 +70,57 @@
                     if(mydata.result == "success"){
                         window.location.href = "<%=request.getContextPath()%>/userInfo/?id=" + id;
                     }
+                }
+            });
+        }
+        
+        function deleteStock(code) {
+            var id = document.getElementById("id").value;
+            var stockcode = code;
+
+            $.ajax({
+                type:"POST",
+                url:'<%=request.getContextPath()%>/userInfo/delete',
+                data:{id:id, code:code},
+                dataType:'json',
+                cache:false,
+                async:false,
+                success:function (result) {
+                    mydata = JSON.parse(result);
+                    var parent = document.getElementById('stocklist');
+//                    alert("code"+code);
+                    var child = document.getElementById("code"+code);
+//                    alert(child.firstElementChild.innerHTML)
+                    parent.removeChild(child);
+                }
+            });
+        }
+
+        function intoStra(straid) {
+            var userid = document.getElementById("id").value;
+            var straid = straid;
+
+            window.location.href = "<%=request.getContextPath()%>/strategy/createStrategy/?id="+userid+"&strategyid="+straid;
+
+        }
+        
+        function deletestra(straid) {
+            var straid = straid;
+
+            $.ajax({
+                type:"POST",
+                url:'<%=request.getContextPath()%>/userInfo/deleteStra',
+                data:{straid:straid},
+                dataType:'json',
+                cache:false,
+                async:false,
+                success:function (result) {
+                    mydata = JSON.parse(result);
+                    var parent = document.getElementById('stralist');
+//                    alert("code"+code);
+                    var child = document.getElementById("stra"+straid);
+//                    alert(child.firstElementChild.innerHTML)
+                    parent.removeChild(child);
                 }
             });
         }
@@ -250,7 +301,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label>生日</label>
                                                 <input type="text" id="birthday" class="form-control border-input" placeholder="请输入生日" value="${user.birthday}">
                                             </div>
@@ -294,7 +345,13 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd" onclick=update()>更新</button>
+                                        <input type="button"
+                                               id="btn_update"
+                                               value="更 新"
+                                               onclick= "update()"
+                                               style="width:100px;"
+                                               class="btn btn-info btn-fill btn-wd"/>
+                                        <%--<button type="submit" class="btn btn-info btn-fill btn-wd" onclick="update()">更新</button>--%>
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>
@@ -320,14 +377,14 @@
                                             </thead>
 
 
-                                            <tbody>
+                                            <tbody id="stocklist">
                                             <c:forEach items="${optionalStockList}" var="oneStock">
-                                                <tr>
-                                                    <td>${oneStock.id}</td>
+                                                <tr id="code${oneStock.id}">
+                                                    <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
                                                     <td>${oneStock.name}</td>
                                                     <td>${oneStock.closePrice}</td>
                                                     <td>${oneStock.uplift}</td>
-                                                    <td><a onclick=""></a></td>
+                                                    <td><a onclick="deleteStock('${oneStock.id}')">删除</a></td>
                                                 </tr>
                                             </c:forEach>
 
@@ -353,13 +410,13 @@
                                                 <th>详情</th>
                                                 <th>删除</th>
                                            </thead>
-                                           <tbody>
+                                           <tbody id="stralist">
                                            <c:forEach items="${strategyList}" var="oneStrategy">
-                                               <tr>
+                                               <tr id="stra${oneStrategy.strategyID}">
                                                    <td>${oneStrategy.strategyName}</td>
                                                    <td>${oneStrategy.createTime}</td>
-                                                   <td>详情按钮</td>
-                                                   <td>删除按钮</td>
+                                                   <td><a onclick="intoStra('${oneStrategy.strategyID}')">详情</a></td>
+                                                   <td><a onclick="deletestra('${oneStrategy.strategyID}')">删除</a></td>
                                                </tr>
 
 
