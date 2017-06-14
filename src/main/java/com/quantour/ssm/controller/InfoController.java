@@ -94,8 +94,52 @@ public class InfoController {
             user.setName(name);
             user.setBirthday(birthday);
 
-
             result = userService.updateUser(id,user);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(result){
+            map.put("result","success");
+        }else{
+            map.put("result","false");
+        }
+
+        return new Gson().toJson(map);
+    }
+
+
+    @RequestMapping(value = "/delete",method = RequestMethod.POST )
+    @ResponseBody
+    public String delete(String id,String code){
+        boolean result = false;
+        HashMap<String,String> map = new HashMap<String, String>();
+
+        try{
+            result = stockService.deleteOneOptionalStock(id,code);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(result){
+            map.put("result","success");
+        }else{
+            map.put("result","false");
+        }
+
+        return new Gson().toJson(map);
+    }
+
+    @RequestMapping(value = "/deleteStra",method = RequestMethod.POST )
+    @ResponseBody
+    public String deleteStra(String straid){
+        boolean result = false;
+        HashMap<String,String> map = new HashMap<String, String>();
+
+        try{
+            result = customizeService.deleteOneStrategy(straid);
 
         }catch (Exception e){
             e.printStackTrace();
