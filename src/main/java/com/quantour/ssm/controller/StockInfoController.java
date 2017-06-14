@@ -182,9 +182,9 @@ public class StockInfoController {
 
         HashMap<String,String> map = new HashMap<String, String>();
         if(bool){
-            map.put("result","success");
+            map.put("result","添加成功");
         }else{
-            map.put("result","false");
+            map.put("result","添加失败");
         }
 
         return new Gson().toJson(map);

@@ -101,9 +101,9 @@ public class InfoController {
         }
 
         if(result){
-            map.put("result","success");
+            map.put("result","更新成功");
         }else{
-            map.put("result","false");
+            map.put("result","更新失败");
         }
 
         return new Gson().toJson(map);
@@ -124,9 +124,9 @@ public class InfoController {
         }
 
         if(result){
-            map.put("result","success");
+            map.put("result","删除成功");
         }else{
-            map.put("result","false");
+            map.put("result","删除失败");
         }
 
         return new Gson().toJson(map);
@@ -146,9 +146,9 @@ public class InfoController {
         }
 
         if(result){
-            map.put("result","success");
+            map.put("result","删除成功");
         }else{
-            map.put("result","false");
+            map.put("result","删除失败");
         }
 
         return new Gson().toJson(map);

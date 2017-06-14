@@ -689,7 +689,12 @@
             dataType:'json',
             success:function (result) {
                 mydata = JSON.parse(result);
-                alert(mydata.result);
+                $.notify({
+                    message: mydata.result
+                },{
+                    type:'warning',
+                    timer:400
+                });
             }
         });
     }

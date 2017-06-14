@@ -54,6 +54,8 @@
 
     <script type="text/javascript">
 
+
+
         function getKLine1Info(code){
 
             var sdate = document.getElementById("sDate").value;
