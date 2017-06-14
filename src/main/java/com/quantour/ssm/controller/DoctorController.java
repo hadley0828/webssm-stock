@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/doctor")
@@ -41,11 +42,21 @@ public class DoctorController {
             e.printStackTrace();
         }
 
+        try{
+            List<String> codeAndName = stockService.getAllCodeAndName();
+            model.addAttribute("codeAndName",codeAndName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return "mainDoctor";
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public String showDotor(@RequestParam(value = "id",required=false ) String user_id, HttpServletRequest request, Model model){
+    public String showDotor(@RequestParam(value = "id",required=false ) String user_id,
+                            @RequestParam(value = "stockcode",required = false) String stock_id,
+                            HttpServletRequest request,
+                            Model model){
 
         try{
             System.out.println(";"+user_id);
@@ -57,7 +68,9 @@ public class DoctorController {
         }
 
         try{
-            GeneralScoreDTO generalScoreDTO = rateService.getOneStockGeneralScore("000001","2017-06-02");
+            stock_id = stock_id.substring(0,6);
+
+            GeneralScoreDTO generalScoreDTO = rateService.getOneStockGeneralScore(stock_id,"2017-06-02");
             BasicDTO basicDTO = generalScoreDTO.getBasicDTO();
             CapitalDTO capitalDTO = generalScoreDTO.getCapitalDTO();
             IndustryDTO industryDTO = generalScoreDTO.getIndustryDTO();

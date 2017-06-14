@@ -55,7 +55,9 @@
 
 
         function add() {
-            window.location.href = "<%=contextPath%>/doctor/info/?id=${user.account}"
+            var stockSearch = document.getElementById("stockSearch");
+            var stockName = stockSearch.value;
+            window.location.href = "<%=contextPath%>/doctor/info/?id=${user.account}&stockcode="+stockName;
         }
 
         function changeColor() {
@@ -196,7 +198,11 @@
                         <div class="content">
                             <blockquote>搜索股票</blockquote>
                             <div class="col-md-6 input-group">
-                                <input type="text" placeholder="编号/名称" class="form-control" id="tags">
+                                <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="3">
+                                    <c:forEach var = "oneStock" items="${codeAndName}">
+                                        <option value="${oneStock}">${oneStock}</option>
+                                    </c:forEach>
+                                </select>
                                 <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
                             </div>
                         </div>
@@ -204,10 +210,10 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1">
-                    <div class="card">
-                        <div class="content">
+            <div class="row" style="z-index: -1">
+                <div class="col-lg-10 col-lg-offset-1" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="content" style="z-index: inherit">
                             <div class="row">
                                 <div class="col-md-6">
                                     <blockquote>某排行</blockquote>
