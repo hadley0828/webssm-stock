@@ -49,6 +49,9 @@
     <script src="<%=contextPath%>/assets/js/jquery-ui.js"></script>
     <link href="<%=contextPath%>/assets/css/jquery-ui.css" rel="stylesheet">
 
+    <%--Bootstrap select--%>
+    <link href="<%=contextPath%>/assets/css/bootstrap-select.min.css" rel="stylesheet" >
+
     <script type="text/javascript">
 
         function getKLine1Info(code){
@@ -71,7 +74,7 @@
                     fillCharts1(klinedata,code);
                 },
                 error:function () {
-                    alert("!");
+                    alert("请检查输入!");
                 }
             });
 
@@ -96,7 +99,7 @@
                     fillCharts2(klinedata,code);
                 },
                 error:function () {
-                    alert("!");
+                    alert("请检查输入!");
                 }
             });
 
@@ -556,6 +559,8 @@
 
 
                 ul.appendChild(li);
+            }else{
+                alert("该股已选中或已达到选择上限2只股票");
             }
 
 
@@ -834,20 +839,21 @@
             board2.style.display="";
         }
 
+        function changeColor(){
+            document.getElementById("searchIcon").setAttribute("style","color:orange");
+        }
 
+        function reColor() {
+            document.getElementById("searchIcon").setAttribute("style","color:black");
+        }
 
-        <%--$(function () {--%>
-            <%--var available = [];--%>
-            <%--var data = "${codeAndName}";--%>
+        function searchAdd(){
+            var stockSearch = document.getElementById("stockSearch");
+            var stockName = stockSearch.value;
+            stockName = stockName.substring(7);
+            addUl(stockName);
+        }
 
-            <%--data = data.substr(0,data.length-1);--%>
-            <%--var datalist = data.split(",");--%>
-
-            <%--for(var i = 0; i < datalist.length; i++){--%>
-                <%--available.push(datalist[i]);--%>
-            <%--}--%>
-            <%--$("#tags").autocomplete({source:available});--%>
-        <%--})--%>
 
     </script>
 
@@ -981,9 +987,13 @@
                         <div class="content">
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
-                                <div class="col-xs-8">
-                                    <input type="text" placeholder="代码/名称" class="form-control" id="tags">
-
+                                <div class="col-xs-8 input-group">
+                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="2">
+                                        <c:forEach var = "oneStock" items="${codeAndName}">
+                                            <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <span class="input-group-addon"><i class="ti-plus" id="searchIcon" onclick="searchAdd()" onmouseenter="changeColor()" onmouseleave="reColor()"></i></span>
                                 </div>
                             </div>
                             <ul class="list-inline" style="padding-top: 20px" id="choosed_list">
@@ -1184,7 +1194,7 @@
                                         <th>最高价格</th>
                                         <th>最低价格</th>
                                         <th>涨跌幅</th>
-                                        <th>对数受益方差</th>
+                                        <th>对数收益方差</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -1235,6 +1245,11 @@
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
+
+<%--Bootstrap select--%>
+<script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
+<script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
+
 
 <%--<!-- Paper Dashboard DEMO methods, don't include it in your project! -->--%>
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>

@@ -767,7 +767,7 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select class="selectpicker"  id="stockSearch" data-live-search="true" data-size="3">
+                                    <select class="selectpicker"  id="stockSearch" data-live-search="true" data-size="3" data-dropup-auto="false">
                                         <c:forEach var="oneStock" items="${codeAndName}">
                                             <option value="${oneStock}">${oneStock}</option>
                                         </c:forEach>
@@ -799,7 +799,7 @@
                                 <tbody>
                                 <c:forEach items="${one_day_list}"  var="hot_stock">
                                     <tr>
-                                        <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
+                                        <td id="hot_name_${hot_stock.stockCode}"><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${hot_stock.stockCode}">${hot_stock.stockCode}</a></td>
                                         <td>${hot_stock.stockName}</td>
                                         <td>${hot_stock.newestPrice}</td>
                                         <td>${hot_stock.changePercent}</td>
@@ -830,7 +830,7 @@
                                 <tbody>
                                 <c:forEach items="${commendList}" var="oneStock">
                                     <tr>
-                                        <td>${oneStock.id}</td>
+                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
                                         <td>${oneStock.name}</td>
                                         <td>${oneStock.closePrice}</td>
                                         <td>${oneStock.uplift}</td>
