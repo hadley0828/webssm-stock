@@ -890,9 +890,18 @@
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
-                    Quantour
-                </a>
+                <c:choose>
+                    <c:when test="${user.account != null}">
+                        <a href="<%=contextPath%>/dashboard/?id=${user.account}">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                    <c:when  test="${user.account == null}">
+                        <a href="<%=contextPath%>/dashboard/">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                </c:choose>
             </div>
 
             <c:choose>
@@ -900,11 +909,11 @@
                     <ul class="nav">
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
-                                <i class="ti-panel"></i>
+                                <i class="ti-home"></i>
                                 <p>主页</p>
                             </a>
                         </li>
-                        <li>
+                        <li style="background-color:#b9b4c0">
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
                                 <p>股票对比</p>
@@ -918,7 +927,7 @@
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
-                                <i class="ti-user"></i>
+                                <i class="ti-support"></i>
                                 <p>股票诊断</p>
                             </a>
                         </li>
@@ -929,11 +938,11 @@
                     <ul class="nav">
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
-                                <i class="ti-panel"></i>
+                                <i class="ti-home"></i>
                                 <p>主页</p>
                             </a>
                         </li>
-                        <li>
+                        <li style="background-color:#b9b4c0">
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
                                 <p>股票对比</p>
@@ -947,7 +956,7 @@
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
-                                <i class="ti-user"></i>
+                                <i class="ti-support"></i>
                                 <p>股票诊断</p>
                             </a>
                         </li>
@@ -977,10 +986,15 @@
                         <li>
                             <c:choose>
                                 <c:when test="${user.account != null}">
-                                    <a href="<%=contextPath%>/userInfo/?id=${user.account}" >
-                                        <i class="ti-user"></i>
-                                        <p>${user.account}</p>
-                                    </a>
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" >
+                                <i class="ti-user"></i>
+                                <p>${user.account}</p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%=contextPath%>/dashboard/login">退出登录</a></li>
+                            </ul>
+                        </li>
                                 </c:when>
                                 <c:when test="${user.account == null}">
                                     <a href="<%=contextPath%>/dashboard/login" >
@@ -1009,9 +1023,12 @@
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
                                     <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="2">
-                                        <c:forEach var = "oneStock" items="${codeAndName}">
-                                            <option value="${oneStock}">${oneStock}</option>
-                                        </c:forEach>
+                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
+                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
+                                        <%--</c:forEach>--%>
+                                        <option value="000001 平安银行">000001 平安银行</option>
+                                        <option value="000004 国农科技">000004 国农科技</option>
+                                        <option value="000005 世纪星源">000005 世纪星源</option>
                                     </select>
                                     <span class="input-group-addon"><i class="ti-plus" id="searchIcon" onclick="searchAdd()" onmouseenter="changeColor()" onmouseleave="reColor()"></i></span>
                                 </div>

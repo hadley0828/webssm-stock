@@ -56,15 +56,24 @@
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
-                    Quantour
-                </a>
+                <c:choose>
+                    <c:when test="${user.account != null}">
+                        <a href="<%=contextPath%>/dashboard/?id=${user.account}">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                    <c:when  test="${user.account == null}">
+                        <a href="<%=contextPath%>/dashboard/">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                </c:choose>
             </div>
 
             <ul class="nav">
                 <li class="active">
                     <a href="">
-                        <i class="ti-panel"></i>
+                        <i class="ti-home"></i>
                         <p>主页</p>
                     </a>
                 </li>

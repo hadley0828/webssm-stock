@@ -128,12 +128,13 @@
 
 
 </head>
-<body>
+<body style="background-color:#f4f3ef">
+<br/><br/><br/><br/><br/><br/>
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
-        <div class="card">
-            <div class="header" style="background-color: #f4f3ef">
-                <h4 class="title" style="color:#FF9500">Login</h4>
+        <div class="card" text-align:center>
+            <div class="header" style="background-color: #a09c8b">
+                <h4 class="title" style="color:#525250; text-align:center">Login</h4>
                 <hr/>
             </div>
             <div class="content">
@@ -150,15 +151,7 @@
                             <input type="password" id="p" class="form-control border-input"  placeholder="password" name="password">
                         </div>
                     </div>
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <p>
-                            点击这里来
-                            <a href="<%=contextPath%>/dashboard/regist">注册</a>
-                        </p>
-
-                    </div>
-
-                    <div class="col-xs-4 col-xs-offset-8">
+                    <div class="col-xs-4 col-xs-offset-4">
                         <%--<button class="btn btn-primary">login</button>--%>
                         <input type="button"
                                id="btn_login"
@@ -167,9 +160,15 @@
                                style="width:100px;"
                                class="btn btn-primary"/>
                     </div>
+                    <div class="col-xs-6 col-xs-offset-6">
+                        <p>
+                            点击这里来
+                            <a href="<%=contextPath%>/dashboard/regist">注册</a>
+                        </p>
+
+                    </div>
                 </div>
                 <div class="footer">
-
                 </div>
             </div>
         </div>

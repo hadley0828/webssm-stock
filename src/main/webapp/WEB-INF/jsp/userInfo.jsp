@@ -145,9 +145,18 @@
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
-                    Quantour
-                </a>
+                <c:choose>
+                    <c:when test="${user.account != null}">
+                        <a href="<%=contextPath%>/dashboard/?id=${user.account}">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                    <c:when  test="${user.account == null}">
+                        <a href="<%=contextPath%>/dashboard/">
+                            <img  src="<%=contextPath%>/assets/img/logo.png"  /><B>QUANTOUR</B>
+                        </a>
+                    </c:when>
+                </c:choose>
             </div>
 
             <c:choose>
@@ -155,7 +164,7 @@
                     <ul class="nav">
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
-                                <i class="ti-panel"></i>
+                                <i class="ti-home"></i>
                                 <p>主页</p>
                             </a>
                         </li>
@@ -173,7 +182,7 @@
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
-                                <i class="ti-user"></i>
+                                <i class="ti-support"></i>
                                 <p>股票诊断</p>
                             </a>
                         </li>
@@ -184,7 +193,7 @@
                     <ul class="nav">
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
-                                <i class="ti-panel"></i>
+                                <i class="ti-home"></i>
                                 <p>主页</p>
                             </a>
                         </li>
@@ -202,7 +211,7 @@
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
-                                <i class="ti-user"></i>
+                                <i class="ti-support"></i>
                                 <p>股票诊断</p>
                             </a>
                         </li>
@@ -232,10 +241,15 @@
                         <li>
                             <c:choose>
                                 <c:when test="${user.account != null}">
-                                    <a href="" >
+                                    <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" >
                                         <i class="ti-user"></i>
                                         <p>${user.account}</p>
                                     </a>
+                                     <ul class="dropdown-menu">
+                                        <li><a href="<%=contextPath%>/dashboard/login">退出登录</a></li>
+                                     </ul>
+                                    </li>
                                 </c:when>
                                 <c:when test="${user.account == null}">
                                     <a href="<%=contextPath%>/dashboard/login" >
