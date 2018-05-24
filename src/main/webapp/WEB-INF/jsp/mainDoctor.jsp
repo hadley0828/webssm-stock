@@ -116,7 +116,7 @@
                                 <p>股市策略</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
                                 <p>股票诊断</p>
@@ -145,7 +145,7 @@
                                 <p>股市策略</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
                                 <p>股票诊断</p>
@@ -212,7 +212,7 @@
                         <div class="content">
                             <blockquote>搜索股票</blockquote>
                             <div class="col-md-6 input-group">
-                                <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="3">
+                                <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
                                     <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
                                     <%--<option value="${oneStock}">${oneStock}</option>--%>
                                     <%--</c:forEach>--%>

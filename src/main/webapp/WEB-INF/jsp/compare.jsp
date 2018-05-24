@@ -913,7 +913,7 @@
                                 <p>主页</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
                                 <p>股票对比</p>
@@ -942,7 +942,7 @@
                                 <p>主页</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
                                 <p>股票对比</p>
@@ -1022,7 +1022,7 @@
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
-                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="2">
+                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
                                         <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
                                         <%--<option value="${oneStock}">${oneStock}</option>--%>
                                         <%--</c:forEach>--%>

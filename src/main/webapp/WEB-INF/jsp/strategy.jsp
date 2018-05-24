@@ -87,7 +87,7 @@
                                 <p>股票对比</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
                                 <p>股市策略</p>
@@ -116,7 +116,7 @@
                                 <p>股票对比</p>
                             </a>
                         </li>
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
                                 <p>股市策略</p>

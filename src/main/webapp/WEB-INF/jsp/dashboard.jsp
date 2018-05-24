@@ -575,7 +575,7 @@
             <c:choose>
                 <c:when test="${user.account != null}">
                     <ul class="nav">
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
                                 <p>主页</p>
@@ -604,7 +604,7 @@
                 </c:when>
                 <c:when test="${user.account == null}">
                     <ul class="nav" >
-                        <li style="background-color:#b9b4c0">
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
                                 <p >主页</p>
@@ -792,7 +792,7 @@
                                     <blockquote>个股查询</blockquote>
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="2" data-dropup-auto="false">
+                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
                                         <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
                                             <%--<option value="${oneStock}">${oneStock}</option>--%>
                                         <%--</c:forEach>--%>

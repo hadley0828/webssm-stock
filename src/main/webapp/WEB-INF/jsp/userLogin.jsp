@@ -128,14 +128,17 @@
 
 
 </head>
-<body style="background-color:#f4f3ef">
+<body >
 <br/><br/><br/><br/><br/><br/>
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
+
         <div class="card" text-align:center>
-            <div class="header" style="background-color: #a09c8b">
-                <h4 class="title" style="color:#525250; text-align:center">Login</h4>
+            <div class="header" style="background-color: #f5f3ef">
+                <a style="text-align: right" href="<%=contextPath%>/dashboard/regist"><h5>点击注册</h5></a>
+                <h4 class="title" style="color:#e9b085; text-align:center">Login</h4>
                 <hr/>
+
             </div>
             <div class="content">
                 <div class="row">
@@ -160,13 +163,7 @@
                                style="width:100px;"
                                class="btn btn-primary"/>
                     </div>
-                    <div class="col-xs-6 col-xs-offset-6">
-                        <p>
-                            点击这里来
-                            <a href="<%=contextPath%>/dashboard/regist">注册</a>
-                        </p>
 
-                    </div>
                 </div>
                 <div class="footer">
                 </div>
