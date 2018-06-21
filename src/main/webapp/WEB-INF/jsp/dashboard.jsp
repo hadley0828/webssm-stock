@@ -599,6 +599,12 @@
                                 <p>股票诊断</p>
                             </a>
                         </li>
+                        <li>
+                            <a href="<%=contextPath%>/userInfo/?id=${user.account}">
+                                <i class="ti-desktop"></i>
+                                <p>个人中心</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </c:when>
@@ -683,6 +689,80 @@
         </nav>
 
         <div class="content">
+            <div class="row" style="z-index: -1">
+                <div class="col-md-6" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
+                            <h4 class="title">单日股票涨幅前10</h4>
+
+                            <hr>
+                        </div>
+                        <div class="content table-responsive table-full-width" style="z-index: inherit">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>股票编号</th>
+                                <th>股票名称</th>
+                                <th>当前价格</th>
+                                <th>涨跌幅</th>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${one_day_list}"  var="hot_stock">
+                                    <tr>
+                                        <td id="hot_name_${hot_stock.stockCode}"><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${hot_stock.stockCode}">${hot_stock.stockCode}</a></td>
+                                        <td>${hot_stock.stockName}</td>
+                                        <td>${hot_stock.newestPrice}</td>
+                                        <td>${hot_stock.changePercent}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
+                            <h4 class="title">猜你喜欢</h4>
+                            <hr>
+                        </div>
+                        <div class="content table-responsive table-full-width" style="z-index: inherit">
+                            <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
+                                <thead>
+                                <th>股票编号</th>
+                                <th>股票名称</th>
+                                <th>当前价格</th>
+                                <th>涨跌幅</th>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${commendList}" var="oneStock">
+                                    <tr>
+                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
+                                        <td>${oneStock.name}</td>
+                                        <td>${oneStock.closePrice}</td>
+                                        <td>${oneStock.uplift}</td>
+                                    </tr>
+
+
+                                </c:forEach>
+                                </tbody>
+
+
+
+
+
+
+                            </table>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -808,80 +888,7 @@
                 </div>
             </div>
 
-            <div class="row" style="z-index: -1">
-                <div class="col-md-6" style="z-index: inherit">
-                    <div class="card" style="z-index: inherit">
-                        <div class="header" style="z-index: inherit">
-                            <h4 class="title">单日股票涨幅前10</h4>
 
-                            <hr>
-                        </div>
-                        <div class="content table-responsive table-full-width" style="z-index: inherit">
-                            <table class="table table-striped">
-                                <thead>
-                                    <th>股票编号</th>
-                                    <th>股票名称</th>
-                                    <th>当前价格</th>
-                                    <th>涨跌幅</th>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${one_day_list}"  var="hot_stock">
-                                    <tr>
-                                        <td id="hot_name_${hot_stock.stockCode}"><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${hot_stock.stockCode}">${hot_stock.stockCode}</a></td>
-                                        <td>${hot_stock.stockName}</td>
-                                        <td>${hot_stock.newestPrice}</td>
-                                        <td>${hot_stock.changePercent}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="z-index: inherit">
-                    <div class="card" style="z-index: inherit">
-                        <div class="header" style="z-index: inherit">
-                            <h4 class="title">猜你喜欢</h4>
-                            <hr>
-                        </div>
-                        <div class="content table-responsive table-full-width" style="z-index: inherit">
-                            <table class="table table-striped" style="padding-right: 2%;padding-left: 2%">
-                                <thead>
-                                    <th>股票编号</th>
-                                    <th>股票名称</th>
-                                    <th>当前价格</th>
-                                    <th>涨跌幅</th>
-                                </thead>
-
-                                <tbody>
-                                <c:forEach items="${commendList}" var="oneStock">
-                                    <tr>
-                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
-                                        <td>${oneStock.name}</td>
-                                        <td>${oneStock.closePrice}</td>
-                                        <td>${oneStock.uplift}</td>
-                                    </tr>
-
-
-                                </c:forEach>
-                                </tbody>
-
-
-
-
-
-
-                            </table>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 
         </div>
     </div>

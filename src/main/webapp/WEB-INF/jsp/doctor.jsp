@@ -614,7 +614,12 @@
                                 <p>股票诊断</p>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="<%=contextPath%>/userInfo/?id=${user.account}">
+                                <i class="ti-desktop"></i>
+                                <p>个人中心</p>
+                            </a>
+                        </li>
                     </ul>
                 </c:when>
                 <c:when test="${user.account == null}">
@@ -643,7 +648,12 @@
                                 <p>股票诊断</p>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="<%=contextPath%>/userInfo/">
+                                <i class="ti-desktop"></i>
+                                <p>个人中心</p>
+                            </a>
+                        </li>
                     </ul>
                 </c:when>
             </c:choose>

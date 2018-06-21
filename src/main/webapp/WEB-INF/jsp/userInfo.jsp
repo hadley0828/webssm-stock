@@ -186,7 +186,12 @@
                                 <p>股票诊断</p>
                             </a>
                         </li>
-
+                        <li style="background-color:#dcdcdc">
+                            <a href="<%=contextPath%>/userInfo/?id=${user.account}">
+                                <i class="ti-desktop"></i>
+                                <p>个人中心</p>
+                            </a>
+                        </li>
                     </ul>
                 </c:when>
                 <c:when test="${user.account == null}">

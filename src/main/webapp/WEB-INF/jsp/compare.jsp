@@ -931,6 +931,12 @@
                                 <p>股票诊断</p>
                             </a>
                         </li>
+                        <li>
+                            <a href="<%=contextPath%>/userInfo/?id=${user.account}">
+                                <i class="ti-desktop"></i>
+                                <p>个人中心</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </c:when>
@@ -1022,7 +1028,7 @@
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
-                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
+                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5" index="-1">
                                         <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
                                         <%--<option value="${oneStock}">${oneStock}</option>--%>
                                         <%--</c:forEach>--%>
