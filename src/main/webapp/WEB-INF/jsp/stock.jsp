@@ -696,21 +696,30 @@
         var code_id = "${stock.id}";
         var date_time = "<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>";
 
-        $.ajax({
-            type: 'POST',
-            url:'<%=request.getContextPath()%>/stockinfo/addStock',
-            data:{user_id:user_id, code_id:code_id},
-            dataType:'json',
-            success:function (result) {
-                mydata = JSON.parse(result);
-                $.notify({
-                    message: mydata.result
-                },{
-                    type:'warning',
-                    timer:400
-                });
-            }
-        });
+        if(user_id == ""){
+            $.notify({
+                message: "请先登录"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else{
+            $.ajax({
+                type: 'POST',
+                url:'<%=request.getContextPath()%>/stockinfo/addStock',
+                data:{user_id:user_id, code_id:code_id},
+                dataType:'json',
+                success:function (result) {
+                    mydata = JSON.parse(result);
+                    $.notify({
+                        message: mydata.result
+                    },{
+                        type:'warning',
+                        timer:400
+                    });
+                }
+            });
+        }
     }
 </script>
 
