@@ -1173,11 +1173,14 @@
                                 </div>
                             </div>
                             <br>
-                            <button class="btn btn-success" style="padding-left: 15px" onclick="start()">开始回测</button>
+                            <button id ="starttest" class="btn btn-success" style="padding-left: 15px" onclick="start()">开始回测</button>
+                            <div id="firstDiv" style="margin-left: 50%;margin-bottom: 50px" >
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="row" id="dataList" style="display: none">
                 <div class="col-lg-12">
@@ -1279,6 +1282,8 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="<%=contextPath%>/assets/js/demo.js"></script>
 
+<script type="text/javascript" src="https://cdn.bootcss.com/spin.js/2.3.2/spin.min.js" ></script>
+
 <script type="text/javascript">
 
 
@@ -1340,7 +1345,36 @@
         }
     }
 
-    function start() {
+
+    var opts = {
+        lines: 13, // 花瓣数目
+        length: 20, // 花瓣长度
+        width: 10, // 花瓣宽度
+        radius: 30, // 花瓣距中心半径
+        corners: 1, // 花瓣圆滑度 (0-1)
+        rotate: 0, // 花瓣旋转角度
+        direction: 1, // 花瓣旋转方向 1: 顺时针, -1: 逆时针
+        color: '#5882FA', // 花瓣颜色
+        speed: 1, // 花瓣旋转速度
+        trail: 60, // 花瓣旋转时的拖影(百分比)
+        shadow: false, // 花瓣是否显示阴影
+        hwaccel: false, //spinner 是否启用硬件加速及高速旋转
+        className: 'spinner', // spinner css 样式名称
+        zIndex: 2e9, // spinner的z轴 (默认是2000000000)
+        top: 'auto', // spinner 相对父容器Top定位 单位 px
+        left: 'auto'// spinner 相对父容器Left定位 单位 px
+    };
+
+    var spinner = new Spinner(opts);
+
+    $(document).ready(function () {
+        $("#starttest").bind("click", function () {
+            ajaxRequestData();
+        })
+    })
+
+
+    function ajaxRequestData() {
 
         var userId = "${user.account.toString()}";
         var sDate = document.getElementById("sdate").value;
@@ -1578,7 +1612,17 @@
             data:{map:map},
             dataType:"json",
             async:true,
+            beforeSend: function () {
+                //异步请求时spinner出现
+
+                $("#firstDiv").text("");
+                var target = $("#firstDiv").get(0);
+                spinner.spin(target);
+            },
             success:function (result) {
+
+                //关闭spinner
+                spinner.spin();
                 mydata = JSON.parse(result);
                 fillStragetyInfo(mydata);
                 fillStragetyPic1(JSON.parse(mydata.daysProfitList));
