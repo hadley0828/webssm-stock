@@ -1369,7 +1369,15 @@
 
     $(document).ready(function () {
         $("#starttest").bind("click", function () {
-            ajaxRequestData();
+            var userId = "${user.account.toString()}";
+
+            if(userId==""){
+                alert("请先登录用户");
+            }else{
+
+                ajaxRequestData();
+            }
+
         })
     })
 
@@ -1380,6 +1388,7 @@
         var sDate = document.getElementById("sdate").value;
         var lDate = document.getElementById("ldate").value;
         var blockCode = document.getElementById("blockCode").value;
+
 
         if(blockCode == '上证50'){
             blockCode = "sh000016";

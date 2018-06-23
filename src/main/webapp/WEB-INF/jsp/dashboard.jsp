@@ -792,7 +792,7 @@
                                         <li class="active">
                                             <blockquote>
                                                 <span class="ti-bar-chart"></span>
-                                                <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px">涨跌分布</a>
+                                                <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
                                                 <div class="row">
 
                                                     <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:${marketDTO.riseStockNumber}</div>
@@ -880,7 +880,8 @@
                                         <option value="000004 国农科技">000004 国农科技</option>
                                         <option value="000005 世纪星源">000005 世纪星源</option>
                                     </select>
-                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
                                 </div>
                             </div>
                         </div>
