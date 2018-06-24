@@ -364,8 +364,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" id="introduction" class="form-control border-input" placeholder="Here can be your description" value="${user.account}">${user.introduction}</textarea>
+                                                <label>介绍一下自己</label>
+                                                <textarea rows="5" id="introduction" class="form-control border-input" placeholder="请输入个人简介" value="${user.account}">${user.introduction}</textarea>
                                             </div>
                                         </div>
                                     </div>
