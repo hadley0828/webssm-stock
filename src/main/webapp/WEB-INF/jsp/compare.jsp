@@ -1028,7 +1028,7 @@
                             <div class="row">
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
-                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5" index="-1">
+                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5" >
                                         <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
                                         <%--<option value="${oneStock}">${oneStock}</option>--%>
                                         <%--</c:forEach>--%>
