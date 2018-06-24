@@ -593,31 +593,31 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li >
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
                             </a>
                         </li>
                     </ul>
@@ -627,31 +627,25 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li >
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<%=contextPath%>/userInfo/">
-                                <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                     </ul>

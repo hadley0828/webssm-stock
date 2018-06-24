@@ -578,31 +578,31 @@
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
                             </a>
                         </li>
 
@@ -613,25 +613,25 @@
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p >主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
 
@@ -689,6 +689,33 @@
         </nav>
 
         <div class="content">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <blockquote>个股查询</blockquote>
+                                </div>
+                                <div class="col-xs-6 input-group" style="padding-top: 5px">
+                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
+                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
+                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
+                                        <%--</c:forEach>--%>
+                                        <option value="000001 平安银行">000001 平安银行</option>
+                                        <option value="000004 国农科技">000004 国农科技</option>
+                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                    </select>
+                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row" style="z-index: -1">
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
@@ -795,8 +822,8 @@
                                                 <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
                                                 <div class="row">
 
-                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:${marketDTO.riseStockNumber}</div>
-                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:${marketDTO.declineStockNumber}</div>
+                                                    <div id="up_number" class="col-xs-6"  style="font-size: 12px;color:red">上涨:${marketDTO.riseStockNumber}</div>
+                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 12px;color:green">下跌:${marketDTO.declineStockNumber}</div>
                                                 </div>
                                             </blockquote>
 
@@ -806,8 +833,8 @@
                                                 <span class="ti-exchange-vertical"></span>
                                                 <a href="#limit" role="tab" data-toggle="tab" style="font-size: 25px">涨跌停</a>
                                                 <div class="row">
-                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:${marketDTO.limitup}</div>
-                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:${marketDTO.limitdown}</div>
+                                                    <div class="col-xs-6" style="font-size: 12px;color:red">涨停:${marketDTO.limitup}</div>
+                                                    <div class="col-xs-6" style="font-size: 12px;color:green">跌停:${marketDTO.limitdown}</div>
                                                 </div>
                                             </blockquote>
                                         </li>
@@ -857,32 +884,6 @@
                                 <script>
                                     getShKLineInfo();
                                 </script>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <blockquote>个股查询</blockquote>
-                                </div>
-                                <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                            <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
-                                    </select>
-                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
-                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
-                                </div>
                             </div>
                         </div>
                     </div>
