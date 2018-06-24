@@ -186,9 +186,12 @@
                     timer:400
                 });
             }else{
-                var sDate = document.getElementById("sdate").value;
-                var lDate = document.getElementById("ldate").value;
-                var blockCode = document.getElementById("blockCode").value;
+                // var sDate = document.getElementById("sdate").value;
+                // var lDate = document.getElementById("ldate").value;
+                // var blockCode = document.getElementById("blockCode").value;
+                var sDate = '2008-06-12';
+                var lDate = '2009-06-12';
+                var blockCode = '上证50';
 
                 if(blockCode == '上证50'){
                     blockCode = "sh000016";
@@ -438,7 +441,7 @@
             }
 
         }
-        
+
 
     </script>
 </head>
@@ -590,17 +593,30 @@
                                 </div>
                             </div>
                             <label for="strategyName">策略名称</label>
-                            <input type="text" class="form-control" id="strategyName" style="width: 30%;color: ">
+                            <input type="text" class="form-control" id="strategyName" style="width: 30%;">
+                            <br>
+                            <label for="strategyName">调仓周期</label>
+                            <input type="text" id="cycle" class="form-control" style="width: 30%;color: ">
+                            <br>
+                            <label for="strategyName">最大持仓股票数</label>
+                            <input type="text" id="max_num" class="form-control" style="width: 30%;color: ">
                             <br>
                             <label for="s_intro">策略说明</label>
                             <textarea class="form-control" id="s_intro" placeholder="请输入策略说明" rows="3"></textarea>
-                            <hr>
+                            <%--<hr>--%>
                         </div>
+
+                        <%--<img class="center-block" style="height: 20px;margin-bottom: 20px;"  src="<%=contextPath%>/assets/img/arrow-down.png"  />--%>
+                        <div class="text-center" id="options" style="cursor:pointer;">
+                            <span style="color: #449d44" id="options-span">展开更多选项</span>
+                        </div>
+                        <hr>
+
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row hidden" id="option-one">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">-
@@ -680,21 +696,21 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <div class="col-xs-2" style="padding-top: 10px">调仓周期:</div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" id="cycle">
-                                </div>
-                                <div class="col-xs-2" style="padding-top: 10px">最大持仓股票数:</div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" id="max_num">
-                                </div>
+                                <%--<div class="col-xs-2" style="padding-top: 10px">调仓周期:</div>--%>
+                                <%--<div class="col-xs-1">--%>
+                                    <%--<input type="text" class="form-control" id="cycle">--%>
+                                <%--</div>--%>
+                                <%--<div class="col-xs-2" style="padding-top: 10px">最大持仓股票数:</div>--%>
+                                <%--<div class="col-xs-1">--%>
+                                    <%--<input type="text" class="form-control" id="max_num">--%>
+                                <%--</div>--%>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row hidden" id="option-two">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
@@ -1286,6 +1302,18 @@
 
 <script type="text/javascript">
 
+    $("#options").click(function () {
+        var text = $("#options-span").text();
+        if(text == '展开更多选项'){
+            $("#option-one").removeClass("hidden");
+            $("#option-two").removeClass("hidden");
+            $("#options-span").text("收起更多选项");
+        }else {
+            $("#option-one").addClass("hidden");
+            $("#option-two").addClass("hidden");
+            $("#options-span").text("展开更多选项");
+        }
+    })
 
     function show(selectname) {
         var line = document.getElementById(selectname);
