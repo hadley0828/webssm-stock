@@ -136,7 +136,7 @@
         <div class="card" text-align:center>
             <div class="header" style="background-color: #f5f3ef">
 
-                <h4 class="title" style="color:#e9b085; text-align:center">Login</h4>
+                <h4 class="title" style="color:#e9b085; text-align:center">用户登录</h4>
                 <hr/>
 
             </div>
@@ -144,13 +144,13 @@
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
-                            <label>username</label>
+                            <label>用户名</label>
                             <input type="text" id="u" class="form-control border-input"  placeholder="username" name="userName">
                         </div>
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
-                            <label>Password</label>
+                            <label>密码</label>
                             <input type="password" id="p" class="form-control border-input"  placeholder="password" name="password">
                         </div>
                     </div>
