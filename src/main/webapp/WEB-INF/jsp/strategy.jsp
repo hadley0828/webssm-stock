@@ -218,7 +218,10 @@
                                 <div class="row">
                                     <p style="padding-left: 5%"><strong>创建时间：</strong>${one_strategy.createTime}</p>
                                 </div>
-                                <div class="footer" style="padding-top: 120px">
+                                <div class="row" style="height: 100px;overflow: auto;">
+                                    <p style="padding-left: 5%;padding-right: 5%;"><strong>策略说明：</strong>${one_strategy.strategyExplanation}</p>
+                                </div>
+                                <div class="footer" style="margin-top: 20px;">
                                     <hr>
                                     <div class="col-xs-offset-9">
                                         <button class="btn btn-danger btn-sm" onclick="gotoInfo('${one_strategy.strategyID}')">查看详情</button>

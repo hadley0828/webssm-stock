@@ -54,7 +54,17 @@
 
     <script type="text/javascript">
 
+        // 页面初始化时默认对比股票000001和000004，防止页面空白
+        $(document).ready(function () {
+            $("#stockSearch").val("000001 平安银行");
+            $("#searchIcon").click();
+            $("#stockSearch").val("000004 国农科技");
+            $("#searchIcon").click();
 
+            $("#sDate").attr("value","2016-03-01");
+            $("#lDate").attr("value","2017-03-01");
+            $("#doCompare").click();
+        })
 
         function getKLine1Info(code){
 
@@ -1064,7 +1074,7 @@
                             <hr>
                             <div class="row" style="padding-top: 10px">
                                 <div class="col-xs-4">
-                                    <button class="btn btn-success" onclick="doCompare()">比较</button>
+                                    <button class="btn btn-success" id="doCompare" onclick="doCompare()">比较</button>
                                 </div>
                                 <button class="btn btn-danger" onclick="deleteAllUl()">清空</button>
                             </div>
