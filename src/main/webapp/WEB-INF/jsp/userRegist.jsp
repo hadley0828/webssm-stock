@@ -150,7 +150,7 @@
                                id="btn_login"
                                value="注 册"
                                onclick= "webRegister()"
-                               style="width:100px;"
+                               style="width:100px;margin-left: -150px"
                                class="btn btn-primary"/>
                     </div>
                 <div class="footer">
