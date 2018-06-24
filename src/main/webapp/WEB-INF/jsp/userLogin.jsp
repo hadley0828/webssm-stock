@@ -135,7 +135,7 @@
 
         <div class="card" text-align:center>
             <div class="header" style="background-color: #f5f3ef">
-                <a style="text-align: right" href="<%=contextPath%>/dashboard/regist"><h5>点击注册</h5></a>
+
                 <h4 class="title" style="color:#e9b085; text-align:center">Login</h4>
                 <hr/>
 
@@ -164,7 +164,10 @@
                                class="btn btn-primary"/>
                     </div>
 
+
+
                 </div>
+                <a style="text-align: center" href="<%=contextPath%>/dashboard/regist"><h5>未注册，点击注册</h5></a>
                 <div class="footer">
                 </div>
             </div>
