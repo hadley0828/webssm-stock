@@ -612,8 +612,8 @@
                         </div>
 
                         <%--<img class="center-block" style="height: 20px;margin-bottom: 20px;"  src="<%=contextPath%>/assets/img/arrow-down.png"  />--%>
-                        <div class="text-center" id="options" style="cursor:pointer;">
-                            <span style="color: #449d44" id="options-span">展开更多选项</span>
+                        <div class="text-center" id="extend-options" style="cursor:pointer;padding:10px;">
+                            <span style="color: #449d44" id="extend-span">展开更多选项</span>
                         </div>
                         <hr>
 
@@ -1161,6 +1161,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="text-center" id="shrink-options" style="cursor:pointer;padding:20px;">
+                            <span style="color: #449d44" id="shrink-span">收起</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1307,17 +1312,16 @@
 
 <script type="text/javascript">
 
-    $("#options").click(function () {
-        var text = $("#options-span").text();
-        if(text == '展开更多选项'){
-            $("#option-one").removeClass("hidden");
-            $("#option-two").removeClass("hidden");
-            $("#options-span").text("收起更多选项");
-        }else {
-            $("#option-one").addClass("hidden");
-            $("#option-two").addClass("hidden");
-            $("#options-span").text("展开更多选项");
-        }
+    $("#extend-options").click(function () {
+        $("#option-one").removeClass("hidden");
+        $("#option-two").removeClass("hidden");
+        $(this).addClass("hidden");
+    })
+
+    $("#shrink-options").click(function () {
+        $("#option-one").addClass("hidden");
+        $("#option-two").addClass("hidden");
+        $("#extend-options").removeClass("hidden");
     })
 
     function show(selectname) {

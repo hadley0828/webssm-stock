@@ -32,6 +32,26 @@ public class Basic_earningDTO {
                 '}';
     }
 
+    //对暂无数据的处理
+    public void lackData(){
+        if (this.code.equals("--") || this.code.equals("nan"))
+            this.code = "暂无数据";
+        if (this.name.equals("--") || this.name.equals("nan"))
+            this.name = "暂无数据";
+        if (this.arTurnOver.equals("--") || this.arTurnOver.equals("nan"))
+            this.arTurnOver = "暂无数据";
+        if (this.arTurnDays.equals("--") || this.arTurnDays.equals("nan"))
+            this.arTurnDays = "暂无数据";
+        if (this.inventoryTurnOver.equals("--") || this.inventoryTurnOver.equals("nan"))
+            this.inventoryTurnOver = "暂无数据";
+        if (this.inventoryDays.equals("--") || this.inventoryDays.equals("nan"))
+            this.inventoryDays = "暂无数据";
+        if (this.currentAssetTurnOver.equals("--") || this.currentAssetTurnOver.equals("nan"))
+            this.currentAssetTurnOver = "暂无数据";
+        if (this.currentAssetDays.equals("--") || this.currentAssetDays.equals("nan"))
+            this.currentAssetDays = "暂无数据";
+    }
+
     public String getCode() {
         return code;
     }

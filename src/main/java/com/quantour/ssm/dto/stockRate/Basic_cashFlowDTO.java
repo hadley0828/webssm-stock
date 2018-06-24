@@ -32,6 +32,24 @@ public class Basic_cashFlowDTO {
                 '}';
     }
 
+    //对暂无数据的处理
+    public void lackData(){
+        if (this.code.equals("--") || this.code.equals("nan"))
+            this.code = "暂无数据";
+        if (this.name.equals("--") || this.name.equals("nan"))
+            this.name = "暂无数据";
+        if (this.cfSales.equals("--") || this.cfSales.equals("nan"))
+            this.cfSales = "暂无数据";
+        if (this.rateOfReturn.equals("--") || this.rateOfReturn.equals("nan"))
+            this.rateOfReturn = "暂无数据";
+        if (this.cfNm.equals("--") || this.cfNm.equals("nan"))
+            this.cfNm = "暂无数据";
+        if (this.cfLiAbilities.equals("--") || this.cfLiAbilities.equals("nan"))
+            this.cfLiAbilities = "暂无数据";
+        if (this.cashFlowRatio.equals("--") || this.cashFlowRatio.equals("nan"))
+            this.cashFlowRatio = "暂无数据";
+    }
+
     public String getCode() {
         return code;
     }
