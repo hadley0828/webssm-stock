@@ -225,7 +225,7 @@
                                     <option value="000004 国农科技">000004 国农科技</option>
                                     <option value="000005 世纪星源">000005 世纪星源</option>
                                 </select>
-                                <span class="input-group-addon"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
                             </div>
                         </div>
                     </div>

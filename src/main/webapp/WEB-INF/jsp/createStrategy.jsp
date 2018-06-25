@@ -1199,11 +1199,6 @@
                                 </div>
                             </div>
 
-                            <div id="myAlert" class="alert alert-success" style="display: none">
-                                <%--<a href="#" class="close" data-dismiss="alert">&times;</a>--%>
-                                <strong>提示！</strong>需要先登录用户才可以使用股票策略。
-                            </div>
-
                             <br>
                             <button id ="starttest" class="btn btn-success" style="padding-left: 15px" onclick="start()">开始回测</button>
                             <div id="firstDiv" style="margin-left: 50%;margin-bottom: 50px" >
@@ -1436,7 +1431,12 @@
             var userId = "${user.account.toString()}";
 
             if(userId==""){
-                document.getElementById("myAlert").style.display="block";
+                $.notify({
+                    message: "请先登录！"
+                },{
+                    type:'warning',
+                    timer:400
+                });
             }else{
 
                 ajaxRequestData();
