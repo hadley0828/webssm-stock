@@ -822,7 +822,7 @@
                                         <li class="active">
                                             <blockquote>
                                                 <span class="ti-bar-chart"></span>
-                                                <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
+                                                <a href="#UpDown" role="tab" id="distribution" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
                                                 <div class="row">
 
                                                     <div id="up_number" class="col-xs-6"  style="font-size: 12px;color:red">上涨:${marketDTO.riseStockNumber}</div>
@@ -834,7 +834,7 @@
                                         <li style="padding-top: 30px">
                                             <blockquote>
                                                 <span class="ti-exchange-vertical"></span>
-                                                <a href="#limit" role="tab" data-toggle="tab" style="font-size: 25px">涨跌停</a>
+                                                <a href="#limit" role="tab" id="limitMove" data-toggle="tab" style="font-size: 25px">涨跌停</a>
                                                 <div class="row">
                                                     <div class="col-xs-6" style="font-size: 12px;color:red">涨停:${marketDTO.limitup}</div>
                                                     <div class="col-xs-6" style="font-size: 12px;color:green">跌停:${marketDTO.limitdown}</div>
@@ -930,7 +930,17 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
-
+<script type="text/javascript">
+    $("#distribution").css('color','black');
+    $("#distribution").click(function () {
+        $("#distribution").css('color','black');
+        $("#limitMove").css('color','#337ab7');
+    })
+    $("#limitMove").click(function () {
+        $("#distribution").css('color','#337ab7');
+        $("#limitMove").css('color','black');
+    })
+</script>
 
 
 
