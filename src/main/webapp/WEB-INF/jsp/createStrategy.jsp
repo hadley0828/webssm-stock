@@ -598,16 +598,16 @@
                                 </div>
                             </div>
                             <label for="strategyName">策略名称</label>
-                            <input type="text" class="form-control" id="strategyName" style="width: 30%;">
+                            <input type="text" class="form-control" id="strategyName" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="strategyName">调仓周期</label>
-                            <input type="text" id="cycle" class="form-control" style="width: 30%;color: ">
+                            <input type="text" id="cycle" class="form-control" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="strategyName">最大持仓股票数</label>
-                            <input type="text" id="max_num" class="form-control" style="width: 30%;color: ">
+                            <input type="text" id="max_num" class="form-control" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="s_intro">策略说明</label>
-                            <textarea class="form-control" id="s_intro" placeholder="请输入策略说明" rows="3"></textarea>
+                            <textarea class="form-control" id="s_intro" style="background: #FAF0E6" placeholder="请输入策略说明" rows="3"></textarea>
                             <%--<hr>--%>
                         </div>
 
@@ -754,9 +754,9 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
-                                <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
+                                <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none;">-</p></div>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" style="display: none">
                                 </div>
@@ -787,7 +787,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -820,7 +820,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -853,7 +853,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -886,7 +886,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -919,7 +919,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -952,7 +952,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -985,7 +985,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1018,7 +1018,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1051,7 +1051,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1084,7 +1084,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1117,7 +1117,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1150,7 +1150,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1181,11 +1181,11 @@
                             <div class="row">
                                 <div class="col-xs-2" style="text-align:center;padding-top: 10px">回测时间:</div>
                                 <div class="col-xs-3">
-                                    <input type="date" class="form-control" id="sdate">
+                                    <input type="text" class="form-control" id="sdate" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="text-align: center;padding-top: 10px">-</div>
                                 <div class="col-xs-3">
-                                    <input type="date" class="form-control" id="ldate">
+                                    <input type="text" class="form-control" id="ldate" style="background: #FAF0E6">
                                 </div>
                             </div>
                             <div class="row">
@@ -1310,8 +1310,29 @@
 
 <script type="text/javascript" src="https://cdn.bootcss.com/spin.js/2.3.2/spin.min.js" ></script>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 
+    //日期控件引入
+    var sdate = laydate.render({
+        elem: '#sdate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            sdate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+    var ldate = laydate.render({
+        elem: '#ldate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            ldate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+
+    //展开收起更多选项
     $("#extend-options").click(function () {
         $("#option-one").removeClass("hidden");
         $("#option-two").removeClass("hidden");
@@ -1652,29 +1673,38 @@
 
         }
 
-        $.ajax({
-            type: "POST",
-            url: '<%=request.getContextPath()%>/strategy/runStrategy',
-            data:{map:map},
-            dataType:"json",
-            async:true,
-            beforeSend: function () {
-                //异步请求时spinner出现
+        if (sDate >= lDate){
+            $.notify({
+                message: "开始日期不得晚于结束日期！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else{
+            $.ajax({
+                type: "POST",
+                url: '<%=request.getContextPath()%>/strategy/runStrategy',
+                data:{map:map},
+                dataType:"json",
+                async:true,
+                beforeSend: function () {
+                    //异步请求时spinner出现
 
-                $("#firstDiv").text("");
-                var target = $("#firstDiv").get(0);
-                spinner.spin(target);
-            },
-            success:function (result) {
+                    $("#firstDiv").text("");
+                    var target = $("#firstDiv").get(0);
+                    spinner.spin(target);
+                },
+                success:function (result) {
 
-                //关闭spinner
-                spinner.spin();
-                mydata = JSON.parse(result);
-                fillStragetyInfo(mydata);
-                fillStragetyPic1(JSON.parse(mydata.daysProfitList));
-                fillStragetyPic2(JSON.parse(mydata.indexprofitvo));
-            }
-        });
+                    //关闭spinner
+                    spinner.spin();
+                    mydata = JSON.parse(result);
+                    fillStragetyInfo(mydata);
+                    fillStragetyPic1(JSON.parse(mydata.daysProfitList));
+                    fillStragetyPic2(JSON.parse(mydata.indexprofitvo));
+                }
+            });
+        }
         
 
         function fillStragetyInfo(rawdata) {

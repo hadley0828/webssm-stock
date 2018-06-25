@@ -1064,11 +1064,11 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <label for="sDate">开始时间</label>
-                                    <input id="sDate" type="date" class="form-control">
+                                    <input id="sDate" type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-md-8">
                                     <label for="lDate">结束时间</label>
-                                    <input id="lDate" type="date" class="form-control">
+                                    <input id="lDate" type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                             </div>
                             <hr>
@@ -1303,11 +1303,31 @@
 <script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
 <script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
 
 <%--<!-- Paper Dashboard DEMO methods, don't include it in your project! -->--%>
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <script>
+
+    //日期控件引入
+    var sdate = laydate.render({
+        elem: '#sDate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            sdate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+    var ldate = laydate.render({
+        elem: '#lDate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            ldate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+
     function a() {
 
         var sdate = document.getElementById("sDate").value;
@@ -1318,27 +1338,36 @@
         var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
         var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
 
-        $.ajax({
-            type:'POST',
-            url:'<%=request.getContextPath()%>/compare/getInitialInfo',
-            data:{sdate:sdate, ldate:ldate, codename1:codename1, codename2:codename2},
-            dataType:"json",
-            asnyc:false,
-            success:function (result) {
-                newdata = JSON.parse(result);
-                document.getElementById('name1').innerHTML =newdata.name1;
-                document.getElementById('high1').innerHTML =newdata.high1;
-                document.getElementById('low1').innerHTML =newdata.low1;
-                document.getElementById('change1').innerHTML =newdata.change1;
-                document.getElementById('logVar1').innerHTML =newdata.logVar1;
-                document.getElementById('name2').innerHTML =newdata.name2;
-                document.getElementById('high2').innerHTML =newdata.high2;
-                document.getElementById('low2').innerHTML =newdata.low2;
-                document.getElementById('change2').innerHTML =newdata.change2;
-                document.getElementById('logVar2').innerHTML =newdata.logVar2;
+        if (sdate >= ldate){
+            $.notify({
+                message: "开始日期不得晚于结束日期！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else{
+            $.ajax({
+                type:'POST',
+                url:'<%=request.getContextPath()%>/compare/getInitialInfo',
+                data:{sdate:sdate, ldate:ldate, codename1:codename1, codename2:codename2},
+                dataType:"json",
+                asnyc:false,
+                success:function (result) {
+                    newdata = JSON.parse(result);
+                    document.getElementById('name1').innerHTML =newdata.name1;
+                    document.getElementById('high1').innerHTML =newdata.high1;
+                    document.getElementById('low1').innerHTML =newdata.low1;
+                    document.getElementById('change1').innerHTML =newdata.change1;
+                    document.getElementById('logVar1').innerHTML =newdata.logVar1;
+                    document.getElementById('name2').innerHTML =newdata.name2;
+                    document.getElementById('high2').innerHTML =newdata.high2;
+                    document.getElementById('low2').innerHTML =newdata.low2;
+                    document.getElementById('change2').innerHTML =newdata.change2;
+                    document.getElementById('logVar2').innerHTML =newdata.logVar2;
 
-            }
-        });
+                }
+            });
+        }
     }
 </script>
 <%--<script type="text/javascript">--%>

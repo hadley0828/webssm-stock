@@ -322,7 +322,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>年龄</label>
-                                                <input type="text" id="age" class="form-control" placeholder="请输入年龄" value="${user.age}">
+                                                <input type="text" id="age" class="form-control" style="background: #FAF0E6" placeholder="请输入年龄" value="${user.age}">
                                             </div>
                                         </div>
                                     </div>
@@ -331,13 +331,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>姓名</label>
-                                                <input type="text" id="name" class="form-control" placeholder="请输入姓名" value="${user.name}">
+                                                <input type="text" id="name" class="form-control" style="background: #FAF0E6" placeholder="请输入姓名" value="${user.name}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-5">
                                                 <label>生日</label>
-                                                <input type="date" id="birthday" class="form-control" placeholder="请输入生日" value="${user.birthday}">
+                                                <input type="text" id="birthday" class="form-control" style="background: #FAF0E6" placeholder="请输入生日" value="${user.birthday}">
                                             </div>
                                         </div>
                                     </div>
@@ -347,7 +347,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>地址</label>
-                                                <input type="text" id="address" class="form-control" placeholder="请填写联系地址" value="${user.address}">
+                                                <input type="text" id="address" class="form-control" style="background: #FAF0E6" placeholder="请填写联系地址" value="${user.address}">
                                             </div>
                                         </div>
                                     </div>
@@ -356,14 +356,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>电话号码</label>
-                                                <input type="number" id="phoneNumber" class="form-control" placeholder="请输入电话号码" value="${user.handsetNumber}">
+                                                <input type="number" id="phoneNumber" class="form-control" style="background: #FAF0E6" placeholder="请输入电话号码" value="${user.handsetNumber}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>邮箱地址</label>
-                                                <input type="email" id="mail" class="form-control" placeholder="请输入邮箱地址" value="${user.mail}">
+                                                <input type="email" id="mail" class="form-control" style="background: #FAF0E6" placeholder="请输入邮箱地址" value="${user.mail}">
                                             </div>
                                         </div>
                                     </div>
@@ -374,7 +374,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>介绍一下自己</label>
-                                                <textarea rows="5" id="introduction" class="form-control" placeholder="请输入个人简介" value="${user.account}">${user.introduction}</textarea>
+                                                <textarea rows="5" id="introduction" class="form-control" style="background: #FAF0E6" placeholder="请输入个人简介" value="${user.account}">${user.introduction}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -502,6 +502,8 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 //    $(document).ready(function(){
 //
@@ -509,5 +511,26 @@
 //
 //
 //    });
+var today = getNowFormatDate();
+var birthday = laydate.render({
+    elem: '#birthday'
+    ,max: today
+});
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
 </script>
 </html>
