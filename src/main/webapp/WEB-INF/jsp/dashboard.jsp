@@ -707,9 +707,12 @@
                                         <option value="000004 国农科技">000004 国农科技</option>
                                         <option value="000005 世纪星源">000005 世纪星源</option>
                                     </select>
-                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
-                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
+                                    <%--<span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>--%>
                                 </div>
+                                <a title="搜索一下" onclick="add()">
+                                <img  id="searchimg" src="<%=contextPath%>/assets/img/search.png" style="width: 30px;height: 30px;margin-left: 500px;margin-top: -90px;cursor:pointer"   >
+                                <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
+                                </a>
                             </div>
                         </div>
                     </div>
