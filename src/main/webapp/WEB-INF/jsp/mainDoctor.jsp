@@ -212,20 +212,24 @@
 
         <div class="content">
             <div class="row">
-                <div class="col-lg-10 col-lg-offset-1">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="content">
-                            <blockquote>搜索股票</blockquote>
-                            <div class="col-md-6 input-group">
-                                <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
-                                    <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                    <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                    <%--</c:forEach>--%>
-                                    <option value="000001 平安银行">000001 平安银行</option>
-                                    <option value="000004 国农科技">000004 国农科技</option>
-                                    <option value="000005 世纪星源">000005 世纪星源</option>
-                                </select>
-                                <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <blockquote>搜索股票</blockquote>
+                                </div>
+                                <div class="col-xs-6 input-group" style="padding-top: 5px">
+                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
+                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
+                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
+                                        <%--</c:forEach>--%>
+                                        <option value="000001 平安银行">000001 平安银行</option>
+                                        <option value="000004 国农科技">000004 国农科技</option>
+                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                    </select>
+                                    <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -233,62 +237,63 @@
             </div>
 
             <div class="row" style="z-index: -1">
-                <div class="col-lg-10 col-lg-offset-1" style="z-index: inherit">
+                <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
+                            <h4 class="title">单日涨幅前10</h4>
+
+                            <hr>
+                        </div>
                         <div class="content" style="z-index: inherit">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <blockquote>单日涨幅前10</blockquote>
-                                    <hr>
-                                    <div class="content table-responsive table-full-width">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <th>股票编号</th>
-                                            <th>股票名称</th>
-                                            <th>当前价格</th>
-                                            <th>涨跌幅</th>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${one_day_list}"  var="hot_stock">
-                                                <tr>
-                                                    <td id="hot_name_${hot_stock.stockCode}">${hot_stock.stockCode}</td>
-                                                    <td>${hot_stock.stockName}</td>
-                                                    <td>${hot_stock.newestPrice}</td>
-                                                    <td>${hot_stock.changePercent}</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <blockquote>猜你喜欢</blockquote>
-                                    <hr>
-                                    <div class="content table-responsive table-full-width">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <th>股票编号</th>
-                                            <th>股票名称</th>
-                                            <th>当前价格</th>
-                                            <th>涨跌幅</th>
-                                            </thead>
+                            <table class="table table-striped">
+                                <thead>
+                                <th>股票编号</th>
+                                <th>股票名称</th>
+                                <th>当前价格</th>
+                                <th>涨跌幅</th>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${one_day_list}"  var="hot_stock">
+                                    <tr>
+                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${hot_stock.stockCode}">${hot_stock.stockCode}</a></td>
+                                        <td>${hot_stock.stockName}</td>
+                                        <td>${hot_stock.newestPrice}</td>
+                                        <td>${hot_stock.changePercent}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="z-index: inherit">
+                    <div class="card" style="z-index: inherit">
+                        <div class="header" style="z-index: inherit">
+                            <h4 class="title">猜你喜欢</h4>
+                            <hr>
+                        </div>
+                        <div class="content table-responsive table-full-width" style="z-index: inherit">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>股票编号</th>
+                                <th>股票名称</th>
+                                <th>当前价格</th>
+                                <th>涨跌幅</th>
+                                </thead>
 
-                                            <tbody>
-                                            <c:forEach items="${commendList}" var="oneStock">
-                                                <tr>
-                                                    <td>${oneStock.id}</td>
-                                                    <td>${oneStock.name}</td>
-                                                    <td>${oneStock.closePrice}</td>
-                                                    <td>${oneStock.uplift}</td>
-                                                </tr>
+                                <tbody>
+                                <c:forEach items="${commendList}" var="oneStock">
+                                    <tr>
+                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
+                                        <td>${oneStock.name}</td>
+                                        <td>${oneStock.closePrice}</td>
+                                        <td>${oneStock.uplift}</td>
+                                    </tr>
 
 
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

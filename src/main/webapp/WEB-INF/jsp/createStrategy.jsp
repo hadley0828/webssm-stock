@@ -433,7 +433,7 @@
                         $.notify({
                             message: mydata.result
                         },{
-                            type:'warning',
+                            type:'success',
                             timer:400
                         })
                     }
@@ -1679,7 +1679,14 @@
 
         }
 
-        if (sDate >= lDate){
+        if(sDate == '' || lDate == '' || blockCode == '' || strategyName == '' || cycle == '' || max_num == '' || strategyInfo == ''){
+            $.notify({
+                message: "请将回测信息填写完整！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else if (sDate >= lDate){
             $.notify({
                 message: "开始日期不得晚于结束日期！"
             },{

@@ -54,18 +54,6 @@
 
     <script type="text/javascript">
 
-        // 页面初始化时默认对比股票000001和000004，防止页面空白
-        $(document).ready(function () {
-            $("#stockSearch").val("000001 平安银行");
-            $("#searchIcon").click();
-            $("#stockSearch").val("000004 国农科技");
-            $("#searchIcon").click();
-
-            $("#sDate").attr("value","2016-03-01");
-            $("#lDate").attr("value","2017-03-01");
-            $("#doCompare").click();
-        })
-
         function getKLine1Info(code){
 
             var sdate = document.getElementById("sDate").value;
@@ -84,15 +72,6 @@
                 success: function (result) {
                     klinedata = JSON.parse(result);
                     fillCharts1(klinedata,code);
-                },
-                error:function () {
-                    //alert("请检查输入!");
-                    $.notify({
-                        message: "请检查输入！"
-                    },{
-                        type:'warning',
-                        timer:400
-                    })
                 }
             });
 
@@ -115,15 +94,6 @@
                 success: function (result) {
                     klinedata = JSON.parse(result);
                     fillCharts2(klinedata,code);
-                },
-                error:function () {
-                    //alert("请检查输入!");
-                    $.notify({
-                        message: "请检查输入！"
-                    },{
-                        type:'warning',
-                        timer:400
-                    })
                 }
             });
 
@@ -1310,6 +1280,18 @@
 
 <script>
 
+    // 页面初始化时默认对比股票000001和000004，防止页面空白
+    $(document).ready(function () {
+        $("#stockSearch").val("000001 平安银行");
+        $("#searchIcon").click();
+        $("#stockSearch").val("000004 国农科技");
+        $("#searchIcon").click();
+
+        $("#sDate").attr("value","2016-03-01");
+        $("#lDate").attr("value","2017-03-01");
+        $("#doCompare").click();
+    })
+
     //日期控件引入
     var sdate = laydate.render({
         elem: '#sDate'
@@ -1335,10 +1317,14 @@
         var ul =document.getElementById("choosed_list");
         var lis= ul.getElementsByTagName('li');
 
-        var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
-        var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
-
-        if (sdate >= ldate){
+        if (lis.length < 2 || sdate == '' || ldate == '' ){
+            $.notify({
+                message: "请将输入信息填写完整！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else if (sdate >= ldate){
             $.notify({
                 message: "开始日期不得晚于结束日期！"
             },{
@@ -1346,6 +1332,8 @@
                 timer:400
             });
         }else{
+            var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
+            var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
             $.ajax({
                 type:'POST',
                 url:'<%=request.getContextPath()%>/compare/getInitialInfo',
