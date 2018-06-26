@@ -1222,15 +1222,222 @@
                                     <thead>
                                     <tr>
                                         <th>投资组合</th>
-                                        <th>年化收益率</th>
-                                        <th>基准年化收益率</th>
-                                        <th>阿尔法</th>
-                                        <th>贝塔</th>
-                                        <th>夏普比率</th>
-                                        <th>收益波动率</th>
-                                        <th>信息比率</th>
-                                        <th>最大回撤</th>
-                                        <th>换手率</th>
+                                        <th>年化收益率
+                                            <span class="ti-help-alt" title="年化收益率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是指投资期限为一年所获的收益率 计算公式为本金×年化收益率×投资天数/365">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>基准年化收益率
+                                            <span class="ti-help-alt" title="基准年化收益率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="收益基准指数的年化收益率">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>阿尔法
+                                            <span class="ti-help-alt" title="阿尔法"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="一投资或基金的绝对回报和按照β系数计算的预期回报之间的差额">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>贝塔
+                                            <span class="ti-help-alt" title="贝塔"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是用以度量一项资产系统性风险的指标，是资本资产定价模型的参数之一">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>夏普比率
+                                            <span class="ti-help-alt" title="夏普比率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="(预期收益率 - 无风险利率）/投资组合标准差，也叫报酬与波动性比率，可能是最常用的投资组合管理度量标准">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>收益波动率
+                                            <span class="ti-help-alt" title="收益波动率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是金融资产价格的波动程度，是对资产收益率不确定性的衡量，用于反映金融资产的风险水平">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>信息比率
+                                            <span class="ti-help-alt" title="信息比率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="信息比率是以马克维茨的均异模型为基础，可以衡量基金的均异特性，它表示单位主动风险所带来的超额收益">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>最大回撤
+                                            <span class="ti-help-alt" title="最大回撤"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="在选定周期内任一历史时点往后推，产品净值走到最低点时的收益率回撤幅度的最大值">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>换手率
+                                            <span class="ti-help-alt" title="换手率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="指在一定时间内市场中股票转手买卖的频率，是反映股票流通性强弱的指标之一">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>

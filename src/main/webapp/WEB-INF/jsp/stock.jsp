@@ -545,7 +545,30 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <blockquote>股票详情</blockquote>
+                            <blockquote>股票详情
+                                <span class="ti-help-alt" title="术语解释"
+                                      data-container="body" data-toggle="popover" data-placement="right"
+                                      data-content="日k:记录的是股票一天内价格变动情况 MAn:n日均线值">
+                                </span>
+                                <script>
+                                    $(function () {
+                                        $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                            var _this = this;
+                                            $(this).popover("show");
+                                            $(this).siblings(".popover").on("mouseleave", function () {
+                                                $(_this).popover('hide');
+                                            });
+                                        }).on("mouseleave", function () {
+                                            var _this = this;
+                                            setTimeout(function () {
+                                                if (!$(".popover:hover").length) {
+                                                    $(_this).popover("hide")
+                                                }
+                                            }, 100);
+                                        });
+                                    });
+                                </script>
+                            </blockquote>
                             <div id="dayKLine" style="width: 1150px;height:400px;"></div>
                             <script>
                                 getKLineInfo();

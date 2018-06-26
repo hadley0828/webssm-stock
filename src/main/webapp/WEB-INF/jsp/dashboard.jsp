@@ -876,6 +876,29 @@
                         <div class="header">
                             <blockquote>
                                 <span class="ti-alarm-clock" style="font-size: 25px">上证指数</span>
+                                <span class="ti-help-alt" title="术语解释"
+                                      data-container="body" data-toggle="popover" data-placement="right"
+                                      data-content="日k:记录的是股票一天内价格变动情况 MAn:n日均线值">
+                                </span>
+                                <script>
+                                    $(function () {
+                                        $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                            var _this = this;
+                                            $(this).popover("show");
+                                            $(this).siblings(".popover").on("mouseleave", function () {
+                                                $(_this).popover('hide');
+                                            });
+                                        }).on("mouseleave", function () {
+                                            var _this = this;
+                                            setTimeout(function () {
+                                                if (!$(".popover:hover").length) {
+                                                    $(_this).popover("hide")
+                                                }
+                                            }, 100);
+                                        });
+                                    });
+                                </script>
+
                             </blockquote>
 
                             <hr>
