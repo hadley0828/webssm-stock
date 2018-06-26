@@ -638,7 +638,7 @@
                 dataType: "json",
                 success:function(result){
                     mylogdata = JSON.parse(result);
-                    fillLogCharts1(JSON.parse(mylogdata.code1),code1);
+                    fillLogCharts1(JSON.parse(mylogdata.code1),code1,JSON.parse(mylogdata.code2),code2);
                     fillLogCharts2(JSON.parse(mylogdata.code2),code2);
                 }
             });
@@ -659,14 +659,15 @@
             };
         }
 
-        function fillLogCharts1(rawlogdata,codeid){
+        function fillLogCharts1(rawlogdata1,codeid1,rawlogdata2,codeid2){
             var logLine1 = echarts.init(document.getElementById('logLine1'));
 
-            data0 = splitLogData(rawlogdata);
+            data0 = splitLogData(rawlogdata1);
+            data1 = splitLogData(rawlogdata2);
 
             logLine1.setOption(option={
                 title:{
-                    text: codeid  + ":对数收益方差",
+                    text: codeid1  +" 和 " + codeid2 +":对数收益方差",
                     textStyle:{
                         fontSize: 16
                     },
@@ -712,9 +713,9 @@
                         end: 100
                     }
                 ],
-                series:
+                series:[
                     {
-                        name:'对数收益率',
+                        name: codeid1,
                         type:'line',
                         data: data0.logValues,
                         markPoint: {
@@ -728,7 +729,24 @@
                                 {type: 'average', name: '平均值'}
                             ]
                         }
+                    },
+                    {
+                        name: codeid2,
+                        type:'line',
+                        data: data1.logValues,
+                        markPoint:{
+                            data: [
+                                {type: 'max',name: '最大值'},
+                                {type: 'min',name: '最小值'}
+                            ]
+                        },
+                        markLine:{
+                            data:[
+                                {type: 'average',name: '平均值'}
+                            ]
+                        }
                     }
+                    ]
 
             });
         }
