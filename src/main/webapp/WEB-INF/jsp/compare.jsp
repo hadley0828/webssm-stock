@@ -1027,12 +1027,12 @@
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
                                     <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5" >
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                        <c:forEach var="oneStock" items="${codeAndName}">
+                                        <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                        <%--<option value="000001 平安银行">000001 平安银行</option>--%>
+                                        <%--<option value="000004 国农科技">000004 国农科技</option>--%>
+                                        <%--<option value="000005 世纪星源">000005 世纪星源</option>--%>
                                     </select>
                                     <span class="input-group-addon"><i class="ti-plus" id="searchIcon" onclick="searchAdd()" onmouseenter="changeColor()" onmouseleave="reColor()"></i></span>
                                 </div>
@@ -1300,10 +1300,8 @@
 
     // 页面初始化时默认对比股票000001和000004，防止页面空白
     $(document).ready(function () {
-        $("#stockSearch").val("000001 平安银行");
-        $("#searchIcon").click();
-        $("#stockSearch").val("000004 国农科技");
-        $("#searchIcon").click();
+        addUl("平安银行");
+        addUl("国农科技");
 
         $("#sDate").attr("value","2016-03-01");
         $("#lDate").attr("value","2017-03-01");
