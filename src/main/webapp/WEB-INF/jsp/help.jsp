@@ -1,11 +1,11 @@
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: wangty
-  Date: 2017/6/13
-  Time: 下午5:53
+  User: zhangzy
+  Date: 2018/6/26
+  Time: 下午8:17
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String contextPath = request.getContextPath();
@@ -36,41 +36,16 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <%--<link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />--%>
+    <link href="<%=contextPath%>/assets/css/demo.css" rel="stylesheet" />
 
 
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="<%=contextPath%>/assets/css/themify-icons.css" rel="stylesheet">
-
-    <%--Bootstrap select--%>
-    <link href="<%=contextPath%>/assets/css/bootstrap-select.min.css" rel="stylesheet" >
-
-
-    <script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="<%=contextPath%>/assets/js/echarts.js"></script>
-
-    <script type="text/javascript">
-
-
-        function add() {
-            var stockSearch = document.getElementById("stockSearch");
-            var stockName = stockSearch.value;
-            window.location.href = "<%=contextPath%>/doctor/info/?id=${user.account}&stockcode="+stockName;
-        }
-
-        function changeColor() {
-            document.getElementById("searchIcon").setAttribute("style","color:orange");
-        }
-
-        function reColor() {
-            document.getElementById("searchIcon").setAttribute("style","color:black");
-        }
-
-    </script>
 </head>
 <body>
+
 <div class="wrapper">
     <div class="sidebar" data-background-color="white" data-active-color="danger">
 
@@ -98,7 +73,7 @@
             <c:choose>
                 <c:when test="${user.account != null}">
                     <ul class="nav">
-                        <li>
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
                                 <p style="font-size: 14px;">主页</p>
@@ -116,7 +91,7 @@
                                 <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
-                        <li style="background-color:#dcdcdc">
+                        <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
                                 <p style="font-size: 14px;">股票诊断</p>
@@ -134,11 +109,12 @@
                                 <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
+
                     </ul>
                 </c:when>
                 <c:when test="${user.account == null}">
-                    <ul class="nav">
-                        <li>
+                    <ul class="nav" >
+                        <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
                                 <p style="font-size: 14px;">主页</p>
@@ -156,7 +132,7 @@
                                 <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
-                        <li style="background-color:#dcdcdc">
+                        <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
                                 <p style="font-size: 14px;">股票诊断</p>
@@ -168,13 +144,12 @@
                                 <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
-
                     </ul>
                 </c:when>
             </c:choose>
-
         </div>
     </div>
+
 
     <div class="main-panel">
         <nav class="navbar navbar-default">
@@ -186,162 +161,86 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">诊断导航</a>
+                    <a class="navbar-brand" href="#">Dashboard</a>
                 </div>
-
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-
                         <li>
-                            <c:choose>
-                                <c:when test="${user.account != null}">
-                        <li class="dropdown">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" >
+                            <div class="form-group" style="padding-top: 15px">
+                                <input type="text" placeholder="Search" class="form-control">
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-user"></i>
-                                <p>${user.account}</p>
+                                <p>未登录</p>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-bell"></i>
+                                <p class="notification">5</p>
+                                <p>消息</p>
+                                <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<%=contextPath%>/dashboard/login">退出登录</a></li>
+                                <li><a href="#">消息 1</a></li>
+                                <li><a href="#">消息 2</a></li>
+                                <li><a href="#">消息 3</a></li>
+                                <li><a href="#">消息 4</a></li>
+                                <li><a href="#">更多</a></li>
                             </ul>
                         </li>
-                                </c:when>
-                                <c:when test="${user.account == null}">
-                                    <a href="<%=contextPath%>/dashboard/login" >
-                                        <i class="ti-user"></i>
-                                        <p>登录</p>
-                                    </a>
-                                </c:when>
-                            </c:choose>
-
-
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings"></i>
+                                <p>设置</p>
+                            </a>
                         </li>
-
                     </ul>
 
                 </div>
             </div>
         </nav>
 
-        <div class="content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <blockquote>搜索股票</blockquote>
-                                </div>
-                                <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5">
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
-                                    </select>
-                                    <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row" style="z-index: -1">
-                <div class="col-md-6" style="z-index: inherit">
-                    <div class="card" style="z-index: inherit">
-                        <div class="header" style="z-index: inherit">
-                            <h4 class="title">单日涨幅前10</h4>
+        <p>${name}</p>
 
-                            <hr>
-                        </div>
-                        <div class="content" style="z-index: inherit">
-                            <table class="table table-striped">
-                                <thead>
-                                <th>股票编号</th>
-                                <th>股票名称</th>
-                                <th>当前价格</th>
-                                <th>涨跌幅</th>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${one_day_list}"  var="hot_stock">
-                                    <tr>
-                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${hot_stock.stockCode}">${hot_stock.stockCode}</a></td>
-                                        <td>${hot_stock.stockName}</td>
-                                        <td>${hot_stock.newestPrice}</td>
-                                        <td>${hot_stock.changePercent}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="z-index: inherit">
-                    <div class="card" style="z-index: inherit">
-                        <div class="header" style="z-index: inherit">
-                            <h4 class="title">猜你喜欢</h4>
-                            <hr>
-                        </div>
-                        <div class="content table-responsive table-full-width" style="z-index: inherit">
-                            <table class="table table-striped">
-                                <thead>
-                                <th>股票编号</th>
-                                <th>股票名称</th>
-                                <th>当前价格</th>
-                                <th>涨跌幅</th>
-                                </thead>
-
-                                <tbody>
-                                <c:forEach items="${commendList}" var="oneStock">
-                                    <tr>
-                                        <td><a href="<%=contextPath%>/stockinfo/?id=${user.account}&stockCode=${oneStock.id}">${oneStock.id}</a></td>
-                                        <td>${oneStock.name}</td>
-                                        <td>${oneStock.closePrice}</td>
-                                        <td>${oneStock.uplift}</td>
-                                    </tr>
-
-
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+
+
 </body>
 
 <!--   Core JS Files   -->
-
+<script src="<%=contextPath%>/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="<%=contextPath%>/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="<%=contextPath%>/assets/js/bootstrap-checkbox-radio.js"></script>
 
 <!--  Charts Plugin -->
-<%--<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>--%>
+<script src="<%=contextPath%>/assets/js/chartist.min.js"></script>
 
 <!--  Notifications Plugin    -->
 <script src="<%=contextPath%>/assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="<%=contextPath%>/assets/js/paper-dashboard.js"></script>
 
-<%--Bootstrap select--%>
-<script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
-<script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
-
-
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
+<script src="<%=contextPath%>/assets/js/demo.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        demo.initChartist();
 
 
-
+    });
+</script>
 </html>
+

@@ -201,6 +201,12 @@
                                 <p style="font-size: 14px;">个人中心</p>
                             </a>
                         </li>
+                        <li>
+                        <a href="<%=contextPath%>/help/>">
+                            <i class="ti-help"></i>
+                            <p style="font-size: 14px;">帮助文档</p>
+                        </a>
+                    </li>
                     </ul>
                 </c:when>
                 <c:when test="${user.account == null}">
@@ -227,6 +233,12 @@
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
                                 <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
