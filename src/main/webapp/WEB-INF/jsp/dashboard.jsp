@@ -700,12 +700,12 @@
                                 </div>
                                 <div class="col-xs-6 input-group" style="padding-top: 5px">
                                     <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                        <c:forEach var="oneStock" items="${codeAndName}">
+                                        <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                        <%--<option value="000001 平安银行">000001 平安银行</option>--%>
+                                        <%--<option value="000004 国农科技">000004 国农科技</option>--%>
+                                        <%--<option value="000005 世纪星源">000005 世纪星源</option>--%>
                                     </select>
                                     <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
                                 </div>
