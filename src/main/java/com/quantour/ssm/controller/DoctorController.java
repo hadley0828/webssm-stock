@@ -90,6 +90,12 @@ public class DoctorController {
             MessageDTO messageDTO = generalScoreDTO.getMessageDTO();
             TechnicalDTO technicalDTO = generalScoreDTO.getTechnicalDTO();
 
+//            //对暂无数据的处理
+            generalScoreDTO.getBasicDTO().getBasicCashFlowDTO().lackData();
+            generalScoreDTO.getBasicDTO().getBasicEarningDTO().lackData();
+            generalScoreDTO.getBasicDTO().getBasicGrowDTO().lackData();
+            generalScoreDTO.getBasicDTO().getBasicPaymentDTO().lackData();
+            generalScoreDTO.getBasicDTO().getBasicProfitDTO().lackData();
 
             model.addAttribute("basic",basicDTO);
             model.addAttribute("capital",capitalDTO);

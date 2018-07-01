@@ -58,26 +58,35 @@
             var name = document.getElementById("name").value;
             var birthday = document.getElementById("birthday").value;
 
-            $.ajax({
-                type:"POST",
-                url:'<%=request.getContextPath()%>/userInfo/update',
-                data:{id:id,sex:sex, age:age,address:address, phone:phoneNumber,mail:mail,intro:introduction,name:name,birthday:birthday},
-                dataType:'json',
-                cache:false,
-                async:false,
-                success:function (result) {
-                    mydata = JSON.parse(result);
-                    if(mydata.result == "success"){
-                        $.notify({
-                            message: "更新成功！"
-                        },{
-                            type:'success',
-                            timer:400
-                        })
-                        window.location.href = "<%=request.getContextPath()%>/userInfo/?id=" + id;
+            if (id == '' || sex == '' || age == '' || address == '' || phoneNumber == '' || mail == '' || introduction == '' || name == '' || birthday == ''){
+                $.notify({
+                    message: "请将信息填写完整！"
+                },{
+                    type:'warning',
+                    timer:400
+                });
+            }else{
+                $.ajax({
+                    type:"POST",
+                    url:'<%=request.getContextPath()%>/userInfo/update',
+                    data:{id:id,sex:sex, age:age,address:address, phone:phoneNumber,mail:mail,intro:introduction,name:name,birthday:birthday},
+                    dataType:'json',
+                    cache:false,
+                    async:false,
+                    success:function (result) {
+                        mydata = JSON.parse(result);
+                        if(mydata.result == "更新成功"){
+                            $.notify({
+                                message: "更新成功！"
+                            },{
+                                type:'success',
+                                timer:400
+                            });
+                            window.location.href = "<%=request.getContextPath()%>/userInfo/?id=" + id;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         
         function deleteStock(code) {
@@ -165,33 +174,39 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
                             </a>
                         </li>
+                        <li>
+                        <a href="<%=contextPath%>/help/>">
+                            <i class="ti-help"></i>
+                            <p style="font-size: 14px;">帮助文档</p>
+                        </a>
+                    </li>
                     </ul>
                 </c:when>
                 <c:when test="${user.account == null}">
@@ -199,25 +214,31 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -290,7 +311,7 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label >用户名</label>
-                                                <input type="text" id="id" class="form-control border-input" disabled value="${user.account}">
+                                                <input type="text" id="id" class="form-control" disabled value="${user.account}">
                                             </div>
                                         </div>
 
@@ -313,7 +334,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>年龄</label>
-                                                <input type="text" id="age" class="form-control border-input" placeholder="请输入年龄" value="${user.age}">
+                                                <input type="text" id="age" class="form-control" style="background: #FAF0E6" placeholder="请输入年龄" value="${user.age}">
                                             </div>
                                         </div>
                                     </div>
@@ -322,13 +343,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>姓名</label>
-                                                <input type="text" id="name" class="form-control border-input" placeholder="请输入姓名" value="${user.name}">
+                                                <input type="text" id="name" class="form-control" style="background: #FAF0E6" placeholder="请输入姓名" value="${user.name}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-5">
                                                 <label>生日</label>
-                                                <input type="text" id="birthday" class="form-control border-input" placeholder="请输入生日" value="${user.birthday}">
+                                                <input type="text" id="birthday" class="form-control" style="background: #FAF0E6" placeholder="请输入生日" value="${user.birthday}">
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +359,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>地址</label>
-                                                <input type="text" id="address" class="form-control border-input" placeholder="请填写联系地址" value="${user.address}">
+                                                <input type="text" id="address" class="form-control" style="background: #FAF0E6" placeholder="请填写联系地址" value="${user.address}">
                                             </div>
                                         </div>
                                     </div>
@@ -347,14 +368,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>电话号码</label>
-                                                <input type="number" id="phoneNumber" class="form-control border-input" placeholder="请输入电话号码" value="${user.handsetNumber}">
+                                                <input type="number" id="phoneNumber" class="form-control" style="background: #FAF0E6" placeholder="请输入电话号码" value="${user.handsetNumber}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>邮箱地址</label>
-                                                <input type="email" id="mail" class="form-control border-input" placeholder="请输入邮箱地址" value="${user.mail}">
+                                                <input type="email" id="mail" class="form-control" style="background: #FAF0E6" placeholder="请输入邮箱地址" value="${user.mail}">
                                             </div>
                                         </div>
                                     </div>
@@ -364,8 +385,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" id="introduction" class="form-control border-input" placeholder="Here can be your description" value="${user.account}">${user.introduction}</textarea>
+                                                <label>介绍一下自己</label>
+                                                <textarea rows="5" id="introduction" class="form-control" style="background: #FAF0E6" placeholder="请输入个人简介" value="${user.account}">${user.introduction}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -493,6 +514,8 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 //    $(document).ready(function(){
 //
@@ -500,5 +523,26 @@
 //
 //
 //    });
+var today = getNowFormatDate();
+var birthday = laydate.render({
+    elem: '#birthday'
+    ,max: today
+});
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
 </script>
 </html>

@@ -689,31 +689,6 @@
         </nav>
 
         <div class="content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <blockquote>个股查询</blockquote>
-                                </div>
-                                <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
-                                    </select>
-                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
-                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row" style="z-index: -1">
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
@@ -888,7 +863,31 @@
                 </div>
             </div>
 
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <blockquote>个股查询</blockquote>
+                                </div>
+                                <div class="col-xs-6 input-group" style="padding-top: 5px">
+                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
+                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
+                                            <%--<option value="${oneStock}">${oneStock}</option>--%>
+                                        <%--</c:forEach>--%>
+                                        <option value="000001 平安银行">000001 平安银行</option>
+                                        <option value="000004 国农科技">000004 国农科技</option>
+                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                    </select>
+                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 

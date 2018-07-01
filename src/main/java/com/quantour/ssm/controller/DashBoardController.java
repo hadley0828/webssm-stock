@@ -75,11 +75,11 @@ public class DashBoardController {
     }
 
 
-//    @RequestMapping("/temple")
-//    public String showBoardtemple(HttpServletRequest request, Model model){
-//        return "temple";
-//    }
-
+    @RequestMapping("/help")
+    public String showBoardtemple(HttpServletRequest request, Model model){
+        return "help";
+    }
+ 
 //    @RequestMapping("/temple.form")
 //    public String testPrint(HttpServletRequest request,Model model){
 //        String name = request.getParameter("name");

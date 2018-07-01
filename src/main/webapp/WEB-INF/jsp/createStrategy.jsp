@@ -433,7 +433,7 @@
                         $.notify({
                             message: mydata.result
                         },{
-                            type:'warning',
+                            type:'success',
                             timer:400
                         })
                     }
@@ -477,31 +477,37 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
                     </ul>
@@ -511,25 +517,31 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -598,22 +610,22 @@
                                 </div>
                             </div>
                             <label for="strategyName">策略名称</label>
-                            <input type="text" class="form-control" id="strategyName" style="width: 30%;">
+                            <input type="text" class="form-control" id="strategyName" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="strategyName">调仓周期</label>
-                            <input type="text" id="cycle" class="form-control" style="width: 30%;color: ">
+                            <input type="text" id="cycle" class="form-control" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="strategyName">最大持仓股票数</label>
-                            <input type="text" id="max_num" class="form-control" style="width: 30%;color: ">
+                            <input type="text" id="max_num" class="form-control" style="width: 30%;background: #FAF0E6">
                             <br>
                             <label for="s_intro">策略说明</label>
-                            <textarea class="form-control" id="s_intro" placeholder="请输入策略说明" rows="3"></textarea>
+                            <textarea class="form-control" id="s_intro" style="background: #FAF0E6" placeholder="请输入策略说明" rows="3"></textarea>
                             <%--<hr>--%>
                         </div>
 
                         <%--<img class="center-block" style="height: 20px;margin-bottom: 20px;"  src="<%=contextPath%>/assets/img/arrow-down.png"  />--%>
-                        <div class="text-center" id="options" style="cursor:pointer;">
-                            <span style="color: #449d44" id="options-span">展开更多选项</span>
+                        <div class="text-center" id="extend-options" style="cursor:pointer;padding:10px;">
+                            <span style="color: #449d44" id="extend-span">展开更多选项</span>
                         </div>
                         <hr>
 
@@ -754,9 +766,9 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
-                                <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
+                                <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none;">-</p></div>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" style="display: none">
                                 </div>
@@ -787,7 +799,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -820,7 +832,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -853,7 +865,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -886,7 +898,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -919,7 +931,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -952,7 +964,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -985,7 +997,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1018,7 +1030,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1051,7 +1063,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1084,7 +1096,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1117,7 +1129,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1150,7 +1162,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="padding-top: 10px;text-align: center"><p style="display: none">-</p></div>
                                 <div class="col-xs-2">
@@ -1161,6 +1173,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="text-center" id="shrink-options" style="cursor:pointer;padding:20px;">
+                            <span style="color: #449d44" id="shrink-span">收起</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1176,11 +1193,11 @@
                             <div class="row">
                                 <div class="col-xs-2" style="text-align:center;padding-top: 10px">回测时间:</div>
                                 <div class="col-xs-3">
-                                    <input type="date" class="form-control" id="sdate">
+                                    <input type="text" class="form-control" id="sdate" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-xs-1" style="text-align: center;padding-top: 10px">-</div>
                                 <div class="col-xs-3">
-                                    <input type="date" class="form-control" id="ldate">
+                                    <input type="text" class="form-control" id="ldate" style="background: #FAF0E6">
                                 </div>
                             </div>
                             <div class="row">
@@ -1193,6 +1210,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <br>
                             <button id ="starttest" class="btn btn-success" style="padding-left: 15px" onclick="start()">开始回测</button>
                             <div id="firstDiv" style="margin-left: 50%;margin-bottom: 50px" >
@@ -1216,15 +1234,222 @@
                                     <thead>
                                     <tr>
                                         <th>投资组合</th>
-                                        <th>年化收益率</th>
-                                        <th>基准年化收益率</th>
-                                        <th>阿尔法</th>
-                                        <th>贝塔</th>
-                                        <th>夏普比率</th>
-                                        <th>收益波动率</th>
-                                        <th>信息比率</th>
-                                        <th>最大回撤</th>
-                                        <th>换手率</th>
+                                        <th>年化收益率
+                                            <span class="ti-help-alt" title="年化收益率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是指投资期限为一年所获的收益率 计算公式为本金×年化收益率×投资天数/365">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>基准年化收益率
+                                            <span class="ti-help-alt" title="基准年化收益率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="收益基准指数的年化收益率">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>阿尔法
+                                            <span class="ti-help-alt" title="阿尔法"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="一投资或基金的绝对回报和按照β系数计算的预期回报之间的差额">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>贝塔
+                                            <span class="ti-help-alt" title="贝塔"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是用以度量一项资产系统性风险的指标，是资本资产定价模型的参数之一">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>夏普比率
+                                            <span class="ti-help-alt" title="夏普比率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="(预期收益率 - 无风险利率）/投资组合标准差，也叫报酬与波动性比率，可能是最常用的投资组合管理度量标准">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>收益波动率
+                                            <span class="ti-help-alt" title="收益波动率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="是金融资产价格的波动程度，是对资产收益率不确定性的衡量，用于反映金融资产的风险水平">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>信息比率
+                                            <span class="ti-help-alt" title="信息比率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="信息比率是以马克维茨的均异模型为基础，可以衡量基金的均异特性，它表示单位主动风险所带来的超额收益">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>最大回撤
+                                            <span class="ti-help-alt" title="最大回撤"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="在选定周期内任一历史时点往后推，产品净值走到最低点时的收益率回撤幅度的最大值">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
+                                        <th>换手率
+                                            <span class="ti-help-alt" title="换手率"
+                                                  data-container="body" data-toggle="popover" data-placement="right"
+                                                  data-content="指在一定时间内市场中股票转手买卖的频率，是反映股票流通性强弱的指标之一">
+                                            </span>
+                                            <script>
+                                                $(function () {
+                                                    $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                                        var _this = this;
+                                                        $(this).popover("show");
+                                                        $(this).siblings(".popover").on("mouseleave", function () {
+                                                            $(_this).popover('hide');
+                                                        });
+                                                    }).on("mouseleave", function () {
+                                                        var _this = this;
+                                                        setTimeout(function () {
+                                                            if (!$(".popover:hover").length) {
+                                                                $(_this).popover("hide")
+                                                            }
+                                                        }, 100);
+                                                    });
+                                                });
+                                            </script>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -1305,19 +1530,39 @@
 
 <script type="text/javascript" src="https://cdn.bootcss.com/spin.js/2.3.2/spin.min.js" ></script>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 
-    $("#options").click(function () {
-        var text = $("#options-span").text();
-        if(text == '展开更多选项'){
-            $("#option-one").removeClass("hidden");
-            $("#option-two").removeClass("hidden");
-            $("#options-span").text("收起更多选项");
-        }else {
-            $("#option-one").addClass("hidden");
-            $("#option-two").addClass("hidden");
-            $("#options-span").text("展开更多选项");
+    //日期控件引入
+    var sdate = laydate.render({
+        elem: '#sdate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            sdate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
         }
+    });
+    var ldate = laydate.render({
+        elem: '#ldate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            ldate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+
+    //展开收起更多选项
+    $("#extend-options").click(function () {
+        $("#option-one").removeClass("hidden");
+        $("#option-two").removeClass("hidden");
+        $(this).addClass("hidden");
+    })
+
+    $("#shrink-options").click(function () {
+        $("#option-one").addClass("hidden");
+        $("#option-two").addClass("hidden");
+        $("#extend-options").removeClass("hidden");
     })
 
     function show(selectname) {
@@ -1405,7 +1650,12 @@
             var userId = "${user.account.toString()}";
 
             if(userId==""){
-                alert("请先登录用户");
+                $.notify({
+                    message: "请先登录！"
+                },{
+                    type:'warning',
+                    timer:400
+                });
             }else{
 
                 ajaxRequestData();
@@ -1648,29 +1898,45 @@
 
         }
 
-        $.ajax({
-            type: "POST",
-            url: '<%=request.getContextPath()%>/strategy/runStrategy',
-            data:{map:map},
-            dataType:"json",
-            async:true,
-            beforeSend: function () {
-                //异步请求时spinner出现
+        if(sDate == '' || lDate == '' || blockCode == '' || strategyName == '' || cycle == '' || max_num == '' || strategyInfo == ''){
+            $.notify({
+                message: "请将回测信息填写完整！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else if (sDate >= lDate){
+            $.notify({
+                message: "开始日期不得晚于结束日期！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else{
+            $.ajax({
+                type: "POST",
+                url: '<%=request.getContextPath()%>/strategy/runStrategy',
+                data:{map:map},
+                dataType:"json",
+                async:true,
+                beforeSend: function () {
+                    //异步请求时spinner出现
 
-                $("#firstDiv").text("");
-                var target = $("#firstDiv").get(0);
-                spinner.spin(target);
-            },
-            success:function (result) {
+                    $("#firstDiv").text("");
+                    var target = $("#firstDiv").get(0);
+                    spinner.spin(target);
+                },
+                success:function (result) {
 
-                //关闭spinner
-                spinner.spin();
-                mydata = JSON.parse(result);
-                fillStragetyInfo(mydata);
-                fillStragetyPic1(JSON.parse(mydata.daysProfitList));
-                fillStragetyPic2(JSON.parse(mydata.indexprofitvo));
-            }
-        });
+                    //关闭spinner
+                    spinner.spin();
+                    mydata = JSON.parse(result);
+                    fillStragetyInfo(mydata);
+                    fillStragetyPic1(JSON.parse(mydata.daysProfitList));
+                    fillStragetyPic2(JSON.parse(mydata.indexprofitvo));
+                }
+            });
+        }
         
 
         function fillStragetyInfo(rawdata) {

@@ -125,19 +125,19 @@
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
-                            <label>username</label>
+                            <label>用户名</label>
                             <input type="text" id="u" class="form-control border-input"  placeholder="username" name="userName">
                         </div>
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
-                            <label>Password</label>
+                            <label>密码</label>
                             <input type="password" id="p" class="form-control border-input"  placeholder="password" name="password">
                         </div>
                     </div>
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-group">
-                            <label>Password Confirm</label>
+                            <label>确认密码</label>
                             <input type="password" id="pp" class="form-control border-input"  placeholder="password confirm" name="passwordConfirm">
                         </div>
                     </div>

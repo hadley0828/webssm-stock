@@ -34,6 +34,26 @@ public class Basic_paymentDTO {
                 '}';
     }
 
+    //对暂无数据的处理
+    public void lackData(){
+        if (this.code.equals("--") || this.code.equals("nan"))
+            this.code = "暂无数据";
+        if (this.name.equals("--") || this.name.equals("nan"))
+            this.name = "暂无数据";
+        if (this.currentRatio.equals("--") || this.currentRatio.equals("nan"))
+            this.currentRatio = "暂无数据";
+        if (this.quickRatio.equals("--") || this.quickRatio.equals("nan"))
+            this.quickRatio = "暂无数据";
+        if (this.cashRatio.equals("--") || this.cashRatio.equals("nan"))
+            this.cashRatio = "暂无数据";
+        if (this.icRatio.equals("--") || this.icRatio.equals("nan"))
+            this.icRatio = "暂无数据";
+        if (this.sheqRatio.equals("--") || this.sheqRatio.equals("nan"))
+            this.sheqRatio = "暂无数据";
+        if (this.adRatio.equals("--") || this.adRatio.equals("nan"))
+            this.adRatio = "暂无数据";
+    }
+
     public String getCode() {
         return code;
     }

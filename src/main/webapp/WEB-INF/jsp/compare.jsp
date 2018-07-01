@@ -54,18 +54,6 @@
 
     <script type="text/javascript">
 
-        // 页面初始化时默认对比股票000001和000004，防止页面空白
-        $(document).ready(function () {
-            $("#stockSearch").val("000001 平安银行");
-            $("#searchIcon").click();
-            $("#stockSearch").val("000004 国农科技");
-            $("#searchIcon").click();
-
-            $("#sDate").attr("value","2016-03-01");
-            $("#lDate").attr("value","2017-03-01");
-            $("#doCompare").click();
-        })
-
         function getKLine1Info(code){
 
             var sdate = document.getElementById("sDate").value;
@@ -84,15 +72,6 @@
                 success: function (result) {
                     klinedata = JSON.parse(result);
                     fillCharts1(klinedata,code);
-                },
-                error:function () {
-                    //alert("请检查输入!");
-                    $.notify({
-                        message: "请检查输入！"
-                    },{
-                        type:'warning',
-                        timer:400
-                    })
                 }
             });
 
@@ -115,15 +94,6 @@
                 success: function (result) {
                     klinedata = JSON.parse(result);
                     fillCharts2(klinedata,code);
-                },
-                error:function () {
-                    //alert("请检查输入!");
-                    $.notify({
-                        message: "请检查输入！"
-                    },{
-                        type:'warning',
-                        timer:400
-                    })
                 }
             });
 
@@ -668,7 +638,7 @@
                 dataType: "json",
                 success:function(result){
                     mylogdata = JSON.parse(result);
-                    fillLogCharts1(JSON.parse(mylogdata.code1),code1);
+                    fillLogCharts1(JSON.parse(mylogdata.code1),code1,JSON.parse(mylogdata.code2),code2);
                     fillLogCharts2(JSON.parse(mylogdata.code2),code2);
                 }
             });
@@ -689,14 +659,15 @@
             };
         }
 
-        function fillLogCharts1(rawlogdata,codeid){
+        function fillLogCharts1(rawlogdata1,codeid1,rawlogdata2,codeid2){
             var logLine1 = echarts.init(document.getElementById('logLine1'));
 
-            data0 = splitLogData(rawlogdata);
+            data0 = splitLogData(rawlogdata1);
+            data1 = splitLogData(rawlogdata2);
 
             logLine1.setOption(option={
                 title:{
-                    text: codeid  + ":对数收益方差",
+                    text: codeid1  +" 和 " + codeid2 +":对数收益方差",
                     textStyle:{
                         fontSize: 16
                     },
@@ -742,9 +713,9 @@
                         end: 100
                     }
                 ],
-                series:
+                series:[
                     {
-                        name:'对数收益率',
+                        name: codeid1,
                         type:'line',
                         data: data0.logValues,
                         markPoint: {
@@ -758,7 +729,24 @@
                                 {type: 'average', name: '平均值'}
                             ]
                         }
+                    },
+                    {
+                        name: codeid2,
+                        type:'line',
+                        data: data1.logValues,
+                        markPoint:{
+                            data: [
+                                {type: 'max',name: '最大值'},
+                                {type: 'min',name: '最小值'}
+                            ]
+                        },
+                        markLine:{
+                            data:[
+                                {type: 'average',name: '平均值'}
+                            ]
+                        }
                     }
+                    ]
 
             });
         }
@@ -920,31 +908,37 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -955,25 +949,31 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -1039,12 +1039,12 @@
                                 <div class="col-xs-4" style="padding-top: 10px">添加对比:</div>
                                 <div class="col-xs-8 input-group">
                                     <select class="selectpicker" id="stockSearch" data-live-search="true" data-size="5" >
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                        <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
+                                        <c:forEach var="oneStock" items="${codeAndName}">
+                                        <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                        <%--<option value="000001 平安银行">000001 平安银行</option>--%>
+                                        <%--<option value="000004 国农科技">000004 国农科技</option>--%>
+                                        <%--<option value="000005 世纪星源">000005 世纪星源</option>--%>
                                     </select>
                                     <span class="input-group-addon"><i class="ti-plus" id="searchIcon" onclick="searchAdd()" onmouseenter="changeColor()" onmouseleave="reColor()"></i></span>
                                 </div>
@@ -1064,11 +1064,11 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <label for="sDate">开始时间</label>
-                                    <input id="sDate" type="date" class="form-control">
+                                    <input id="sDate" type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                                 <div class="col-md-8">
                                     <label for="lDate">结束时间</label>
-                                    <input id="lDate" type="date" class="form-control">
+                                    <input id="lDate" type="text" class="form-control" style="background: #FAF0E6">
                                 </div>
                             </div>
                             <hr>
@@ -1194,9 +1194,9 @@
 
                                     </div>
                                     <hr>
-                                    <div id="logLine2" style="width: 750px; height: 400px;">
+                                    <%--<div id="logLine2" style="width: 750px; height: 400px;">--%>
 
-                                    </div>
+                                    <%--</div>--%>
 
                                 </div>
                             </div>
@@ -1303,11 +1303,41 @@
 <script src="<%=contextPath%>/assets/js/bootstrap-select.min.js"></script>
 <script src="<%=contextPath%>/assets/js/defaults-zh_CN.min.js"></script>
 
+<script src="<%=contextPath%>/assets/js/laydate/laydate.js" type="text/javascript"></script>
 
 <%--<!-- Paper Dashboard DEMO methods, don't include it in your project! -->--%>
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
 <script>
+
+    // 页面初始化时默认对比股票000001和000004，防止页面空白
+    $(document).ready(function () {
+        addUl("平安银行");
+        addUl("国农科技");
+
+        $("#sDate").attr("value","2016-03-01");
+        $("#lDate").attr("value","2017-03-01");
+        $("#doCompare").click();
+    })
+
+    //日期控件引入
+    var sdate = laydate.render({
+        elem: '#sDate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            sdate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+    var ldate = laydate.render({
+        elem: '#lDate'
+        ,min: '2005-01-01'
+        ,max: '2017-06-22'
+        ,ready: function(){
+            ldate.hint('日期可选值设定在 <br> 2005-01-01 到 2017-06-22');
+        }
+    });
+
     function a() {
 
         var sdate = document.getElementById("sDate").value;
@@ -1315,30 +1345,45 @@
         var ul =document.getElementById("choosed_list");
         var lis= ul.getElementsByTagName('li');
 
-        var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
-        var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
+        if (lis.length < 2 || sdate == '' || ldate == '' ){
+            $.notify({
+                message: "请将输入信息填写完整！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else if (sdate >= ldate){
+            $.notify({
+                message: "开始日期不得晚于结束日期！"
+            },{
+                type:'warning',
+                timer:400
+            });
+        }else{
+            var codename1 = lis[0].getElementsByTagName('a')[0].innerHTML;
+            var codename2 = lis[1].getElementsByTagName('a')[0].innerHTML;
+            $.ajax({
+                type:'POST',
+                url:'<%=request.getContextPath()%>/compare/getInitialInfo',
+                data:{sdate:sdate, ldate:ldate, codename1:codename1, codename2:codename2},
+                dataType:"json",
+                asnyc:false,
+                success:function (result) {
+                    newdata = JSON.parse(result);
+                    document.getElementById('name1').innerHTML =newdata.name1;
+                    document.getElementById('high1').innerHTML =newdata.high1;
+                    document.getElementById('low1').innerHTML =newdata.low1;
+                    document.getElementById('change1').innerHTML =newdata.change1;
+                    document.getElementById('logVar1').innerHTML =newdata.logVar1;
+                    document.getElementById('name2').innerHTML =newdata.name2;
+                    document.getElementById('high2').innerHTML =newdata.high2;
+                    document.getElementById('low2').innerHTML =newdata.low2;
+                    document.getElementById('change2').innerHTML =newdata.change2;
+                    document.getElementById('logVar2').innerHTML =newdata.logVar2;
 
-        $.ajax({
-            type:'POST',
-            url:'<%=request.getContextPath()%>/compare/getInitialInfo',
-            data:{sdate:sdate, ldate:ldate, codename1:codename1, codename2:codename2},
-            dataType:"json",
-            asnyc:false,
-            success:function (result) {
-                newdata = JSON.parse(result);
-                document.getElementById('name1').innerHTML =newdata.name1;
-                document.getElementById('high1').innerHTML =newdata.high1;
-                document.getElementById('low1').innerHTML =newdata.low1;
-                document.getElementById('change1').innerHTML =newdata.change1;
-                document.getElementById('logVar1').innerHTML =newdata.logVar1;
-                document.getElementById('name2').innerHTML =newdata.name2;
-                document.getElementById('high2').innerHTML =newdata.high2;
-                document.getElementById('low2').innerHTML =newdata.low2;
-                document.getElementById('change2').innerHTML =newdata.change2;
-                document.getElementById('logVar2').innerHTML =newdata.logVar2;
-
-            }
-        });
+                }
+            });
+        }
     }
 </script>
 <%--<script type="text/javascript">--%>

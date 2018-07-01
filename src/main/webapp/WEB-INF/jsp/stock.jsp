@@ -333,25 +333,37 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/userInfo/?id=${user.account}">
+                                <i class="ti-desktop"></i>
+                                <p style="font-size: 14px;">个人中心</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
                         <li>
@@ -367,25 +379,31 @@
                         <li>
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -544,7 +562,30 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <blockquote>股票详情</blockquote>
+                            <blockquote>股票详情
+                                <span class="ti-help-alt" title="术语解释"
+                                      data-container="body" data-toggle="popover" data-placement="right"
+                                      data-content="日k:记录的是股票一天内价格变动情况 MAn:n日均线值">
+                                </span>
+                                <script>
+                                    $(function () {
+                                        $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                            var _this = this;
+                                            $(this).popover("show");
+                                            $(this).siblings(".popover").on("mouseleave", function () {
+                                                $(_this).popover('hide');
+                                            });
+                                        }).on("mouseleave", function () {
+                                            var _this = this;
+                                            setTimeout(function () {
+                                                if (!$(".popover:hover").length) {
+                                                    $(_this).popover("hide")
+                                                }
+                                            }, 100);
+                                        });
+                                    });
+                                </script>
+                            </blockquote>
                             <div id="dayKLine" style="width: 1150px;height:400px;"></div>
                             <script>
                                 getKLineInfo();

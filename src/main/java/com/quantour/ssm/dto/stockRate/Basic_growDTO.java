@@ -33,6 +33,26 @@ public class Basic_growDTO {
                 '}';
     }
 
+    //对暂无数据的处理
+    public void lackData(){
+        if (this.code.equals("--") || this.code.equals("nan"))
+            this.code = "暂无数据";
+        if (this.name.equals("--") || this.name.equals("nan"))
+            this.name = "暂无数据";
+        if (this.mbrg.equals("--") || this.mbrg.equals("nan"))
+            this.mbrg = "暂无数据";
+        if (this.nprg.equals("--") || this.nprg.equals("nan"))
+            this.nprg = "暂无数据";
+        if (this.nav.equals("--") || this.nav.equals("nan"))
+            this.nav = "暂无数据";
+        if (this.targ.equals("--") || this.targ.equals("nan"))
+            this.targ = "暂无数据";
+        if (this.epsg.equals("--") || this.epsg.equals("nan"))
+            this.epsg = "暂无数据";
+        if (this.seg.equals("--") || this.seg.equals("nan"))
+            this.seg = "暂无数据";
+    }
+
     public String getCode() {
         return code;
     }

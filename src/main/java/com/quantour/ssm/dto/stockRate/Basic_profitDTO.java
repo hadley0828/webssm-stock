@@ -34,6 +34,28 @@ public class Basic_profitDTO {
                 '}';
     }
 
+    //对暂无数据的处理
+    public void lackData(){
+        if (this.code.equals("--") || this.code.equals("nan"))
+            this.code = "暂无数据";
+        if (this.name.equals("--") || this.name.equals("nan"))
+            this.name = "暂无数据";
+        if (this.roe.equals("--") || this.roe.equals("nan"))
+            this.roe = "暂无数据";
+        if (this.netProfitRatio.equals("--") || this.netProfitRatio.equals("nan"))
+            this.netProfitRatio = "暂无数据";
+        if (this.grossProfitRate.equals("--") || this.grossProfitRate.equals("nan"))
+            this.grossProfitRate = "暂无数据";
+        if (this.netProfits.equals("--") || this.netProfits.equals("nan"))
+            this.netProfits = "暂无数据";
+        if (this.esp.equals("--") || this.esp.equals("nan"))
+            this.esp = "暂无数据";
+        if (this.bussinessIncome.equals("--") || this.bussinessIncome.equals("nan"))
+            this.bussinessIncome = "暂无数据";
+        if (this.bips.equals("--") || this.bips.equals("nan"))
+            this.bips = "暂无数据";
+    }
+
     public String getCode() {
         return code;
     }
