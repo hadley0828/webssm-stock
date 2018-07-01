@@ -1194,9 +1194,9 @@
 
                                     </div>
                                     <hr>
-                                    <div id="logLine2" style="width: 750px; height: 400px;">
+                                    <%--<div id="logLine2" style="width: 750px; height: 400px;">--%>
 
-                                    </div>
+                                    <%--</div>--%>
 
                                 </div>
                             </div>

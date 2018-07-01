@@ -79,7 +79,7 @@ public class DashBoardController {
     public String showBoardtemple(HttpServletRequest request, Model model){
         return "help";
     }
-
+ 
 //    @RequestMapping("/temple.form")
 //    public String testPrint(HttpServletRequest request,Model model){
 //        String name = request.getParameter("name");
