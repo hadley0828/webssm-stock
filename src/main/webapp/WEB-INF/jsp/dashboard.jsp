@@ -472,11 +472,11 @@
                             ]
                         }
                     },
-                        {
+                    {
                         name:'跌停',
-                            type:'line',
-                            data:data0.limitDownValues,
-                            markPoint: {
+                        type:'line',
+                        data:data0.limitDownValues,
+                        markPoint: {
                             data: [
                                 {type: 'max', name: '最大值'},
                                 {type: 'min', name: '最小值'}
@@ -487,7 +487,7 @@
                                 {type: 'average', name: '平均值'}
                             ]
                         }}
-                     ]
+                ]
             });
         }
     </script>
@@ -538,13 +538,13 @@
             document.getElementById("searchIcon").setAttribute("style","color:black");
         }
 
-//        $(function () {
-//            var availableTags = new Array();
-//            var i=0;
-//
-//
-//            $("#tags").autocomplete({source:availableTags});
-//        });
+        //        $(function () {
+        //            var availableTags = new Array();
+        //            var i=0;
+        //
+        //
+        //            $("#tags").autocomplete({source:availableTags});
+        //        });
     </script>
 </head>
 <body>
@@ -578,31 +578,37 @@
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/?id=${user.account}">
                                 <i class="ti-home"></i>
-                                <p>主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/?id=${user.account}">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/?id=${user.account}">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/?id=${user.account}">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/userInfo/?id=${user.account}">
                                 <i class="ti-desktop"></i>
-                                <p>个人中心</p>
+                                <p style="font-size: 14px;">个人中心</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/help/>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -613,25 +619,31 @@
                         <li style="background-color:#dcdcdc">
                             <a href="<%=contextPath%>/dashboard/">
                                 <i class="ti-home"></i>
-                                <p >主页</p>
+                                <p style="font-size: 14px;">主页</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/compare/">
                                 <i class="ti-flag-alt-2"></i>
-                                <p>股票对比</p>
+                                <p style="font-size: 14px;">股票对比</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/strategy/">
                                 <i class="ti-receipt"></i>
-                                <p>股市策略</p>
+                                <p style="font-size: 14px;">股市策略</p>
                             </a>
                         </li>
                         <li>
                             <a href="<%=contextPath%>/doctor/">
                                 <i class="ti-support"></i>
-                                <p>股票诊断</p>
+                                <p style="font-size: 14px;">股票诊断</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%=contextPath%>/dashboard/help>">
+                                <i class="ti-help"></i>
+                                <p style="font-size: 14px;">帮助文档</p>
                             </a>
                         </li>
 
@@ -660,7 +672,7 @@
 
                         <li>
                             <c:choose>
-                                <c:when test="${user.account != null}">
+                            <c:when test="${user.account != null}">
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" >
                                 <i class="ti-user"></i>
@@ -670,14 +682,14 @@
                                 <li><a href="<%=contextPath%>/dashboard/login">退出登录</a></li>
                             </ul>
                         </li>
-                                </c:when>
-                                <c:when test="${user.account == null}">
-                                    <a href="<%=contextPath%>/dashboard/login" >
-                                        <i class="ti-user"></i>
-                                        <p>登录</p>
-                                    </a>
-                                </c:when>
-                            </c:choose>
+                        </c:when>
+                        <c:when test="${user.account == null}">
+                            <a href="<%=contextPath%>/dashboard/login" >
+                                <i class="ti-user"></i>
+                                <p>登录</p>
+                            </a>
+                        </c:when>
+                        </c:choose>
 
 
                         </li>
@@ -689,6 +701,32 @@
         </nav>
 
         <div class="content">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <blockquote>个股查询</blockquote>
+                                </div>
+                                <div class="col-xs-6 input-group" style="padding-top: 5px">
+                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
+                                        <c:forEach var="oneStock" items="${codeAndName}">
+                                            <option value="${oneStock}">${oneStock}</option>
+                                        </c:forEach>
+                                        <%--<option value="000001 平安银行">000001 平安银行</option>--%>
+                                        <%--<option value="000004 国农科技">000004 国农科技</option>--%>
+                                        <%--<option value="000005 世纪星源">000005 世纪星源</option>--%>
+                                    </select>
+                                    <span class="input-group-addon" style="padding: 2px 2px;width: 0.1%;background: white"><i id="searchIcon" class="ti-search" onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row" style="z-index: -1">
                 <div class="col-md-6" style="z-index: inherit">
                     <div class="card" style="z-index: inherit">
@@ -775,28 +813,28 @@
                                 <div class="col-xs-3">
                                     <ul class="nav nav-stacked" role="tablist">
                                         <%--<script>--%>
-                                            <%--function getMarketInfo() {--%>
-                                                <%--var date = "2017-06-01";--%>
+                                        <%--function getMarketInfo() {--%>
+                                        <%--var date = "2017-06-01";--%>
 
-                                                <%--$.ajax({--%>
-                                                    <%--url: '<%=request.getContextPath()%>/stockinfo/getMarketInfo',--%>
-                                                    <%--data:{date:date},--%>
-                                                    <%--dataType:"json",--%>
-                                                    <%--success:function (result) {--%>
-                                                        <%--mydata = JSON.parse(result);--%>
-                                                    <%--}--%>
+                                        <%--$.ajax({--%>
+                                        <%--url: '<%=request.getContextPath()%>/stockinfo/getMarketInfo',--%>
+                                        <%--data:{date:date},--%>
+                                        <%--dataType:"json",--%>
+                                        <%--success:function (result) {--%>
+                                        <%--mydata = JSON.parse(result);--%>
+                                        <%--}--%>
 
-                                                <%--});--%>
-                                            <%--}--%>
+                                        <%--});--%>
+                                        <%--}--%>
                                         <%--</script>--%>
                                         <li class="active">
                                             <blockquote>
                                                 <span class="ti-bar-chart"></span>
-                                                <a href="#UpDown" role="tab" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
+                                                <a href="#UpDown" role="tab" id="distribution" data-toggle="tab" style="font-size: 25px;">涨跌分布</a>
                                                 <div class="row">
 
-                                                    <div id="up_number" class="col-xs-6"  style="font-size: 10px;color:red">上涨:${marketDTO.riseStockNumber}</div>
-                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 10px;color:green">下跌:${marketDTO.declineStockNumber}</div>
+                                                    <div id="up_number" class="col-xs-6"  style="font-size: 12px;color:red">上涨:${marketDTO.riseStockNumber}</div>
+                                                    <div ide="down_number" class="col-xs-6"  style="font-size: 12px;color:green">下跌:${marketDTO.declineStockNumber}</div>
                                                 </div>
                                             </blockquote>
 
@@ -804,10 +842,10 @@
                                         <li style="padding-top: 30px">
                                             <blockquote>
                                                 <span class="ti-exchange-vertical"></span>
-                                                <a href="#limit" role="tab" data-toggle="tab" style="font-size: 25px">涨跌停</a>
+                                                <a href="#limit" role="tab" id="limitMove" data-toggle="tab" style="font-size: 25px">涨跌停</a>
                                                 <div class="row">
-                                                    <div class="col-xs-6" style="font-size: 10px;color:red">涨停:${marketDTO.limitup}</div>
-                                                    <div class="col-xs-6" style="font-size: 10px;color:green">跌停:${marketDTO.limitdown}</div>
+                                                    <div class="col-xs-6" style="font-size: 12px;color:red">涨停:${marketDTO.limitup}</div>
+                                                    <div class="col-xs-6" style="font-size: 12px;color:green">跌停:${marketDTO.limitdown}</div>
                                                 </div>
                                             </blockquote>
                                         </li>
@@ -850,6 +888,29 @@
                         <div class="header">
                             <blockquote>
                                 <span class="ti-alarm-clock" style="font-size: 25px">上证指数</span>
+                                <span class="ti-help-alt" title="术语解释"
+                                      data-container="body" data-toggle="popover" data-placement="right"
+                                      data-content="日k:记录的是股票一天内价格变动情况 MAn:n日均线值">
+                                </span>
+                                <script>
+                                    $(function () {
+                                        $("[data-toggle='popover']").popover().on("mouseenter", function () {
+                                            var _this = this;
+                                            $(this).popover("show");
+                                            $(this).siblings(".popover").on("mouseleave", function () {
+                                                $(_this).popover('hide');
+                                            });
+                                        }).on("mouseleave", function () {
+                                            var _this = this;
+                                            setTimeout(function () {
+                                                if (!$(".popover:hover").length) {
+                                                    $(_this).popover("hide")
+                                                }
+                                            }, 100);
+                                        });
+                                    });
+                                </script>
+
                             </blockquote>
 
                             <hr>
@@ -857,32 +918,6 @@
                                 <script>
                                     getShKLineInfo();
                                 </script>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <blockquote>个股查询</blockquote>
-                                </div>
-                                <div class="col-xs-6 input-group" style="padding-top: 5px">
-                                    <select   class="selectpicker"  id="stockSearch" data-live-search="true" data-size="5" data-dropup-auto="false">
-                                        <%--<c:forEach var="oneStock" items="${codeAndName}">--%>
-                                            <%--<option value="${oneStock}">${oneStock}</option>--%>
-                                        <%--</c:forEach>--%>
-                                        <option value="000001 平安银行">000001 平安银行</option>
-                                        <option value="000004 国农科技">000004 国农科技</option>
-                                        <option value="000005 世纪星源">000005 世纪星源</option>
-                                    </select>
-                                    <span class="input-group-addon"><i id="searchIcon" class="ti-search"  onclick="add()" onmouseenter="changeColor()" onmouseleave="reColor()"></i> </span>
-                                    <%--<button onclick="add()" style="margin-left: 200px">搜索一下</button>--%>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -926,7 +961,17 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <%--<script src="<%=contextPath%>/assets/js/demo.js"></script>--%>
 
-
+<script type="text/javascript">
+    $("#distribution").css('color','black');
+    $("#distribution").click(function () {
+        $("#distribution").css('color','black');
+        $("#limitMove").css('color','#337ab7');
+    })
+    $("#limitMove").click(function () {
+        $("#distribution").css('color','#337ab7');
+        $("#limitMove").css('color','black');
+    })
+</script>
 
 
 
